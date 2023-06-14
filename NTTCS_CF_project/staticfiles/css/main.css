@@ -3,6 +3,21 @@ body{
     font-family:monospace ;
 }
 
+
+.btn-borde {
+  padding: .375rem .75rem;
+  border: 1px solid #007bff;
+  border-radius: .25rem;
+  color: #007bff;
+  transition: color .15s ease-in-out,
+    background-color .15s ease-in-out;
+}
+
+.btn-borde:hover, .btn-borde:active, .btn-borde:focus {
+  color: #fff;
+  background-color: #007bff;
+}
+
 .box {
      width: 1000px;
      height: 600px;
@@ -60,3 +75,4 @@ body{
     border-radius: 8px;
     border-color:#3086FC;
 }
+
