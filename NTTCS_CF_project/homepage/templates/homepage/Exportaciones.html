@@ -1,10 +1,64 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
+<link rel="stylesheet" href="{% static '/css/main.css' %}" />
+<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Exportaciones</title>
+    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.png' %}" />
 </head>
 <body>
+    <div class="box wrapper">
+
+        <div class="logoGrande1">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.png' %}">
+        </div>
+
+        <div class="tituloMantenimiento">
+            <div class="flexTitulo">
+                <div class="cajaTexto">
+                    <h1>Exportaciones</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="logoPequeno">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+        </div>
+
+        <div class="ex22">
+            <h3>Assesment Existente</h3>
+        </div>
+
+        <div class="ex32">
+            <select style="width:100%;" class="selectStyleAssessment">
+                <option value="none">None</option>
+            </select>
+        </div>
+
+        <div class="ex23">
+            <div class="botonesFlexAssessment">
+                <button class="btnBorde btnAssesmentIr" >Excel</button>
+            </div>
+        </div>
+        <div class="ex24">
+            <div class="botonesFlexAssessment">
+                <button class="btnBorde btnAssesmentIr" >CSV</button>
+            </div>
+        </div>
+        <div class="ex25">
+            <div class="botonesFlexAssessment">
+                <button class="btnBorde btnAssesmentIr" >Word</button>
+            </div>
+        </div>
+
+    </div>
+
 
 </body>
 </html>

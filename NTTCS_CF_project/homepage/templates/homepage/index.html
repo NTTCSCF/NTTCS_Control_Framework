@@ -14,14 +14,16 @@
 <body>
     <div class="box wrapper">
 
-        <div class="logoGrande"><img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.png' %}"></div>
+        <div class="logoGrande">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.png' %}">
+        </div>
         <div class="logoPequeno"><img src="{% static '/images/logo_NTTData.jpg' %}"></div>
         <div class="informacion">
             <br>NTT Cybersecurity Control Framework
             <br>NTT DATA EMEAL Cybersecurity Services
             <br>Risk Managenent
         </div>
-        <div class="loginNames">
+        <div style="margin-top:5px;" class="loginNames">
             <h5>Usuario</h5>
             <h5>Contraseña</h5>
         </div>
@@ -29,9 +31,11 @@
             <form method="post">
                 {% csrf_token %}
                 <br>
-                <div><input class="redondearBordes" text="usuario" name="usuario"></div>
                 <br>
-                <div><input class="redondearBordes" text="pass" name="pass"></div>
+                <div><input style="height:23px;" class="redondearBordes" text="usuario" name="usuario"></div>
+                <br>
+
+                <div><input style="height:23px;" class="redondearBordes" text="pass" name="pass"></div>
                 <br>
 
                 <button class="btnBorde btnLogin"  type="submit">Entrar</button>
