@@ -30,6 +30,40 @@ body{
     grid-row: 1 /3;
 }
 
+.box {
+  display: grid ;
+  place-items: center ;
+}
+
+.tituloMantenimiento{
+    grid-column: 2/3;
+    grid-row: 1;
+}
+
+.centrarTitulo{
+  white-space: nowrap ;
+  text-align: center ;
+  margin-right: 110px ;
+  margin-left: 110px ;
+}
+.flexTitulo{
+    width:200%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+}
+
+.cajaTexto{
+    width:100%;
+    text-align:center ;
+}
+
+.logoGrande1{
+    grid-column: 1 ;
+    grid-row: 1 ;
+}
 .informacion{
     grid-column: 1 / 2;
     grid-row: 5;
