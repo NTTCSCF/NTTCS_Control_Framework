@@ -12,10 +12,10 @@ body{
      border-radius: 30px;
 }
 .wrapper {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
 
 }
 
@@ -30,9 +30,38 @@ body{
     grid-row: 1 /3;
 }
 
-.box {
-  display: grid ;
-  place-items: center ;
+
+
+.informacion{
+    grid-column: 1/ 2;
+    grid-row: 5;
+    text-align:right ;
+    font-size:11px;
+}
+
+.loginNames{
+    grid-column: 2;
+    grid-row: 4;
+    text-align:right;
+    font-size:20px;
+}
+
+
+.login{
+    grid-column: 3;
+    grid-row: 4;
+    text-align:center;
+}
+
+.ajustarImg{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.redondearBordes{
+    border-radius: 8px;
+    border-color:#3086FC;
 }
 
 .tituloMantenimiento{
@@ -51,43 +80,12 @@ body{
 
 .cajaTexto{
     width:100%;
-    margin-left:30px;
     text-align:center ;
 }
 
 .logoGrande1{
     grid-column: 1 ;
     grid-row: 1 ;
-}
-.informacion{
-    grid-column: 1 / 2;
-    grid-row: 5;
-    text-align:right ;
-    font-size:11px;
-}
-
-.loginNames{
-    grid-column: 2;
-    grid-row: 4;
-    text-align:right;
-    font-size:15px;
-}
-
-.login{
-    grid-column: 3;
-    grid-row: 4;
-    text-align:center;
-}
-
-.ajustarImg{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.redondearBordes{
-    border-radius: 8px;
-    border-color:#3086FC;
 }
 
 .botonesMenu1{
@@ -123,15 +121,18 @@ body{
 .textoAssessment1{
     grid-column: 2;
     grid-row: 2;
+    text-align:center;
 }
 
 .textoAssessment2{
     grid-column: 2;
     grid-row: 3;
+    text-align:center;
 }
 .textoAssessment3{
     grid-column: 2;
     grid-row: 4;
+    text-align:center;
 }
 
 .selectorAssessment1{
@@ -165,4 +166,87 @@ body{
     flex-direction:column;
     justify-content:center;
     align-items:center;
+}
+
+.ass12{
+    grid-column: 1;
+    grid-row: 2;
+    text-align:center;
+}
+
+.ass22{
+    grid-column: 2;
+    grid-row: 2;
+    text-align:left;
+}
+
+.ass32{
+    grid-column: 3 / 4;
+    grid-row: 2;
+    text-align:left;
+}
+
+.ass13{
+    grid-column: 1 / 2;
+    grid-row: 3;
+    text-align:left;
+}
+
+.ass33{
+    grid-column: 3;
+    grid-row: 3;
+    text-align:left;
+}
+
+.ass34{
+    grid-column: 4;
+    grid-row: 3;
+    text-align:left;
+}
+
+.ass41{
+    grid-column: 1/2;
+    grid-row: 4;
+    text-align:left;
+}
+
+.ass43{
+    grid-column: 3/4;
+    grid-row: 4;
+    text-align:left;
+}
+
+.ass52{
+    grid-column: 2/3;
+    grid-row: 5;
+    text-align:center;
+}
+
+.ex22{
+    grid-column: 2;
+    grid-row: 2;
+    text-align:center;
+}
+
+.ex32{
+    grid-column: 3;
+    grid-row: 2;
+    text-align:center;
+}
+
+.ex23{
+    grid-column: 2/3;
+    grid-row: 3;
+    text-align:center;
+}
+
+.ex24{
+    grid-column: 2/3;
+    grid-row: 4;
+    text-align:center;
+}
+.ex25{
+    grid-column: 2/3;
+    grid-row: 5;
+    text-align:center;
 }
