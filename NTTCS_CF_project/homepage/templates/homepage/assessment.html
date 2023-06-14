@@ -1,10 +1,48 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
+<link rel="stylesheet" href="{% static '/css/main.css' %}" />
+<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Menu</title>
+    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.png' %}" />
 </head>
 <body>
+    <div class="box wrapper">
+
+        <div class="logoGrande">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.png' %}">
+        </div>
+        <div class="logoPequeno">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+        </div>
+
+        <div class="botonesMenu1">
+            <div class="botonesFlex">
+                <div class="cajaBoton">
+                    <button class="btnBorde btnMenu" >Mantenimiento</button>
+                </div>
+                <div class="cajaBoton">
+                    <button class="btnBorde btnMenu" >Assesment</button>
+                </div>
+                <div class="cajaBoton">
+                    <button class="btnBorde btnMenu" >Exportaciones</button>
+                </div>
+                <div class="cajaBoton">
+                    <button class="btnBorde btnMenu" >Informes</button>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
 
 </body>
 </html>
