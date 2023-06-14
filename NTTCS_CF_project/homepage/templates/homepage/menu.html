@@ -4,6 +4,9 @@
 <html lang="en">
 
 <link rel="stylesheet" href="{% static '/css/main.css' %}" />
+<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+
+
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
@@ -13,19 +16,31 @@
     <div class="box wrapper">
 
         <div class="logoGrande"><img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.png' %}"></div>
-        <div class="logoPequeno"><img src="{% static '/images/logo_NTTData.jpg' %}"></div>
+        <div class="logoPequeno"><img  src="{% static '/images/logo_NTTData.jpg' %}"></div>
         <div class="informacion">
             <br>NTT Cybersecurity Control Framework
             <br>NTT DATA EMEAL Cybersecurity Services
             <br>Risk Managenent
         </div>
-        <div class="loginNames">
-            <h5>Usuario</h5>
-            <h5>Contraseña</h5>
+        <div class="botonesMenu1">
+            <div class="botonesFlex">
+                <div class="cajaBoton">
+                    <button class="btnBorde btnMenu btncentrado" >Mantenimiento</button>
+                </div>
+                <div class="cajaBoton">
+                    <button class="btnBorde btnMenu btncentrado" >Assesment</button>
+                </div>
+                <div class="cajaBoton">
+                    <button class="btnBorde btnMenu btncentrado" >Exportaciones</button>
+                </div>
+                <div class="cajaBoton">
+                    <button class="btnBorde btnMenu btncentrado" >Informes</button>
+                </div>
+            </div>
+
+
         </div>
-        <div class="login">
-            <button type="button">hola</button>
-        </div>
+
     </div>
 
 
