@@ -9,35 +9,63 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Menu</title>
+    <title>Assessment</title>
     <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.png' %}" />
 </head>
 <body>
     <div class="box wrapper">
 
-        <div class="logoGrande">
+        <div class="logoGrande1">
             <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.png' %}">
         </div>
+
+        <div class="tituloMantenimiento">
+            <div class="flexTitulo">
+                <div class="cajaTexto">
+                    <h1>Assesment</h1>
+                </div>
+            </div>
+        </div>
+
         <div class="logoPequeno">
             <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
         </div>
 
-        <div class="botonesMenu1">
-            <div class="botonesFlex">
-                <div class="cajaBoton">
-                    <button class="btnBorde btnMenu" >Mantenimiento</button>
-                </div>
-                <div class="cajaBoton">
-                    <button class="btnBorde btnMenu" >Assesment</button>
-                </div>
-                <div class="cajaBoton">
-                    <button class="btnBorde btnMenu" >Exportaciones</button>
-                </div>
-                <div class="cajaBoton">
-                    <button class="btnBorde btnMenu" >Informes</button>
-                </div>
-            </div>
+        <div class="botonAssessment1">
+            <button class="btnBorde btnAssesment" >Cargar Assessment</button>
+        </div>
+        <div class="botonAssessment2">
+            <button class="btnBorde btnAssesment" >Crear Assessment</button>
+        </div>
 
+        <div class="textoAssessment1">
+            <h3>Assessment Existente</h3>
+        </div>
+        <div class="textoAssessment2">
+            <h3>Nombre Assessment</h3>
+        </div>
+        <div class="textoAssessment3">
+            <h3>Seleccion Marcos</h3>
+        </div>
+
+        <div class="selectorAssessment1">
+            <select class="selectStyleAssessment">
+                <option value="none">None</option>
+            </select>
+        </div>
+        <div class="entradaTextoAssessment">
+            <input style="height:20px; width:195px;" type="text">
+        </div>
+        <div class="selectorAssessment2">
+            <select class="selectStyleAssessment">
+                <option value="none">None</option>
+            </select>
+        </div>
+
+        <div class="gridBotonesAssessment">
+            <div class="botonesFlexAssessment">
+                <button class="btnBorde btnAssesmentIr" >Ir a Assessment</button>
+            </div>
 
         </div>
 

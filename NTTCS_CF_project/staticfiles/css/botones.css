@@ -22,6 +22,19 @@
     pading: 5%;
     font-size:18px;
 }
-
+.btnAssesment{
+    width: 100%;
+    height: 60px;
+    margin: 5%;
+    pading: 5%;
+    font-size:18px;
+}
+.btnAssesmentIr{
+    width: 60%;
+    height: 60px;
+    margin: 5%;
+    pading: 5%;
+    font-size:18px;
+}
 
 
