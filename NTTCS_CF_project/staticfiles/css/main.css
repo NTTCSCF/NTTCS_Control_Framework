@@ -40,12 +40,6 @@ body{
     grid-row: 1;
 }
 
-.centrarTitulo{
-  white-space: nowrap ;
-  text-align: center ;
-  margin-right: 110px ;
-  margin-left: 110px ;
-}
 .flexTitulo{
     width:200%;
     height:100%;
@@ -57,6 +51,7 @@ body{
 
 .cajaTexto{
     width:100%;
+    margin-left:30px;
     text-align:center ;
 }
 
@@ -115,4 +110,59 @@ body{
     width:50%;
 }
 
+.botonAssessment1{
+    grid-column: 1;
+    grid-row: 2;
+}
 
+.botonAssessment2{
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.textoAssessment1{
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.textoAssessment2{
+    grid-column: 2;
+    grid-row: 3;
+}
+.textoAssessment3{
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.selectorAssessment1{
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.entradaTextoAssessment{
+    grid-column: 3;
+    grid-row: 3;
+}
+.selectorAssessment2{
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.selectStyleAssessment{
+    width:200px;
+    height:30px;
+}
+
+.gridBotonesAssessment{
+    grid-column: 2/3;
+    grid-row: 5;
+}
+
+.botonesFlexAssessment{
+    width:200%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
