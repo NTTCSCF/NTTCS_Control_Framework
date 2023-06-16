@@ -34,12 +34,16 @@
         <div class="manBotones1">
             <div class="manBotonesFlex1">
                 <div class="cajaBotonMan">
-                    <form>
+                    <form method="post">
+                        {% csrf_token %}
                         <button class="btnBorde btnMenu" type="submit" name="nivelMadurez" >Nivel de Madurez</button>
                     </form>
                 </div>
                 <div class="cajaBotonMan">
-                    <button class="btnBorde btnMenu" >Marcos Existentes</button>
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="btnBorde btnMenu" type="submit" name="marcosExistentes">Marcos Existentes</button>
+                    </form>
                 </div>
                 <div class="cajaBotonMan">
                     <button class="btnBorde btnMenu" >Mapeo de Marcos</button>
