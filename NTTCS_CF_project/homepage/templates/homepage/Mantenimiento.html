@@ -4,26 +4,82 @@
 <html lang="en">
 
 <link rel="stylesheet" href="{% static '/css/main.css' %}" />
+<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+
+
 <head>
     <meta charset="UTF-8">
     <title>Mantenimiento</title>
-    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.png' %}" />
+    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
     <div class="box wrapper">
-        <div class="logoGrande1"><img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.png' %}"></div>
+
+        <div class="logoGrande1">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+        </div>
+
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
                 <div class="cajaTexto">
-                    <h1 class="">Mantenimiento de tablas</h1>
+                    <h1>Mantenimiento</h1>
                 </div>
+            </div>
+        </div>
+
+        <div class="logoPequeno">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+        </div>
+
+        <div class="manBotones1">
+            <div class="manBotonesFlex1">
+                <div class="cajaBotonMan">
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="btnBorde btnMenu" type="submit" name="nivelMadurez" >Nivel de Madurez</button>
+                    </form>
+                </div>
+                <div class="cajaBotonMan">
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="btnBorde btnMenu" type="submit" name="marcosExistentes">Marcos Existentes</button>
+                    </form>
+                </div>
+                <div class="cajaBotonMan">
+                    <button class="btnBorde btnMenu" >Mapeo de Marcos</button>
+                </div>
+            </div>
+        </div>
+        <div class="manBotones2">
+            <div class="manBotonesFlex2">
+                <div class="cajaBotonMan1">
+                    <button class="btnBorde btnMenu" >Dominios</button>
+                </div>
+                <div class="cajaBotonMan1">
+                    <button class="btnBorde btnMenu" >Controles NTTCS</button>
+                </div>
+                <div class="cajaBotonMan1">
+                    <button class="btnBorde btnMenu" >Preguntas</button>
+                </div>
+                <div class="cajaBotonMan1">
+                    <button class="btnBorde btnMenu" >Evidencias</button>
+                </div>
+            </div>
+        </div>
+        <div class="manBotones3">
+            <div class="manBotonesFlex1">
+                <div class="cajaBotonMan">
+                    <button class="btnBorde btnMenu">Assessments Archivados</button>
+                </div>
+
             </div>
 
         </div>
-        <div class="logoPequeno"><img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}"></div>
-        <div class="informacionyy">
-            
-        </div>
+
+
     </div>
+
+
 </body>
 </html>
+

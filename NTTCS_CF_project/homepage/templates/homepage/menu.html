@@ -10,12 +10,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
-    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.png' %}" />
+    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
     <div class="box wrapper">
 
-        <div class="logoGrande"><img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.png' %}"></div>
+        <div class="logoGrande">
+            <div class="logoGrandeFlex">
+                <div class="logoGrandeCaja">
+                    <img  class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+                </div>
+            </div>
+        </div>
         <div class="logoPequeno"><img  src="{% static '/images/logo_NTTData.jpg' %}"></div>
         <div class="informacion">
             <br>NTT Cybersecurity Control Framework
@@ -25,16 +31,16 @@
         <div class="botonesMenu1">
             <div class="botonesFlex">
                 <div class="cajaBoton">
-                    <button class="btnBorde btnMenu" >Mantenimiento</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'mantenimiento' %}" > </a>Mantenimiento</button>
                 </div>
                 <div class="cajaBoton">
-                    <button class="btnBorde btnMenu" >Assesment</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'assessmentselect' %}">Assesment</button>
                 </div>
                 <div class="cajaBoton">
-                    <button class="btnBorde btnMenu" >Exportaciones</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'exportaciones' %}">Exportaciones</button>
                 </div>
                 <div class="cajaBoton">
-                    <button class="btnBorde btnMenu" >Informes</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'informes' %}">Informes</button>
                 </div>
             </div>
 

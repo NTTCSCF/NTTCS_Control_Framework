@@ -24,7 +24,14 @@ def informes(request):
     return render(request, 'homepage/informes.html')
 
 def Mantenimiento(request):
+    if request.method == "POST":
+        print('buenas tardes')
     return render(request, 'homepage/Mantenimiento.html')
 
 def menu(request):
+
     return render(request, 'homepage/menu.html')
+
+def prueba():
+    print('buenas tardes')
+
