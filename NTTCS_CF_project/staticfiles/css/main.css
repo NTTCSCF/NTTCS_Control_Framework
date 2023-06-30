@@ -4,12 +4,13 @@ body{
 }
 
 .box {
-     width: 1000px;
-     height: 600px;
+     width: 96%;
+     aspect-ratio: 10/6;
      border: 3px solid #3086FC;
      background: #AACEFF;
-     padding:1%;
      border-radius: 30px;
+     margin:1%;
+     padding:1%;
 }
 .wrapper {
     display: grid;
@@ -24,9 +25,21 @@ body{
     text-align:right;
 }
 
+.logoPequenoFlex{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:start;
+}
+.logoPequenoMenu{
+    width:100%;
+    height:100%;
+}
+
 .logoGrande{
     grid-column: 1 / 4;
-    grid-row: 1 /3;
+    grid-row: 1 /4;
 }
 .logoGrande1{
     grid-column: 1 ;
@@ -35,7 +48,7 @@ body{
 
 .logoGrandeFlex{
     width:100%;
-    height:200%;
+    height:100%;
     display:flex;
     flex-direction:column;
     justify-content:start;
@@ -43,7 +56,7 @@ body{
 
 .logoGrandeCaja{
     width:80%;
-    height:60%;
+    height:100%;
 }
 
 
@@ -51,8 +64,13 @@ body{
 .informacion{
     grid-column: 1/ 2;
     grid-row: 5;
+
+}
+
+.cajaInformacion{
+    width:100%;
     text-align:right ;
-    font-size:11px;
+    font-size:90%;
 }
 
 .loginNames{
@@ -97,6 +115,7 @@ body{
 .cajaTexto{
     width:100%;
     text-align:center ;
+    font-size:150%;
 }
 
 
@@ -112,73 +131,69 @@ body{
     height:100%;
     display:flex;
     flex-direction:column;
-    justify-content:center;
+    justify-content:space-around;
     align-items:center;
 }
 
 .cajaBoton{
     width:50%;
+    height:100%;
 }
 
-.botonAssessment1{
-    grid-column: 1;
-    grid-row: 2;
+.continerAssesment{
+    grid-column: 1 / 5;
+    grid-row: 2/4;
 }
-
-.botonAssessment2{
-    grid-column: 1;
-    grid-row: 3;
-}
-
-.textoAssessment1{
-    grid-column: 2;
-    grid-row: 2;
-    text-align:center;
-}
-
-.textoAssessment2{
-    grid-column: 2;
-    grid-row: 3;
-    text-align:center;
-}
-.textoAssessment3{
-    grid-column: 2;
-    grid-row: 4;
-    text-align:center;
-}
-
-.selectorAssessment1{
-    grid-column: 3;
-    grid-row: 2;
-}
-
-.entradaTextoAssessment{
-    grid-column: 3;
-    grid-row: 3;
-}
-.selectorAssessment2{
-    grid-column: 3;
-    grid-row: 4;
-}
-
-.selectStyleAssessment{
-    width:200px;
-    height:30px;
-}
-
-.gridBotonesAssessment{
-    grid-column: 2/3;
-    grid-row: 5;
-}
-
-.botonesFlexAssessment{
-    width:200%;
+.containerFlexAssessmentPrinci{
+    width:100%;
     height:100%;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
 }
+
+.containerFlexAssessment{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+}
+.containerFlexAssessment2{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.gridBotonesAssessment{
+    grid-column: 2/4;
+    grid-row: 5;
+}
+
+.botonesFlexAssessment{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+}
+
+.cajaBotonAssessment{
+    width:35%;
+    height:60%;
+}
+
+.selectStyleAssessment{
+    width:50%;
+}
+
+
 
 .ass12{
     grid-column: 1;
@@ -191,15 +206,48 @@ body{
     grid-row: 2;
     text-align:left;
 }
+.flexass22{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.textoDisplay{
+    border: 1px solid #909090;
+    background-color:#FFFFFF;
+    width:100%;
+    height:80%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+}
+
+.textoDisplayPregunta{
+    border: 1px solid #909090;
+    background-color:#FFFFFF;
+    width:100%;
+    height:55%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+}
+
 
 .ass32{
-    grid-column: 3 / 4;
+    grid-column: 3 / 5;
     grid-row: 2;
     text-align:left;
 }
 
 .ass13{
-    grid-column: 1 / 2;
+    grid-column: 1 / 3;
     grid-row: 3;
     text-align:left;
 }
@@ -229,11 +277,15 @@ body{
 }
 
 .ass52{
-    grid-column: 2/3;
+    grid-column: 1/5;
     grid-row: 5;
     text-align:center;
 }
 
+.cajaass52{
+    width:25%;
+    height:60%
+}
 .ex22{
     grid-column: 2;
     grid-row: 2;
@@ -264,18 +316,15 @@ body{
 }
 
 .manBotones1{
-    grid-column: 1;
+    grid-column: 1/3;
     grid-row: 2 / 5;
 }
 
 .manBotones2{
-    grid-column: 2/3;
+    grid-column: 3/5;
     grid-row: 2 / 5;
 }
-.manBotones3{
-    grid-column: 4;
-    grid-row: 2 / 5;
-}
+
 
 .manBotonesFlex1{
     width:100%;
@@ -286,7 +335,7 @@ body{
     align-items:center;
 }
 .manBotonesFlex2{
-    width:200%;
+    width:100%;
     height:100%;
     display:flex;
     flex-direction:column;
@@ -294,11 +343,263 @@ body{
     align-items:center;
 }
 .cajaBotonMan{
-    width:100%;
+    width:60%;
+    height:100%;
 }
 
 .cajaBotonMan1{
-    width:60%;
+    width:70%;
+    height:100%;
 }
 
+.tablasBusca{
+    grid-column: 2/4;
+    grid-row: 2;
+    text-align:center;
+}
+.botonModificar2{
+    grid-column: 1;
+    grid-row: 3;
+    align-item: center;
+}
+.selectorTablas2{
+    grid-column: 2/4;
+    grid-row: 2;
+    text-align:center;
+}
+.selectorTablasFlex2{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:columns;
+    justify-content:center;
+    align-items:center;
+}
+.cajaSelectTabla{
+    width:50%;
+}
+.cajaBotonTabla{
+    width:30%;
+}
+
+.tablasBusca2{
+    grid-column: 2/4;
+    grid-row: 3;
+    text-align:center;
+}
+.botonEliminar2{
+    grid-column: 4;
+    grid-row: 3;
+    text-align:center;
+}
+.tablasTablas2{
+    grid-column: 1/5;
+    grid-row: 4/5;
+    text-align:center;
+
+}
+.tablasInsertar2{
+    grid-column: 1/5;
+    grid-row: 6;
+    height: 20%;
+    text-align:center;
+}
+
+.tablasBuscaFlex{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center;
+}
+.tablasTablas{
+    grid-column: 1/5;
+    grid-row: 3;
+    text-align:center;
+
+}
+
+.tabasFlex{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+}
+.cajaTablas{
+    width:100%;
+    height:80%;
+    overflow:auto;
+    text-align:center;
+    display: inline-block;
+
+}
+
+::-webkit-scrollbar{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    border-radius: 10px transparent;
+
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 10px     ;
+    background-color: #3086FC;
+    background-image: -webkit-linear-gradient(90deg,rgba(255, 255, 255, .2) 25%,transparent 25%,transparent 50%,rgba(255, 255, 255, .2) 50%,rgba(255, 255, 255, .2) 75%,transparent 75%,transparent)
+}
+
+.tabasTablaFlex{
+    width:100%;
+    height:auto;
+    display:flex;
+    flex: auto;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    background-image: linear-gradient(to top , #AACEFF, white);
+}
+
+.tabasTablaFlexTitulo{
+    width:100%;
+    height:auto;
+    font: bold 150% #fff;
+    border: 1px black;
+    display:flex;
+    flex: auto;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    background-image: linear-gradient(to bottom right, #3086FC , #AACEFF);
+}
+
+.cajaTablasTitulo{
+    width:100%;
+    /*height:10%;*/
+    text-align:center;
+    font: bold sans-serif;
+
+}
+
+
+.tb_col1{
+    /*max-width:40px;
+    height:50px;*/
+    width:40%;
+    text-align:center;
+
+}
+.tb_col2{
+    width:300%;
+    text-align:center;
+}
+.tb_col3{
+    width:40%;
+    text-align:center;
+}
+.tb_col4{
+    width:40%;
+    text-align:center;
+}
+
+.tb_colprueba{
+    width:100%;
+    height:100%;
+    text-align:center;
+    overflow:hidden;
+    margin-top:5px;
+}
+
+.tablasInsertar{
+    grid-column: 1/5;
+    grid-row: 4;
+    height: 20%;
+    text-align:center;
+}
+
+.tablasInsertarFlex{
+    width:100%;
+    height:100%;
+    bottom:0;
+    margin-top:5px;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+
+}
+
+.cajaInsertar1{
+    width:30%;
+
+}
+
+.cajaInsertar2{
+    width:150%;
+}
+
+.cajaButton{
+    align-items:right;
+    margin-top:15px;
+}
+
+.botonEliminar{
+    grid-column: 4;
+    grid-row: 2;
+    text-align:center;
+}
+
+.tablasEliminarFlex{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.botonModificar{
+    grid-column: 1;
+    grid-row: 2;
+    align-item: center;
+
+}
+
+.botonSeleccionar {
+    grid-column: 2;
+    grid-row: 2;
+    align-item:center;
+
+}
+
+.tablasModificarFlex{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-around;
+    align-items:center;
+
+}
+
+
+
+/*PARA LAS COLUMNAS DE CONTROLES NTTCS */
+.tb_colntt1{
+    max-width:100%;
+    height:auto;
+    white-space:nowrap;
+    overflow:hidden;
+    padding:5px;
+    align-self:flex-end;
+    /*flex-direction:column;*/
+    work-break:break-all !important;
+    white-space:nowrap !important;
+    border:black 1px solid;
+    background:grey;
+}
 

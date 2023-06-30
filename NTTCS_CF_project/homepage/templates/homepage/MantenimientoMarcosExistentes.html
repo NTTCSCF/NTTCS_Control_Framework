@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" href="{% static '/css/main.css' %}" />
+<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento</title>
+    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
+</head>
+<body>
+    <div class="box wrapper">
+
+        <div class="logoGrande1">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+        </div>
+
+        <div class="tituloMantenimiento">
+            <div class="flexTitulo">
+                <div class="cajaTexto">
+                    <h1>Mantenimiento</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="logoPequeno">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+        </div>
+
+        <div class="botonModificar">
+            <form class="tablasModificarFlex" method="post" >
+                {% csrf_token %}
+                <div >
+                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="tablasBusca">
+            <form class="tablasBuscaFlex" method="post" id="busquedaForm">
+                {% csrf_token %}
+                <div >
+                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
+                </div>
+                <div >
+                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="botonEliminar">
+            <div class="tablasEliminarFlex">
+                <div >
+                    <a class="btnBorde btnTablas" href="{% url 'EliminarMarcos' %}" >Eliminar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tablasTablas">
+            <div class="tabasFlex">
+                <div class="cajaTablasTitulo">
+                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">marco ID</div><div class="tb_colprueba">Nombre tabla</div></div>
+                </div>
+                <div class="cajaTablas">
+                    {% if lenConsulta > 1 %}
+
+                    {% for ids in consulta %}
+                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.marco_id}}</div><div class="tb_colprueba">{{ids.nombre_tabla}}</div></div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{consulta.marco_id}}</div><div class="tb_colprueba">{{consulta.nombre_tabla}}</div></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="tablasInsertar">
+            <form class="tablasInsertarFlex" method="post">
+                {% csrf_token %}
+                <div class="cajaInsertar1">
+                    <label for="marco_id">marco_id</label>
+                    <input style="width:100%;height:20px;" type="text" id="marco_id" name="marco_id" value="{{seleccion.marco_id}}">
+                </div>
+                <div class="cajaInsertar2">
+                    <label for="nombre_tabla">table_name</label>
+                    <input style="width:100%;height:20px;" type="text" id="nombre_tabla" name="nombre_tabla" value="{{seleccion.nombre_tabla}}">
+                </div>
+
+
+
+
+                <div class="cajaInsertar1 cajaButton" >
+                    <button class="btnBorde btnTablas2"  type="submit">Insertar</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+Watching for file changes with StatReloader
+[29/Jun/2023 17:49:57] "GET / HTTP/1.1" 200 1768
+Not Found: /client/get_targets
+[29/Jun/2023 17:49:57] "GET /client/get_targets HTTP/1.1" 404 6256
+Not Found: /upl.php
+[29/Jun/2023 17:49:57] "GET /upl.php HTTP/1.1" 404 6223
+Not Found: /geoip/
+[29/Jun/2023 17:49:57] "GET /geoip/ HTTP/1.1" 404 6220
+[29/Jun/2023 17:49:57] "GET / HTTP/1.1" 200 1768
+Not Found: /favicon.ico
+[29/Jun/2023 17:49:57] "GET /favicon.ico HTTP/1.1" 404 6235
+Not Found: /1.php
+[29/Jun/2023 17:49:57] "GET /1.php HTTP/1.1" 404 6217
+Not Found: /bundle.js
+[29/Jun/2023 17:49:57] "GET /bundle.js HTTP/1.1" 404 6229
+Not Found: /files/
+[29/Jun/2023 17:49:57] "GET /files/ HTTP/1.1" 404 6220
+[29/Jun/2023 17:55:41] "GET / HTTP/1.1" 200 1768
+Not Found: /boaform/admin/formLogin
+[29/Jun/2023 18:05:53] "POST /boaform/admin/formLogin HTTP/1.1" 404 6275
+Not Found: /wp-login.php
+[29/Jun/2023 18:45:15] "GET /wp-login.php HTTP/1.1" 404 6231

@@ -1,0 +1,124 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" href="{% static '/css/main.css' %}" />
+<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento</title>
+    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
+</head>
+<body>
+    <div class="box wrapper">
+
+
+        <div class="logoGrande1">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+        </div>
+
+        <div class="tituloMantenimiento">
+            <div class="flexTitulo">
+                <div class="cajaTexto">
+                    <h1>Mapeo de Marcos</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="logoPequeno">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+        </div>
+
+        <div class="selectorTablas2">
+
+            <div class="selectorTablasFlex2">
+                <form class="tablasBuscaFlex" method="post" id="busquedaForm">
+                    {% csrf_token %}
+
+                    <label for="selectorMapeo">NTT Controles</label>
+                    <select class="selectStyleAssessment" id="selectorMapeo" name="selectorMapeo">
+                    {% for ids in assess %}
+                    <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
+                    {% endfor %}
+                    </select>
+                    <div >
+                        <button class="btnBorde btnTablas"  type="submit" name="boton1" value="btn1">Mostrar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="botonModificar2">
+            <form class="tablasModificarFlex" method="post" >
+                {% csrf_token %}
+                <div >
+                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="tablasBusca2">
+            <form class="tablasBuscaFlex" method="post" >
+                {% csrf_token %}
+                <div >
+                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
+                </div>
+                <div >
+                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="botonEliminar2">
+            <div class="tablasEliminarFlex">
+                <div >
+                    <a class="btnBorde btnTablas" href="{% url 'EliminarMapeo' %}" >Eliminar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tablasTablas2">
+            <div class="tabasFlex">
+                <div class="cajaTablasTitulo">
+                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">NTT DATA ID</div><div class="tb_colprueba">Marco referencia</div><div class="tb_colprueba"> ID </div></div>
+                </div>
+                <div class="cajaTablas">
+                    {% for ids in consulta %}
+                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.0}}</div><div class="tb_colprueba">{{ids.1}}</div><div class="tb_colprueba">{{ids.2}}</div></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="tablasInsertar2">
+            <form class="tablasInsertarFlex" method="post">
+                {% csrf_token %}
+                <div class="cajaInsertar1">
+                    <label for="marco_id">NTT DATA ID</label>
+                    <input style="width:100%;height:20px;" type="text" id="marco_id" name="marco_id" value="{{seleccion.0}}">
+                </div>
+                <div class="cajaInsertar2">
+                    <label for="nombre_tabla">Marco de referencia</label>
+                    <input style="width:100%;height:20px;" type="text" id="nombre_tabla" name="nombre_tabla" value="{{seleccion.1}}">
+                </div>
+                <div class="cajaInsertar2">
+                    <label for="id">id</label>
+                    <input style="width:100%;height:20px;" type="text" id="id" name="id" value="{{seleccion.2}}">
+                </div>
+                <div class="cajaInsertar1 cajaButton" >
+                    <button class="btnBorde btnTablas2"  type="submit" id="insertarMapeo" name="insertarMapeo">Insertar</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

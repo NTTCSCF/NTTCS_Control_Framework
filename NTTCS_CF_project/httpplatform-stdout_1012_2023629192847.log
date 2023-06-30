@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[29/Jun/2023 21:28:49] "GET / HTTP/1.1" 200 1768
+Not Found: /favicon.ico
+[29/Jun/2023 21:29:16] "GET /favicon.ico HTTP/1.1" 404 6228
+[29/Jun/2023 21:29:17] "GET / HTTP/1.1" 200 1768
+[29/Jun/2023 21:32:42] "GET / HTTP/1.1" 200 1768

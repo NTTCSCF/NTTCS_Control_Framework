@@ -34,47 +34,36 @@
         <div class="manBotones1">
             <div class="manBotonesFlex1">
                 <div class="cajaBotonMan">
-                    <form method="post">
-                        {% csrf_token %}
-                        <button class="btnBorde btnMenu" type="submit" name="nivelMadurez" >Nivel de Madurez</button>
-                    </form>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'mantenimientoNivelMadurez' %}" >Nivel de Madurez</button>
                 </div>
                 <div class="cajaBotonMan">
-                    <form method="post">
-                        {% csrf_token %}
-                        <button class="btnBorde btnMenu" type="submit" name="marcosExistentes">Marcos Existentes</button>
-                    </form>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'MantenimientoMarcosExistentes' %}">Marcos Existentes</button>
                 </div>
                 <div class="cajaBotonMan">
-                    <button class="btnBorde btnMenu" >Mapeo de Marcos</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'MantenimientoMapeoMarcos' %}">Mapeo de Marcos</button>
+                </div>
+                <div class="cajaBotonMan">
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'MantenimientoAssessmentArchivados' %}" >Assessments Archivados</button>
                 </div>
             </div>
         </div>
         <div class="manBotones2">
             <div class="manBotonesFlex2">
                 <div class="cajaBotonMan1">
-                    <button class="btnBorde btnMenu" >Dominios</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'MantenimientoDominios' %}" >Dominios</button>
                 </div>
                 <div class="cajaBotonMan1">
-                    <button class="btnBorde btnMenu" >Controles NTTCS</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'MantenimientoControlesNTTCS' %}" >Controles NTTCS</button>
                 </div>
                 <div class="cajaBotonMan1">
-                    <button class="btnBorde btnMenu" >Preguntas</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'MantenimientoPreguntas' %}" >Preguntas</button>
                 </div>
                 <div class="cajaBotonMan1">
-                    <button class="btnBorde btnMenu" >Evidencias</button>
+                    <button class="btnBorde btnMenu" onclick="location.href={% url 'MantenimientoEvidencias' %}">Evidencias</button>
                 </div>
             </div>
         </div>
-        <div class="manBotones3">
-            <div class="manBotonesFlex1">
-                <div class="cajaBotonMan">
-                    <button class="btnBorde btnMenu">Assessments Archivados</button>
-                </div>
 
-            </div>
-
-        </div>
 
 
     </div>

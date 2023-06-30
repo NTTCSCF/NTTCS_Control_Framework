@@ -1,0 +1,26 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[29/Jun/2023 15:51:24] "GET /.env HTTP/1.1" 404 6214
+[29/Jun/2023 16:14:49] "GET / HTTP/1.1" 200 1768
+[29/Jun/2023 16:20:49] "GET / HTTP/1.1" 200 1768
+[29/Jun/2023 16:20:51] "GET / HTTP/1.1" 200 1768
+[29/Jun/2023 16:34:36] "HEAD / HTTP/1.1" 200 0
+[29/Jun/2023 16:34:38] "GET / HTTP/1.1" 200 1768
+[29/Jun/2023 16:34:38] "GET /staticfiles/css/main.css HTTP/1.1" 200 9630
+[29/Jun/2023 16:34:38] "GET /staticfiles/css/botones.css HTTP/1.1" 200 840
+[29/Jun/2023 16:34:38] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[29/Jun/2023 16:34:38] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[29/Jun/2023 16:34:44] "POST / HTTP/1.1" 200 1910
+[29/Jun/2023 16:34:47] "GET /mantenimiento/ HTTP/1.1" 200 2657
+[29/Jun/2023 16:34:47] "GET / HTTP/1.1" 200 1768
+[29/Jun/2023 16:34:48] "GET /staticfiles/css/main.css HTTP/1.1" 200 9630
+[29/Jun/2023 16:34:49] "GET /staticfiles/css/botones.css HTTP/1.1" 200 840
+[29/Jun/2023 16:34:49] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[29/Jun/2023 16:34:49] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[29/Jun/2023 16:34:51] "GET /MantenimientoMapeoMarcos/ HTTP/1.1" 200 10989
+[29/Jun/2023 16:34:59] "POST /MantenimientoMapeoMarcos/ HTTP/1.1" 200 22409
+[29/Jun/2023 16:35:07] "GET /MantenimientoMapeoMarcos/ HTTP/1.1" 200 10989
+[29/Jun/2023 16:35:10] "GET /MantenimientoPreguntas/ HTTP/1.1" 200 577535
+[29/Jun/2023 16:35:36] "GET /assessmentselect/ HTTP/1.1" 200 12455
+[29/Jun/2023 16:36:23] "POST /assessmentselect/ HTTP/1.1" 302 0
+[29/Jun/2023 16:36:23] "GET /assessment/ HTTP/1.1" 200 66506

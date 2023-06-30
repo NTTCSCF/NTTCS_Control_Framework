@@ -31,43 +31,51 @@
             <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
         </div>
 
-        <div class="botonAssessment1">
-            <button class="btnBorde btnAssesment" >Cargar Assessment</button>
-        </div>
-        <div class="botonAssessment2">
-            <button class="btnBorde btnAssesment" >Crear Assessment</button>
+        <div class="continerAssesment">
+            <form class="containerFlexAssessmentPrinci" method="post">
+                {% csrf_token %}
+                <div class="containerFlexAssessment">
+                    <div class="containerFlexAssessment2">
+                        <div> <h1>Crear Assessment</h1></div>
+                        <div>
+                            <label for="selector1">Assessment Existente</label>
+                            <select class="selectStyleAssessment" id="selector1" name="selector1">
+                                <option value="none">Ninguno</option>
+                                {% for ids in assess %}
+                                <option value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="containerFlexAssessment2">
+                        <div> <h1>Crear Assessment</h1></div>
+                        <div>
+                            <label for="in">Nombre del Assesment</label>
+                            <input style="height:20px; width:195px;" type="text" name="in" id="in">
+                        </div>
+                        <div>
+                            <label for="selector2">Seleccion Marcos</label>
+                            <select multiple class="selectStyleAssessment" id="selector2" name="selector2" >
+                                {% for ids in marcos %}
+                                <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="containerFlexAssessment">
+                    <div class="botonesFlexAssessment">
+                        <div class="cajaBotonAssessment">
+                            <button class="btnBorde btnAssesmentIr" >Ir a Assessment</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
 
-        <div class="textoAssessment1">
-            <h3>Assessment Existente</h3>
-        </div>
-        <div class="textoAssessment2">
-            <h3>Nombre Assessment</h3>
-        </div>
-        <div class="textoAssessment3">
-            <h3>Seleccion Marcos</h3>
-        </div>
 
-        <div class="selectorAssessment1">
-            <select class="selectStyleAssessment">
-                <option value="none">None</option>
-            </select>
-        </div>
-        <div class="entradaTextoAssessment">
-            <input style="height:20px; width:195px;" type="text">
-        </div>
-        <div class="selectorAssessment2">
-            <select class="selectStyleAssessment">
-                <option value="none">None</option>
-            </select>
-        </div>
 
-        <div class="gridBotonesAssessment">
-            <div class="botonesFlexAssessment">
-                <button class="btnBorde btnAssesmentIr" >Ir a Assessment</button>
-            </div>
 
-        </div>
 
     </div>
 

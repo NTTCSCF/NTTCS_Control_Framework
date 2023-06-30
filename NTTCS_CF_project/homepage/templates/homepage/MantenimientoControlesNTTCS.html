@@ -1,0 +1,150 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" href="{% static '/css/main.css' %}" />
+<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mantenimiento</title>
+    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
+</head>
+<body>
+    <div class="box wrapper">
+
+        <div class="logoGrande1">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+        </div>
+
+        <div class="tituloMantenimiento">
+            <div class="flexTitulo">
+                <div class="cajaTexto">
+                    <h1>Mantenimiento</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="logoPequeno">
+            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+        </div>
+
+        <div class="botonModificar">
+            <form class="tablasModificarFlex" method="post" >
+                {% csrf_token %}
+                <div >
+                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="tablasBusca">
+            <form class="tablasBuscaFlex" method="post" id="busquedaForm">
+                {% csrf_token %}
+                <div >
+                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
+                </div>
+                <div >
+                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="botonEliminar">
+            <div class="tablasEliminarFlex">
+                <div >
+                    <a class="btnBorde btnTablas" href="{% url 'EliminarControles' %}" >Eliminar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="tablasTablas">
+            <div class="tabasFlex">
+                <div class="cajaTablasTitulo">
+                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">Domain</div><div class="tb_colprueba">selected y n field</div><div class="tb_colprueba">control</div><div class="tb_colprueba">id</div><div class="tb_colprueba">control description</div><div class="tb_colprueba">relative control weighting</div><div class="tb_colprueba">function grouping</div><div class="tb_colprueba">assesed result</div><div class="tb_colprueba">numeric result</div><div class="tb_colprueba">weighted numeric result</div><div class="tb_colprueba">assessment comments</div><div class="tb_colprueba">relative result by function</div><div class="tb_colprueba">relative result by domain</div></div>
+                </div>
+                <div class="cajaTablas">
+                    {% if lenConsulta > 1 %}
+
+                    {% for ids in consulta %}
+                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.domain}}</div><div class="tb_colprueba">{{ids.selected_y_n_field}}</div><div class="tb_colprueba">{{ids.control}}</div><div class="tb_colprueba">{{ids.id}}</div> <div class="tb_colprueba">{{ids.control_description}}</div><div class="tb_colprueba">{{ids.relative_control_weighting}}</div><div class="tb_colprueba">{{ids.function_grouping}}</div><div class="tb_colprueba">{{ids.assesed_result}}</div><div class="tb_colprueba">{{ids.numeric_result}}</div><div class="tb_colprueba">{{ids.weighted_numeric_result}}</div><div class="tb_colprueba">{{ids.assessment_comments}}</div><div class="tb_colprueba">{{ids.relative_result_by_function}}</div><div class="tb_colprueba">{{ids.relative_result_by_domain}}</div></div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{consulta.domain}}</div><div class="tb_colprueba">{{consulta.selected_y_n_field}}</div><div class="tb_colprueba">{{consulta.control}}</div><div class="tb_colprueba">{{consulta.id}}</div><div class="tb_colprueba">{{consulta.control_description}}</div><div class="tb_colprueba">{{consulta.relative_control_weighting}}</div><div class="tb_colprueba">{{consulta.function_grouping}}</div><div class="tb_colprueba">{{consulta.assesed_result}}</div><div class="tb_colprueba">{{consulta.numeric_result}}</div><div class="tb_colprueba">{{consulta.weighted_numeric_result}}</div><div class="tb_colprueba">{{consulta.assessment_comments}}</div><div class="tb_colprueba">{{consulta.relative_result_by_function}}</div><div class="tb_colprueba">{{consulta.relative_result_by_domain}}</div></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="tablasInsertar">
+            <form class="tablasInsertarFlex" method="post">
+                {% csrf_token %}
+                <div class="cajaInsertar1">
+                    <label for="domain">domain area</label>
+                    <input class="tb_colprueba" type="text" id="domain" name="domain" value="{{seleccion.domain}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="selected_y_n_field">area of focus</label>
+                    <input class="tb_colprueba" type="text" id="selected_y_n_field" name="selected_y_n_field" value="{{seleccion.selected_y_n_field}}">
+                </div>
+                <div class="cajaInsertar1" style="bottom:0px;">
+                    <label for="control">control area</label>
+                    <input class="tb_colprueba" type="text" id="control" name="control" value="{{seleccion.control}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="id">id focus area</label>
+                    <input class="tb_colprueba" type="text" id="id" name="id" value="{{seleccion.id}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="control_description">control description</label>
+                    <input class="tb_colprueba" type="text" id="control_description" name="control_description" value="{{seleccion.control_description}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="relative_control_weighting">relative control</label>
+                    <input class="tb_colprueba" type="text" id="relative_control_weighting" name="relative_control_weighting" value="{{seleccion.relative_control_weighting}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="function_grouping">function grouping</label>
+                    <input class="tb_colprueba" type="text" id="function_grouping" name="function_grouping" value="{{seleccion.function_grouping}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="assesed_result">assesed result</label>
+                    <input class="tb_colprueba" type="text" id="assesed_result" name="assesed_result" value="{{seleccion.assesed_result}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="numeric_result">numeric result</label>
+                    <input class="tb_colprueba" type="text" id="numeric_result" name="numeric_result" value="{{seleccion.numeric_result}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="weighted_numeric_result">weighted result</label>
+                    <input class="tb_colprueba" type="text" id="weighted_numeric_result" name="weighted_numeric_result" value="{{seleccion.controlweighted_numeric_result_mappings}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="assessment_comments">assessment comments</label>
+                    <input class="tb_colprueba" type="text" id="assessment_comments" name="assessment_comments" value="{{seleccion.assessment_comments}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="relative_result_by_function">result by function</label>
+                    <input class="tb_colprueba" type="text" id="relative_result_by_function" name="relative_result_by_function" value="{{seleccion.relative_result_by_function}}">
+                </div>
+                <div class="cajaInsertar1">
+                    <label for="relative_result_by_domain">result by domain</label>
+                    <input class="tb_colprueba" type="text" id="relative_result_by_domain" name="relative_result_by_domain" value="{{seleccion.relative_result_by_domain}}">
+                </div>
+
+                <div class="cajaInsertar1 cajaButton" >
+                    <button class="btnBorde btnTablas2"  type="submit">Insertar</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+</html>

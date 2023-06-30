@@ -13,8 +13,8 @@
     <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
-    <div class="box wrapper">
-
+    <form class="box wrapper" method="post" id="form">
+        {% csrf_token %}
         <div class="logoGrande1">
             <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
         </div>
@@ -34,33 +34,50 @@
         <div class="ass12">
             <label>ID</label>
             <br>
-            <input style="height:22%; width:30%;" type="text">
+            <div class="textoDisplay">{{opciones.id}}</div>
         </div>
         <div class="ass22">
-            <label>Control</label>
-            <select style="width:100%;" class="selectStyleAssessment">
-                <option value="none">None</option>
-            </select>
+
+            <div class="flexass22">
+                <label>Control</label>
+                <select style="width:100%;" class="selectStyleAssessment"  id="selector" name="selector">
+                    {% for ids in assess %}
+                    {% if ids.0 == opciones.id %}
+                    <option selected value="{{ids.0}}">{{ids.0}}</option>
+                    {% else %}
+                    <option  value="{{ids.0}}">{{ids.0}}</option>
+                    {% endif %}
+
+                    {% endfor %}
+                </select>
+                <button class="btnBorde btnAss" type="submit" id="boton" name="boton" value="btn1">Rellenar</button>
+            </div>
         </div>
 
         <div class="ass32">
             <label>Descripción</label>
-            <input style="height:80%; width:200%;" type="text">
+            <div class="textoDisplay">{{opciones.control_description}}</div>
         </div>
 
         <div class="ass13">
             <label>Pregunta</label>
-            <input style="height:50%; width:200%;" type="text">
+            <div class="textoDisplayPregunta">{{opciones.control_question}}</div>
         </div>
 
         <div class="ass33">
             <label>Respuesta</label>
-            <input style="height:50%; width:100%;" type="text">
+            <input style="height:50%; width:100%;" type="text" id="respuesta" name="respuesta" value="{{respuesta}}">
         </div>
         <div class="ass34">
             <label>Valoración de madurez</label>
-            <select style="height:55%; width:100%;" class="selectStyleAssessment">
-                <option value="none">None</option>
+            <select style="height:55%; width:100%;" class="selectStyleAssessment" id="valmad" name="valmad" >
+                {% for ids in valMad %}
+                {% if ids.sublevels == valoracion %}
+                <option selected value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                {% else %}
+                <option  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                {% endif %}
+                {% endfor %}
             </select>
         </div>
 
@@ -71,17 +88,33 @@
 
         <div class="ass43">
             <label>Evidencia</label>
-            <input style="height:80%; width:200%;" type="text">
+            <input style="height:80%; width:200%;" type="text" value="">
         </div>
 
         <div class="ass52">
             <div class="botonesFlexAssessment">
-                <button class="btnBorde btnAssesmentIr" >Guardar Valoración</button>
+                <div class="cajaass52">
+                    <button class="btnBorde btnAssesmentIr" type="submit" id="boton2" name="boton2" value="btn2">Guardar Valoración</button>
+                </div>
+                <div class="cajaass52">
+                    <button class="btnBorde btnAssesmentIr" type="button" onclick="clicked();" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
+                </div>
             </div>
         </div>
 
-    </div>
+    </form>
 
 
 </body>
+
+<script type="text/javascript">
+    function clicked() {
+       if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
+           form.submit();
+       } else {
+           return false;
+       }
+    }
+</script>
+
 </html>

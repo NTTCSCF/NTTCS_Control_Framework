@@ -1,0 +1,67 @@
+Watching for file changes with StatReloader
+[29/Jun/2023 23:36:26] "GET / HTTP/1.1" 200 1768
+[29/Jun/2023 23:43:08] "GET / HTTP/1.1" 200 1768
+Not Found: /client/get_targets
+[29/Jun/2023 23:43:08] "GET /client/get_targets HTTP/1.1" 404 6256
+Not Found: /upl.php
+[29/Jun/2023 23:43:08] "GET /upl.php HTTP/1.1" 404 6223
+Not Found: /geoip/
+[29/Jun/2023 23:43:08] "GET /geoip/ HTTP/1.1" 404 6220
+[29/Jun/2023 23:43:09] "GET / HTTP/1.1" 200 1768
+Not Found: /favicon.ico
+[29/Jun/2023 23:43:09] "GET /favicon.ico HTTP/1.1" 404 6235
+Not Found: /1.php
+[29/Jun/2023 23:43:09] "GET /1.php HTTP/1.1" 404 6217
+Not Found: /bundle.js
+[29/Jun/2023 23:43:09] "GET /bundle.js HTTP/1.1" 404 6229
+[29/Jun/2023 23:45:41] "GET / HTTP/1.1" 200 1768
+Not Found: /web/login
+[29/Jun/2023 23:50:23] "GET /web/login HTTP/1.1" 404 6222
+Not Found: /favicon.ico
+[30/Jun/2023 00:02:20] "GET /favicon.ico HTTP/1.1" 404 6235
+[30/Jun/2023 00:17:32] "GET / HTTP/1.1" 200 1768
+[30/Jun/2023 00:35:57] "GET / HTTP/1.1" 200 1768
+Not Found: /wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:35:57] "GET /wp-includes/wlwmanifest.xml HTTP/1.1" 404 6276
+Not Found: /xmlrpc.php
+[30/Jun/2023 00:35:58] "GET /xmlrpc.php?rsd HTTP/1.1" 404 6229
+[30/Jun/2023 00:35:58] "GET / HTTP/1.1" 200 1768
+Not Found: /blog/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:35:58] "GET /blog/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6291
+Not Found: /web/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:00] "GET /web/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6288
+Not Found: /wordpress/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:00] "GET /wordpress/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6306
+Not Found: /website/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:01] "GET /website/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6300
+Not Found: /wp/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:02] "GET /wp/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6285
+Not Found: /news/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:02] "GET /news/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6291
+Not Found: /2018/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:02] "GET /2018/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6291
+Not Found: /2019/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:02] "GET /2019/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6291
+Not Found: /shop/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:02] "GET /shop/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6291
+Not Found: /wp1/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:02] "GET /wp1/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6288
+Not Found: /test/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:03] "GET /test/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6291
+Not Found: /media/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:03] "GET /media/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6294
+Not Found: /wp2/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:03] "GET /wp2/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6288
+Not Found: /site/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:03] "GET /site/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6291
+Not Found: /cms/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:03] "GET /cms/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6288
+Not Found: /sito/wp-includes/wlwmanifest.xml
+[30/Jun/2023 00:36:03] "GET /sito/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6291
+[30/Jun/2023 00:37:55] "GET / HTTP/1.1" 200 1768
+Not Found: /robots.txt
+[30/Jun/2023 01:19:24] "GET /robots.txt HTTP/1.1" 404 6225
+[30/Jun/2023 01:20:39] "GET / HTTP/1.1" 200 1768
+Not Found: /contactenos/
+[30/Jun/2023 01:24:05] "GET /contactenos/ HTTP/1.0" 404 6231
+[30/Jun/2023 01:24:06] "GET / HTTP/1.0" 200 1768
