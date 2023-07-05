@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, Assessment, SeleccionAssessment, \
-    NttcsCf20231,FrameworkList,Domains,EvidenceRequestCatalog
+    NttcsCf20231, FrameworkList, Domains, EvidenceRequestCatalog
 from django.views.generic import TemplateView
 import mysql.connector
 from django.contrib.sessions.backends.db import SessionStore
@@ -8,7 +8,7 @@ from django.contrib.sessions.backends.db import SessionStore
 
 # Create your views here.
 
-
+# Clase para la pagina del login
 class index(TemplateView):
     template_name = "homepage/index.html"
 
@@ -21,11 +21,13 @@ class index(TemplateView):
         return render(request, self.template_name)
 
 
+# Clase para la pagina de Assessment
 class assessment(TemplateView):
     template_name = "homepage/assessment.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
-    assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado').valor
+    assSelect = SeleccionAssessment.objects.get(
+        seleccion='assessmentSeleccionado')  # guardamos la ultima seleccion de assesment
 
     def get_context_data(self, **knwargs):
 
@@ -42,35 +44,37 @@ class assessment(TemplateView):
         boton2 = request.POST.get('boton2')
         boton3 = request.POST.get('boton3')
 
-        if boton == 'btn1':
-            consulta = Assessment.objects.get(id=select)
+        if boton == 'btn1':  # se recoge la pulsacion del boton rellenar
+            consulta = Assessment.objects.get(id=select)  # consulta para vel la seleccion del despegable de los controles
             context = super(assessment, self).get_context_data(**knwargs)
             mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + self.assSelect)
+            mycursor.execute("SELECT * FROM " + self.assSelect)  # consulta de la seleccion del assesment
             context["assess"] = mycursor
-            context["valMad"] = MaturirtyTable.objects.all()
+            context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
             context["opciones"] = consulta
+
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute("SELECT * FROM " + self.assSelect + " WHERE ID='" + select + "'")
-            for fila in mycursor:
+            for fila in mycursor:  # Rellenamos tanto las casillas de respuesta y valoracion
                 context["respuesta"] = fila[4]
                 context["valoracion"] = fila[5]
             return render(request, self.template_name, context=context)
 
-        elif boton2 == 'btn2':
-            consulta = Assessment.objects.get(id=select)
+        elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
+            consulta = Assessment.objects.get(id=select)  # consulta para consegir los valores del control seleccionado
             query = """UPDATE """ + self.assSelect + """ SET descripcion='""" + consulta.control_description + """', 
             pregunta='""" + consulta.control_question + """', criterioValoracion='', respuesta='""" + \
                     request.POST.get('respuesta') + """', valoracion='""" + request.POST.get('valmad') + """', 
-                    evidencia='' WHERE ID='""" + consulta.id + """';"""
+                    evidencia='' WHERE ID='""" + consulta.id + """';"""  # consulta para rellenar los valores del control seleccionado
             mycursor = self.conn.cursor()
             mycursor.execute(query)
             self.conn.commit()
-        else:
-            consulta = Assessmentguardados.objects.get(id_assessment=self.assSelect)
-            consulta.archivado = 1
+        else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
+            consulta = Assessmentguardados.objects.get(id_assessment=self.assSelect)  # colsulta para la selecionar el assesment
+            consulta.archivado = 1  # ponemos el valor de archivado a 1
             consulta.save()
-            return redirect('menu')
+            return redirect('menu')  # volvemos al menu
+
         context = super(assessment, self).get_context_data(**knwargs)
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + self.assSelect)
@@ -233,6 +237,7 @@ class menu(TemplateView):
 
 class MantenimientoDominios(TemplateView):
     template_name = "homepage/MantenimientoDominios.html"
+
     def post(self, request, **knwargs):
 
         if request.POST.get('busqueda') != None:
@@ -257,7 +262,6 @@ class MantenimientoDominios(TemplateView):
             security_privacy_by_design_s_p_principles = request.POST.get('security_privacy_by_design_s_p_principles')
             principle_intent = request.POST.get('principle_intent')
 
-
             try:
                 consulta = Domains.objects.get(identifier=identifier)
                 consulta.domain = domain
@@ -266,7 +270,9 @@ class MantenimientoDominios(TemplateView):
                 consulta.save()
 
             except:
-                insert = Domains(identifier=identifier, domain=domain, security_privacy_by_design_s_p_principles=security_privacy_by_design_s_p_principles, principle_intent=principle_intent,)
+                insert = Domains(identifier=identifier, domain=domain,
+                                 security_privacy_by_design_s_p_principles=security_privacy_by_design_s_p_principles,
+                                 principle_intent=principle_intent, )
                 insert.save()
 
             context = super(MantenimientoDominios, self).get_context_data(**knwargs)
@@ -295,8 +301,10 @@ class MantenimientoDominios(TemplateView):
 
         return redirect('MantenimientoDominios')
 
+
 class MantenimientoEvidencias(TemplateView):
     template_name = "homepage/MantenimientoEvidencias.html"
+
     def post(self, request, **knwargs):
 
         if request.POST.get('busqueda') != None:
@@ -330,8 +338,10 @@ class MantenimientoEvidencias(TemplateView):
                 consulta.control_mappings = control_mappings
                 consulta.save()
             except:
-                insert = EvidenceRequestCatalog(evidence_request_references=evidence_request_references, area_of_focus=area_of_focus, artifact=artifact,
-                                        artifact_description=artifact_description,control_mappings=control_mappings)
+                insert = EvidenceRequestCatalog(evidence_request_references=evidence_request_references,
+                                                area_of_focus=area_of_focus, artifact=artifact,
+                                                artifact_description=artifact_description,
+                                                control_mappings=control_mappings)
                 insert.save()
 
             context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
@@ -361,8 +371,10 @@ class MantenimientoEvidencias(TemplateView):
 
         return redirect('MantenimientoEvidencias')
 
+
 class MantenimientoPreguntas(TemplateView):
     template_name = "homepage/MantenimientoPreguntas.html"
+
     def post(self, request, **knwargs):
 
         if request.POST.get('busqueda') != None:
@@ -422,6 +434,7 @@ class MantenimientoPreguntas(TemplateView):
 
         return redirect('MantenimientoPreguntas')
 
+
 class MantenimientoMarcosExistentes(TemplateView):
     template_name = "homepage/MantenimientoMarcosExistentes.html"
 
@@ -446,8 +459,6 @@ class MantenimientoMarcosExistentes(TemplateView):
         elif request.POST.get('framework_id') != None:
             marco_id = request.POST.get('marco_id')
             nombre_tabla = request.POST.get('nombre_tabla')
-
-
 
             try:
                 consulta = AsociacionMarcos.objects.get(marco_id=marco_id)
@@ -484,6 +495,7 @@ class MantenimientoMarcosExistentes(TemplateView):
         consulta.delete()
 
         return redirect('MantenimientoMarcosExistentes')
+
 
 class MantenimientoControlesNTTCS(TemplateView):
     template_name = "homepage/MantenimientoControlesNTTCS.html"
@@ -537,7 +549,7 @@ class MantenimientoControlesNTTCS(TemplateView):
                 consulta.relative_result_by_domain = relative_result_by_domain
                 consulta.save()
             except:
-                insert = NttcsCf20231(domain=domain, selected_y_n_field=selected_y_n_field,id=id, control=control,
+                insert = NttcsCf20231(domain=domain, selected_y_n_field=selected_y_n_field, id=id, control=control,
                                       control_description=control_description,
                                       relative_control_weighting=relative_control_weighting,
                                       function_grouping=function_grouping, assesed_result=assesed_result,
@@ -572,6 +584,8 @@ class MantenimientoControlesNTTCS(TemplateView):
         consulta.delete()
 
         return redirect('MantenimientoControlesNTTCS')
+
+
 class MantenimientoMapeoMarcos(TemplateView):
     template_name = "homepage/MantenimientoMapeoMarcos.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
@@ -583,7 +597,6 @@ class MantenimientoMapeoMarcos(TemplateView):
         context["consulta"] = [['no seleccionado', 'no seleccionado']]
         context["lenConsulta"] = 1
         return context
-
 
     def post(self, request, **knwargs):
         boton1 = request.POST.get('boton1')
@@ -610,7 +623,7 @@ class MantenimientoMapeoMarcos(TemplateView):
                 return render(request, self.template_name, context=context)
             else:
                 mycursor = self.conn.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM " + request.session["seleccion"]+" WHERE ID='" + busqueda + "'")
+                mycursor.execute("SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + busqueda + "'")
                 context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
                 context["assess"] = AsociacionMarcos.objects.all()
                 context["consulta"] = mycursor
@@ -622,12 +635,14 @@ class MantenimientoMapeoMarcos(TemplateView):
             nombre_tabla = request.POST.get('nombre_tabla')
 
             try:
-                query = "UPDATE "+request.session["seleccion"]+" SET NTT_ID='"+marco_id+"', "+request.session["seleccion"]+"='"+nombre_tabla+"' WHERE ID="+id+";"
+                query = "UPDATE " + request.session["seleccion"] + " SET NTT_ID='" + marco_id + "', " + request.session[
+                    "seleccion"] + "='" + nombre_tabla + "' WHERE ID=" + id + ";"
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
                 self.conn.commit()
             except:
-                query = "INSERT INTO "+request.session["seleccion"]+" (NTT_ID, "+request.session["seleccion"]+") VALUES('"+marco_id+"', '"+nombre_tabla+"');"
+                query = "INSERT INTO " + request.session["seleccion"] + " (NTT_ID, " + request.session[
+                    "seleccion"] + ") VALUES('" + marco_id + "', '" + nombre_tabla + "');"
 
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
@@ -643,15 +658,14 @@ class MantenimientoMapeoMarcos(TemplateView):
         else:
 
             mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "'")
+            mycursor.execute(
+                "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "'")
             context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
             context["assess"] = AsociacionMarcos.objects.all()
             context["consulta"] = mycursor
             for o in mycursor:
                 context["seleccion"] = o
             return render(request, self.template_name, context=context)
-
-
 
     def EliminarMapeo(request):
         conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
@@ -664,11 +678,11 @@ class MantenimientoMapeoMarcos(TemplateView):
         return redirect('MantenimientoMapeoMarcos')
 
 
-
 class MantenimientoAssessmentArchivados(TemplateView):
     template_name = "homepage/MantenimientoAssessmentArchivados.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
+
     def post(self, request, **knwargs):
         boton = request.POST.get('boton')
         if boton == 'btn1':
@@ -703,7 +717,7 @@ class MantenimientoAssessmentArchivados(TemplateView):
                 return render(request, self.template_name, context=context)
             else:
                 mycursor = self.conn.cursor(buffered=True)
-                query = "SELECT * FROM " + request.session["seleccion"]+" WHERE ID='" + busqueda + "'"
+                query = "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + busqueda + "'"
                 mycursor.execute(query)
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
                 s = Assessmentguardados.objects.all()
@@ -726,15 +740,16 @@ class MantenimientoAssessmentArchivados(TemplateView):
             evidencia = request.POST.get('evidencia')
 
             try:
-                query = """UPDATE """ + request.session["seleccion"]+ """ SET descripcion='""" + descripcion + """', 
-                            pregunta='""" + Pregunta + """', criterioValoracion='"""+criterio+"""', respuesta='""" + \
+                query = """UPDATE """ + request.session["seleccion"] + """ SET descripcion='""" + descripcion + """', 
+                            pregunta='""" + Pregunta + """', criterioValoracion='""" + criterio + """', respuesta='""" + \
                         respuesta + """', valoracion='""" + valoracion + """', 
-                                    evidencia='"""+evidencia+"""' WHERE ID='""" + id + """';"""
+                                    evidencia='""" + evidencia + """' WHERE ID='""" + id + """';"""
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
                 self.conn.commit()
             except:
-                query = """INSERT INTO """ + request.session["seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia + """');"""
+                query = """INSERT INTO """ + request.session[
+                    "seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia + """');"""
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
                 self.conn.commit()
@@ -753,7 +768,8 @@ class MantenimientoAssessmentArchivados(TemplateView):
 
         else:
             mycursor = self.conn.cursor(buffered=True)
-            query = "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "'"
+            query = "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session[
+                "ultBusqueda"] + "'"
             mycursor.execute(query)
             context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
             s = Assessmentguardados.objects.all()
@@ -775,7 +791,9 @@ class MantenimientoAssessmentArchivados(TemplateView):
             if i.archivado == 1:
                 p += [i]
         context["selector"] = p
-        context["consulta"] = [['No Seleccionado', 'No Seleccionado', 'No Seleccionado', 'No Seleccionado', 'No Seleccionado', 'No Seleccionado', 'No Seleccionado']]
+        context["consulta"] = [
+            ['No Seleccionado', 'No Seleccionado', 'No Seleccionado', 'No Seleccionado', 'No Seleccionado',
+             'No Seleccionado', 'No Seleccionado']]
 
         return context
 
@@ -783,7 +801,8 @@ class MantenimientoAssessmentArchivados(TemplateView):
         conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                        auth_plugin='mysql_native_password')
         mycursor = conn.cursor(buffered=True)
-        mycursor.execute("DELETE FROM "+request.session["seleccion"]+" WHERE ID='"+request.session["ultBusqueda"] +"';")
+        mycursor.execute(
+            "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "';")
         conn.commit()
         conn.close()
         return redirect('MantenimientoAssessmentArchivados')
