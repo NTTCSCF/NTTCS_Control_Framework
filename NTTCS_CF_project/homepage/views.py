@@ -29,6 +29,7 @@ class assessment(TemplateView):
     assSelect = SeleccionAssessment.objects.get(
         seleccion='assessmentSeleccionado')  # guardamos la ultima seleccion de assesment
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
 
         context = super(assessment, self).get_context_data(**knwargs)
@@ -37,12 +38,12 @@ class assessment(TemplateView):
         context["assess"] = mycursor
         context["valMad"] = MaturirtyTable.objects.all()
         return context
-
+    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
-        select = request.POST.get('selector')
-        boton = request.POST.get('boton')
-        boton2 = request.POST.get('boton2')
-        boton3 = request.POST.get('boton3')
+        select = request.POST.get('selector')  # valor de el selector de control
+        boton = request.POST.get('boton')  # valor del boton 1
+        boton2 = request.POST.get('boton2')  # valor del boton 2
+        boton3 = request.POST.get('boton3')  # valor del boton 3
 
         if boton == 'btn1':  # se recoge la pulsacion del boton rellenar
             consulta = Assessment.objects.get(id=select)  # consulta para vel la seleccion del despegable de los controles
@@ -81,25 +82,28 @@ class assessment(TemplateView):
         context["assess"] = mycursor
         return render(request, self.template_name, context=context)
 
-
+# Clase para la pagina de AssessmentSelect
 class assessmentselect(TemplateView):
     template_name = "homepage/assessmentselect.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
-                                   auth_plugin='mysql_native_password')
+                                   auth_plugin='mysql_native_password')  # constante para la conexion con la base de datos
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(assessmentselect, self).get_context_data(**knwargs)
         context["assess"] = Assessmentguardados.objects.all()
         context["marcos"] = AsociacionMarcos.objects.all()
         return context
 
+    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
-        nombre = request.POST.get('in')
-        select = request.POST.get('selector1')
-        select2 = request.POST.getlist('selector2')
+        nombre = request.POST.get('in')  # Valor del input de nombre
+        select = request.POST.get('selector1')  # valor de selector de assesment guardado
+        select2 = request.POST.getlist('selector2')  # valor de selector de marcos para la creacion del assesment
+
         if select != 'none':
             assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado')
-            assSelect.valor = select
+            assSelect.valor = select  # guardamos el valor del assessment seleccionado en la tabla de seleccion
             assSelect.save()
             return redirect("assessment")
         elif nombre != '' and select2 != None:
@@ -115,426 +119,442 @@ class assessmentselect(TemplateView):
                             )
                             ENGINE=InnoDB
                             DEFAULT CHARSET=utf8mb4
-                            COLLATE=utf8mb4_0900_ai_ci;'''
+                            COLLATE=utf8mb4_0900_ai_ci;'''  # query para la creacion de la tabla para uardar el assessment
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute(query)
 
             marcos = ''
             marc = []
             mycursor = self.conn.cursor(buffered=True)
-            for i in select2:
+            for i in select2:  # recorremos el segundo selector
 
-                mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(marco_id=i).nombre_tabla)
+                mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(marco_id=i).nombre_tabla)  # query para seleccionar la tabla del marco seleccionado
                 for fila in mycursor:
                     if fila[0] not in marc:
-                        marc += [fila[0]]
+                        marc += [fila[0]]  # recorremos la tabla del marco cogiendo los controles de ntt que no este repetidos
 
             for marco in marc:
-                marcos += marco + '\n'
+                marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
                 mycursor = self.conn.cursor(buffered=True)
                 query = """INSERT INTO """ + nombre + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, evidencia) VALUES('""" + str(
-                    marco) + """', '', '', '', '', '', '');"""
+                    marco) + """', '', '', '', '', '', '');"""  # query para insertar en la tabla del assessment creado, todos los controles de ntt
                 mycursor.execute(query)
 
             self.conn.commit()
 
             self.conn.close()
 
-            c = Assessmentguardados(id_assessment=nombre, marcos=marcos)
+            c = Assessmentguardados(id_assessment=nombre, marcos=marcos)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
             c.save()
             assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado')
-            assSelect.valor = nombre
+            assSelect.valor = nombre  # guardamos el valor del assessment seleccionado en la tabla de seleccion
             assSelect.save()
             return redirect("assessment")
-        else:
+        else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
             context = super().get_context_data(**knwargs)
             context["assess"] = Assessmentguardados.objects.all()
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
-
+# Clase para la pagina de Exportaciones
 class Exportaciones(TemplateView):
     template_name = "homepage/Exportaciones.html"
 
-
+# Clase para la pagina de informes
 class informes(TemplateView):
     template_name = "homepage/informes.html"
 
-
+# Clase para la pagina de Mantenimiento
 class Mantenimiento(TemplateView):
     template_name = "homepage/Mantenimiento.html"
 
-
+# Clase para la pagina de MantenimientoNivelMadurez
 class MantenimientoNivelMadurez(TemplateView):
     template_name = "homepage/MantenimientoNivelMadurez.html"
 
+    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
-        if request.POST.get('busqueda') != None:
-            busqueda = request.POST.get('busqueda')
+        if request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
+            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
 
-            if busqueda == '':
+            if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
                 context["consulta"] = MaturirtyTable.objects.all()
-                context["lenConsulta"] = len(MaturirtyTable.objects.all())
+                context["lenConsulta"] = len(MaturirtyTable.objects.all())  # pasamos el valor de la tabla completa
                 return render(request, self.template_name, context=context)
             else:
-                consulta = MaturirtyTable.objects.get(sublevels=busqueda)
+                consulta = MaturirtyTable.objects.get(sublevels=busqueda)  # consultamos el valor buscado en la tabla
                 context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
-                context.update({'consulta': consulta})
-                context["lenConsulta"] = 1
-                request.session["ultBusqueda"] = busqueda
+                context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
+                context["lenConsulta"] = 1  # pasamos la longitud de la consulta.
+                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
 
-        elif request.POST.get('Sublevels') != None:
-            Ccmmcod = request.POST.get('Ccmmcod')
-            Description = request.POST.get('Description')
-            Sublevels = request.POST.get('Sublevels')
-            Percentage = request.POST.get('Percentage')
+        elif request.POST.get('Sublevels') != None:  # if que recoge la pulsacion del boton de insertar.
+            Ccmmcod = request.POST.get('Ccmmcod')  # valor del input de ccmmcod
+            Description = request.POST.get('Description')  # valor del input de descripcion
+            Sublevels = request.POST.get('Sublevels')  # valor del input de sublevels
+            Percentage = request.POST.get('Percentage')  # valor del input de percentaje
 
-            try:
-                consulta = MaturirtyTable.objects.get(sublevels=Sublevels)
+            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
+                consulta = MaturirtyTable.objects.get(sublevels=Sublevels)  # si esta en la tabla seleccionamos el ojeto en la tabla
                 consulta.ccmmcod = Ccmmcod
                 consulta.description = Description
                 consulta.percentage = Percentage
-                consulta.save()
-            except:
+                consulta.save()  # fijamos los valores y los guardamos.
+            except:  # si el valor no esta en la tabla
                 insert = MaturirtyTable(ccmmcod=Ccmmcod, description=Description, sublevels=Sublevels,
-                                        percentage=Percentage)
+                                        percentage=Percentage)  # creamos un nuevo input en la tabla
                 insert.save()
 
             context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
             context["consulta"] = MaturirtyTable.objects.all()
             context["lenConsulta"] = len(MaturirtyTable.objects.all())
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-        else:
-            consulta = MaturirtyTable.objects.get(sublevels=request.session["ultBusqueda"])
+        else:  # else que recoge la pulsacion del boton de modificar.
+            consulta = MaturirtyTable.objects.get(sublevels=request.session["ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
 
             context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
             context["consulta"] = MaturirtyTable.objects.all()
             context["lenConsulta"] = len(MaturirtyTable.objects.all())
-            context["seleccion"] = consulta
+            context["seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
         context["consulta"] = MaturirtyTable.objects.all()
         context["lenConsulta"] = len(MaturirtyTable.objects.all())
         return context
 
+    # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def Eliminar(request):
 
         consulta = MaturirtyTable.objects.get(sublevels=request.session["ultBusqueda"])
-        consulta.delete()
+        consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         return redirect('mantenimientoNivelMadurez')
 
-
+# Clase para la pagina de menu
 class menu(TemplateView):
     template_name = "homepage/menu.html"
 
-
+# Clase para la pagina de MantenimientoDominios
 class MantenimientoDominios(TemplateView):
     template_name = "homepage/MantenimientoDominios.html"
 
+    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
-        if request.POST.get('busqueda') != None:
-            busqueda = request.POST.get('busqueda')
+        if request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
+            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
 
-            if busqueda == '':
+            if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-                context["consulta"] = Domains.objects.all()
+                context["consulta"] = Domains.objects.all()  # pasamos el valor de la tabla completa
                 context["lenConsulta"] = len(Domains.objects.all())
                 return render(request, self.template_name, context=context)
             else:
-                consulta = Domains.objects.get(identifier=busqueda)
+                consulta = Domains.objects.get(identifier=busqueda)  # consultamos el valor buscado en la tabla
                 context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-                context.update({'consulta': consulta})
-                context["lenConsulta"] = 1
-                request.session["ultBusqueda"] = busqueda
+                context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
+                context["lenConsulta"] = 1  # pasamos la longitud de la consulta.
+                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
 
-        elif request.POST.get('identifier') is not None:
-            identifier = request.POST.get('identifier')
-            domain = request.POST.get('domain')
-            security_privacy_by_design_s_p_principles = request.POST.get('security_privacy_by_design_s_p_principles')
-            principle_intent = request.POST.get('principle_intent')
+        elif request.POST.get('identifier') is not None:  # if que recoge la pulsacion del boton de insertar.
+            identifier = request.POST.get('identifier')  # valor del input de identifier
+            domain = request.POST.get('domain')  # valor del input de domain
+            security_privacy_by_design_s_p_principles = request.POST.get('security_privacy_by_design_s_p_principles')  # valor del input de security_privacy_by_design_s_p_principles
+            principle_intent = request.POST.get('principle_intent')  # valor del input de principle_intent
 
-            try:
-                consulta = Domains.objects.get(identifier=identifier)
+            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
+                consulta = Domains.objects.get(identifier=identifier)  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
                 consulta.domain = domain
                 consulta.security_privacy_by_design_s_p_principles = security_privacy_by_design_s_p_principles
                 consulta.principle_intent = principle_intent
-                consulta.save()
+                consulta.save()  # fijamos los valores y los guardamos.
 
-            except:
+            except:  # si el valor no esta en la tabla
                 insert = Domains(identifier=identifier, domain=domain,
                                  security_privacy_by_design_s_p_principles=security_privacy_by_design_s_p_principles,
-                                 principle_intent=principle_intent, )
+                                 principle_intent=principle_intent, )  # creamos un nuevo input en la tabla
                 insert.save()
 
             context = super(MantenimientoDominios, self).get_context_data(**knwargs)
             context["consulta"] = Domains.objects.all()
             context["lenConsulta"] = len(Domains.objects.all())
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-        else:
-            consulta = Domains.objects.get(identifier=request.session["ultBusqueda"])
+        else:  # else que recoge la pulsacion del boton de modificar.
+            consulta = Domains.objects.get(identifier=request.session["ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
             context = super(MantenimientoDominios, self).get_context_data(**knwargs)
             context["consulta"] = Domains.objects.all()
             context["lenConsulta"] = len(Domains.objects.all())
-            context["seleccion"] = consulta
+            context["seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoDominios, self).get_context_data(**knwargs)
         context["consulta"] = Domains.objects.all()
         context["lenConsulta"] = len(Domains.objects.all())
         return context
 
+    # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def Eliminar(request):
 
         consulta = Domains.objects.get(identifier=request.session["ultBusqueda"])
-        consulta.delete()
+        consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         return redirect('MantenimientoDominios')
 
-
+# Clase para la pagina de MantenimientoEvidencias
 class MantenimientoEvidencias(TemplateView):
     template_name = "homepage/MantenimientoEvidencias.html"
 
+    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
-        if request.POST.get('busqueda') != None:
-            busqueda = request.POST.get('busqueda')
+        if request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
+            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
 
-            if busqueda == '':
+            if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-                context["consulta"] = EvidenceRequestCatalog.objects.all()
+                context["consulta"] = EvidenceRequestCatalog.objects.all()  # pasamos el valor de la tabla completa
                 context["lenConsulta"] = len(EvidenceRequestCatalog.objects.all())
                 return render(request, self.template_name, context=context)
             else:
-                consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=busqueda)
+                consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=busqueda)  # consultamos el valor buscado en la tabla
                 context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-                context.update({'consulta': consulta})
-                context["lenConsulta"] = 1
-                request.session["ultBusqueda"] = busqueda
+                context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
+                context["lenConsulta"] = 1  # pasamos la longitud de la consulta.
+                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
 
-        elif request.POST.get('evidence_request_references') != None:
-            evidence_request_references = request.POST.get('evidence_request_references')
-            area_of_focus = request.POST.get('area_of_focus')
-            artifact = request.POST.get('artifact')
-            artifact_description = request.POST.get('artifact_description')
-            control_mappings = request.POST.get('control_mappings')
+        elif request.POST.get('evidence_request_references') != None:  # if que recoge la pulsacion del boton de insertar.
+            evidence_request_references = request.POST.get('evidence_request_references')  # valor del input de evidence_request_references
+            area_of_focus = request.POST.get('area_of_focus')  # valor del input de area_of_focus
+            artifact = request.POST.get('artifact')  # valor del input de artifact
+            artifact_description = request.POST.get('artifact_description')  # valor del input de artifact_description
+            control_mappings = request.POST.get('control_mappings')  # valor del input de control_mappings
 
-            try:
-                consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=evidence_request_references)
+            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
+                consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=evidence_request_references)  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
                 consulta.area_of_focus = area_of_focus
                 consulta.artifact = artifact
                 consulta.artifact_description = artifact_description
                 consulta.control_mappings = control_mappings
-                consulta.save()
-            except:
+                consulta.save()  # fijamos los valores y los guardamos.
+            except:  # si el valor no esta en la tabla
                 insert = EvidenceRequestCatalog(evidence_request_references=evidence_request_references,
                                                 area_of_focus=area_of_focus, artifact=artifact,
                                                 artifact_description=artifact_description,
-                                                control_mappings=control_mappings)
+                                                control_mappings=control_mappings)  # creamos un nuevo input en la tabla
                 insert.save()
 
             context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
             context["consulta"] = EvidenceRequestCatalog.objects.all()
             context["lenConsulta"] = len(EvidenceRequestCatalog.objects.all())
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-        else:
-            consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=request.session["ultBusqueda"])
+        else:  # else que recoge la pulsacion del boton de modificar.
+            consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=request.session["ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
 
             context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
             context["consulta"] = EvidenceRequestCatalog.objects.all()
             context["lenConsulta"] = len(EvidenceRequestCatalog.objects.all())
-            context["seleccion"] = consulta
+            context["seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
         context["consulta"] = EvidenceRequestCatalog.objects.all()
         context["lenConsulta"] = len(EvidenceRequestCatalog.objects.all())
         return context
 
+    # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def Eliminar(request):
 
         consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=request.session["ultBusqueda"])
-        consulta.delete()
+        consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         return redirect('MantenimientoEvidencias')
 
-
+# Clase para la pagina de MantenimientoPreguntas
 class MantenimientoPreguntas(TemplateView):
     template_name = "homepage/MantenimientoPreguntas.html"
 
+    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
-        if request.POST.get('busqueda') != None:
-            busqueda = request.POST.get('busqueda')
+        if request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
+            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
 
-            if busqueda == '':
+            if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 context = super(MantenimientoPreguntas, self).get_context_data(**knwargs)
-                context["consulta"] = Assessment.objects.all()
+                context["consulta"] = Assessment.objects.all()  # pasamos el valor de la tabla completa
                 context["lenConsulta"] = len(Assessment.objects.all())
                 return render(request, self.template_name, context=context)
             else:
-                consulta = Assessment.objects.get(id=busqueda)
+                consulta = Assessment.objects.get(id=busqueda)  # consultamos el valor buscado en la tabla
                 context = super(MantenimientoPreguntas, self).get_context_data(**knwargs)
-                context.update({'consulta': consulta})
-                context["lenConsulta"] = 1
-                request.session["ultBusqueda"] = busqueda
+                context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
+                context["lenConsulta"] = 1  # pasamos la longitud de la consulta.
+                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
 
-        elif request.POST.get('id') != None:
-            control_question = request.POST.get('control_question')
-            control_description = request.POST.get('control_description')
-            id = request.POST.get('id')
+        elif request.POST.get('id') != None:  # if que recoge la pulsacion del boton de insertar.
+            control_question = request.POST.get('control_question')  # valor del input de control_question
+            control_description = request.POST.get('control_description')  # valor del input de control_description
+            id = request.POST.get('id')  # valor del input de id
 
-            try:
-                consulta = Assessment.objects.get(id=id)
+            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
+                consulta = Assessment.objects.get(id=id)  # si esta en la tabla seleccionamos el ojeto en la tabla
                 consulta.control_description = control_description
                 consulta.control_question = control_question
-                consulta.save()
-            except:
-                insert = Assessment(id=id, control_question=control_question, control_description=control_description)
+                consulta.save()  # fijamos los valores y los guardamos.
+            except:  # si el valor no esta en la tabla
+                insert = Assessment(id=id, control_question=control_question, control_description=control_description)  # creamos un nuevo input en la tabla
                 insert.save()
 
             context = super(MantenimientoPreguntas, self).get_context_data(**knwargs)
             context["consulta"] = Assessment.objects.all()
             context["lenConsulta"] = len(Assessment.objects.all())
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-        else:
-            consulta = Assessment.objects.get(id=request.session["ultBusqueda"])
+        else:  # else que recoge la pulsacion del boton de modificar.
+            consulta = Assessment.objects.get(id=request.session["ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
 
             context = super(MantenimientoPreguntas, self).get_context_data(**knwargs)
             context["consulta"] = Assessment.objects.all()
             context["lenConsulta"] = len(Assessment.objects.all())
-            context["seleccion"] = consulta
+            context["seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoPreguntas, self).get_context_data(**knwargs)
         context["consulta"] = Assessment.objects.all()
         context["lenConsulta"] = len(Assessment.objects.all())
         return context
 
+    # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def Eliminar(request):
 
         consulta = Assessment.objects.get(id=request.session["ultBusqueda"])
-        consulta.delete()
+        consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         return redirect('MantenimientoPreguntas')
 
-
+# Clase para la pagina de MantenimientoMarcosExistentes
 class MantenimientoMarcosExistentes(TemplateView):
     template_name = "homepage/MantenimientoMarcosExistentes.html"
 
+    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
-        if request.POST.get('busqueda') != None:
-            busqueda = request.POST.get('busqueda')
+        if request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
+            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
 
-            if busqueda == '':
+            if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 context = super(MantenimientoMarcosExistentes, self).get_context_data(**knwargs)
-                context["consulta"] = AsociacionMarcos.objects.all()
+                context["consulta"] = AsociacionMarcos.objects.all()  # pasamos el valor de la tabla completa
                 context["lenConsulta"] = len(AsociacionMarcos.objects.all())
                 return render(request, self.template_name, context=context)
             else:
-                consulta = AsociacionMarcos.objects.get(marco_id=busqueda)
+                consulta = AsociacionMarcos.objects.get(marco_id=busqueda)  # consultamos el valor buscado en la tabla
                 context = super(MantenimientoMarcosExistentes, self).get_context_data(**knwargs)
-                context.update({'consulta': consulta})
-                context["lenConsulta"] = 1
-                request.session["ultBusqueda"] = busqueda
+                context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
+                context["lenConsulta"] = 1  # pasamos la longitud de la consulta.
+                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
 
-        elif request.POST.get('framework_id') != None:
-            marco_id = request.POST.get('marco_id')
-            nombre_tabla = request.POST.get('nombre_tabla')
+        elif request.POST.get('framework_id') != None:  # if que recoge la pulsacion del boton de insertar.
+            marco_id = request.POST.get('marco_id')  # valor del input de marco_id
+            nombre_tabla = request.POST.get('nombre_tabla')  # valor del input de nombre_tabla
 
-            try:
-                consulta = AsociacionMarcos.objects.get(marco_id=marco_id)
+            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
+                consulta = AsociacionMarcos.objects.get(marco_id=marco_id)  # si esta en la tabla seleccionamos el ojeto en la tabla
                 consulta.nombre_tabla = nombre_tabla
 
-                consulta.save()
+                consulta.save()  # fijamos los valores y los guardamos.
 
-            except:
-                insert = AsociacionMarcos(marco_id=marco_id, nombre_tabla=nombre_tabla)
+            except:  # si el valor no esta en la tabla
+                insert = AsociacionMarcos(marco_id=marco_id, nombre_tabla=nombre_tabla)  # creamos un nuevo input en la tabla
                 insert.save()
 
             context = super(MantenimientoMarcosExistentes, self).get_context_data(**knwargs)
             context["consulta"] = AsociacionMarcos.objects.all()
             context["lenConsulta"] = len(AsociacionMarcos.objects.all())
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-        else:
-            consulta = AsociacionMarcos.objects.get(marco_id=request.session["ultBusqueda"])
+        else:  # else que recoge la pulsacion del boton de modificar.
+            consulta = AsociacionMarcos.objects.get(marco_id=request.session["ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
             context = super(MantenimientoMarcosExistentes, self).get_context_data(**knwargs)
             context["consulta"] = AsociacionMarcos.objects.all()
             context["lenConsulta"] = len(AsociacionMarcos.objects.all())
-            context["seleccion"] = consulta
+            context["seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoMarcosExistentes, self).get_context_data(**knwargs)
         context["consulta"] = AsociacionMarcos.objects.all()
         context["lenConsulta"] = len(AsociacionMarcos.objects.all())
         return context
 
+    # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def Eliminar(request):
 
         consulta = AsociacionMarcos.objects.get(marco_id=request.session["ultBusqueda"])
-        consulta.delete()
+        consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         return redirect('MantenimientoMarcosExistentes')
 
-
+# Clase para la pagina de MantenimientoControlesNTTCS
 class MantenimientoControlesNTTCS(TemplateView):
     template_name = "homepage/MantenimientoControlesNTTCS.html"
 
+    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
-        if request.POST.get('busqueda') != None:
-            busqueda = request.POST.get('busqueda')
+        if request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
+            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
 
-            if busqueda == '':
+            if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 context = super(MantenimientoControlesNTTCS, self).get_context_data(**knwargs)
                 context["consulta"] = NttcsCf20231.objects.all()
-                context["lenConsulta"] = len(NttcsCf20231.objects.all())
+                context["lenConsulta"] = len(NttcsCf20231.objects.all())  # pasamos el valor de la tabla completa
                 return render(request, self.template_name, context=context)
             else:
-                consulta = NttcsCf20231.objects.get(id=busqueda)
+                consulta = NttcsCf20231.objects.get(id=busqueda)  # consultamos el valor buscado en la tabla
                 context = super(MantenimientoControlesNTTCS, self).get_context_data(**knwargs)
-                context.update({'consulta': consulta})
-                context["lenConsulta"] = 1
-                request.session["ultBusqueda"] = busqueda
+                context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
+                context["lenConsulta"] = 1  # pasamos la longitud de la consulta.
+                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
 
-        elif request.POST.get('id') != None:
-            domain = request.POST.get('domain')
-            selected_y_n_field = request.POST.get('selected_y_n_field')
-            control = request.POST.get('control')
-            id = request.POST.get('id')
-            control_description = request.POST.get('control_description')
-            relative_control_weighting = request.POST.get('relative_control_weighting')
-            function_grouping = request.POST.get('function_grouping')
-            assesed_result = request.POST.get('assesed_result')
-            numeric_result = request.POST.get('numeric_result')
-            weighted_numeric_result = request.POST.get('weighted_numeric_result')
-            assessment_comments = request.POST.get('assessment_comments')
-            relative_result_by_function = request.POST.get('relative_result_by_function')
-            relative_result_by_domain = request.POST.get('relative_result_by_domain')
+        elif request.POST.get('id') != None:  # if que recoge la pulsacion del boton de insertar.
+            domain = request.POST.get('domain')  # valor del input de domain
+            selected_y_n_field = request.POST.get('selected_y_n_field')  # valor del input de selected_y_n_field
+            control = request.POST.get('control')  # valor del input de control
+            id = request.POST.get('id')  # valor del input de id
+            control_description = request.POST.get('control_description')  # valor del input de control_description
+            relative_control_weighting = request.POST.get('relative_control_weighting')  # valor del input de relative_control_weighting
+            function_grouping = request.POST.get('function_grouping')  # valor del input de function_grouping
+            assesed_result = request.POST.get('assesed_result')  # valor del input de assesed_result
+            numeric_result = request.POST.get('numeric_result')  # valor del input de numeric_result
+            weighted_numeric_result = request.POST.get('weighted_numeric_result')  # valor del input de weighted_numeric_result
+            assessment_comments = request.POST.get('assessment_comments')  # valor del input de assessment_comments
+            relative_result_by_function = request.POST.get('relative_result_by_function')  # valor del input de relative_result_by_function
+            relative_result_by_domain = request.POST.get('relative_result_by_domain')  # valor del input de relative_result_by_domain
 
-            try:
-                consulta = NttcsCf20231.objects.get(id=id)
+            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
+                consulta = NttcsCf20231.objects.get(id=id)  # si esta en la tabla seleccionamos el ojeto en la tabla
                 consulta.domain = domain
                 consulta.selected_y_n_field = selected_y_n_field
                 consulta.control = control
@@ -547,8 +567,8 @@ class MantenimientoControlesNTTCS(TemplateView):
                 consulta.assessment_comments = assessment_comments
                 consulta.relative_result_by_function = relative_result_by_function
                 consulta.relative_result_by_domain = relative_result_by_domain
-                consulta.save()
-            except:
+                consulta.save()  # fijamos los valores y los guardamos.
+            except:  # si el valor no esta en la tabla
                 insert = NttcsCf20231(domain=domain, selected_y_n_field=selected_y_n_field, id=id, control=control,
                                       control_description=control_description,
                                       relative_control_weighting=relative_control_weighting,
@@ -556,41 +576,44 @@ class MantenimientoControlesNTTCS(TemplateView):
                                       numeric_result=numeric_result, weighted_numeric_result=weighted_numeric_result,
                                       assessment_comments=assessment_comments,
                                       relative_result_by_function=relative_result_by_function,
-                                      relative_result_by_domain=relative_result_by_domain)
+                                      relative_result_by_domain=relative_result_by_domain)  # creamos un nuevo input en la tabla
                 insert.save()
 
             context = super(MantenimientoControlesNTTCS, self).get_context_data(**knwargs)
             context["consulta"] = NttcsCf20231.objects.all()
             context["lenConsulta"] = len(NttcsCf20231.objects.all())
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-        else:
-            consulta = NttcsCf20231.objects.get(id=request.session["ultBusqueda"])
+        else:  # else que recoge la pulsacion del boton de modificar.
+            consulta = NttcsCf20231.objects.get(id=request.session["ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
             context = super(MantenimientoControlesNTTCS, self).get_context_data(**knwargs)
             context["consulta"] = NttcsCf20231.objects.all()
             context["lenConsulta"] = len(NttcsCf20231.objects.all())
-            context["seleccion"] = consulta
+            context["seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoControlesNTTCS, self).get_context_data(**knwargs)
         context["consulta"] = NttcsCf20231.objects.all()
         context["lenConsulta"] = len(NttcsCf20231.objects.all())
         return context
 
+    # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def Eliminar(request):
 
         consulta = NttcsCf20231.objects.get(id=request.session["ultBusqueda"])
-        consulta.delete()
+        consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         return redirect('MantenimientoControlesNTTCS')
 
-
+# Clase para la pagina de MantenimientoMapeoMarcos
 class MantenimientoMapeoMarcos(TemplateView):
     template_name = "homepage/MantenimientoMapeoMarcos.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
         context["assess"] = AsociacionMarcos.objects.all()
@@ -598,51 +621,52 @@ class MantenimientoMapeoMarcos(TemplateView):
         context["lenConsulta"] = 1
         return context
 
+    # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
         boton1 = request.POST.get('boton1')
 
-        if boton1 == 'btn1':
-            selector = request.POST.get('selectorMapeo')
+        if boton1 == 'btn1':  # if que recoge la pulsacion del boton de seleccion
+            selector = request.POST.get('selectorMapeo')  # guardamos el valor del selecctor de marcos
             mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(marco_id=selector).nombre_tabla)
+            mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(marco_id=selector).nombre_tabla)  # realizamos la consulta para obtener los contrloles del marco seleccionado
             context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
             context["assess"] = AsociacionMarcos.objects.all()
-            context["consulta"] = mycursor
+            context["consulta"] = mycursor  # fijamos la tabla a el valor seleccionado
             context["lenConsulta"] = 5
-            request.session["seleccion"] = AsociacionMarcos.objects.get(marco_id=selector).nombre_tabla
+            request.session["seleccion"] = AsociacionMarcos.objects.get(marco_id=selector).nombre_tabla  # guardamos la seleecion del marco
             return render(request, self.template_name, context=context)
 
-        elif request.POST.get('busqueda') is not None:
-            busqueda = request.POST.get('busqueda')
-            if busqueda == '':
+        elif request.POST.get('busqueda') is not None:  # if que recoge la pulsacion del boton de busqueda
+            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
+            if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 mycursor = self.conn.cursor(buffered=True)
                 mycursor.execute("SELECT * FROM " + request.session["seleccion"])
                 context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
                 context["assess"] = AsociacionMarcos.objects.all()
-                context["consulta"] = mycursor
+                context["consulta"] = mycursor # pasamos el valor de la tabla completa
                 return render(request, self.template_name, context=context)
             else:
                 mycursor = self.conn.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + busqueda + "'")
+                mycursor.execute("SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + busqueda + "'")  # consultamos el valor buscado en la tabla
                 context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
                 context["assess"] = AsociacionMarcos.objects.all()
-                context["consulta"] = mycursor
-                request.session["ultBusqueda"] = busqueda
+                context["consulta"] = mycursor  # pasamos la consulta para que se muestre en la tabla
+                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
-        elif request.POST.get('marco_id') != None:
-            id = request.POST.get('id')
-            marco_id = request.POST.get('marco_id')
-            nombre_tabla = request.POST.get('nombre_tabla')
+        elif request.POST.get('marco_id') != None:  # if que recoge la pulsacion del boton de insertar.
+            id = request.POST.get('id')  # valor del input de id
+            marco_id = request.POST.get('marco_id')  # valor del input de marco_id
+            nombre_tabla = request.POST.get('nombre_tabla')  # valor del input de nombre_tabla
 
-            try:
+            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
                 query = "UPDATE " + request.session["seleccion"] + " SET NTT_ID='" + marco_id + "', " + request.session[
-                    "seleccion"] + "='" + nombre_tabla + "' WHERE ID=" + id + ";"
+                    "seleccion"] + "='" + nombre_tabla + "' WHERE ID=" + id + ";"  # si esta en la tabla seleccionamos el ojeto en la tabla
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
                 self.conn.commit()
-            except:
+            except:  # si el valor no esta en la tabla
                 query = "INSERT INTO " + request.session["seleccion"] + " (NTT_ID, " + request.session[
-                    "seleccion"] + ") VALUES('" + marco_id + "', '" + nombre_tabla + "');"
+                    "seleccion"] + ") VALUES('" + marco_id + "', '" + nombre_tabla + "');"  # creamos un nuevo input en la tabla
 
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
@@ -653,42 +677,44 @@ class MantenimientoMapeoMarcos(TemplateView):
             context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
             context["assess"] = AsociacionMarcos.objects.all()
             context["consulta"] = mycursor
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-        else:
+        else:  # else que recoge la pulsacion del boton de modificar.
 
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute(
-                "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "'")
+                "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "'")  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
             context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
             context["assess"] = AsociacionMarcos.objects.all()
             context["consulta"] = mycursor
             for o in mycursor:
-                context["seleccion"] = o
+                context["seleccion"] = o  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
 
+    # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def EliminarMapeo(request):
         conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                        auth_plugin='mysql_native_password')
         mycursor = conn.cursor(buffered=True)
         mycursor.execute(
             "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "';")
-        conn.commit()
+        conn.commit()   # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
         conn.close()
         return redirect('MantenimientoMapeoMarcos')
 
-
+# Clase para la pagina de MantenimientoAssessmentArchivados
 class MantenimientoAssessmentArchivados(TemplateView):
     template_name = "homepage/MantenimientoAssessmentArchivados.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
 
+    # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
         boton = request.POST.get('boton')
-        if boton == 'btn1':
-            selector = request.POST.get('selector')
+        if boton == 'btn1':  # if que recoge la pulsacion del boton de seleccion
+            selector = request.POST.get('selector') # guardamos el valor del selecctor de marcos
             mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + selector)
+            mycursor.execute("SELECT * FROM " + selector)  # realizamos la consulta para obtener los contrloles del marco seleccionado
             context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
             s = Assessmentguardados.objects.all()
             p = []
@@ -696,13 +722,13 @@ class MantenimientoAssessmentArchivados(TemplateView):
                 if i.archivado == 1:
                     p += [i]
             context["selector"] = p
-            context["consulta"] = mycursor
-            request.session["seleccion"] = selector
+            context["consulta"] = mycursor  # fijamos la tabla a el valor seleccionado
+            request.session["seleccion"] = selector  # guardamos la seleecion del marco
             return render(request, self.template_name, context=context)
-        elif request.POST.get('busqueda') != None:
-            busqueda = request.POST.get('busqueda')
+        elif request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
+            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
             print(busqueda)
-            if busqueda == '':
+            if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 mycursor = self.conn.cursor(buffered=True)
                 mycursor.execute("SELECT * FROM " + request.session["seleccion"])
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
@@ -712,12 +738,12 @@ class MantenimientoAssessmentArchivados(TemplateView):
                     if i.archivado == 1:
                         p += [i]
                 context["selector"] = p
-                context["consulta"] = mycursor
+                context["consulta"] = mycursor  # pasamos el valor de la tabla completa
                 request.session["ultBusqueda"] = busqueda
                 return render(request, self.template_name, context=context)
             else:
                 mycursor = self.conn.cursor(buffered=True)
-                query = "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + busqueda + "'"
+                query = "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + busqueda + "'" # consultamos el valor buscado en la tabla
                 mycursor.execute(query)
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
                 s = Assessmentguardados.objects.all()
@@ -726,30 +752,33 @@ class MantenimientoAssessmentArchivados(TemplateView):
                     if i.archivado == 1:
                         p += [i]
                 context["selector"] = p
-                context["consulta"] = mycursor
-                request.session["ultBusqueda"] = busqueda
+                context["consulta"] = mycursor  # pasamos la consulta para que se muestre en la tabla
+                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
 
-        elif request.POST.get('id') != None:
-            id = request.POST.get('id')
-            descripcion = request.POST.get('descripcion')
-            Pregunta = request.POST.get('Pregunta')
-            criterio = request.POST.get('criterio')
-            respuesta = request.POST.get('respuesta')
-            valoracion = request.POST.get('valoracion')
-            evidencia = request.POST.get('evidencia')
+        elif request.POST.get('id') != None:  # if que recoge la pulsacion del boton de insertar.
+            id = request.POST.get('id')  # valor del input de id
+            descripcion = request.POST.get('descripcion')  # valor del input de descripcion
+            Pregunta = request.POST.get('Pregunta')  # valor del input de Pregunta
+            criterio = request.POST.get('criterio')  # valor del input de criterio
+            respuesta = request.POST.get('respuesta')  # valor del input de respuesta
+            valoracion = request.POST.get('valoracion')  # valor del input de respuesta
+            evidencia = request.POST.get('evidencia')  # valor del input de evidencia
 
             try:
                 query = """UPDATE """ + request.session["seleccion"] + """ SET descripcion='""" + descripcion + """', 
                             pregunta='""" + Pregunta + """', criterioValoracion='""" + criterio + """', respuesta='""" + \
                         respuesta + """', valoracion='""" + valoracion + """', 
-                                    evidencia='""" + evidencia + """' WHERE ID='""" + id + """';"""
+                                    evidencia='""" + evidencia + """' WHERE ID='""" + id + """';"""  # si esta en la tabla seleccionamos el ojeto en la tabla
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
                 self.conn.commit()
-            except:
+            except:  # si el valor no esta en la tabla
                 query = """INSERT INTO """ + request.session[
-                    "seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia + """');"""
+                    "seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, 
+                    evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', 
+                    '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia +\
+                """');"""  # creamos un nuevo input en la tabla
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
                 self.conn.commit()
@@ -764,12 +793,12 @@ class MantenimientoAssessmentArchivados(TemplateView):
                     p += [i]
             context["selector"] = p
             context["consulta"] = mycursor
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-        else:
+        else:  # else que recoge la pulsacion del boton de modificar.
             mycursor = self.conn.cursor(buffered=True)
             query = "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session[
-                "ultBusqueda"] + "'"
+                "ultBusqueda"] + "'"  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
             mycursor.execute(query)
             context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
             s = Assessmentguardados.objects.all()
@@ -780,9 +809,10 @@ class MantenimientoAssessmentArchivados(TemplateView):
             context["selector"] = p
             context["consulta"] = mycursor
             for o in mycursor:
-                context["seleccion"] = o
+                context["seleccion"] = o  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
 
+    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
         s = Assessmentguardados.objects.all()
@@ -797,12 +827,13 @@ class MantenimientoAssessmentArchivados(TemplateView):
 
         return context
 
+    # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def EliminarAssessment(request):
         conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                        auth_plugin='mysql_native_password')
         mycursor = conn.cursor(buffered=True)
         mycursor.execute(
             "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "';")
-        conn.commit()
+        conn.commit()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
         conn.close()
         return redirect('MantenimientoAssessmentArchivados')
