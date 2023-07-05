@@ -13,12 +13,14 @@
     <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
+    <!-- Formulario de assesment -->
     <form class="box wrapper" method="post" id="form">
         {% csrf_token %}
         <div class="logoGrande1">
             <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
         </div>
 
+        <!-- titulo  -->
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
                 <div class="cajaTexto">
@@ -27,6 +29,7 @@
             </div>
         </div>
 
+        <!-- Logo de NTT DATA -->
         <div class="logoPequeno">
             <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
         </div>
@@ -36,8 +39,9 @@
             <br>
             <div class="textoDisplay">{{opciones.id}}</div>
         </div>
-        <div class="ass22">
 
+        <!-- Seleccion de assesment creado -->
+        <div class="ass22">
             <div class="flexass22">
                 <label>Control</label>
                 <select style="width:100%;" class="selectStyleAssessment"  id="selector" name="selector">
@@ -54,20 +58,25 @@
             </div>
         </div>
 
+        <!-- descripcion del assesment -->
         <div class="ass32">
             <label>Descripción</label>
             <div class="textoDisplay">{{opciones.control_description}}</div>
         </div>
 
+        <!-- Caja donde se muestra una pregunta de control para el assesment -->
         <div class="ass13">
             <label>Pregunta</label>
             <div class="textoDisplayPregunta">{{opciones.control_question}}</div>
         </div>
 
+        <!-- Captura de la respuesta escrita -->
         <div class="ass33">
             <label>Respuesta</label>
             <input style="height:50%; width:100%;" type="text" id="respuesta" name="respuesta" value="{{respuesta}}">
         </div>
+
+        <!-- Caja de seleccion para ingresar la valoracion de madurez -->
         <div class="ass34">
             <label>Valoración de madurez</label>
             <select style="height:55%; width:100%;" class="selectStyleAssessment" id="valmad" name="valmad" >
@@ -81,16 +90,19 @@
             </select>
         </div>
 
+        <!-- caja de texto para criterio de valoracion -->
         <div class="ass41">
             <label>Criterio de Valoración</label>
             <input style="height:80%; width:200%;" type="text">
         </div>
 
+        <!-- caja de texto para informacion de evidencia -->
         <div class="ass43">
             <label>Evidencia</label>
             <input style="height:80%; width:200%;" type="text" value="">
         </div>
 
+        <!-- botones de guardar y archivar assesment -->
         <div class="ass52">
             <div class="botonesFlexAssessment">
                 <div class="cajaass52">
@@ -107,6 +119,7 @@
 
 </body>
 
+<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
 <script type="text/javascript">
     function clicked() {
        if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {

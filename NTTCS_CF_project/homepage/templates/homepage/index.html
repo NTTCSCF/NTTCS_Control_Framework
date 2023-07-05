@@ -12,8 +12,11 @@
     <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
+
+    <!-- Contenedor de la página  -->
     <div class="box wrapper">
 
+        <!-- Logo NTT Control Framework -->
         <div class="logoGrande">
             <div class="logoGrandeFlex">
                 <div class="logoGrandeCaja">
@@ -21,7 +24,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- Logo de NTT DATA -->
         <div class="logoPequeno"><img class="ajustarImg"  src="{% static '/images/logo_NTTData.jpg' %}"></div>
+
+        <!-- Caja de informacón -->
         <div class="informacion">
             <div class="cajaInformacion">
                 <br>NTT Cybersecurity Control Framework
@@ -29,10 +36,14 @@
                 <br>Risk Managenent
             </div>
         </div>
+
+        <!-- Section de logueo al sistema -->
+
         <div style="margin-top:5px;" class="loginNames">
             <h5>Usuario</h5>
             <h5>Contraseña</h5>
         </div>
+
         <div class="login">
             <form method="post">
                 {% csrf_token %}

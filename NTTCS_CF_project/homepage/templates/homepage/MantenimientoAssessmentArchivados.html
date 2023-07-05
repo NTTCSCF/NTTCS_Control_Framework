@@ -13,12 +13,15 @@
     <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
+    <!-- Contenedor de la página  -->
     <div class="box wrapper">
 
+        <!-- Logo NTT Control Framework -->
         <div class="logoGrande1">
             <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
         </div>
 
+        <!-- titulo  -->
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
                 <div class="cajaTexto">
@@ -27,10 +30,12 @@
             </div>
         </div>
 
+        <!-- Logo de NTT DATA -->
         <div class="logoPequeno">
             <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
         </div>
 
+        <!-- Seccion select de los assesment guardados -->
         <div class="selectorTablas2">
             <form class="selectorTablasFlex2" method="post">
                 {% csrf_token %}
@@ -38,10 +43,7 @@
                     <label>Control</label>
                     <select style="width:100%;" class="selectStyleAssessment"  id="selector" name="selector">
                         {% for ids in selector %}
-
                         <option selected value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
-
-
                         {% endfor %}
                     </select>
                 </div>
@@ -51,6 +53,7 @@
             </form>
         </div>
 
+        <!-- vista del boton de modificar -->
         <div class="botonModificar2">
             <form class="tablasModificarFlex" method="post" >
                 {% csrf_token %}
@@ -60,6 +63,7 @@
             </form>
         </div>
 
+        <!-- Seccion de busqueda -->
         <div class="tablasBusca2">
             <form class="tablasBuscaFlex" method="post" id="busquedaForm">
                 {% csrf_token %}
@@ -72,6 +76,7 @@
             </form>
         </div>
 
+        <!-- Boton eliminar -->
         <div class="botonEliminar2">
             <div class="tablasEliminarFlex">
                 <div >
@@ -80,7 +85,7 @@
             </div>
         </div>
 
-
+        <!-- tabla de contenido de los controles  -->
         <div class="tablasTablas2">
             <div class="tabasFlex">
                 <div class="cajaTablasTitulo">
@@ -94,6 +99,7 @@
             </div>
         </div>
 
+        <!-- formulario para insertar datos -->
         <div class="tablasInsertar2">
             <form class="tablasInsertarFlex" method="post">
                 {% csrf_token %}
@@ -133,8 +139,6 @@
         </div>
 
     </div>
-
-
 
 
 

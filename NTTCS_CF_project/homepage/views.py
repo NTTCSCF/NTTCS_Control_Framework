@@ -46,7 +46,7 @@ class assessment(TemplateView):
         boton3 = request.POST.get('boton3')  # valor del boton 3
 
         if boton == 'btn1':  # se recoge la pulsacion del boton rellenar
-            consulta = Assessment.objects.get(id=select)  # consulta para vel la seleccion del despegable de los controles
+            consulta = Assessment.objects.get(id=select)  # consulta para ver la seleccion del despegable de los controles
             context = super(assessment, self).get_context_data(**knwargs)
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute("SELECT * FROM " + self.assSelect)  # consulta de la seleccion del assesment
@@ -75,6 +75,7 @@ class assessment(TemplateView):
             consulta.archivado = 1  # ponemos el valor de archivado a 1
             consulta.save()
             return redirect('menu')  # volvemos al menu
+
 
         context = super(assessment, self).get_context_data(**knwargs)
         mycursor = self.conn.cursor(buffered=True)
