@@ -13,13 +13,16 @@
     <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
+
+    <!-- Contenedor de la página  -->
     <div class="box wrapper">
 
-
+        <!-- Logo NTT Control Framework -->
         <div class="logoGrande1">
             <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
         </div>
 
+        <!-- titulo  -->
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
                 <div class="cajaTexto">
@@ -28,10 +31,12 @@
             </div>
         </div>
 
+        <!-- Logo de NTT DATA -->
         <div class="logoPequeno">
             <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
         </div>
 
+        <!-- seleccion de controls BTT para mostrar en pantalla -->
         <div class="selectorTablas2">
 
             <div class="selectorTablasFlex2">
@@ -52,6 +57,7 @@
 
         </div>
 
+        <!-- vista del boton de modificar -->
         <div class="botonModificar2">
             <form class="tablasModificarFlex" method="post" >
                 {% csrf_token %}
@@ -61,7 +67,7 @@
             </form>
         </div>
 
-
+        <!-- bloque formulario busqueda de controles NTT -->
         <div class="tablasBusca2">
             <form class="tablasBuscaFlex" method="post" >
                 {% csrf_token %}
@@ -74,6 +80,7 @@
             </form>
         </div>
 
+        <!-- Boton eliminar -->
         <div class="botonEliminar2">
             <div class="tablasEliminarFlex">
                 <div >
@@ -82,6 +89,7 @@
             </div>
         </div>
 
+        <!-- tabla de contenido de los controles -->
         <div class="tablasTablas2">
             <div class="tabasFlex">
                 <div class="cajaTablasTitulo">
@@ -95,7 +103,7 @@
             </div>
         </div>
 
-
+        <!-- formulario para ingreso de datos -->
         <div class="tablasInsertar2">
             <form class="tablasInsertarFlex" method="post">
                 {% csrf_token %}
