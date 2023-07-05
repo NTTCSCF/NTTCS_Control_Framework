@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, Assessment, SeleccionAssessment, \
-    NttcsCf20231, FrameworkList, Domains, EvidenceRequestCatalog
+from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, Assessment, SeleccionAssessment,\
+    NttcsCf20231, Domains, EvidenceRequestCatalog
 from django.views.generic import TemplateView
 import mysql.connector
 from django.contrib.sessions.backends.db import SessionStore
@@ -20,14 +20,13 @@ class index(TemplateView):
             return render(request, 'homepage/menu.html')
         return render(request, self.template_name)
 
-
 # Clase para la pagina de Assessment
 class assessment(TemplateView):
     template_name = "homepage/assessment.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
     assSelect = SeleccionAssessment.objects.get(
-        seleccion='assessmentSeleccionado')  # guardamos la ultima seleccion de assesment
+        seleccion='assessmentSeleccionado').valor  # guardamos la ultima seleccion de assesment
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
@@ -44,8 +43,8 @@ class assessment(TemplateView):
         boton = request.POST.get('boton')  # valor del boton 1
         boton2 = request.POST.get('boton2')  # valor del boton 2
         boton3 = request.POST.get('boton3')  # valor del boton 3
-
-        if boton == 'btn1':  # se recoge la pulsacion del boton rellenar
+        print(boton, boton2, boton3)
+        if 'selector' in request.POST:  # se recoge la pulsacion del boton rellenar
             consulta = Assessment.objects.get(id=select)  # consulta para ver la seleccion del despegable de los controles
             context = super(assessment, self).get_context_data(**knwargs)
             mycursor = self.conn.cursor(buffered=True)
@@ -53,6 +52,7 @@ class assessment(TemplateView):
             context["assess"] = mycursor
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
             context["opciones"] = consulta
+            request.session["controlSelect"] = select
 
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute("SELECT * FROM " + self.assSelect + " WHERE ID='" + select + "'")
@@ -62,7 +62,7 @@ class assessment(TemplateView):
             return render(request, self.template_name, context=context)
 
         elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
-            consulta = Assessment.objects.get(id=select)  # consulta para consegir los valores del control seleccionado
+            consulta = Assessment.objects.get(id=request.session["controlSelect"])  # consulta para consegir los valores del control seleccionado
             query = """UPDATE """ + self.assSelect + """ SET descripcion='""" + consulta.control_description + """', 
             pregunta='""" + consulta.control_question + """', criterioValoracion='', respuesta='""" + \
                     request.POST.get('respuesta') + """', valoracion='""" + request.POST.get('valmad') + """', 
@@ -70,11 +70,12 @@ class assessment(TemplateView):
             mycursor = self.conn.cursor()
             mycursor.execute(query)
             self.conn.commit()
-        else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
+        """else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
+            
             consulta = Assessmentguardados.objects.get(id_assessment=self.assSelect)  # colsulta para la selecionar el assesment
             consulta.archivado = 1  # ponemos el valor de archivado a 1
             consulta.save()
-            return redirect('menu')  # volvemos al menu
+            return redirect('menu')  # volvemos al menu"""
 
 
         context = super(assessment, self).get_context_data(**knwargs)
@@ -712,6 +713,7 @@ class MantenimientoAssessmentArchivados(TemplateView):
     # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
         boton = request.POST.get('boton')
+
         if boton == 'btn1':  # if que recoge la pulsacion del boton de seleccion
             selector = request.POST.get('selector') # guardamos el valor del selecctor de marcos
             mycursor = self.conn.cursor(buffered=True)
