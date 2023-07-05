@@ -16,6 +16,7 @@
 </head>
 <body>
     <!-- Formulario de assesment -->
+
     <div class="box wrapper" >
 
         <div class="logoGrande1">
@@ -43,8 +44,11 @@
         </div>
 
         <!-- Seleccion de assesment creado -->
+
         <form class="ass22" method="post" id="form">
             {% csrf_token %}
+
+
             <div class="flexass22">
                 <label>Control</label>
                 <select style="width:100%;" class="selectStyleAssessment" onchange="this.form.submit()"  id="selector" name="selector">
@@ -65,6 +69,7 @@
             <label>Descripción</label>
             <div class="textoDisplay">{{opciones.control_description}}</div>
         </div>
+
 
         <form class="flexAssForm" method="post" id="form2">
             {% csrf_token %}
@@ -108,6 +113,8 @@
                 <div class="cajaAssForm">
                     <label>Evidencia</label>
                     <input style="height:80%; width:100%;" type="text" value="">
+
+ 
                 </div>
             </div>
             <div class="flexAssFormrow">
