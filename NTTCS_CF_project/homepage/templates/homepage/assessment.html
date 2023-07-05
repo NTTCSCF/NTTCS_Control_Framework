@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="{% static '/css/main.css' %}" />
 <link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+<link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
 
 
 <head>
@@ -14,8 +16,9 @@
 </head>
 <body>
     <!-- Formulario de assesment -->
-    <form class="box wrapper" method="post" id="form">
-        {% csrf_token %}
+
+    <div class="box wrapper" >
+
         <div class="logoGrande1">
             <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
         </div>
@@ -41,22 +44,25 @@
         </div>
 
         <!-- Seleccion de assesment creado -->
-        <div class="ass22">
+
+        <form class="ass22" method="post" id="form">
+            {% csrf_token %}
+
+
             <div class="flexass22">
                 <label>Control</label>
-                <select style="width:100%;" class="selectStyleAssessment"  id="selector" name="selector">
+                <select style="width:100%;" class="selectStyleAssessment" onchange="this.form.submit()"  id="selector" name="selector">
                     {% for ids in assess %}
                     {% if ids.0 == opciones.id %}
                     <option selected value="{{ids.0}}">{{ids.0}}</option>
                     {% else %}
-                    <option  value="{{ids.0}}">{{ids.0}}</option>
+                    <option value="{{ids.0}}">{{ids.0}}</option>
                     {% endif %}
 
                     {% endfor %}
                 </select>
-                <button class="btnBorde btnAss" type="submit" id="boton" name="boton" value="btn1">Rellenar</button>
             </div>
-        </div>
+        </form>
 
         <!-- descripcion del assesment -->
         <div class="ass32">
@@ -64,70 +70,95 @@
             <div class="textoDisplay">{{opciones.control_description}}</div>
         </div>
 
-        <!-- Caja donde se muestra una pregunta de control para el assesment -->
-        <div class="ass13">
-            <label>Pregunta</label>
-            <div class="textoDisplayPregunta">{{opciones.control_question}}</div>
-        </div>
 
-        <!-- Captura de la respuesta escrita -->
-        <div class="ass33">
-            <label>Respuesta</label>
-            <input style="height:50%; width:100%;" type="text" id="respuesta" name="respuesta" value="{{respuesta}}">
-        </div>
-
-        <!-- Caja de seleccion para ingresar la valoracion de madurez -->
-        <div class="ass34">
-            <label>Valoración de madurez</label>
-            <select style="height:55%; width:100%;" class="selectStyleAssessment" id="valmad" name="valmad" >
-                {% for ids in valMad %}
-                {% if ids.sublevels == valoracion %}
-                <option selected value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
-                {% else %}
-                <option  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
-                {% endif %}
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- caja de texto para criterio de valoracion -->
-        <div class="ass41">
-            <label>Criterio de Valoración</label>
-            <input style="height:80%; width:200%;" type="text">
-        </div>
-
-        <!-- caja de texto para informacion de evidencia -->
-        <div class="ass43">
-            <label>Evidencia</label>
-            <input style="height:80%; width:200%;" type="text" value="">
-        </div>
-
-        <!-- botones de guardar y archivar assesment -->
-        <div class="ass52">
-            <div class="botonesFlexAssessment">
-                <div class="cajaass52">
-                    <button class="btnBorde btnAssesmentIr" type="submit" id="boton2" name="boton2" value="btn2">Guardar Valoración</button>
+        <form class="flexAssForm" method="post" id="form2">
+            {% csrf_token %}
+            <div class="flexAssFormrow">
+                <!-- Caja donde se muestra una pregunta de control para el assesment -->
+                <div class='cajaAssForm'>
+                    <label>Pregunta</label>
+                    <div class="textoDisplayPregunta">{{opciones.control_question}}</div>
                 </div>
-                <div class="cajaass52">
-                    <button class="btnBorde btnAssesmentIr" type="button" onclick="clicked();" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
+
+
+                <!-- Captura de la respuesta escrita -->
+                <div class="cajaAssForm">
+                    <label>Respuesta</label>
+                    <input style="height:65%; width:100%;" type="text" id="respuesta" name="respuesta" value="{{respuesta}}">
+                </div>
+
+                <!-- Caja de seleccion para ingresar la valoracion de madurez -->
+                <div class="cajaAssForm">
+                    <label>Valoración de madurez</label>
+                    <select style="height:70%; width:100%;" class="selectStyleAssessment" id="valmad" name="valmad" >
+                        {% for ids in valMad %}
+                        {% if ids.sublevels == valoracion %}
+                        <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                        {% else %}
+                        <option   value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
-        </div>
+            <div class="flexAssFormrow">
+                
+                <!-- caja de texto para criterio de valoracion -->
+                <div class="cajaAssForm">
+                    <label>Criterio de Valoración</label>
+                    <input style="height:80%; width:100%;" type="text">
+                </div>
 
-    </form>
+                <!-- caja de texto para informacion de evidencia -->
+                <div class="cajaAssForm">
+                    <label>Evidencia</label>
+                    <input style="height:80%; width:100%;" type="text" value="">
+
+ 
+                </div>
+            </div>
+            <div class="flexAssFormrow">
+                <!-- botones de guardar y archivar assesment -->
+                <div class="cajaAssForm">
+                    <div class="botonesFlexAssessment">
+                        <div class="cajaass52">
+                            <button class="btnBorde btnAssesmentIr" type="submit" id="boton2" name="boton2" value="btn2">Guardar Valoración</button>
+                        </div>
+                        <div class="cajaass52">
+                            <button class="btnBorde btnAssesmentIr" type="button" onclick="clicked(this.form);" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
 
 
 </body>
 
 <!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
 <script type="text/javascript">
-    function clicked() {
+    function clicked(form) {
        if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
            form.submit();
        } else {
            return false;
        }
     }
+
+    function select(form) {
+        form.submit();
+    }
+</script>
+<script>
+  tinymce.init({
+    selector: 'textarea#editor',
+    skin: 'bootstrap',
+    plugins: 'lists, link, image, media',
+    toolbar: 'h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help',
+    menubar: false,
+  });
 </script>
 
 </html>
