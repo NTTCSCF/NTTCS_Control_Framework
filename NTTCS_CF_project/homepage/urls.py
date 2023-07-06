@@ -25,5 +25,9 @@ urlpatterns = [
     path('MantenimientoMapeoMarcos/EliminarMapeo/', views.MantenimientoMapeoMarcos.EliminarMapeo, name='EliminarMapeo'),
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
     path('MantenimientoAssessmentArchivados/EliminarAssessment/', views.MantenimientoAssessmentArchivados.EliminarAssessment, name='EliminarAssessment'),
+
+    #prueba jose
+    path('MantDominios2/', views.MantDominios2.as_view(), name='MantDominios2'),
+
 ]
 
