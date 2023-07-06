@@ -5,8 +5,18 @@
 
 <link rel="stylesheet" href="{% static '/css/main.css' %}" />
 <link rel="stylesheet" href="{% static '/css/botones.css' %}" />
-<link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+
+
+<!-- Enlace con bootstrap  -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<!-- Enlace con jodit (usado para editor de texto)  -->
+<link rel="stylesheet" href="https://unpkg.com/jodit@4.0.0-beta.24/es2021/jodit.min.css"/>
+<script src="https://unpkg.com/jodit@4.0.0-beta.24/es2021/jodit.min.js"></script>
 
 
 <head>
@@ -37,60 +47,88 @@
             <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
         </div>
 
-        <div class="ass12">
-            <label>ID</label>
-            <br>
-            <div class="textoDisplay">{{opciones.id}}</div>
-        </div>
-
-        <!-- Seleccion de assesment creado -->
-
-        <form class="ass22" method="post" id="form">
-            {% csrf_token %}
-
-
-            <div class="flexass22">
-                <label>Control</label>
-                <select style="width:100%;" class="selectStyleAssessment" onchange="this.form.submit()"  id="selector" name="selector">
-                    {% for ids in assess %}
-                    {% if ids.0 == opciones.id %}
-                    <option selected value="{{ids.0}}">{{ids.0}}</option>
-                    {% else %}
-                    <option value="{{ids.0}}">{{ids.0}}</option>
-                    {% endif %}
-
-                    {% endfor %}
-                </select>
-            </div>
-        </form>
-
-        <!-- descripcion del assesment -->
-        <div class="ass32">
-            <label>Descripción</label>
-            <div class="textoDisplay">{{opciones.control_description}}</div>
-        </div>
-
-
-        <form class="flexAssForm" method="post" id="form2">
-            {% csrf_token %}
+        <div class="flexAssOutput">
             <div class="flexAssFormrow">
+                <!-- Seleccion de assesment creado -->
+
+                <form class="cajaAssForm" method="post" id="form">
+                    {% csrf_token %}
+
+
+                    <div class="flexass22">
+                        <label for="selector2">Control</label>
+                        <select style="width:100%;" class="selectStyleAssessment selectpicker" aria-label="Default select example" data-live-search="true" id="selector2" onchange="this.form.submit()"  id="selector" name="selector">
+                            <option selected value="None">--No Seleccionado--</option>
+                            {% for ids in assess %}
+                            {% if ids.0 == opciones.id %}
+                            <option selected value="{{ids.0}}">{{ids.0}}</option>
+                            {% else %}
+                            <option value="{{ids.0}}">{{ids.0}}</option>
+                            {% endif %}
+
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="flexAssFormrow">
+                <div class="cajaAssForm">
+                    <label>Nombre del control</label>
+                    <br>
+                    <div class="textoDisplay">{{opciones.control}}</div>
+                </div>
+
+                <!-- descripcion del assesment -->
+                <div class="cajaAssForm">
+                    <label>Descripción</label>
+                    <div class="textoDisplay">{{opciones.control_description}}</div>
+                </div>
+
                 <!-- Caja donde se muestra una pregunta de control para el assesment -->
                 <div class='cajaAssForm'>
                     <label>Pregunta</label>
                     <div class="textoDisplayPregunta">{{opciones.control_question}}</div>
                 </div>
 
+            </div>
 
+
+
+
+        </div>
+
+        <form class="flexAssForm" method="post" id="form2">
+            {% csrf_token %}
+
+            <div class="flexAssFormrow2">
                 <!-- Captura de la respuesta escrita -->
                 <div class="cajaAssForm">
                     <label>Respuesta</label>
-                    <input style="height:65%; width:100%;" type="text" id="respuesta" name="respuesta" value="{{respuesta}}">
-                </div>
+                    <textarea id="editor" name="respuesta">{{respuesta}}</textarea>
 
+                    <!-- Script para el uso del editor de texto -->
+                    <script type="text/javascript">
+
+                        $(function() {
+                            $('textarea').each(function () {
+                                const editor = Jodit.make(this, {
+                                  "spellcheck": true,
+                                  "language": "es"
+                                });
+                            });
+                        });
+
+                    </script>
+
+                </div>
+            </div>
+            <div class="flexAssFormrow">
                 <!-- Caja de seleccion para ingresar la valoracion de madurez -->
                 <div class="cajaAssForm">
                     <label>Valoración de madurez</label>
-                    <select style="height:70%; width:100%;" class="selectStyleAssessment" id="valmad" name="valmad" >
+                    <select  class=" selectpicker selectStyleAssessment" aria-label="Default select example" data-live-search="true" id="valmad" name="valmad" >
                         {% for ids in valMad %}
                         {% if ids.sublevels == valoracion %}
                         <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
@@ -101,8 +139,10 @@
                     </select>
                 </div>
             </div>
+
+
             <div class="flexAssFormrow">
-                
+
                 <!-- caja de texto para criterio de valoracion -->
                 <div class="cajaAssForm">
                     <label>Criterio de Valoración</label>
@@ -114,7 +154,7 @@
                     <label>Evidencia</label>
                     <input style="height:80%; width:100%;" type="text" value="">
 
- 
+
                 </div>
             </div>
             <div class="flexAssFormrow">
@@ -130,6 +170,7 @@
                     </div>
                 </div>
             </div>
+
         </form>
 
     </div>
@@ -146,19 +187,6 @@
            return false;
        }
     }
-
-    function select(form) {
-        form.submit();
-    }
-</script>
-<script>
-  tinymce.init({
-    selector: 'textarea#editor',
-    skin: 'bootstrap',
-    plugins: 'lists, link, image, media',
-    toolbar: 'h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help',
-    menubar: false,
-  });
 </script>
 
 </html>

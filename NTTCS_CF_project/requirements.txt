@@ -1,0 +1,6 @@
+django
+pymysql
+mysqlclient
+mysql
+mysql-connector-python
+bs4

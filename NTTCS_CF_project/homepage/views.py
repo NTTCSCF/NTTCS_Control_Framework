@@ -3,6 +3,8 @@ from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguar
     NttcsCf20231, Domains, EvidenceRequestCatalog
 from django.views.generic import TemplateView
 import mysql.connector
+from bs4 import BeautifulSoup
+
 from django.contrib.sessions.backends.db import SessionStore
 
 
@@ -44,8 +46,7 @@ class assessment(TemplateView):
         boton2 = request.POST.get('boton2')  # valor del boton 2
         boton3 = request.POST.get('boton3')  # valor del boton 3
 
-        print(boton, boton2, boton3)
-        if 'selector' in request.POST:  # se recoge la pulsacion del boton rellenar
+        if 'selector' in request.POST:  # se recoge la pulsacion del select
 
             consulta = Assessment.objects.get(id=select)  # consulta para ver la seleccion del despegable de los controles
             context = super(assessment, self).get_context_data(**knwargs)
@@ -59,6 +60,8 @@ class assessment(TemplateView):
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute("SELECT * FROM " + self.assSelect + " WHERE ID='" + select + "'")
             for fila in mycursor:  # Rellenamos tanto las casillas de respuesta y valoracion
+                p= BeautifulSoup(fila[4]).get_text('\n').replace('\n','<br>')
+                print(p)
                 context["respuesta"] = fila[4]
                 context["valoracion"] = fila[5]
             return render(request, self.template_name, context=context)
@@ -67,17 +70,17 @@ class assessment(TemplateView):
             consulta = Assessment.objects.get(id=request.session["controlSelect"])  # consulta para consegir los valores del control seleccionado
             query = """UPDATE """ + self.assSelect + """ SET descripcion='""" + consulta.control_description + """', 
             pregunta='""" + consulta.control_question + """', criterioValoracion='', respuesta='""" + \
-                    request.POST.get('respuesta') + """', valoracion='""" + request.POST.get('valmad') + """', 
+                    str(request.POST.get('respuesta')) + """', valoracion='""" + request.POST.get('valmad') + """', 
                     evidencia='' WHERE ID='""" + consulta.id + """';"""  # consulta para rellenar los valores del control seleccionado
             mycursor = self.conn.cursor()
             mycursor.execute(query)
             self.conn.commit()
-        """else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
+        else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
             
             consulta = Assessmentguardados.objects.get(id_assessment=self.assSelect)  # colsulta para la selecionar el assesment
             consulta.archivado = 1  # ponemos el valor de archivado a 1
             consulta.save()
-            return redirect('menu')  # volvemos al menu"""
+            return redirect('menu')  # volvemos al menu
 
 
 
@@ -156,6 +159,8 @@ class assessmentselect(TemplateView):
             assSelect.save()
             return redirect("assessment")
         else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
+
+            print(request.POST.getlist('editor'))
             context = super().get_context_data(**knwargs)
             context["assess"] = Assessmentguardados.objects.all()
             context["marcos"] = AsociacionMarcos.objects.all()
