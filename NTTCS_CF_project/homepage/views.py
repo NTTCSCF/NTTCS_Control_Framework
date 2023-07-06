@@ -3,7 +3,7 @@ from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguar
     NttcsCf20231, Domains, EvidenceRequestCatalog
 from django.views.generic import TemplateView
 import mysql.connector
-from bs4 import BeautifulSoup
+
 
 from django.contrib.sessions.backends.db import SessionStore
 
@@ -60,8 +60,7 @@ class assessment(TemplateView):
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute("SELECT * FROM " + self.assSelect + " WHERE ID='" + select + "'")
             for fila in mycursor:  # Rellenamos tanto las casillas de respuesta y valoracion
-                p= BeautifulSoup(fila[4]).get_text('\n').replace('\n','<br>')
-                print(p)
+                
                 context["respuesta"] = fila[4]
                 context["valoracion"] = fila[5]
             return render(request, self.template_name, context=context)
