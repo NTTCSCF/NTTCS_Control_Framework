@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" href="{% static '/css/main.css' %}" />
 <link rel="stylesheet" href="{% static '/css/botones.css' %}" />
-
+<link rel="stylesheet" href="{% static '/css/ass.css' %}" />
 
 <!-- Enlace con bootstrap  -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
@@ -26,154 +26,202 @@
 </head>
 <body>
     <!-- Formulario de assesment -->
-
-    <div class="box wrapper" >
-
-        <div class="logoGrande1">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+    <div class="pagina">
+        <div class="menu">
+            <div> inicio</div>
+            <div> inicio</div>
+            <div> inicio</div>
+            <div> inicio</div>
+            <div> inicio</div>
         </div>
+        <div class="contenido">
 
-        <!-- titulo  -->
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Assesment</h1>
+            <div class="rowTitulo">
+                <!-- Titulo con el nombre del assessment -->
+                <div class="cajaTitulo">
+                    <h1>{{NombreAss}}</h1>
                 </div>
             </div>
-        </div>
 
-        <!-- Logo de NTT DATA -->
-        <div class="logoPequeno">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
-        </div>
-
-        <div class="flexAssOutput">
-            <div class="flexAssFormrow">
+            <div class="rowTitulo">
                 <!-- Seleccion de assesment creado -->
-
-                <form class="cajaAssForm" method="post" id="form">
+                <form class="contenedorSelector" method="post" id="form">
                     {% csrf_token %}
+                        <div class="cajasTextoSelectorAssessment">
+                            <label for="selector"> Seleccione un Control</label>
+                        </div>
+                        <div class="cajasSelectorAssessment">
+                            <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector">
+                                <option selected value="None">--- No Seleccionado ---</option>
+                                {% for ids in assess %}
+                                {% if ids.0 == opciones.id %}
+                                <option selected value="{{ids.0}}">{{ids.0}}</option>
+                                {% else %}
+                                <option value="{{ids.0}}">{{ids.0}}</option>
+                                {% endif %}
 
-
-                    <div class="flexass22">
-                        <label for="selector2">Control</label>
-                        <select style="width:100%;" class="selectStyleAssessment selectpicker" aria-label="Default select example" data-live-search="true" id="selector2" onchange="this.form.submit()"  id="selector" name="selector">
-                            <option selected value="None">--No Seleccionado--</option>
-                            {% for ids in assess %}
-                            {% if ids.0 == opciones.id %}
-                            <option selected value="{{ids.0}}">{{ids.0}}</option>
-                            {% else %}
-                            <option value="{{ids.0}}">{{ids.0}}</option>
-                            {% endif %}
-
-                            {% endfor %}
-                        </select>
-                    </div>
+                                {% endfor %}
+                            </select>
+                        </div>
                 </form>
-
             </div>
 
-            <div class="flexAssFormrow">
-                <div class="cajaAssForm">
-                    <label>Nombre del control</label>
-                    <br>
-                    <div class="textoDisplay">{{opciones.control}}</div>
+            <div class="rowCajas">
+                <!-- Tarjeta del nombre del control -->
+                <div class="cajaNombreControl">
+                    <div class="tarjeta">
+                        <div class="tituloTarjeta">
+                            <div class="cuadrotexto">
+                                Nombre del control
+                            </div>
+                        </div>
+                        <div class="textoTarjeta">
+                            <div class="cuadrotexto">
+                                {{opciones.control}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- descripcion del assesment -->
-                <div class="cajaAssForm">
-                    <label>Descripción</label>
-                    <div class="textoDisplay">{{opciones.control_description}}</div>
+                <!-- Tarjeta de descripcion del control -->
+                <div class="cajaPreguntaDescripcion">
+                    <div class="tarjeta">
+                        <div class="tituloTarjeta">
+                            <div class="cuadrotexto">
+                                Descripción del control
+                            </div>
+
+                        </div>
+                        <div class="textoTarjeta">
+                            <div class="cuadrotexto">
+                                {{opciones.control_description}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Caja donde se muestra una pregunta de control para el assesment -->
-                <div class='cajaAssForm'>
-                    <label>Pregunta</label>
-                    <div class="textoDisplayPregunta">{{opciones.control_question}}</div>
+                <!-- Tarjeta de pregunta para el control -->
+                <div class="cajaPreguntaDescripcion">
+                    <div class="tarjeta">
+                        <div class="tituloTarjeta">
+                            <div class="cuadrotexto">
+                                Pregunta para el control
+                            </div>
+                        </div>
+                        <div class="textoTarjeta">
+                            <div class="cuadrotexto">
+                                {{opciones.control_question}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
 
+            <form class="cajaForm" method="post" id="form2">
+                <div class="rowCajas">
+                    <!-- Captura de la respuesta escrita -->
+                    <div class="cajaEditorTexto">
+                        <textarea style="height:100%;" id="editor" name="respuesta">{{respuesta}}</textarea>
 
+                        <!-- Script para el uso del editor de texto -->
+                        <script type="text/javascript">
 
-
-        </div>
-
-        <form class="flexAssForm" method="post" id="form2">
-            {% csrf_token %}
-
-            <div class="flexAssFormrow2">
-                <!-- Captura de la respuesta escrita -->
-                <div class="cajaAssForm">
-                    <label>Respuesta</label>
-                    <textarea id="editor" name="respuesta">{{respuesta}}</textarea>
-
-                    <!-- Script para el uso del editor de texto -->
-                    <script type="text/javascript">
-
-                        $(function() {
-                            $('textarea').each(function () {
-                                const editor = Jodit.make(this, {
-                                  "spellcheck": true,
-                                  "language": "es"
+                            $(function() {
+                                $('textarea').each(function () {
+                                    const editor = Jodit.make('#editor', {
+                                        "spellcheck": true,
+                                        "language": "es",
+                                        height: "400",
+                                        allowResizeX: false,
+	                                    allowResizeY: false
+                                    });
                                 });
                             });
-                        });
 
-                    </script>
-
-                </div>
-            </div>
-            <div class="flexAssFormrow">
-                <!-- Caja de seleccion para ingresar la valoracion de madurez -->
-                <div class="cajaAssForm">
-                    <label>Valoración de madurez</label>
-                    <select  class=" selectpicker selectStyleAssessment" aria-label="Default select example" data-live-search="true" id="valmad" name="valmad" >
-                        {% for ids in valMad %}
-                        {% if ids.sublevels == valoracion %}
-                        <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
-                        {% else %}
-                        <option   value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-
-
-            <div class="flexAssFormrow">
-
-                <!-- caja de texto para criterio de valoracion -->
-                <div class="cajaAssForm">
-                    <label>Criterio de Valoración</label>
-                    <input style="height:80%; width:100%;" type="text">
-                </div>
-
-                <!-- caja de texto para informacion de evidencia -->
-                <div class="cajaAssForm">
-                    <label>Evidencia</label>
-                    <input style="height:80%; width:100%;" type="text" value="">
-
+                        </script>
+                    </div>
 
                 </div>
-            </div>
-            <div class="flexAssFormrow">
-                <!-- botones de guardar y archivar assesment -->
-                <div class="cajaAssForm">
-                    <div class="botonesFlexAssessment">
-                        <div class="cajaass52">
-                            <button class="btnBorde btnAssesmentIr" type="submit" id="boton2" name="boton2" value="btn2">Guardar Valoración</button>
+                <div class="rowCajas">
+                    <!-- Caja de seleccion para ingresar la valoracion de madurez -->
+                    <div class="contenedorSelector">
+                        <div class="cajasTextoSelectorValoracion">
+                            <label>Valoración de madurez</label>
                         </div>
-                        <div class="cajaass52">
-                            <button class="btnBorde btnAssesmentIr" type="button" onclick="clicked(this.form);" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
+                        <div class="cajasSelectorValoracion">
+                            <select  class="selectpicker " data-width="100%" data-size="10"   data-live-search="true" id="valmad" name="valmad" >
+                                {% for ids in valMad %}
+                                {% if ids.sublevels == valoracion %}
+                                <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                                {% else %}
+                                <option   value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </form>
+                <div class="rowCajas">
+                    <div class="cajaPreguntaDescripcion">
+                        <div class="tarjeta">
+                            <div class="tituloTarjeta">
+                                <div class="cuadrotexto">
+                                    Criterio de la Valoración
+                                </div>
+
+                            </div>
+                            <div class="textoTarjeta">
+                                <div class="cuadrotexto">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de pregunta para el control -->
+                    <div class="cajaPreguntaDescripcion">
+                        <div class="tarjeta">
+                            <div class="tituloTarjeta">
+                                <div class="cuadrotexto">
+                                    Evidencia
+                                </div>
+                            </div>
+                            <div class="textoTarjeta">
+                                <div class="cuadrotexto">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowCajas">
+                    <div class="cajaMitad">
+
+                    </div>
+                    <!-- Botones de guardar y archivar -->
+                    <div class="cajaMitad">
+                        <div class="cajaBoton">
+                            <button class="btn btn-outline-success btn-lg btn-block" type="submit" id="boton2" name="boton2" value="btn2">Guardar Valoración</button>
+                        </div>
+                        <div class="cajaBoton">
+                            <button class="btn btn-outline-secondary btn-lg btn-block" type="button" onclick="clicked(this.form);" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+
+        </div>
 
     </div>
+
+
+
+
+
 
 
 </body>

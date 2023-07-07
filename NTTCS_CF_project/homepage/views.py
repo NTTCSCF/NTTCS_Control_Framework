@@ -36,6 +36,7 @@ class assessment(TemplateView):
         context = super(assessment, self).get_context_data(**knwargs)
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + self.assSelect)
+        context["NombreAss"] = self.assSelect
         context["assess"] = mycursor
         context["valMad"] = MaturirtyTable.objects.all()
         return context
@@ -52,6 +53,7 @@ class assessment(TemplateView):
             context = super(assessment, self).get_context_data(**knwargs)
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute("SELECT * FROM " + self.assSelect)  # consulta de la seleccion del assesment
+            context["NombreAss"] = self.assSelect
             context["assess"] = mycursor
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
             context["opciones"] = consulta
@@ -87,6 +89,7 @@ class assessment(TemplateView):
         context = super(assessment, self).get_context_data(**knwargs)
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + self.assSelect)
+        context["NombreAss"] = self.assSelect
         context["assess"] = mycursor
         return render(request, self.template_name, context=context)
 
