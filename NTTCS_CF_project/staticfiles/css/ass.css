@@ -1,0 +1,182 @@
+.pagina{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:start;
+}
+.menu{
+    width:15%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:start;
+    margin:1%;
+}
+
+.contenido{
+    width:85%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:start;
+    margin:1%;
+}
+
+.rowTitulo{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-content:center;
+}
+
+.cajaForm{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:start;
+}
+
+.rowCajas{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-content:center;
+    margin:1%;
+
+}
+.cajaMitad{
+    width:50%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-content:center;
+    margin:1%;
+
+}
+
+.cajaBoton{
+    width:35%;
+    height:100%;
+    margin: 3%;
+    border-radius:5px;
+    box-shadow: 10px 10px 25px #A9A9A9;
+
+}
+
+.tarjeta{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:top;
+    border-radius:20px;
+    background-color:#F5F5F5;
+    box-shadow: 10px 10px 25px #A9A9A9;
+
+}
+.tituloTarjeta{
+    width:100%;
+    height:30%;
+    min-height: 50px;
+    border-radius:20px 20px 0px 0px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    background-color:#DFDFDF;
+}
+
+.textoTarjeta{
+    width:100%;
+    height:70%;
+    min-height: 150px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.cuadrotexto{
+    width:wrap-content;
+    height:wrap-content;
+    text-align:center;
+    margin:2%;
+}
+
+.cajaNombreControl{
+    width:50%;
+    height:100%;
+    margin:1%;
+}
+.cajaPreguntaDescripcion{
+    width:100%;
+    height:100%;
+    margin:1%;
+}
+
+
+.contenedorSelector{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items: center;
+    margin:1%;
+}
+.cajasTextoSelectorAssessment{
+    margin:1%;
+    font-size:24px;
+    width:20%;
+    text-align:right
+}
+
+.cajasSelectorAssessment{
+    margin:1%;
+    width:20%;
+    border-radius:5px;
+    box-shadow: 10px 10px 25px #A9A9A9;
+}
+
+.cajasTextoSelectorValoracion{
+    margin:1%;
+    font-size:24px;
+    width:25%;
+    text-align:center
+}
+.bootstrap-select {
+    width: 100%;
+    height:100%;
+}
+.bootstrap-select .btn{
+    width: 100%;
+    height:100%;
+    padding:1%;
+    font-size:1.5vh;
+}
+
+.cajasSelectorValoracion{
+    margin:1%;
+    width:60%;
+    height:60px;
+    border-radius:5px;
+    box-shadow: 10px 10px 25px #A9A9A9;
+
+}
+
+.cajaEditorTexto{
+    margin:1%;
+    width:100%;
+    height:400px;
+}
+
+
+.cajaTitulo{
+    width:wrap-content;
+    height:wrap-content;
+    margin:2%
+}
