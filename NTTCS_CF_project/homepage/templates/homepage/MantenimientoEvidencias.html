@@ -1,39 +1,32 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block titulo %} Mantenimiento evidencias {% endblock %}
 
-<link rel="stylesheet" href="{% static '/css/main.css' %}" />
-<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+{% block contenido %}
 
 
-<head>
-    <meta charset="UTF-8">
-    <title>Mantenimiento</title>
-    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
-</head>
-<body>
+
 
     <!-- Contenedor de la página  -->
     <div class="box wrapper">
 
         <!-- Logo NTT Control Framework -->
         <div class="logoGrande1">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+            <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
         </div>
 
         <!-- titulo  -->
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
                 <div class="cajaTexto">
-                    <h1>Mantenimiento</h1>
+                    <h1>Mantenimiento Evidencias</h1>
                 </div>
             </div>
         </div>
 
         <!-- Logo de NTT DATA -->
         <div class="logoPequeno">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+            <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
         </div>
 
         <!-- vista del boton de modificar -->
@@ -120,6 +113,4 @@
     </div>
 
 
-
-</body>
-</html>
+{% endblock %}
