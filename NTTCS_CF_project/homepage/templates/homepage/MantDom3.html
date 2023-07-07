@@ -9,7 +9,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Mantenimiento</title>
+    <title>Practica</title>
     <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
@@ -25,7 +25,7 @@
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
                 <div class="cajaTexto">
-                    <h1>Mantenimiento dominios</h1>
+                    <h1>Practica</h1>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                     <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
                 </div>
                 <div >
-                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
+                    <button class="btnBorde btnTablas"  type="submit" value="">Buscar</button>
                 </div>
             </form>
         </div>
@@ -70,19 +70,43 @@
         <!-- tabla de contenido de los controles  -->
         <div class="tablasTablas">
             <div class="tabasFlex">
+
                 <div class="cajaTablasTitulo" style="">
-                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">Identifier</div><div class="tb_colprueba">Domain</div><div class="tb_colprueba">Security & Privacy by Design (S|P) Principles</div><div class="tb_colprueba">Principle Intent</div></div>
+                    <div class="tabasTablaFlexTitulo">
+                        <div class="tb_colprueba">Identifier</div>
+                        <div class="tb_colprueba">Domain</div>
+                        <div class="tb_colprueba">Security & Privacy (S|P) Principles</div>
+                        <div class="tb_colprueba">Principle Intent</div>
+                    </div>
                 </div>
+
                 <div class="cajaTablas">
+
                     {% if lenConsulta > 1 %}
 
                     {% for ids in consulta %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.identifier}}</div><div class="tb_colprueba">{{ids.domain}}</div><div class="tb_colprueba">{{ids.security_privacy_by_design_s_p_principles}}</div><div class="tb_colprueba">{{ids.principle_intent}}</div></div>
+
+                    <div class="tabasTablaFlex">
+
+                        <div class="tb_colprueba">{{ids.identifier}}</div>
+                        <div class="tb_colprueba">{{ids.domain}}</div>
+                        <div class="tb_colprueba">{{ids.security_privacy_by_design_s_p_principles}}</div>
+                        <div class="tb_colprueba">{{ids.principle_intent}}</div>
+
+                    </div>
                     {% endfor %}
+
                     {% else %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{consulta.identifier}}</div><div class="tb_colprueba">{{consulta.domain}}</div><div class="tb_colprueba">{{consulta.security_privacy_by_design_s_p_principles}}</div><div class="tb_colprueba">{{consulta.principle_intent}}</div></div>
+                    <div class="tabasTablaFlex">
+                        <div class="tb_colprueba">{{consulta.identifier}}</div>
+                        <div class="tb_colprueba">{{consulta.domain}}</div>
+                        <div class="tb_colprueba">{{consulta.security_privacy_by_design_s_p_principles}}</div>
+                        <div class="tb_colprueba">{{consulta.principle_intent}}</div>
+                    </div>
                     {% endif %}
+
                 </div>
+
             </div>
         </div>
 
@@ -113,8 +137,6 @@
         </div>
 
     </div>
-
-
 
 
 
