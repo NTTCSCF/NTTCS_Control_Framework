@@ -60,7 +60,7 @@ class assessment(TemplateView):
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute("SELECT * FROM " + self.assSelect + " WHERE ID='" + select + "'")
             for fila in mycursor:  # Rellenamos tanto las casillas de respuesta y valoracion
-                
+
                 context["respuesta"] = fila[4]
                 context["valoracion"] = fila[5]
             return render(request, self.template_name, context=context)
@@ -921,14 +921,18 @@ class MantDominios2(TemplateView):
             context["lenConsulta"] = len(Domains.objects.all())
             return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
 
-
+        #boton modificar es para rellenar datos en las cajas de texto con la información
         else:
-            consulta = Domains.objects.get(identifier=request.session["ultimaBusqueda"])
+            consulta = Domains.objects.get(identifier=request.session["ultBusqueda"])
             context = super(MantDominios2, self).get_context_data(**knwargs)
             context["consulta"] = Domains.objects.all()
             context["lenConsulta"] = len(Domains.objects.all())
             context["seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
+
+
+class MantDom3(TemplateView):
+    template_name = "homepage/MantDom3.html"
 
 """
             else:  # else que recoge la pulsacion del boton de modificar.
