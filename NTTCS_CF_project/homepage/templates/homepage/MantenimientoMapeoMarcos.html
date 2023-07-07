@@ -1,25 +1,14 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block titulo %} Mapeo Marcos {% endblock %}
 
-<link rel="stylesheet" href="{% static '/css/main.css' %}" />
-<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
-
-
-<head>
-    <meta charset="UTF-8">
-    <title>Mantenimiento</title>
-    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
-</head>
-<body>
-
+{% block contenido %}
     <!-- Contenedor de la página  -->
     <div class="box wrapper">
 
         <!-- Logo NTT Control Framework -->
         <div class="logoGrande1">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+            <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
         </div>
 
         <!-- titulo  -->
@@ -33,7 +22,7 @@
 
         <!-- Logo de NTT DATA -->
         <div class="logoPequeno">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+            <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
         </div>
 
         <!-- seleccion de controls BTT para mostrar en pantalla -->
@@ -127,6 +116,4 @@
 
     </div>
 
-
-</body>
-</html>
+{% endblock %}

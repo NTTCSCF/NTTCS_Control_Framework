@@ -1,39 +1,28 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block titulo %} Mantenimiento Marcos Existentes {% endblock %}
 
-<link rel="stylesheet" href="{% static '/css/main.css' %}" />
-<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
-
-
-<head>
-    <meta charset="UTF-8">
-    <title>Mantenimiento</title>
-    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
-</head>
-<body>
-
+{% block contenido %}
     <!-- Contenedor del contenido -->
     <div class="box wrapper">
 
         <!-- logo del sistema NTT Data Control Framework -->
         <div class="logoGrande1">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+             <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
         </div>
 
         <!-- Titulo de la página -->
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
                 <div class="cajaTexto">
-                    <h1>Mantenimiento</h1>
+                    <h1>Mantenimiento Marcos Existentes</h1>
                 </div>
             </div>
         </div>
 
         <!-- Logo de la empresa -->
         <div class="logoPequeno">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+            <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
         </div>
 
         <!-- Boton modificar -->
@@ -106,7 +95,4 @@
         </div>
 
     </div>
-
-
-</body>
-</html>
+{% endblock %}
