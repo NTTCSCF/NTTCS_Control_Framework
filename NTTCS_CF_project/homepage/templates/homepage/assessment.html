@@ -1,40 +1,8 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block titulo %} Menu {% endblock %}
 
-<link rel="stylesheet" href="{% static '/css/main.css' %}" />
-<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
-<link rel="stylesheet" href="{% static '/css/ass.css' %}" />
-
-<!-- Enlace con bootstrap  -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
-<!-- Enlace con jodit (usado para editor de texto)  -->
-<link rel="stylesheet" href="https://unpkg.com/jodit@4.0.0-beta.24/es2021/jodit.min.css"/>
-<script src="https://unpkg.com/jodit@4.0.0-beta.24/es2021/jodit.min.js"></script>
-
-
-<head>
-    <meta charset="UTF-8">
-    <title>Assessment</title>
-    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
-</head>
-<body>
-    <!-- Formulario de assesment -->
-    <div class="pagina">
-        <div class="menu">
-            <div> inicio</div>
-            <div> inicio</div>
-            <div> inicio</div>
-            <div> inicio</div>
-            <div> inicio</div>
-        </div>
-        <div class="contenido">
+{% block contenido %}
 
             <div class="rowTitulo">
                 <!-- Titulo con el nombre del assessment -->
@@ -118,6 +86,7 @@
             </div>
 
             <form class="cajaForm" method="post" id="form2">
+                {% csrf_token %}
                 <div class="rowCajas">
                     <!-- Captura de la respuesta escrita -->
                     <div class="cajaEditorTexto">
@@ -214,10 +183,18 @@
             </form>
 
 
-        </div>
+        <!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
+        <script type="text/javascript">
+            function clicked(form) {
+               if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
+                   form.submit();
+               } else {
+                   return false;
+               }
+            }
+        </script>
 
-    </div>
-
+{% endblock %}
 
 
 
@@ -226,15 +203,6 @@
 
 </body>
 
-<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
-<script type="text/javascript">
-    function clicked(form) {
-       if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
-           form.submit();
-       } else {
-           return false;
-       }
-    }
-</script>
+
 
 </html>
