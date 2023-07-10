@@ -1,33 +1,15 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<link rel="stylesheet" href="{% static '/css/main.css' %}" />
-<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+{% block titulo %} Assesment {% endblock %}
 
 
-<link rel="stylesheet" href="https://unpkg.com/jodit@4.0.0-beta.24/es2021/jodit.min.css"/>
-<script src="https://unpkg.com/jodit@4.0.0-beta.24/es2021/jodit.min.js"></script>
-
-<head>
-    <meta charset="UTF-8">
-    <title>Assessment</title>
-    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
-</head>
-<body>
+{% block contenido %}
     <!-- Contenedor de la página  -->
     <div class="box wrapper">
 
         <!-- Logo NTT Control Framework -->
         <div class="logoGrande1">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+            <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
         </div>
 
         <!-- titulo  -->
@@ -41,7 +23,7 @@
 
         <!-- Logo de NTT DATA -->
         <div class="logoPequeno">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
+            <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
         </div>
 
         <!-- Section de assesmetn -->
@@ -98,11 +80,7 @@
         </div>
 
 
-
-
-
     </div>
 
 
-</body>
-</html>
+{% endblock %}
