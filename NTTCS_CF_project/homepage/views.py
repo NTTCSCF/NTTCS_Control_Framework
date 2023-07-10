@@ -27,12 +27,11 @@ class assessment(TemplateView):
     template_name = "homepage/assessment.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
-    assSelect = SeleccionAssessment.objects.get(
-        seleccion='assessmentSeleccionado').valor  # guardamos la ultima seleccion de assesment
+
+        #SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado').valor  # guardamos la ultima seleccion de assesment
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
-
         context = super(assessment, self).get_context_data(**knwargs)
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + self.assSelect)
@@ -42,6 +41,7 @@ class assessment(TemplateView):
         return context
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
+        assSelect = request.session.get('assessmentGuardado')
         select = request.POST.get('selector')  # valor de el selector de control
         boton = request.POST.get('boton')  # valor del boton 1
         boton2 = request.POST.get('boton2')  # valor del boton 2
@@ -112,9 +112,10 @@ class assessmentselect(TemplateView):
         select2 = request.POST.getlist('selector2')  # valor de selector de marcos para la creacion del assesment
 
         if select != 'none':
-            assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado')
-            assSelect.valor = select  # guardamos el valor del assessment seleccionado en la tabla de seleccion
-            assSelect.save()
+            #assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado')
+            #assSelect.valor = select  # guardamos el valor del assessment seleccionado en la tabla de seleccion
+            #assSelect.save()
+            request.session["assessmentGuardado"] = select
             return redirect("assessment")
         elif nombre != '' and select2 != None:
             query = '''CREATE TABLE ''' + nombre + ''' (
@@ -154,7 +155,7 @@ class assessmentselect(TemplateView):
 
             self.conn.close()
 
-            c = Assessmentguardados(id_assessment=nombre, marcos=marcos)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
+            c = Assessmentguardados(id_assessment=nombre, marcos=marcos, archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
             c.save()
             assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado')
             assSelect.valor = nombre  # guardamos el valor del assessment seleccionado en la tabla de seleccion
