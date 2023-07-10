@@ -27,8 +27,7 @@ class assessment(TemplateView):
     template_name = "homepage/assessment.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
-
-        #SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado').valor  # guardamos la ultima seleccion de assesment
+    assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado').valor  # guardamos la ultima seleccion de assesment
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
@@ -41,7 +40,7 @@ class assessment(TemplateView):
         return context
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
-        assSelect = request.session.get('assessmentGuardado')
+
         select = request.POST.get('selector')  # valor de el selector de control
         boton = request.POST.get('boton')  # valor del boton 1
         boton2 = request.POST.get('boton2')  # valor del boton 2
