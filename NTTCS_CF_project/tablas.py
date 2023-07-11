@@ -5,11 +5,22 @@ conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.
 
 mycursor = conn.cursor(buffered=True)
 mycursor.execute("SELECT nombre_tabla FROM nttcs_cf.asociacion_marcos;")
+def leerTablas():
+    archivo = open('tablas.txt', "r")
+    tablas = archivo.read()
+    tablas = tablas.split('\n')
+    return tablas
+def insertarColumnas(tablas):
 
-for i in mycursor:
-    c = conn.cursor(buffered=True)
-    try:
-        c.execute("ALTER TABLE "+i[0]+" ADD ID INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT;")
-        print(i[0]+' a;adido correctamente')
-    except:
-        print(i[0]+' ya anadido')
+    for i in tablas:
+        c = conn.cursor(buffered=True)
+        try:
+            c.execute("ALTER TABLE " + i + " ADD comentario2 TEXT NULL;")
+            c.execute("ALTER TABLE " + i + " ADD comentario TEXT NULL;")
+            print(i+' anadido correctamente')
+        except:
+            print(i+' ya anadido')
+
+t = leerTablas()
+insertarColumnas(t)
+print('ejecucion Terminada')

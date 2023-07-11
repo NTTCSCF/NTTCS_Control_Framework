@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, Assessment, SeleccionAssessment,\
-    NttcsCf20231, Domains, EvidenceRequestCatalog
+from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados,\
+    NttcsCf20231, Domains, Evidencerequestcatalog
 from django.views.generic import TemplateView
 import mysql.connector
 
@@ -46,6 +46,7 @@ class assessment(TemplateView):
         boton = request.POST.get('boton')  # valor del boton 1
         boton2 = request.POST.get('boton2')  # valor del boton 2
         boton3 = request.POST.get('boton3')  # valor del boton 3
+        boton4 = request.POST.get('boton4')  # valor del boton 4
 
         if 'selector' in request.POST:  # se recoge la pulsacion del select
 
@@ -58,7 +59,15 @@ class assessment(TemplateView):
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
             context["opciones"] = consulta
             request.session["controlSelect"] = select
-
+            if consulta.evidence_request_references != None:
+                evidenciasParaBuscar = consulta.evidence_request_references.split('\n')
+                evidencias = []
+                for i in evidenciasParaBuscar:
+                    c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                    evidencias += [c.evidence_request_references + ', ' + c.artifact_description]
+            else:
+                evidencias = ['']
+            context["evidencias"] = evidencias
             mycursor = self.conn.cursor(buffered=True)
             mycursor.execute("SELECT * FROM " + assSelect + " WHERE ID='" + select + "'")
             for fila in mycursor:  # Rellenamos tanto las casillas de respuesta y valoracion
@@ -76,6 +85,9 @@ class assessment(TemplateView):
             mycursor = self.conn.cursor()
             mycursor.execute(query)
             self.conn.commit()
+        elif boton2 == 'btn4':
+            # not implemented yet
+            print('')
         else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
             
             consulta = Assessmentguardados.objects.get(id_assessment=assSelect)  # colsulta para la selecionar el assesment

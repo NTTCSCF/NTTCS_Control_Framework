@@ -23,7 +23,7 @@ class Assessment(models.Model):
     domain = models.CharField(db_column='Domain', max_length=255, blank=True, null=True)  # Field name made lowercase.
     selected = models.CharField(db_column='Selected', max_length=255, blank=True, null=True)  # Field name made lowercase.
     control = models.CharField(db_column='Control', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    id = models.CharField(db_column='ID', max_length=255, primary_key=True)  # Field name made lowercase.
+    id = models.CharField(db_column='ID', max_length=255, blank=True, null=True)  # Field name made lowercase.
     control_description = models.CharField(db_column='Control Description', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     methods_to_comply_with_control = models.CharField(db_column='Methods To Comply With Control', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     evidence_request_references = models.CharField(db_column='Evidence Request References', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
@@ -219,14 +219,13 @@ class Evidencias(models.Model):
     comentario = models.TextField(db_column='Comentario', blank=True, null=True)  # Field name made lowercase.
     links = models.TextField(blank=True, null=True)
     assessment = models.ForeignKey(Assessmentguardados, models.DO_NOTHING, blank=True, null=True)
-    control_id = models.CharField(max_length=100, blank=True, null=True)
     objects = models.Manager()
 
     class Meta:
         managed = False
         db_table = 'evidencias'
 
-class SeleccionAssessment(models.Model):
+class HomepageSeleccionassessment(models.Model):
     id = models.BigAutoField(primary_key=True)
     seleccion = models.CharField(max_length=255, blank=True, null=True)
     valor = models.CharField(max_length=255, blank=True, null=True)
