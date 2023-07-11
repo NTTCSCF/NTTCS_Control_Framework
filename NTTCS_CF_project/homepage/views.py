@@ -27,21 +27,20 @@ class assessment(TemplateView):
     template_name = "homepage/assessment.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
-
+    assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado').valor  # guardamos la ultima seleccion de assesment
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
-        assSelect = self.request.session.get('assessmentGuardado')
         context = super(assessment, self).get_context_data(**knwargs)
         mycursor = self.conn.cursor(buffered=True)
-        mycursor.execute("SELECT * FROM " + assSelect)
-        context["NombreAss"] = assSelect
+        mycursor.execute("SELECT * FROM " + self.assSelect)
+        context["NombreAss"] = self.assSelect
         context["assess"] = mycursor
         context["valMad"] = MaturirtyTable.objects.all()
         return context
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
-        assSelect = request.session.get('assessmentGuardado')
+
         select = request.POST.get('selector')  # valor de el selector de control
         boton = request.POST.get('boton')  # valor del boton 1
         boton2 = request.POST.get('boton2')  # valor del boton 2
@@ -52,15 +51,15 @@ class assessment(TemplateView):
             consulta = Assessment.objects.get(id=select)  # consulta para ver la seleccion del despegable de los controles
             context = super(assessment, self).get_context_data(**knwargs)
             mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + assSelect)  # consulta de la seleccion del assesment
-            context["NombreAss"] = assSelect
+            mycursor.execute("SELECT * FROM " + self.assSelect)  # consulta de la seleccion del assesment
+            context["NombreAss"] = self.assSelect
             context["assess"] = mycursor
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
             context["opciones"] = consulta
             request.session["controlSelect"] = select
 
             mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + assSelect + " WHERE ID='" + select + "'")
+            mycursor.execute("SELECT * FROM " + self.assSelect + " WHERE ID='" + select + "'")
             for fila in mycursor:  # Rellenamos tanto las casillas de respuesta y valoracion
 
                 context["respuesta"] = fila[4]
@@ -69,7 +68,7 @@ class assessment(TemplateView):
 
         elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
             consulta = Assessment.objects.get(id=request.session["controlSelect"])  # consulta para consegir los valores del control seleccionado
-            query = """UPDATE """ + assSelect + """ SET descripcion='""" + consulta.control_description + """', 
+            query = """UPDATE """ + self.assSelect + """ SET descripcion='""" + consulta.control_description + """', 
             pregunta='""" + consulta.control_question + """', criterioValoracion='', respuesta='""" + \
                     str(request.POST.get('respuesta')) + """', valoracion='""" + request.POST.get('valmad') + """', 
                     evidencia='' WHERE ID='""" + consulta.id + """';"""  # consulta para rellenar los valores del control seleccionado
@@ -78,7 +77,7 @@ class assessment(TemplateView):
             self.conn.commit()
         else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
             
-            consulta = Assessmentguardados.objects.get(id_assessment=assSelect)  # colsulta para la selecionar el assesment
+            consulta = Assessmentguardados.objects.get(id_assessment=self.assSelect)  # colsulta para la selecionar el assesment
             consulta.archivado = 1  # ponemos el valor de archivado a 1
             consulta.save()
             return redirect('menu')  # volvemos al menu
@@ -87,8 +86,8 @@ class assessment(TemplateView):
 
         context = super(assessment, self).get_context_data(**knwargs)
         mycursor = self.conn.cursor(buffered=True)
-        mycursor.execute("SELECT * FROM " + assSelect)
-        context["NombreAss"] = assSelect
+        mycursor.execute("SELECT * FROM " + self.assSelect)
+        context["NombreAss"] = self.assSelect
         context["assess"] = mycursor
         return render(request, self.template_name, context=context)
 
@@ -111,10 +110,12 @@ class assessmentselect(TemplateView):
         select = request.POST.get('selector1')  # valor de selector de assesment guardado
         select2 = request.POST.getlist('selector2')  # valor de selector de marcos para la creacion del assesment
 
-        if 'selector1' in request.POST:
+        if select != 'none':
+            #assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado')
+            #assSelect.valor = select  # guardamos el valor del assessment seleccionado en la tabla de seleccion
+            #assSelect.save()
             request.session["assessmentGuardado"] = select
             return redirect("assessment")
-
         elif nombre != '' and select2 != None:
             query = '''CREATE TABLE ''' + nombre + ''' (
                                 ID varchar(100) NOT NULL,
@@ -155,8 +156,9 @@ class assessmentselect(TemplateView):
 
             c = Assessmentguardados(id_assessment=nombre, marcos=marcos, archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
             c.save()
-
-            request.session["assessmentGuardado"] = nombre
+            assSelect = SeleccionAssessment.objects.get(seleccion='assessmentSeleccionado')
+            assSelect.valor = nombre  # guardamos el valor del assessment seleccionado en la tabla de seleccion
+            assSelect.save()
             return redirect("assessment")
         else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
 
