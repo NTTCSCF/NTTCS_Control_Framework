@@ -6,16 +6,116 @@
     justify-content:start;
 }
 .menu{
-    width:15%;
+    width:20%;
     height:100%;
     display:flex;
     flex-direction:column;
-    justify-content:start;
     margin:1%;
+    background-color:#F5F5F5;
+    border-radius:20px;
 }
 
+.cajaMenuBlanco{
+    width:100%;
+    min-height: 100%;
+    height: auto ;
+    height: 100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:end;
+    align-items:center;
+    padding-top:20%;
+
+}
+
+.rowMenu{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:start;
+    align-items:center;
+
+}
+
+.imagenMenuBot{
+    width:100%;
+    height:100%;
+    margin:8%;
+}
+
+
+.imagenMenu{
+    width:100%;
+    height:100%;
+    margin:5%;
+    padding-bottom:20%;
+}
+.textoMenu{
+    width:100%;
+    height:100%;
+    text-align:center;
+    font-size:1.2vw;
+    padding:5% 0;
+    background-color:#DFDFDF;
+}
+
+
+
+.cajaBtn{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    text-align:center;
+
+}
+.btnMenu{
+    width:100%;
+    height:100%;
+    padding:5% 0%;
+    margin:0;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    color: initial;
+    text-align:center;
+    font-size:1.2vw;
+
+}
+.btnMenuDrop{
+    width:100%;
+    height:100%;
+    padding:5% 0%;
+    margin:0;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    color: initial;
+    text-align:center;
+    font-size:1.2vw;
+
+}
+
+.btnMenu:hover {
+    background:linear-gradient(to right #F5F5F5 0%, #F5F5F5 50%, #DFDFDF 50%, #DFDFDF 100%);
+    background-color:#DFDFDF;
+    text-decoration: none;
+    color: initial;
+    background-position: 100% 0;
+    transition: background-position 0.3s;
+}
+.btnMenuDrop:hover {
+    background:linear-gradient(to right #F5F5F5 0%, #F5F5F5 50%, #DFDFDF 50%, #DFDFDF 100%);
+    background-color:#DFDFDF;
+    text-decoration: none;
+    color: initial;
+    background-position: 100% 0;
+    transition: background-position 0.3s;
+}
+
+
+
 .contenido{
-    width:85%;
+    width:80%;
     height:100%;
     display:flex;
     flex-direction:column;
@@ -90,6 +190,7 @@
     justify-content:center;
     align-items: center;
     background-color:#DFDFDF;
+    font-size: 2.1vh;
 }
 
 .textoTarjeta{
@@ -97,6 +198,7 @@
     height:70%;
     min-height: 150px;
     display: flex;
+    flex-direction:column;
     justify-content:center;
     align-items: center;
 }
@@ -156,7 +258,7 @@
     width: 100%;
     height:100%;
     padding:1%;
-    font-size:1.5vh;
+    font-size: 1vw;
 }
 
 .cajasSelectorValoracion{
@@ -179,4 +281,66 @@
     width:wrap-content;
     height:wrap-content;
     margin:2%
+
+
+}
+.fontGrande{
+
+    font-size:1.5vw;
+}
+
+.margenArriba{
+    width:wrap-content;
+    height:wrap-content;
+    margin:1%;
+    font-size: 1.2vw;
+}
+
+
+.cajaSeleccionAsssessment{
+    width:50%;
+    height:100%;
+    margin:1%;
+}
+
+.cajaTextoSeleccionAssesment{
+    width:100%;
+    height:70px;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    margin:1%;
+    margin-top:0%;
+
+}
+
+.cajaBotonSeleccionAssesment{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    margin:4%;
+    margin-bottom:8%;
+}
+.cajaBotonSeleccion{
+    width:50%;
+    height:100%;
+}
+
+.contenidoAbajo{
+    align-items: end;
+}
+
+.cajaSelectorCentrado{
+    width:75%;
+    height:50%;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    margin:1%;
+    margin-botton:2%;
+    border-radius:5px;
+    box-shadow: 10px 10px 25px #A9A9A9;
+
 }
