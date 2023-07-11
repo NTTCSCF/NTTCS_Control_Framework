@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block titulo %} Assessment {% endblock %}
+{% block titulo %} Menu {% endblock %}
 
 {% block contenido %}
 
-<div class="rowTitulo" xmlns="http://www.w3.org/1999/html">
+            <div class="rowTitulo">
                 <!-- Titulo con el nombre del assessment -->
                 <div class="cajaTitulo">
                     <h1>{{NombreAss}}</h1>
@@ -16,7 +16,7 @@
                 <form class="contenedorSelector" method="post" id="form">
                     {% csrf_token %}
                         <div class="cajasTextoSelectorAssessment">
-                            <label style="font-size: 1.4vw;" for="selector"> Seleccione un Control</label>
+                            <label for="selector"> Seleccione un Control</label>
                         </div>
                         <div class="cajasSelectorAssessment">
                             <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector">
@@ -115,7 +115,7 @@
                     <!-- Caja de seleccion para ingresar la valoracion de madurez -->
                     <div class="contenedorSelector">
                         <div class="cajasTextoSelectorValoracion">
-                            <label style="font-size: 1.4vw;">Valoración de madurez</label>
+                            <label>Valoración de madurez</label>
                         </div>
                         <div class="cajasSelectorValoracion">
                             <select  class="selectpicker " data-width="100%" data-size="10"   data-live-search="true" id="valmad" name="valmad" >
@@ -142,12 +142,7 @@
                             </div>
                             <div class="textoTarjeta">
                                 <div class="cuadrotexto">
-                                    <p>{{opciones.campo9}}</p>
-                                    {{opciones.campo10}}
-                                    {{opciones.campo11}}
-                                    {{opciones.campo12}}
-                                    {{opciones.campo13}}
-                                    {{opciones.campo14}}
+
                                 </div>
                             </div>
                         </div>
@@ -203,3 +198,11 @@
 
 
 
+
+
+
+</body>
+
+
+
+</html>
