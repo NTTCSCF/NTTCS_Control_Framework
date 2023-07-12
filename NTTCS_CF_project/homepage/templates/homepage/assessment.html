@@ -22,7 +22,7 @@
                             <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector">
                                 <option selected value="None">--- No Seleccionado ---</option>
                                 {% for ids in assess %}
-                                {% if ids.0 == opciones.id %}
+                                {% if ids.0 == idControl %}
                                 <option selected value="{{ids.0}}">{{ids.0}}</option>
                                 {% else %}
                                 <option value="{{ids.0}}">{{ids.0}}</option>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="textoTarjeta">
                             <div class="cuadrotexto">
-                                {{opciones.control}}
+                                {{nControl}}
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="textoTarjeta">
                             <div class="cuadrotexto">
-                                {{opciones.control_description}}
+                                {{descripcion}}
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="textoTarjeta">
                             <div class="cuadrotexto">
-                                {{opciones.control_question}}
+                                {{pregunta}}
                             </div>
                         </div>
                     </div>
@@ -140,14 +140,11 @@
                                 </div>
 
                             </div>
-                            <div class="textoTarjeta">
-                                <div class="cuadrotexto">
-                                    <p>{{opciones.campo9}}</p>
-                                    {{opciones.campo10}}
-                                    {{opciones.campo11}}
-                                    {{opciones.campo12}}
-                                    {{opciones.campo13}}
-                                    {{opciones.campo14}}
+                            <div class="textoTarjetaGrande">
+                                <div class="cuadrotextoGrande">
+                                    {% for i in criterio %}
+                                    <p> {{i}}</p>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -161,9 +158,44 @@
                                     Evidencia
                                 </div>
                             </div>
-                            <div class="textoTarjeta">
+                            <div class="textoTarjetaGrande">
+                                <div class="cuadrotextoGrande">
+                                    {% for i in evidencias %}
+                                    {{i | safe }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowCajas">
+                    <div class="cajaPreguntaDescripcion">
+                        <div class="tarjeta">
+                            <div class="tituloTarjeta">
                                 <div class="cuadrotexto">
+                                    Nueva Evidencia
+                                </div>
 
+                            </div>
+                            <div class="textoTarjeta">
+                                <div class="cuadroInputs">
+                                    <div style="width:40%;" class="form-floating formEvidencia">
+                                        <input type="text" class="form-control" id="idEvidencia" name="idEvidencia">
+                                        <label for="idEvidencia">ID de la referencia</label>
+                                    </div>
+                                    <div style="width:100%;" class="form-floating formEvidencia">
+                                        <input type="text" class="form-control" id="DescripcionEvidencia" name="DescripcionEvidencia">
+                                        <label for="DescripcionEvidencia">Descripcion de la evidencia</label>
+                                    </div>
+                                    <div style="width:100%;" class="form-floating formEvidencia">
+                                        <input type="text" class="form-control" id="linkEvidencia" name="linkEvidencia">
+                                        <label for="linkEvidencia">Link de la evidencia</label>
+                                    </div>
+                                </div>
+                                <div class="cuadroInputs">
+                                    <div style="width:15%;">
+                                        <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton4" name="boton4" value="btn4">Añadir Evidencia</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -179,7 +211,7 @@
                             <button class="btn btn-outline-success btn-lg btn-block" type="submit" id="boton2" name="boton2" value="btn2">Guardar Valoración</button>
                         </div>
                         <div class="cajaBoton">
-                            <button class="btn btn-outline-secondary btn-lg btn-block" type="button" onclick="clicked(this.form);" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
+                            <button class="btn btn-outline-danger btn-lg btn-block" type="button" onclick="clicked(this.form);" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
                         </div>
                     </div>
                 </div>

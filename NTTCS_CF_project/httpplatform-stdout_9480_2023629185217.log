@@ -1,9 +1,0 @@
-Watching for file changes with StatReloader
-Not Found: /robots.txt
-[29/Jun/2023 20:52:19] "GET /robots.txt HTTP/1.1" 404 6225
-Not Found: /robots.txt
-[29/Jun/2023 20:52:20] "GET /robots.txt HTTP/1.1" 404 6225
-[29/Jun/2023 20:52:29] "GET / HTTP/1.1" 200 1768
-[29/Jun/2023 20:55:16] "GET / HTTP/1.1" 200 1768
-Not Found: /cf_scripts/scripts/ajax/ckeditor/ckeditor.js
-[29/Jun/2023 20:55:16] "GET /cf_scripts/scripts/ajax/ckeditor/ckeditor.js HTTP/1.1" 404 6334
