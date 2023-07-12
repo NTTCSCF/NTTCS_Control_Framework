@@ -8,8 +8,6 @@
     <!-- Contenedor de la página  -->
     <div class="wrapper">
 
-
-
         <!-- titulo  -->
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
@@ -19,10 +17,9 @@
             </div>
         </div>
 
-
         <!-- vista del boton de modificar -->
         <div class="botonModificar">
-            <form class="tablasModificarFlex" method="post" >
+            <form class="tablasBtnFlex" method="post" >
                 {% csrf_token %}
                 <div >
                     <button class="btn btn-warning"  type="submit">Modificar</button>
@@ -30,22 +27,26 @@
             </form>
         </div>
 
-        <!-- Seccion de busqueda -->
+        <!-- Seccion de busqueda
+            -->
         <div class="tablasBusca">
             <form class="tablasBuscaFlex" method="post" id="busquedaForm">
                 {% csrf_token %}
-                <div >
-                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
+                <div class="buscarMantenimiento">
+                    <div>
+                        <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
+                    </div>
+                    <div>
+                        <button class="btn btn-primary"  type="submit">Buscar</button>
+                    </div>
                 </div>
-                <div >
-                    <button class="btn btn-info"  type="submit">Buscar</button>
-                </div>
+
             </form>
         </div>
 
         <!-- Boton eliminar -->
         <div class="botonEliminar">
-            <div class="tablasEliminarFlex">
+            <div class="tablasBtnFlex">
                 <div >
                     <a class="btn btn-danger" href="{% url 'Eliminar' %}" >Eliminar</a>
                 </div>
@@ -70,6 +71,27 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- tabla de contenido de los controles
+        <div class="tablasTablas">
+            <div class="tabasFlex">
+                <div class="cajaTablasTitulo">
+                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">Ccmmcod</div><div class="tb_colprueba">Description</div><div class="tb_colprueba">Sublevels</div><div class="tb_colprueba">Percentage</div></div>
+                </div>
+                <div class="cajaTablas">
+                    {% if lenConsulta > 1 %}
+
+                    {% for ids in consulta %}
+                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.ccmmcod}}</div><div class="tb_colprueba">{{ids.description}}</div><div class="tb_colprueba">{{ids.sublevels}}</div><div class="tb_colprueba">{{ids.percentage}}</div></div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{consulta.ccmmcod}}</div><div class="tb_colprueba">{{consulta.description}}</div><div class="tb_colprueba">{{consulta.sublevels}}</div><div class="tb_colprueba">{{consulta.percentage}}</div></div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        -->
 
         <!-- formulario para insertar datos -->
         <div class="tablasInsertar">

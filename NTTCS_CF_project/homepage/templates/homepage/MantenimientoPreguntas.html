@@ -21,10 +21,10 @@
 
         <!-- vista del boton de modificar -->
         <div class="botonModificar">
-            <form class="tablasModificarFlex" method="post" >
+            <form class="tablasBtnFlex" method="post" >
                 {% csrf_token %}
                 <div >
-                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
+                    <button class="btn btn-warning"  type="submit">Modificar</button>
                 </div>
             </form>
         </div>
@@ -33,20 +33,23 @@
         <div class="tablasBusca">
             <form class="tablasBuscaFlex" method="post" id="busquedaForm">
                 {% csrf_token %}
-                <div >
-                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
+                <div class="buscarMantenimiento" >
+                    <div>
+                        <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
+                    </div>
+                    <div >
+                        <button class="btn btn-primary"  type="submit">Buscar</button>
+                    </div>
                 </div>
-                <div >
-                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
-                </div>
+
             </form>
         </div>
 
         <!-- Boton eliminar -->
         <div class="botonEliminar">
-            <div class="tablasEliminarFlex">
+            <div class="tablasBtnFlex">
                 <div >
-                    <a class="btnBorde btnTablas" href="{% url 'EliminarPreguntas' %}" >Eliminar</a>
+                    <a class="btn btn-danger" href="{% url 'EliminarPreguntas' %}" >Eliminar</a>
                 </div>
             </div>
         </div>
@@ -88,7 +91,7 @@
                 </div>
 
                 <div class="cajaInsertar1 cajaButton" >
-                    <button class="btnBorde btnTablas2"  type="submit">Insertar</button>
+                    <button class="btn btn-success btnBorde btnTablas2"  type="submit">Insertar</button>
                 </div>
             </form>
         </div>
