@@ -3,51 +3,31 @@
 {% block titulo %} Menu {% endblock %}
 
 {% block contenido %}
+
+<div class="">
 <!-- Contenedor de la página  -->
-<div class="box wrapper">
 
-    <!-- Logo NTT Control Framework -->
-    <!--comentario -->
-    <div class="logoGrande">
-        <div class="logoGrandeFlex">
-            <div class="logoGrandeCaja">
-                <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
+    <div class="">
+
+        <!-- Logo NTT Control Framework -->
+         <div class="titulo">
+
+                <h1>NTT DATA CONTROL FRAMEWORK</h1>
+
+         </div>
+
+
+        <div class="presentacion">
+            <div class="imagen_inicio">
+            <img  class="ajustarImg" src="../staticfiles/images/equipo2.jpg">
+            </div>
+
+            <div class="msj_inicial">
+                <h3>"Herramienta de ciberseguridad para la implementaci&oacute;n de controles en seguridad de la Informaci&oacute;n"</h3>
             </div>
         </div>
-    </div>
 
-    <!-- titulo  -->
-    <div class="logoPequeno">
-        <div class="logoPequenoFlex">
-            <div class="logoPequenoMenu">
-                <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
-            </div>
-        </div>
-    </div>
 
-    <!-- informacion -->
-    <div class="informacion">
-        <br>NTT Cybersecurity Control Framework
-        <br>NTT DATA EMEAL Cybersecurity Services
-        <br>Risk Managenent
-    </div>
-
-    <!-- botones del menu -->
-    <div class="botonesMenu1">
-        <div class="botonesFlex">
-            <div class="cajaBoton">
-                <button class="btnBorde btnMenu" onclick="location.href={% url 'mantenimiento' %}" > </a>Mantenimiento</button>
-            </div>
-            <div class="cajaBoton">
-                <button class="btnBorde btnMenu" onclick="location.href={% url 'assessmentselect' %}">Assesment</button>
-            </div>
-            <div class="cajaBoton">
-                <button class="btnBorde btnMenu" onclick="location.href={% url 'exportaciones' %}">Exportaciones</button>
-            </div>
-            <div class="cajaBoton">
-                <button class="btnBorde btnMenu" onclick="location.href={% url 'informes' %}">Informes</button>
-            </div>
-        </div>
 
 
     </div>

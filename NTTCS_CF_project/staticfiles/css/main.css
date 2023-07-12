@@ -1,13 +1,16 @@
-
 body{
+    min-height: 100vh;
     font-family:monospace ;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .box {
      width: 96%;
      aspect-ratio: 10/6;
-     border: 3px solid #3086FC;
-     background: #AACEFF;
      border-radius: 30px;
      margin:1%;
      padding:1%;
@@ -16,7 +19,7 @@ body{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+    grid-template-rows: 1fr 1fr minmax(100px, 350px) 1fr;
 }
 
 .logoPequeno{
@@ -98,25 +101,7 @@ body{
     border-color:#3086FC;
 }
 
-.tituloMantenimiento{
-    grid-column: 2/3;
-    grid-row: 1;
-}
 
-.flexTitulo{
-    width:200%;
-    height:100%;
-    display:flex;
-    flex-direction:row;
-    justify-content:center;
-    align-items:center;
-}
-
-.cajaTexto{
-    width:100%;
-    text-align:center ;
-    font-size:150%;
-}
 
 
 .botonesMenu1{
@@ -348,19 +333,19 @@ body{
 }
 
 .ex23{
-    grid-column: 2/3;
+    grid-column: 1/2;
     grid-row: 3;
     text-align:center;
 }
 
 .ex24{
     grid-column: 2/3;
-    grid-row: 4;
+    grid-row: 3;
     text-align:center;
 }
 .ex25{
-    grid-column: 2/3;
-    grid-row: 5;
+    grid-column: 3/4;
+    grid-row: 3;
     text-align:center;
 }
 
@@ -401,11 +386,34 @@ body{
     height:100%;
 }
 
-.tablasBusca{
-    grid-column: 2/4;
-    grid-row: 2;
-    text-align:center;
+
+.tituloMantenimiento{
+    grid-column: 1/5;
+    grid-row: 1/2;
 }
+
+.flexTitulo{
+    align-items:center;
+}
+
+.cajaTexto{
+    text-align:center;
+    font-size:150%;
+}
+
+.tablasBusca{
+    grid-column: 1/3;
+    grid-row: 2/3;
+    align-items:center;
+}
+
+/* ESTILO DE LOS BOTONES */
+.btn .btn-warning {
+    width: 70%;
+    align: center;
+}
+
+
 .botonModificar2{
     grid-column: 1;
     grid-row: 3;
@@ -457,11 +465,21 @@ body{
 .tablasBuscaFlex{
     width:100%;
     height:100%;
-    display:flex;
-    flex-direction:row;
-    justify-content:space-around;
+    flex-direction:column;
+    justify-content:center;
     align-items:center;
 }
+
+.buscarMantenimiento {
+    display:flex;
+    flex-direction:row;
+
+    justify-content:center;
+}
+
+
+
+/* TABLA DE CONTENIDO EN MANTENIMIENTO */
 .tablasTablas{
     grid-column: 1/5;
     grid-row: 3;
@@ -474,8 +492,7 @@ body{
     height:100%;
     display:flex;
     flex-direction:column;
-    justify-content:center;
-    align-items:center;
+    align-items:start;
 
 }
 .cajaTablas{
@@ -602,38 +619,37 @@ body{
     text-align:center;
 }
 
-.tablasEliminarFlex{
+.tablasBtnFlex{
     width:100%;
     height:100%;
     display:flex;
     flex-direction:column;
     justify-content:space-around;
-    align-items:center;
+    align-items: center;
 }
 
 .botonModificar{
-    grid-column: 1;
+    grid-column: 3/4;
     grid-row: 2;
     align-item: center;
+    width: 100%;
 
 }
+
 
 .botonSeleccionar {
     grid-column: 2;
     grid-row: 2;
     align-item:center;
-
 }
 
 .tablasModificarFlex{
     width:100%;
     height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-around;
-    align-items:center;
-
+    align-content:center;
+    justify-content:center;
 }
+
 
 
 
