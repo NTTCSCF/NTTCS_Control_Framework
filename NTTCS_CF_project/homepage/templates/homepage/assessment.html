@@ -22,7 +22,7 @@
                             <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector">
                                 <option selected value="None">--- No Seleccionado ---</option>
                                 {% for ids in assess %}
-                                {% if ids.0 == opciones.id %}
+                                {% if ids.0 == idControl %}
                                 <option selected value="{{ids.0}}">{{ids.0}}</option>
                                 {% else %}
                                 <option value="{{ids.0}}">{{ids.0}}</option>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="textoTarjeta">
                             <div class="cuadrotexto">
-                                {{opciones.control}}
+                                {{nControl}}
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="textoTarjeta">
                             <div class="cuadrotexto">
-                                {{opciones.control_description}}
+                                {{descripcion}}
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="textoTarjeta">
                             <div class="cuadrotexto">
-                                {{opciones.control_question}}
+                                {{pregunta}}
                             </div>
                         </div>
                     </div>
@@ -142,12 +142,9 @@
                             </div>
                             <div class="textoTarjetaGrande">
                                 <div class="cuadrotextoGrande">
-                                    <p>{{opciones.campo9}}</p>
-                                    <p>{{opciones.campo10}}</p>
-                                    <p>{{opciones.campo11}}</p>
-                                    <p>{{opciones.campo12}}</p>
-                                    <p>{{opciones.campo13}}</p>
-                                    <p>{{opciones.campo14}}</p>
+                                    {% for i in criterio %}
+                                    <p> {{i}}</p>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -164,7 +161,7 @@
                             <div class="textoTarjetaGrande">
                                 <div class="cuadrotextoGrande">
                                     {% for i in evidencias %}
-                                    <p> {{i}}</p>
+                                    {{i | safe }}
                                     {% endfor %}
                                 </div>
                             </div>
@@ -197,9 +194,9 @@
                                 </div>
                                 <div class="cuadroInputs">
                                     <div style="width:15%;">
-                                        <button class="btn btn-outline-secondary btn-lg btn-block" type="button" onclick="clicked(this.form);" id="boton4" name="boton4" value="btn4">Añadir Evidencia</button>
+                                        <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton4" name="boton4" value="btn4">Añadir Evidencia</button>
                                     </div>
-                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
