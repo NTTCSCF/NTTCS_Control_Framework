@@ -4,6 +4,7 @@
 <html lang="en">
 
 <link rel="stylesheet" href="{% static '/css/main.css' %}" />
+<link rel="stylesheet" href="{% static '/css/estilos.css' %}" />
 <link rel="stylesheet" href="{% static '/css/botones.css' %}" />
 
 <head>
@@ -13,54 +14,31 @@
 </head>
 <body>
 
-    <!-- Contenedor de la página  -->
-    <div class="box wrapper">
+    <div id="contenedor_login">
+        <div id="central">
+            <div id="login">
+                <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
+                <div class="titulo_login">
+                    Bienvenido
+                </div>
+                <form id="loginform">
+                    {% csrf_token %}
+                    <input type="text" name="usuario" placeholder="Usuario" required>
 
-        <!-- Logo NTT Control Framework -->
-        <div class="logoGrande">
-            <div class="logoGrandeFlex">
-                <div class="logoGrandeCaja">
-                    <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+                    <input type="password" placeholder="Contraseña" name="pass" required>
+
+                    <button type="submit" title="Ingresar" name="Ingresar">Ingresar</button>
+                </form>
+                <div class="pie-form">
+                    <a href="https://nttdata-solutions.com/es/" target="_blank">NTT DATA Emeal Cybersecurity Services - Risk Management</a>
+                    <span>Version Beta</span>
                 </div>
             </div>
-        </div>
+            <div class="inferior">
 
-        <!-- Logo de NTT DATA -->
-        <div class="logoPequeno"><img class="ajustarImg"  src="{% static '/images/logo_NTTData.jpg' %}"></div>
-
-        <!-- Caja de informacón -->
-        <div class="informacion">
-            <div class="cajaInformacion">
-                <br>NTT Cybersecurity Control Framework
-                <br>NTT DATA EMEAL Cybersecurity Services
-                <br>Risk Managenent
             </div>
         </div>
-
-        <!-- Section de logueo al sistema -->
-
-        <div style="margin-top:5px;" class="loginNames">
-            <h5>Usuario</h5>
-            <h5>Contraseña</h5>
-        </div>
-
-        <div class="login">
-            <form method="post">
-                {% csrf_token %}
-                <br>
-                <br>
-                <div><input style="height:23px;" class="redondearBordes" text="usuario" name="usuario"></div>
-                <br>
-
-                <div><input style="height:23px;" class="redondearBordes" type="password" text="pass" name="pass"></div>
-                <br>
-
-                <button class="btnBorde btnLogin"  type="submit">Entrar</button>
-
-            </form>
-        </div>
     </div>
-
 
 </body>
 </html>
