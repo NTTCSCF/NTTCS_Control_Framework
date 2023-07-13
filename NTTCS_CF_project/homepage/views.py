@@ -7,7 +7,7 @@ from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguar
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias
 from django.views.generic import TemplateView
 import mysql.connector
-
+from django.contrib import messages
 from django.contrib.sessions.backends.db import SessionStore
 
 
@@ -94,9 +94,18 @@ class assessment(TemplateView):
         boton4 = request.POST.get('boton4')  # valor del boton 4
 
         if 'selector' in request.POST:  # se recoge la pulsacion del select
-            context = super(assessment, self).get_context_data(**knwargs)
-            context = self.contextTotal(request, select, assSelect, context)
-            return render(request, self.template_name, context=context)
+            if select == 'None':
+                context = super(assessment, self).get_context_data(**knwargs)
+                mycursor = self.conn.cursor(buffered=True)
+                mycursor.execute("SELECT * FROM " + assSelect)
+                context["NombreAss"] = assSelect
+                context["assess"] = mycursor
+                context["valMad"] = MaturirtyTable.objects.all()
+                return render(request, self.template_name, context=context)
+            else:
+                context = super(assessment, self).get_context_data(**knwargs)
+                context = self.contextTotal(request, select, assSelect, context)
+                return render(request, self.template_name, context=context)
 
         elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
             consulta = Assessment.objects.get(
@@ -220,18 +229,20 @@ class assessmentselect(TemplateView):
                 mycursor.execute(query)
 
             self.conn.commit()
-
             self.conn.close()
-
             c = Assessmentguardados(id_assessment=nombre, marcos=marcos,
                                     archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
             c.save()
 
             request.session["assessmentGuardado"] = nombre
             return redirect("assessment")
+        elif nombre == '' and select2 is not None: # if donde se recoge si se ha introducido valores de marcos paro no de nombre para el assessment
+            messages.error(request, 'Necesitas introducir un nombre para el Assessment')# Se crea mensage de error
+            context = super().get_context_data(**knwargs)
+            context["assess"] = Assessmentguardados.objects.all()
+            context["marcos"] = AsociacionMarcos.objects.all()
+            return render(request, self.template_name, context=context)
         else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
-
-            print(request.POST.getlist('editor'))
             context = super().get_context_data(**knwargs)
             context["assess"] = Assessmentguardados.objects.all()
             context["marcos"] = AsociacionMarcos.objects.all()
@@ -420,11 +431,11 @@ class MantenimientoEvidencias(TemplateView):
 
             if busqueda == '':  # detectamos si el valor del buscador esta vacio
                 context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-                context["consulta"] = EvidenceRequestCatalog.objects.all()  # pasamos el valor de la tabla completa
-                context["lenConsulta"] = len(EvidenceRequestCatalog.objects.all())
+                context["consulta"] = Evidencerequestcatalog.objects.all()  # pasamos el valor de la tabla completa
+                context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
                 return render(request, self.template_name, context=context)
             else:
-                consulta = EvidenceRequestCatalog.objects.get(
+                consulta = Evidencerequestcatalog.objects.get(
                     evidence_request_references=busqueda)  # consultamos el valor buscado en la tabla
                 context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
                 context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
@@ -442,7 +453,7 @@ class MantenimientoEvidencias(TemplateView):
             control_mappings = request.POST.get('control_mappings')  # valor del input de control_mappings
 
             try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
-                consulta = EvidenceRequestCatalog.objects.get(
+                consulta = Evidencerequestcatalog.objects.get(
                     evidence_request_references=evidence_request_references)  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
                 consulta.area_of_focus = area_of_focus
                 consulta.artifact = artifact
@@ -450,25 +461,25 @@ class MantenimientoEvidencias(TemplateView):
                 consulta.control_mappings = control_mappings
                 consulta.save()  # fijamos los valores y los guardamos.
             except:  # si el valor no esta en la tabla
-                insert = EvidenceRequestCatalog(evidence_request_references=evidence_request_references,
+                insert = Evidencerequestcatalog(evidence_request_references=evidence_request_references,
                                                 area_of_focus=area_of_focus, artifact=artifact,
                                                 artifact_description=artifact_description,
                                                 control_mappings=control_mappings)  # creamos un nuevo input en la tabla
                 insert.save()
 
             context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-            context["consulta"] = EvidenceRequestCatalog.objects.all()
-            context["lenConsulta"] = len(EvidenceRequestCatalog.objects.all())
+            context["consulta"] = Evidencerequestcatalog.objects.all()
+            context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
             return render(request, self.template_name,
                           context=context)  # siempre retornamos el valor con la tabla completa.
 
         else:  # else que recoge la pulsacion del boton de modificar.
-            consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=request.session[
+            consulta = Evidencerequestcatalog.objects.get(evidence_request_references=request.session[
                 "ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
 
             context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-            context["consulta"] = EvidenceRequestCatalog.objects.all()
-            context["lenConsulta"] = len(EvidenceRequestCatalog.objects.all())
+            context["consulta"] = Evidencerequestcatalog.objects.all()
+            context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
             context[
                 "seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
             return render(request, self.template_name, context=context)
@@ -476,14 +487,14 @@ class MantenimientoEvidencias(TemplateView):
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-        context["consulta"] = EvidenceRequestCatalog.objects.all()
-        context["lenConsulta"] = len(EvidenceRequestCatalog.objects.all())
+        context["consulta"] = Evidencerequestcatalog.objects.all()
+        context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
         return context
 
     # Funcion utilizada para eliminar el valor seleccionado de la tabla
     def Eliminar(request):
 
-        consulta = EvidenceRequestCatalog.objects.get(evidence_request_references=request.session["ultBusqueda"])
+        consulta = Evidencerequestcatalog.objects.get(evidence_request_references=request.session["ultBusqueda"])
         consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         return redirect('MantenimientoEvidencias')

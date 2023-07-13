@@ -48,6 +48,7 @@
     </div>
 </div>
 
+
 <div class="rowTitulo">
     <div class="cajaSeleccionAsssessment">
         <div class="tarjeta">
@@ -58,6 +59,15 @@
             </div>
             <form class="textoTarjeta" method="post">
                 {% csrf_token %}
+                {% if messages %}
+                <div class=" cuadroAlerta">
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                     <div class="margenArriba">
                         <label> Introduzca el Nombre del Assessment</label>
@@ -93,7 +103,19 @@
 </div>
 
 
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}
+            <script type="text/javascript">
+                setTimeout(() => {
+                    window.alert("{{ message }}")
+                }, 100);
+            </script>
+        {% endif %}
 
+    {% endfor %}
+
+{% endif %}
 
 <script type="text/javascript">
 
