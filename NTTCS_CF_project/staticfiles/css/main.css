@@ -650,7 +650,53 @@ body{
     justify-content:center;
 }
 
+/* ESTILOS PARA BOTONES DE MAPEO Y ASSEST ARCHIVADOS */
+.wrapper2 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    grid-template-rows: repeat(5, 1fr);
+}
 
+.selectorTablasMapeo {
+    grid-column: 1/4;
+    grid-row: 2;
+    text-align:center;
+}
+
+.selectStyleAssessmentMapeo{
+
+}
+
+.botonModificarMapeo {
+    grid-column: 4/5;
+    grid-row: 2;
+    text-align:center;
+}
+
+.tablasBuscaMapeo {
+    grid-column: 1/4;
+    grid-row: 3;
+    text-align:center;
+}
+
+.botonEliminarMapeo {
+    grid-column: 4/5;
+    grid-row: 3;
+    text-align:center;
+}
+
+.selectorTablasFlexMapeo{
+
+    justify-content:center;
+    align-items:center;
+}
+
+
+.tablasBuscaFlex{
+
+    align-items:center;
+}
 
 
 /*PARA LAS COLUMNAS DE CONTROLES NTTCS */
