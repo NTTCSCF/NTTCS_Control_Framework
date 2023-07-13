@@ -6,10 +6,6 @@
     <!-- Contenedor del contenido -->
     <div class="box wrapper">
 
-        <!-- logo del sistema NTT Data Control Framework -->
-        <div class="logoGrande1">
-             <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
-        </div>
 
         <!-- Titulo de la página -->
         <div class="tituloMantenimiento">
@@ -20,17 +16,14 @@
             </div>
         </div>
 
-        <!-- Logo de la empresa -->
-        <div class="logoPequeno">
-            <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
-        </div>
+
 
         <!-- Boton modificar -->
         <div class="botonModificar">
-            <form class="tablasModificarFlex" method="post" >
+            <form class="tablasBtnFlex" method="post" >
                 {% csrf_token %}
                 <div >
-                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
+                    <button class="btn btn-warning"  type="submit">Modificar</button>
                 </div>
             </form>
         </div>
@@ -39,20 +32,23 @@
         <div class="tablasBusca">
             <form class="tablasBuscaFlex" method="post" id="busquedaForm">
                 {% csrf_token %}
-                <div >
-                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
+                <div class="buscarMantenimiento">
+                     <div >
+                        <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
+                     </div>
+                     <div >
+                        <button class="btn btn-primary"  type="submit">Buscar</button>
+                     </div>
                 </div>
-                <div >
-                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
-                </div>
+
             </form>
         </div>
 
         <!-- Boton eliminar -->
         <div class="botonEliminar">
-            <div class="tablasEliminarFlex">
+            <div class="tablasBtnFlex">
                 <div >
-                    <a class="btnBorde btnTablas" href="{% url 'EliminarMarcos' %}" >Eliminar</a>
+                    <a class="btn btn-danger" href="{% url 'EliminarMarcos' %}" >Eliminar</a>
                 </div>
             </div>
         </div>
@@ -89,7 +85,7 @@
                     <input style="width:100%;height:20px;" type="text" id="nombre_tabla" name="nombre_tabla" value="{{seleccion.nombre_tabla}}">
                 </div>
                 <div class="cajaInsertar1 cajaButton" >
-                    <button class="btnBorde btnTablas2"  type="submit">Insertar</button>
+                    <button class="btn btn-success btnBorde btnTablas2"  type="submit">Insertar</button>
                 </div>
             </form>
         </div>
