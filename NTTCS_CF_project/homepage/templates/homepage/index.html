@@ -21,17 +21,17 @@
                 <div class="titulo_login">
                     Bienvenido
                 </div>
-                <form id="loginform">
+                <form id="loginform" method="post">
                     {% csrf_token %}
-                    <input type="text" placeholder="Usuario" name="usuario" required>
+                    <input type="text" placeholder="Usuario" name="user" required>
 
                     <input type="password" placeholder="Contraseña" name="pass" required>
 
                     <button type="submit" title="Ingresar" name="Ingresar">Ingresar</button>
                 </form>
                 <div class="pie-form">
-                    <a href="https://nttdata-solutions.com/es/" target="_blank">NTT DATA Emeal Cybersecurity Services - Risk Management</a>
-                    <span>Version Beta</span>
+                    <a class="aPie" href="https://nttdata-solutions.com/es/" target="_blank">NTT DATA Emeal Cybersecurity Services - Risk Management</a>
+                    <span class="spanPie">Version Beta</span>
                 </div>
             </div>
             <div class="inferior">

@@ -18,7 +18,7 @@ class index(TemplateView):
     template_name = "homepage/index.html"
 
     def post(self, request):
-        user = request.POST.get('usuario')
+        user = request.POST.get('user')
         pas = request.POST.get('pass')
 
         if user == 'eloy' and pas == '1234':
