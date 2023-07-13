@@ -134,14 +134,14 @@ body {
     margin-top: 15px;
 }
 
-.pie-form a, span {
+.pie-form .aPie .spanPie {
     display: block;
     text-decoration: none;
     color: #bbe1fa;
     margin-bottom: 3px;
 }
 
-.pie-form a:hover {
+.pie-form .aPie:hover {
     color: #0f4c75;
 }
 
