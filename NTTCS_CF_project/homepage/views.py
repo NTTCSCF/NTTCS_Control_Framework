@@ -1,5 +1,6 @@
 from typing import Dict, Any
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, redirect
 from select import select
 
@@ -27,6 +28,7 @@ class index(TemplateView):
 
 
 # Clase para la pagina de Assessment
+
 class assessment(TemplateView):
     template_name = "homepage/assessment.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
@@ -60,18 +62,19 @@ class assessment(TemplateView):
                 evidenciasParaBuscar = fila[6].split('\n')
                 evidencias = []
                 for i in evidenciasParaBuscar:
-                    print(i +'|')
+                    print(i)
                     try:
                         c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
                         evidencias += ['<p>' + c.evidence_request_references + ', ' + c.artifact_description + '</p>']
                     except:
                         c = Evidencias.objects.get(evidencia_id=i)
-                        evidencias += ['<p>' + c.evidencia_id + ', ' + c.comentario + ', <a href="' + c.links + '">' + c.links + '</a>' + '</p>']
+                        evidencias += [
+                            '<p>' + c.evidencia_id + ', ' + c.comentario + ', <a href="' + c.links + '">' + c.links + '</a>' + '</p>']
             else:
                 evidencias = ['']
 
             context["evidencias"] = evidencias
-            return context
+            return request, context
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
@@ -82,6 +85,7 @@ class assessment(TemplateView):
         context["NombreAss"] = assSelect
         context["assess"] = mycursor
         context["valMad"] = MaturirtyTable.objects.all()
+        self.request.session["controlSelect"] = 'noSel'
         return context
 
     # funcion post que recoge los summit del formulario de la pagina.
@@ -94,7 +98,35 @@ class assessment(TemplateView):
         boton4 = request.POST.get('boton4')  # valor del boton 4
 
         if 'selector' in request.POST:  # se recoge la pulsacion del select
-            if select == 'None':
+            if select == 'noSel':
+                context = super(assessment, self).get_context_data(**knwargs)
+                mycursor = self.conn.cursor(buffered=True)
+                mycursor.execute("SELECT * FROM " + assSelect)
+                context["NombreAss"] = assSelect
+                context["assess"] = mycursor
+                context["valMad"] = MaturirtyTable.objects.all()
+                request.session["controlSelect"] = select
+                return render(request, self.template_name, context=context)
+            else:
+                context = super(assessment, self).get_context_data(**knwargs)
+                request, context = self.contextTotal(request, select, assSelect, context)
+                return render(request, self.template_name, context=context)
+
+        elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
+            if request.session["controlSelect"] != 'noSel':
+                consulta = Assessment.objects.get(
+                    id=request.session["controlSelect"])  # consulta para consegir los valores del control seleccionado
+                query = """UPDATE """ + assSelect + """ SET descripcion='""" + consulta.control_description + """', 
+                pregunta='""" + consulta.control_question + """', respuesta='""" + \
+                        str(request.POST.get('respuesta')) + """', valoracion='""" + request.POST.get('valmad') + """' 
+                        WHERE ID='""" + consulta.id + """';"""  # consulta para rellenar los valores del control
+                # seleccionado
+                mycursor = self.conn.cursor()
+                mycursor.execute(query)
+                self.conn.commit()
+                self.request.session["controlSelect"] = 'noSel'
+            else:
+                messages.error(request, 'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
                 context = super(assessment, self).get_context_data(**knwargs)
                 mycursor = self.conn.cursor(buffered=True)
                 mycursor.execute("SELECT * FROM " + assSelect)
@@ -102,45 +134,54 @@ class assessment(TemplateView):
                 context["assess"] = mycursor
                 context["valMad"] = MaturirtyTable.objects.all()
                 return render(request, self.template_name, context=context)
-            else:
-                context = super(assessment, self).get_context_data(**knwargs)
-                context = self.contextTotal(request, select, assSelect, context)
-                return render(request, self.template_name, context=context)
+        elif boton4 == 'btn4':  # if encargado de rellenar las evidencias
 
-        elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
-            consulta = Assessment.objects.get(
-                id=request.session["controlSelect"])  # consulta para consegir los valores del control seleccionado
-            query = """UPDATE """ + assSelect + """ SET descripcion='""" + consulta.control_description + """', 
-            pregunta='""" + consulta.control_question + """', respuesta='""" + \
-                    str(request.POST.get('respuesta')) + """', valoracion='""" + request.POST.get('valmad') + """' 
-                    WHERE ID='""" + consulta.id + """';"""  # consulta para rellenar los valores del control
-            # seleccionado
-            mycursor = self.conn.cursor()
-            mycursor.execute(query)
-            self.conn.commit()
-        elif boton4 == 'btn4':
             idEvidencia = request.POST.get('idEvidencia')  # valor del idEvidencia
             descripcionEvidencia = request.POST.get('DescripcionEvidencia')  # valor del DescripcionEvidencia
             linkEvidencia = request.POST.get('linkEvidencia')  # valor del linkEvidencia
             controlId = request.session["controlSelect"]
+            print(controlId)
+            if controlId != 'noSel':
+                if idEvidencia != '' and descripcionEvidencia != '': # recogemos la pulsacion de guardar la evidencia
+                    if Evidencias.objects.filter(evidencia_id=idEvidencia,control_id=controlId,assessment=Assessmentguardados.objects.get(id_assessment=assSelect)).exists() == False:
 
-            ev = Evidencias(evidencia_id=idEvidencia, comentario=descripcionEvidencia, links=linkEvidencia,
-                            control_id=controlId, assessment=Assessmentguardados.objects.get(id_assessment=assSelect))
-            ev.save()
-
-            mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + assSelect + " WHERE ID='" + controlId + "'")
-            for fila in mycursor:
-                evidencia = fila[6]
-            evidencia += '\n' + idEvidencia
-
-            query = """UPDATE """ + assSelect + """ SET evidencia='""" + evidencia + """' WHERE ID='""" + controlId + """';"""  # consulta para rellenar los valores del control seleccionado
-            mycursor = self.conn.cursor()
-            mycursor.execute(query)
-            self.conn.commit()
-            context = super(assessment, self).get_context_data(**knwargs)
-            context = self.contextTotal(request, controlId, assSelect, context)
-            return render(request, self.template_name, context=context)
+                        ev = Evidencias(evidencia_id=idEvidencia, comentario=descripcionEvidencia, links=linkEvidencia,
+                                        control_id=controlId,
+                                        assessment=Assessmentguardados.objects.get(id_assessment=assSelect))
+                        ev.save()
+                        mycursor = self.conn.cursor(buffered=True)
+                        mycursor.execute("SELECT * FROM " + assSelect + " WHERE ID='" + controlId + "'")
+                        for fila in mycursor:
+                            evidencia = fila[6]
+                        evidencia += '\n' + idEvidencia
+                        query = """UPDATE """ + assSelect + """ SET evidencia='""" + evidencia + """' WHERE ID='""" + controlId + """';"""  # consulta para rellenar los valores del control seleccionado
+                        mycursor = self.conn.cursor()
+                        mycursor.execute(query)
+                        self.conn.commit()
+                        context = super(assessment, self).get_context_data(**knwargs)
+                        request,context = self.contextTotal(request, controlId, assSelect, context)
+                        return render(request, self.template_name, context=context)
+                    else:
+                        context = super(assessment, self).get_context_data(**knwargs)
+                        request, context = self.contextTotal(request, controlId, assSelect, context)
+                        messages.error(request,
+                                       'EVIDENCIA INCORRECTA: La evidencia introducida ya existe para este control y assessment')  # Se crea mensage de error
+                        return render(request, self.template_name, context=context)
+                else:
+                    context = super(assessment, self).get_context_data(**knwargs)
+                    request, context = self.contextTotal(request, controlId, assSelect, context)
+                    messages.error(request, 'EVIDENCIA INCORRECTA Necesita introducir un id y una descripcion para la '
+                                            'evidencia')  # Se crea mensage de error
+                    return render(request, self.template_name, context=context)
+            else:
+                messages.error(request, 'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                context = super(assessment, self).get_context_data(**knwargs)
+                mycursor = self.conn.cursor(buffered=True)
+                mycursor.execute("SELECT * FROM " + assSelect)
+                context["NombreAss"] = assSelect
+                context["assess"] = mycursor
+                context["valMad"] = MaturirtyTable.objects.all()
+                return render(request, self.template_name, context=context)
 
         else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
 
@@ -167,7 +208,7 @@ class assessmentselect(TemplateView):
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(assessmentselect, self).get_context_data(**knwargs)
-        context["assess"] = Assessmentguardados.objects.all()
+        context["assess"] = Assessmentguardados.objects.filter(archivado=0)
         context["marcos"] = AsociacionMarcos.objects.all()
         return context
 
@@ -236,15 +277,16 @@ class assessmentselect(TemplateView):
 
             request.session["assessmentGuardado"] = nombre
             return redirect("assessment")
-        elif nombre == '' and select2 is not None: # if donde se recoge si se ha introducido valores de marcos paro no de nombre para el assessment
-            messages.error(request, 'Necesitas introducir un nombre para el Assessment')# Se crea mensage de error
+        elif nombre == '' and select2 is not None:  # if donde se recoge si se ha introducido valores de marcos paro no de nombre para el assessment
+
+            messages.error(request, 'Necesitas introducir un nombre para el Assessment')  # Se crea mensage de error
             context = super().get_context_data(**knwargs)
-            context["assess"] = Assessmentguardados.objects.all()
+            context["assess"] = Assessmentguardados.objects.filter(archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
         else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
             context = super().get_context_data(**knwargs)
-            context["assess"] = Assessmentguardados.objects.all()
+            context["assess"] = Assessmentguardados.objects.filter(archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
@@ -339,7 +381,6 @@ class MantenimientoNivelMadurez(TemplateView):
 
 
 # Clase para la pagina de inicio de sesion
-
 
 
 # Clase para la pagina de menu
