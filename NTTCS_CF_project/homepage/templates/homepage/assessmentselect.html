@@ -30,7 +30,7 @@
                 <div class="cajaTextoSeleccionAssesment">
                     <div class="cajaSelectorCentrado margenAbajo">
                         <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector1" name="selector1">
-                            <option value="none">--- No Seleccionado ---</option>
+                            <option value="None">--- No Seleccionado ---</option>
                             {% for ids in assess %}
                             <option value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
                             {% endfor %}
@@ -114,7 +114,6 @@
         {% endif %}
 
     {% endfor %}
-
 {% endif %}
 
 <script type="text/javascript">

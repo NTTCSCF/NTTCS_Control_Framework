@@ -5,8 +5,17 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+class CustomUsuarios(AbstractUser):
+    user = models.CharField(max_length=100, unique=True)
+    pass_field = models.CharField(db_column='pass', max_length=100)  # Field renamed because it was a Python reserved word.
+    rol = models.CharField(max_length=100)
+    USERNAME_FIELD = 'user'
+    class Meta:
+        managed = False
+        db_table = 'usuarios'
 
 class AsociacionMarcos(models.Model):
     marco_id = models.CharField(primary_key=True, max_length=255)
