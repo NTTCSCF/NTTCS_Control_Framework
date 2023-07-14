@@ -4,8 +4,7 @@
 
 {% block contenido %}
     <!-- Contenedor de la página  -->
-    <div class="box wrapper">
-
+    <div class="wrapper2">
 
 
         <!-- titulo  -->
@@ -19,20 +18,20 @@
 
 
         <!-- seleccion de controls BTT para mostrar en pantalla -->
-        <div class="selectorTablas2">
+        <div class="selectorTablasMapeo">
 
-            <div class="selectorTablasFlex2">
+            <div class="selectorTablasFlexMapeo">
                 <form class="tablasBuscaFlex" method="post" id="busquedaForm">
                     {% csrf_token %}
 
                     <label for="selectorMapeo">NTT Controles</label>
-                    <select class="selectStyleAssessment" id="selectorMapeo" name="selectorMapeo">
+                    <select class="selectStyleAssessmentMapeo" id="selectorMapeo" name="selectorMapeo">
                     {% for ids in assess %}
                     <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
                     {% endfor %}
                     </select>
                     <div >
-                        <button class="btn btn-success btnBorde btnTablas"  type="submit" name="boton1" value="btn1">Mostrar</button>
+                        <button class="btn btn-info"  type="submit" name="boton1" value="btn1">Mostrar</button>
                     </div>
                 </form>
             </div>
@@ -40,33 +39,33 @@
         </div>
 
         <!-- vista del boton de modificar -->
-        <div class="botonModificar2">
+        <div class="botonModificarMapeo">
             <form class="tablasModificarFlex" method="post" >
                 {% csrf_token %}
                 <div >
-                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
+                    <button class="btn btn-warning btnTablas"  type="submit">Modificar</button>
                 </div>
             </form>
         </div>
 
         <!-- bloque formulario busqueda de controles NTT -->
-        <div class="tablasBusca2">
+        <div class="tablasBuscaMapeo">
             <form class="tablasBuscaFlex" method="post" >
                 {% csrf_token %}
                 <div >
                     <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
                 </div>
                 <div >
-                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
+                    <button class="btn btn-primary"  type="submit">Buscar</button>
                 </div>
             </form>
         </div>
 
         <!-- Boton eliminar -->
-        <div class="botonEliminar2">
+        <div class="botonEliminarMapeo">
             <div class="tablasEliminarFlex">
                 <div >
-                    <a class="btnBorde btnTablas" href="{% url 'EliminarMapeo' %}" >Eliminar</a>
+                    <a class="btn btn-danger btnBorde btnTablas" href="{% url 'EliminarMapeo' %}" >Eliminar</a>
                 </div>
             </div>
         </div>
