@@ -5,55 +5,76 @@
 {% block contenido %}
 
 
-    <!-- Contenedor de la página  -->
-    <div class="wrapper">
 
         <!-- titulo  -->
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Mantenimiento Nivel de Madurez</h1>
+    <div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+        <div class="cajaTitulo">
+            <h1>Mantenimiento Nivel de Madurez</h1>
+        </div>
+    </div>
+
+    <div class="rowCajas">
+
+         <form class="cajaBuscar" method="post" id="busquedaForm">
+            {% csrf_token %}
+
+                <div class="cajaInputBuscar">
+                    <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
                 </div>
+                <div class="cajaBotonBusqueda">
+                    <button class="btn btn-primary btn-block"  type="submit">Buscar</button>
+                </div>
+
+        </form>
+
+        <form class="cajaBotonModificar" method="post" >
+            {% csrf_token %}
+            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
+        </form>
+
+
+    </div>
+
+    <!-- Boton eliminar -->
+        <div class="rowBotonEliminar">
+
+            <div class="cajabotonEliminar">
+                <a class="btn btn-danger btn-block" href="{% url 'Eliminar' %}" >Eliminar</a>
             </div>
-        </div>
 
-        <!-- vista del boton de modificar -->
-        <div class="botonModificar">
-            <form class="tablasBtnFlex" method="post" >
-                {% csrf_token %}
-                <div >
-                    <button class="btn btn-warning"  type="submit">Modificar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Seccion de busqueda
-            -->
-        <div class="tablasBusca">
-            <form class="tablasBuscaFlex" method="post" id="busquedaForm">
-                {% csrf_token %}
-                <div class="buscarMantenimiento">
-                    <div>
-                        <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
-                    </div>
-                    <div>
-                        <button class="btn btn-primary"  type="submit">Buscar</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-
-        <!-- Boton eliminar -->
-        <div class="botonEliminar">
-            <div class="tablasBtnFlex">
-                <div >
-                    <a class="btn btn-danger" href="{% url 'Eliminar' %}" >Eliminar</a>
-                </div>
-            </div>
         </div>
 
         <!-- tabla de contenido de los controles  -->
+
+        <table class="table table-bordered table-responsive-md table-fixed">
+            <thead>
+                <th scope="col">Ccmmcod</th>
+                <th scope="col">Description</th>
+                <th scope="col">Sublevels</th>
+                <th scope="col">Percentage</th>
+            </thead>
+            <tbody>
+                {% if lenConsulta > 1 %}
+                {% for ids in consulta %}
+                <tr>
+                    <td>{{ids.ccmmcod}}</td>
+                    <td>{{ids.description}}</td>
+                    <td>{{ids.sublevels}}</td>
+                    <td>{{ids.percentage}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+
+
+
+
+
+
+
+        <!-- tabla de contenido de los controles COPIA  -->
         <div class="tablasTablas">
             <div class="tabasFlex">
                 <div class="cajaTablasTitulo">
@@ -119,7 +140,7 @@
             </form>
         </div>
 
-    </div>
+
 
 
 {% endblock %}

@@ -5,50 +5,40 @@
 {% block contenido %}
 
     <!-- Contenedor de la página  -->
-    <div class="box wrapper">
+    <div class="rowInformes">
 
 
-
-        <!-- titulo  -->
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Exportaciones</h1>
-                </div>
+        <div class="rowTitulo">
+        <!-- Titulo con el nombre del assessment -->
+            <div class="cajaTitulo">
+                <h1>EXPORTACIONES</h1>
             </div>
         </div>
 
-        <!-- Logo de NTT DATA -->
-        <div class="logoPequeno">
-            <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
-        </div>
+        <br>
 
         <!-- Section botones -->
-        <div class="ex22">
-            <h3>Assesment Existente</h3>
-        </div>
 
-        <div class="ex32">
-            <select style="width:100%;" class="selectStyleAssessment">
+        <div class="rowInformesSelect">
+
+            <h3>Assesment Existente</h3>
+            <select class="form-select form-select-md">
                 <option value="none">None</option>
             </select>
         </div>
 
-        <div class="ex23">
-            <div class="botonesFlexAssessment">
-                <button class="btnBorde btnAssesmentIr" >Excel</button>
+
+
+        <div class="rowExport">
+            <div class="btn-group btnGroupInformes" role="group">
+                <button class="btn btn-success" >Excel</button>
+
+                <button class="btn btn-primary" >Word</button>
+
+                <button class="btn btn-secondary" >CSV</button>
             </div>
         </div>
-        <div class="ex24">
-            <div class="botonesFlexAssessment">
-                <button class="btnBorde btnAssesmentIr" >Word</button>
-            </div>
-        </div>
-        <div class="ex25">
-            <div class="botonesFlexAssessment">
-                <button class="btnBorde btnAssesmentIr" >CSV</button>
-            </div>
-        </div>
+
 
     </div>
 {% endblock %}

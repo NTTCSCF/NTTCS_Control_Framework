@@ -5,45 +5,40 @@
 {% block contenido %}
 
     <!-- Contenedor de la página  -->
-    <div class="box wrapper">
+    <div class="rowInformes">
 
-
-
-         <!-- Logo NTT Control Framework -->
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Informes</h1>
-                </div>
+        <div class="rowTitulo">
+        <!-- Titulo con el nombre del assessment -->
+            <div class="cajaTitulo">
+                <h1>INFORMES</h1>
             </div>
+
+            <!--
+            <div class="rowImagen">
+                <div class="logoPequenoInformes">
+                    <img src="../staticfiles/images/logo_NTTData.jpg">
+                </div>
+            </div> -->
         </div>
 
-        <!-- Logo de NTT DATA -->
-        <div class="logoPequeno">
-            <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
-        </div>
-
-
-
-        <!-- titulo  -->
-        <div class="ex22">
-            <h3>Assesment Existente</h3>
-        </div>
+        <br>
 
         <!-- seleccionar assemente  -->
-        <div class="ex32">
-            <select style="width:100%;" class="selectStyleAssessment">
+        <h4>Assesment Existente</h4>
+        <div class="rowGenerarInforme">
+
+            <select class="form-select form-select-md mb-3">
                 <option value="none">None</option>
             </select>
-        </div>
 
-        <!-- boton de generar informe -->
-        <div class="ex23">
-            <div class="botonesFlexAssessment">
-                <button class="btnBorde btnAssesmentIr" >Generar Informe</button>
+            <!-- boton de generar informe -->
+            <div class="ex23">
+                <div class="botonesFlexAssessment">
+                    <button class="btn btn-primary" >Generar Informe</button>
+                </div>
             </div>
-        </div>
 
+        </div>
 
     </div>
 
