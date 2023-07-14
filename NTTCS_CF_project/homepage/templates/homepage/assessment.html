@@ -168,6 +168,8 @@
             </div>
         </div>
     </div>
+
+    {% if perms.acounts.puede_crear_assesment %}
     <div class="rowCajas">
         <div class="cajaPreguntaDescripcion">
             <div class="tarjeta">
@@ -215,7 +217,7 @@
             </div>
         </div>
     </div>
-
+    {% endif %}
 
     {% if messages %}
         {% for message in messages %}
