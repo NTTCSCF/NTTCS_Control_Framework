@@ -4,232 +4,245 @@
 
 {% block contenido %}
 
-<div class="rowTitulo" xmlns="http://www.w3.org/1999/html">
-                <!-- Titulo con el nombre del assessment -->
-                <div class="cajaTitulo">
-                    <h1>{{NombreAss}}</h1>
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>{{NombreAss}}</h1>
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <!-- Seleccion de assesment creado -->
+    <form class="contenedorSelector" method="post" id="form">
+        {% csrf_token %}
+            <div class="cajasTextoSelectorAssessment">
+                <label style="font-size: 1.4vw;" for="selector"> Seleccione un Control</label>
+            </div>
+            <div class="cajasSelectorAssessment">
+                <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector">
+                    <option selected value="noSel">--- No Seleccionado ---</option>
+                    {% for ids in assess %}
+                    {% if ids.0 == idControl %}
+                    <option selected value="{{ids.0}}">{{ids.0}}</option>
+                    {% else %}
+                    <option value="{{ids.0}}">{{ids.0}}</option>
+                    {% endif %}
+
+                    {% endfor %}
+                </select>
+            </div>
+    </form>
+</div>
+
+<div class="rowCajas">
+    <!-- Tarjeta del nombre del control -->
+    <div class="cajaNombreControl">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Nombre del control
                 </div>
             </div>
-
-            <div class="rowTitulo">
-                <!-- Seleccion de assesment creado -->
-                <form class="contenedorSelector" method="post" id="form">
-                    {% csrf_token %}
-                        <div class="cajasTextoSelectorAssessment">
-                            <label style="font-size: 1.4vw;" for="selector"> Seleccione un Control</label>
-                        </div>
-                        <div class="cajasSelectorAssessment">
-                            <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector">
-                                <option selected value="None">--- No Seleccionado ---</option>
-                                {% for ids in assess %}
-                                {% if ids.0 == idControl %}
-                                <option selected value="{{ids.0}}">{{ids.0}}</option>
-                                {% else %}
-                                <option value="{{ids.0}}">{{ids.0}}</option>
-                                {% endif %}
-
-                                {% endfor %}
-                            </select>
-                        </div>
-                </form>
-            </div>
-
-            <div class="rowCajas">
-                <!-- Tarjeta del nombre del control -->
-                <div class="cajaNombreControl">
-                    <div class="tarjeta">
-                        <div class="tituloTarjeta">
-                            <div class="cuadrotexto">
-                                Nombre del control
-                            </div>
-                        </div>
-                        <div class="textoTarjeta">
-                            <div class="cuadrotexto">
-                                {{nControl}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tarjeta de descripcion del control -->
-                <div class="cajaPreguntaDescripcion">
-                    <div class="tarjeta">
-                        <div class="tituloTarjeta">
-                            <div class="cuadrotexto">
-                                Descripción del control
-                            </div>
-
-                        </div>
-                        <div class="textoTarjeta">
-                            <div class="cuadrotexto">
-                                {{descripcion}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tarjeta de pregunta para el control -->
-                <div class="cajaPreguntaDescripcion">
-                    <div class="tarjeta">
-                        <div class="tituloTarjeta">
-                            <div class="cuadrotexto">
-                                Pregunta para el control
-                            </div>
-                        </div>
-                        <div class="textoTarjeta">
-                            <div class="cuadrotexto">
-                                {{pregunta}}
-                            </div>
-                        </div>
-                    </div>
+            <div class="textoTarjeta">
+                <div class="cuadrotexto">
+                    {{nControl}}
                 </div>
             </div>
+        </div>
+    </div>
 
-            <form class="cajaForm" method="post" id="form2">
-                {% csrf_token %}
-                <div class="rowCajas">
-                    <!-- Captura de la respuesta escrita -->
-                    <div class="cajaEditorTexto">
-                        <textarea style="height:100%;" id="editor" name="respuesta">{{respuesta}}</textarea>
+    <!-- Tarjeta de descripcion del control -->
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Descripción del control
+                </div>
 
-                        <!-- Script para el uso del editor de texto -->
-                        <script type="text/javascript">
+            </div>
+            <div class="textoTarjeta">
+                <div class="cuadrotexto">
+                    {{descripcion}}
+                </div>
+            </div>
+        </div>
+    </div>
 
-                            $(function() {
-                                $('textarea').each(function () {
-                                    const editor = Jodit.make('#editor', {
-                                        "spellcheck": true,
-                                        "language": "es",
-                                        height: "400",
-                                        allowResizeX: false,
-	                                    allowResizeY: false
-                                    });
-                                });
-                            });
+    <!-- Tarjeta de pregunta para el control -->
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Pregunta para el control
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="cuadrotexto">
+                    {{pregunta}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        </script>
+<form class="cajaForm" method="post" id="form2">
+    {% csrf_token %}
+    <div class="rowCajas">
+        <!-- Captura de la respuesta escrita -->
+        <div class="cajaEditorTexto">
+            <textarea style="height:100%;" id="editor" name="respuesta">{{respuesta}}</textarea>
+
+            <!-- Script para el uso del editor de texto -->
+            <script type="text/javascript">
+
+                $(function() {
+                    $('textarea').each(function () {
+                        const editor = Jodit.make('#editor', {
+                            "spellcheck": true,
+                            "language": "es",
+                            height: "400",
+                            allowResizeX: false,
+                            allowResizeY: false
+                        });
+                    });
+                });
+
+            </script>
+        </div>
+
+    </div>
+    <div class="rowCajas">
+        <!-- Caja de seleccion para ingresar la valoracion de madurez -->
+        <div class="contenedorSelector">
+            <div class="cajasTextoSelectorValoracion">
+                <label style="font-size: 1.4vw;">Valoración de madurez</label>
+            </div>
+            <div class="cajasSelectorValoracion">
+                <select  class="selectpicker " data-width="100%" data-size="10"   data-live-search="true" id="valmad" name="valmad" >
+                    {% for ids in valMad %}
+                    {% if ids.sublevels == valoracion %}
+                    <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                    {% else %}
+                    <option   value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="rowCajas">
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Criterio de la Valoración
                     </div>
 
                 </div>
-                <div class="rowCajas">
-                    <!-- Caja de seleccion para ingresar la valoracion de madurez -->
-                    <div class="contenedorSelector">
-                        <div class="cajasTextoSelectorValoracion">
-                            <label style="font-size: 1.4vw;">Valoración de madurez</label>
+                <div class="textoTarjetaGrande">
+                    <div class="cuadrotextoGrande">
+                        {% for i in criterio %}
+                        <p> {{i}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de pregunta para el control -->
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Evidencia
+                    </div>
+                </div>
+                <div class="textoTarjetaGrande">
+                    <div class="cuadrotextoGrande">
+                        {% for i in evidencias %}
+                        {{i | safe }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rowCajas">
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Nueva Evidencia
+                    </div>
+
+                </div>
+                <div class="textoTarjeta">
+                    <div class="cuadroInputs">
+                        <div style="width:40%;" class="form-floating formEvidencia">
+                            <input type="text" class="form-control" id="idEvidencia" name="idEvidencia">
+                            <label for="idEvidencia">ID de la referencia</label>
                         </div>
-                        <div class="cajasSelectorValoracion">
-                            <select  class="selectpicker " data-width="100%" data-size="10"   data-live-search="true" id="valmad" name="valmad" >
-                                {% for ids in valMad %}
-                                {% if ids.sublevels == valoracion %}
-                                <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
-                                {% else %}
-                                <option   value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
-                                {% endif %}
-                                {% endfor %}
-                            </select>
+                        <div style="width:100%;" class="form-floating formEvidencia">
+                            <input type="text" class="form-control" id="DescripcionEvidencia" name="DescripcionEvidencia">
+                            <label for="DescripcionEvidencia">Descripcion de la evidencia</label>
+                        </div>
+                        <div style="width:100%;" class="form-floating formEvidencia">
+                            <input type="text" class="form-control" id="linkEvidencia" name="linkEvidencia">
+                            <label for="linkEvidencia">Link de la evidencia</label>
+                        </div>
+                    </div>
+                    <div class="cuadroInputs">
+                        <div style="width:15%;">
+                            <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton4" name="boton4" value="btn4">Añadir Evidencia</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="rowCajas">
+        <div class="cajaMitad">
 
-                <div class="rowCajas">
-                    <div class="cajaPreguntaDescripcion">
-                        <div class="tarjeta">
-                            <div class="tituloTarjeta">
-                                <div class="cuadrotexto">
-                                    Criterio de la Valoración
-                                </div>
-
-                            </div>
-                            <div class="textoTarjetaGrande">
-                                <div class="cuadrotextoGrande">
-                                    {% for i in criterio %}
-                                    <p> {{i}}</p>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tarjeta de pregunta para el control -->
-                    <div class="cajaPreguntaDescripcion">
-                        <div class="tarjeta">
-                            <div class="tituloTarjeta">
-                                <div class="cuadrotexto">
-                                    Evidencia
-                                </div>
-                            </div>
-                            <div class="textoTarjetaGrande">
-                                <div class="cuadrotextoGrande">
-                                    {% for i in evidencias %}
-                                    {{i | safe }}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rowCajas">
-                    <div class="cajaPreguntaDescripcion">
-                        <div class="tarjeta">
-                            <div class="tituloTarjeta">
-                                <div class="cuadrotexto">
-                                    Nueva Evidencia
-                                </div>
-
-                            </div>
-                            <div class="textoTarjeta">
-                                <div class="cuadroInputs">
-                                    <div style="width:40%;" class="form-floating formEvidencia">
-                                        <input type="text" class="form-control" id="idEvidencia" name="idEvidencia">
-                                        <label for="idEvidencia">ID de la referencia</label>
-                                    </div>
-                                    <div style="width:100%;" class="form-floating formEvidencia">
-                                        <input type="text" class="form-control" id="DescripcionEvidencia" name="DescripcionEvidencia">
-                                        <label for="DescripcionEvidencia">Descripcion de la evidencia</label>
-                                    </div>
-                                    <div style="width:100%;" class="form-floating formEvidencia">
-                                        <input type="text" class="form-control" id="linkEvidencia" name="linkEvidencia">
-                                        <label for="linkEvidencia">Link de la evidencia</label>
-                                    </div>
-                                </div>
-                                <div class="cuadroInputs">
-                                    <div style="width:15%;">
-                                        <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton4" name="boton4" value="btn4">Añadir Evidencia</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rowCajas">
-                    <div class="cajaMitad">
-
-                    </div>
-                    <!-- Botones de guardar y archivar -->
-                    <div class="cajaMitad">
-                        <div class="cajaBoton">
-                            <button class="btn btn-outline-success btn-lg btn-block" type="submit" id="boton2" name="boton2" value="btn2">Guardar Valoración</button>
-                        </div>
-                        <div class="cajaBoton">
-                            <button class="btn btn-outline-danger btn-lg btn-block" type="button" onclick="clicked(this.form);" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
-                        </div>
-                    </div>
-                </div>
+        </div>
+        <!-- Botones de guardar y archivar -->
+        <div class="cajaMitad">
+            <div class="cajaBoton">
+                <button class="btn btn-outline-success btn-lg btn-block" type="submit" id="boton2" name="boton2" value="btn2">Guardar Valoración</button>
+            </div>
+            <div class="cajaBoton">
+                <button class="btn btn-outline-danger btn-lg btn-block" type="button" onclick="clicked(this.form);" id="boton3" name="boton3" value="btn3">Archivar Assessment</button>
+            </div>
+        </div>
+    </div>
 
 
-            </form>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+                <script type="text/javascript">
+                    setTimeout(() => {
+                        window.alert("{{ message }}")
+                    }, 400);
+                </script>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
+</form>
 
 
-        <!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
-        <script type="text/javascript">
-            function clicked(form) {
-               if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
-                   form.submit();
-               } else {
-                   return false;
-               }
-            }
-        </script>
+<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
+<script type="text/javascript">
+    function clicked(form) {
+       if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
+           form.submit();
+       } else {
+           return false;
+       }
+    }
+</script>
 
 {% endblock %}
 
