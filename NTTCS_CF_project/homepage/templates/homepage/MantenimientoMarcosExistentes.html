@@ -4,7 +4,7 @@
 
 {% block contenido %}
     <!-- Contenedor del contenido -->
-    <div class="box wrapper">
+
 
 
         <!-- Titulo de la página -->
@@ -16,19 +16,93 @@
             </div>
         </div>
 
+        <!-- BUSQUEDA -->
+        <div class="rowCajas">
+            <form class="cajaBuscar col-8" method="post" id="busquedaForm">
+                {% csrf_token %}
+                <div class="cajaInputBuscar">
+                     <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
+                 </div>
+                 <div class="cajaBotonBusqueda col-2">
+                    <button class="btn btn-primary btn-block"  type="submit">Buscar</button>
+                 </div>
+            </form>
 
-
-        <!-- Boton modificar -->
-        <div class="botonModificar">
-            <form class="tablasBtnFlex" method="post" >
+            <form class="tablasBtnFlex col-2" method="post" >
                 {% csrf_token %}
                 <div >
-                    <button class="btn btn-warning"  type="submit">Modificar</button>
+                    <button class="btn btn-warning btn-block" type="submit">Modificar</button>
+                </div>
+            </form>
+            <div class="col-2" >
+                <a class="btn btn-danger btn-block" href="{% url 'EliminarMarcos' %}" >Eliminar</a>
+            </div>
+       </div>
+
+
+        <!-- FILA DE ROW INSERTAR DATOS -->
+        <div class="row">
+            <span>Ingresar un nuevo registro:</span>
+            <form class="rowInsertar" method="post">
+                {% csrf_token %}
+                <div class="col-5">
+                    <label class="form-label" for="marco_id">marco_id</label>
+                    <input class="form-control" type="text" id="marco_id" name="marco_id" value="{{seleccion.marco_id}}">
+                </div>
+                <div class="col-5">
+                    <label class="form-label" for="nombre_tabla">table_name</label>
+                    <input class="form-control" type="text" id="nombre_tabla" name="nombre_tabla" value="{{seleccion.nombre_tabla}}">
+                </div>
+                <div class="col-2" style="justify-content:end;align-items:center;">
+                    <button class="btn btn-success btn-block"  type="submit">Insertar</button>
                 </div>
             </form>
         </div>
 
-        <!-- Seccion de busqueda -->
+
+         <!-- TABLA DE CONTENIDO  -->
+        <table class="table table-fixed">
+            <thead>
+                <tr scope="rowgroup">
+                    <th>Marco ID</th>
+                    <th>Nombre tabla</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if lenConsulta > 1 %}
+                {% for ids in consulta %}
+                <tr>
+                    <td>{{ids.marco_id}}</td>
+                    <td>{{ids.nombre_tabla}}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                 <tr>
+                    <td>{{consulta.marco_id}}</td>
+                    <td>{{consulta.nombre_tabla}}</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- COPIA ORIGINAL
+        <!-- Seccion de busqueda
         <div class="tablasBusca">
             <form class="tablasBuscaFlex" method="post" id="busquedaForm">
                 {% csrf_token %}
@@ -44,7 +118,7 @@
             </form>
         </div>
 
-        <!-- Boton eliminar -->
+        <!-- Boton eliminar
         <div class="botonEliminar">
             <div class="tablasBtnFlex">
                 <div >
@@ -53,7 +127,7 @@
             </div>
         </div>
 
-        <!-- tabla de contenido de los controles  -->
+        <!-- tabla de contenido de los controles
         <div class="tablasTablas">
             <div class="tabasFlex">
                 <div class="cajaTablasTitulo">
@@ -72,7 +146,7 @@
             </div>
         </div>
 
-        <!-- formulario para insertar datos -->
+        <!-- formulario para insertar datos
         <div class="tablasInsertar">
             <form class="tablasInsertarFlex" method="post">
                 {% csrf_token %}
@@ -89,6 +163,6 @@
                 </div>
             </form>
         </div>
+        -->
 
-    </div>
 {% endblock %}

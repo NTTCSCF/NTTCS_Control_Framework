@@ -5,95 +5,115 @@
 {% block contenido %}
 
 
-    <!-- Contenedor de la página  -->
-    <div class="wrapper">
 
         <!-- titulo  -->
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Mantenimiento Nivel de Madurez</h1>
+    <div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+        <div class="cajaTitulo">
+            <h1>Mantenimiento Nivel de Madurez</h1>
+        </div>
+    </div>
+
+    <div class="rowCajas">
+
+         <form class="cajaBuscar" method="post" id="busquedaForm">
+            {% csrf_token %}
+
+                <div class="cajaInputBuscar">
+                    <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
                 </div>
+                <div class="cajaBotonBusqueda">
+                    <button class="btn btn-primary btn-block"  type="submit">Buscar</button>
+                </div>
+
+        </form>
+
+        <form class="cajaBotonModificar" method="post" >
+            {% csrf_token %}
+            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
+        </form>
+
+
+    </div>
+
+    <!-- Boton eliminar -->
+        <div class="rowBotonEliminar">
+
+            <div class="cajabotonEliminar">
+                <a class="btn btn-danger btn-block" href="{% url 'Eliminar' %}" >Eliminar</a>
             </div>
-        </div>
 
-        <!-- vista del boton de modificar -->
-        <div class="botonModificar">
-            <form class="tablasBtnFlex" method="post" >
-                {% csrf_token %}
-                <div >
-                    <button class="btn btn-warning"  type="submit">Modificar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Seccion de busqueda
-            -->
-        <div class="tablasBusca">
-            <form class="tablasBuscaFlex" method="post" id="busquedaForm">
-                {% csrf_token %}
-                <div class="buscarMantenimiento">
-                    <div>
-                        <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
-                    </div>
-                    <div>
-                        <button class="btn btn-primary"  type="submit">Buscar</button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-
-        <!-- Boton eliminar -->
-        <div class="botonEliminar">
-            <div class="tablasBtnFlex">
-                <div >
-                    <a class="btn btn-danger" href="{% url 'Eliminar' %}" >Eliminar</a>
-                </div>
-            </div>
         </div>
 
         <!-- tabla de contenido de los controles  -->
-        <div class="tablasTablas">
-            <div class="tabasFlex">
-                <div class="cajaTablasTitulo">
-                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">Ccmmcod</div><div class="tb_colprueba">Description</div><div class="tb_colprueba">Sublevels</div><div class="tb_colprueba">Percentage</div></div>
-                </div>
-                <div class="cajaTablas">
-                    {% if lenConsulta > 1 %}
 
-                    {% for ids in consulta %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.ccmmcod}}</div><div class="tb_colprueba">{{ids.description}}</div><div class="tb_colprueba">{{ids.sublevels}}</div><div class="tb_colprueba">{{ids.percentage}}</div></div>
-                    {% endfor %}
-                    {% else %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{consulta.ccmmcod}}</div><div class="tb_colprueba">{{consulta.description}}</div><div class="tb_colprueba">{{consulta.sublevels}}</div><div class="tb_colprueba">{{consulta.percentage}}</div></div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+        <table class="table table-bordered table-responsive-md table-fixed">
+            <thead>
+                <tr>
+                    <th scope="col">Ccmmcod</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Sublevels</th>
+                    <th scope="col">Percentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if lenConsulta > 1 %}
+                {% for ids in consulta %}
+                <tr>
+                    <td>{{ids.ccmmcod}}</td>
+                    <td>{{ids.description}}</td>
+                    <td>{{ids.sublevels}}</td>
+                    <td>{{ids.percentage}}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
 
-
-        <!-- tabla de contenido de los controles
-        <div class="tablasTablas">
-            <div class="tabasFlex">
-                <div class="cajaTablasTitulo">
-                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">Ccmmcod</div><div class="tb_colprueba">Description</div><div class="tb_colprueba">Sublevels</div><div class="tb_colprueba">Percentage</div></div>
-                </div>
-                <div class="cajaTablas">
-                    {% if lenConsulta > 1 %}
-
-                    {% for ids in consulta %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.ccmmcod}}</div><div class="tb_colprueba">{{ids.description}}</div><div class="tb_colprueba">{{ids.sublevels}}</div><div class="tb_colprueba">{{ids.percentage}}</div></div>
-                    {% endfor %}
-                    {% else %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{consulta.ccmmcod}}</div><div class="tb_colprueba">{{consulta.description}}</div><div class="tb_colprueba">{{consulta.sublevels}}</div><div class="tb_colprueba">{{consulta.percentage}}</div></div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        -->
 
         <!-- formulario para insertar datos -->
+        <div class="row">
+
+                <form class="" method="post">
+                    <h5>Ingresar datos:</h5>
+                    {% csrf_token %}
+                    <div class="row rowInsertar">
+                        <div class="col-4">
+                            <label class="form-label" for="Ccmmcod">Ccmmcod:</label>
+                            <input class="form-control" type="text" id="Ccmmcod" name="Ccmmcod" value="{{seleccion.ccmmcod}}">
+                        </div>
+                         <div class="col-4">
+                            <label class="form-label" for="Sublevels">Sublevels:</label>
+                            <input class="form-control" type="text" id="Sublevels" name="Sublevels" value="{{seleccion.sublevels}}">
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label" for="Percentage">Percentage:</label>
+                            <input class="form-control" type="text" id="Percentage" name="Percentage" value="{{seleccion.percentage}}">
+                        </div>
+                    </div>
+
+                    <div class="row rowInsertar">
+                         <div class="rowInsertar2">
+                            <label class="form-label" for="Description">Description:</label>
+                            <!-- <input class="" type="text" id="Description" name="Description" value="{{seleccion.description}}"> -->
+                            <textarea class="form-control" name="comentarios" rows="5" cols="auto" id="Description" name="Description" value="{{seleccion.description}}">Escribe aquí una descripción</textarea>
+                         </div>
+                    </div>
+
+
+                    <div class="cajaButton" >
+                        <button class="btn btn-success"  type="submit">Insertar</button>
+                    </div>
+                </form>
+
+
+        </div>
+
+
+
+
+
+        <!-- formulario para insertar datos COPIA ORIGINAL
         <div class="tablasInsertar">
             <form class="tablasInsertarFlex" method="post">
                 {% csrf_token %}
@@ -118,8 +138,8 @@
                 </div>
             </form>
         </div>
+        -->
 
-    </div>
 
 
 {% endblock %}

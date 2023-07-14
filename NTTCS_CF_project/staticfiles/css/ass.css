@@ -134,7 +134,6 @@
     flex-direction:row;
     justify-content:center;
     align-content:center;
-
 }
 
 .cajaForm{
@@ -153,7 +152,7 @@
     justify-content:space-around;
     align-content:center;
     margin:1%;
-
+    border: 1px solid black;
 }
 .cajaMitad{
     width:50%;
