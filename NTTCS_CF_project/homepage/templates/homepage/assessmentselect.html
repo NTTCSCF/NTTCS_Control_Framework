@@ -41,7 +41,7 @@
         </div>
     </div>
 </div>
-
+{% if perms.acounts.puede_crear_assesment %}
 <div class="rowTitulo">
     <div class="cajaTitulo fontGrande">
         ó
@@ -101,7 +101,7 @@
         </div>
     </div>
 </div>
-
+{% endif %}
 
 {% if messages %}
     {% for message in messages %}

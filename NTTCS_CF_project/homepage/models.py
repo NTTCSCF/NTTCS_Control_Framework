@@ -8,14 +8,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class CustomUsuarios(AbstractUser):
-    user = models.CharField(max_length=100, unique=True)
-    pass_field = models.CharField(db_column='pass', max_length=100)  # Field renamed because it was a Python reserved word.
-    rol = models.CharField(max_length=100)
-    USERNAME_FIELD = 'user'
-    class Meta:
-        managed = False
-        db_table = 'usuarios'
 
 class AsociacionMarcos(models.Model):
     marco_id = models.CharField(primary_key=True, max_length=255)
@@ -23,6 +15,7 @@ class AsociacionMarcos(models.Model):
     comentario2 = models.TextField(blank=True, null=True)
     comentario = models.TextField(blank=True, null=True)
     objects = models.Manager()
+
     class Meta:
         managed = False
         db_table = 'asociacion_marcos'
@@ -30,22 +23,33 @@ class AsociacionMarcos(models.Model):
 
 class Assessment(models.Model):
     domain = models.CharField(db_column='Domain', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    selected = models.CharField(db_column='Selected', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    selected = models.CharField(db_column='Selected', max_length=255, blank=True,
+                                null=True)  # Field name made lowercase.
     control = models.CharField(db_column='Control', max_length=255, blank=True, null=True)  # Field name made lowercase.
     id = models.CharField(db_column='ID', max_length=255, primary_key=True)  # Field name made lowercase.
-    control_description = models.CharField(db_column='Control Description', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    methods_to_comply_with_control = models.CharField(db_column='Methods To Comply With Control', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    evidence_request_references = models.CharField(db_column='Evidence Request References', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    control_question = models.CharField(db_column='Control Question', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    control_description = models.CharField(db_column='Control Description', max_length=255, blank=True,
+                                           null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    methods_to_comply_with_control = models.CharField(db_column='Methods To Comply With Control', max_length=255,
+                                                      blank=True,
+                                                      null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    evidence_request_references = models.CharField(db_column='Evidence Request References', max_length=255, blank=True,
+                                                   null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    control_question = models.CharField(db_column='Control Question', max_length=255, blank=True,
+                                        null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     campo9 = models.CharField(db_column='Campo9', max_length=255, blank=True, null=True)  # Field name made lowercase.
     campo10 = models.TextField(db_column='Campo10', blank=True, null=True)  # Field name made lowercase.
     campo11 = models.TextField(db_column='Campo11', blank=True, null=True)  # Field name made lowercase.
     campo12 = models.TextField(db_column='Campo12', blank=True, null=True)  # Field name made lowercase.
     campo13 = models.TextField(db_column='Campo13', blank=True, null=True)  # Field name made lowercase.
     campo14 = models.TextField(db_column='Campo14', blank=True, null=True)  # Field name made lowercase.
-    assessment_question_evidences_comments = models.CharField(db_column='Assessment Question/Evidences Comments', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    assesed_result = models.CharField(db_column='Assesed result', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    control_assessment_comments2 = models.CharField(db_column='Control Assessment Comments2', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    assessment_question_evidences_comments = models.CharField(db_column='Assessment Question/Evidences Comments',
+                                                              max_length=255, blank=True,
+                                                              null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    assesed_result = models.CharField(db_column='Assesed result', max_length=255, blank=True,
+                                      null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    control_assessment_comments2 = models.CharField(db_column='Control Assessment Comments2', max_length=255,
+                                                    blank=True,
+                                                    null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     comentario2 = models.TextField(blank=True, null=True)
     comentario = models.TextField(blank=True, null=True)
     objects = models.Manager()
@@ -56,7 +60,8 @@ class Assessment(models.Model):
 
 
 class Assessmentguardados(models.Model):
-    id_assessment = models.CharField(db_column='ID_assessment', primary_key=True, max_length=100)  # Field name made lowercase.
+    id_assessment = models.CharField(db_column='ID_assessment', primary_key=True,
+                                     max_length=100)  # Field name made lowercase.
     marcos = models.TextField(blank=True, null=True)
     archivado = models.IntegerField(blank=True, null=True)
     comentario2 = models.TextField(blank=True, null=True)
@@ -146,7 +151,6 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-
 class DjangoAdminLog(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     action_time = models.DateTimeField()
@@ -186,6 +190,7 @@ class DjangoMigrations(models.Model):
         managed = False
         db_table = 'django_migrations'
 
+
 class DjangoSession(models.Model):
     session_key = models.CharField(primary_key=True, max_length=40)
     session_data = models.TextField()
@@ -196,11 +201,16 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
+
 class Domains(models.Model):
-    identifier = models.CharField(db_column='Identifier', primary_key=True, max_length=255)  # Field name made lowercase.
+    identifier = models.CharField(db_column='Identifier', primary_key=True,
+                                  max_length=255)  # Field name made lowercase.
     domain = models.CharField(db_column='Domain', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    security_privacy_by_design_s_p_principles = models.CharField(db_column='Security & Privacy by Design (S|P) Principles', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    principle_intent = models.TextField(db_column='Principle Intent', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    security_privacy_by_design_s_p_principles = models.CharField(
+        db_column='Security & Privacy by Design (S|P) Principles', max_length=255, blank=True,
+        null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    principle_intent = models.TextField(db_column='Principle Intent', blank=True,
+                                        null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     comentario2 = models.TextField(blank=True, null=True)
     comentario = models.TextField(blank=True, null=True)
     objects = models.Manager()
@@ -209,12 +219,18 @@ class Domains(models.Model):
         managed = False
         db_table = 'domains'
 
+
 class Evidencerequestcatalog(models.Model):
-    evidence_request_references = models.CharField(db_column='Evidence Request References', primary_key=True, max_length=255)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    area_of_focus = models.CharField(db_column='Area of Focus', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    artifact = models.CharField(db_column='Artifact', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    artifact_description = models.TextField(db_column='Artifact Description', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    control_mappings = models.CharField(db_column='Control Mappings', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    evidence_request_references = models.CharField(db_column='Evidence Request References', primary_key=True,
+                                                   max_length=255)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    area_of_focus = models.CharField(db_column='Area of Focus', max_length=255, blank=True,
+                                     null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    artifact = models.CharField(db_column='Artifact', max_length=255, blank=True,
+                                null=True)  # Field name made lowercase.
+    artifact_description = models.TextField(db_column='Artifact Description', blank=True,
+                                            null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    control_mappings = models.CharField(db_column='Control Mappings', max_length=255, blank=True,
+                                        null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     comentario2 = models.TextField(blank=True, null=True)
     comentario = models.TextField(blank=True, null=True)
     objects = models.Manager()
@@ -222,6 +238,7 @@ class Evidencerequestcatalog(models.Model):
     class Meta:
         managed = False
         db_table = 'evidencerequestcatalog'
+
 
 class Evidencias(models.Model):
     evidencia_id = models.CharField(primary_key=True, max_length=100)
@@ -234,6 +251,7 @@ class Evidencias(models.Model):
     class Meta:
         managed = False
         db_table = 'evidencias'
+
 
 class SeleccionAssessment(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -250,7 +268,8 @@ class SeleccionAssessment(models.Model):
 
 class MaturirtyTable(models.Model):
     ccmmcod = models.CharField(db_column='CCMMCOD', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    description = models.CharField(db_column='DESCRIPTION', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    description = models.CharField(db_column='DESCRIPTION', max_length=255, blank=True,
+                                   null=True)  # Field name made lowercase.
     sublevels = models.CharField(db_column='SUBLEVELS', primary_key=True, max_length=255)  # Field name made lowercase.
     percentage = models.FloatField(db_column='PERCENTAGE', blank=True, null=True)  # Field name made lowercase.
     objects = models.Manager()
@@ -259,23 +278,34 @@ class MaturirtyTable(models.Model):
         managed = False
         db_table = 'maturirty table'
 
+
 class NttcsCf20231(models.Model):
     domain = models.CharField(db_column='Domain', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    selected_y_n_field = models.CharField(db_column='Selected? (Y/N)', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    selected_y_n_field = models.CharField(db_column='Selected? (Y/N)', max_length=255, blank=True,
+                                          null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
     control = models.CharField(db_column='Control', max_length=255, blank=True, null=True)  # Field name made lowercase.
     id = models.CharField(db_column='ID', primary_key=True, max_length=255)  # Field name made lowercase.
-    control_description = models.CharField(db_column='Control Description', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    relative_control_weighting = models.FloatField(db_column='Relative Control Weighting', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    function_grouping = models.CharField(db_column='Function Grouping', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    control_description = models.CharField(db_column='Control Description', max_length=255, blank=True,
+                                           null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    relative_control_weighting = models.FloatField(db_column='Relative Control Weighting', blank=True,
+                                                   null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    function_grouping = models.CharField(db_column='Function Grouping', max_length=255, blank=True,
+                                         null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     scrm1 = models.CharField(db_column='SCRM1', max_length=255, blank=True, null=True)  # Field name made lowercase.
     scrm2 = models.CharField(db_column='SCRM2', max_length=255, blank=True, null=True)  # Field name made lowercase.
     scrm3 = models.CharField(db_column='SCRM3', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    assesed_result = models.CharField(db_column='Assesed result', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    numeric_result = models.CharField(db_column='Numeric result', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    weighted_numeric_result = models.FloatField(db_column='Weighted Numeric result', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    assessment_comments = models.CharField(db_column='Assessment Comments', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    relative_result_by_function = models.FloatField(db_column='Relative result by Function', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    relative_result_by_domain = models.FloatField(db_column='Relative result by Domain', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    assesed_result = models.CharField(db_column='Assesed result', max_length=255, blank=True,
+                                      null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    numeric_result = models.CharField(db_column='Numeric result', max_length=255, blank=True,
+                                      null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    weighted_numeric_result = models.FloatField(db_column='Weighted Numeric result', blank=True,
+                                                null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    assessment_comments = models.CharField(db_column='Assessment Comments', max_length=255, blank=True,
+                                           null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    relative_result_by_function = models.FloatField(db_column='Relative result by Function', blank=True,
+                                                    null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    relative_result_by_domain = models.FloatField(db_column='Relative result by Domain', blank=True,
+                                                  null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     objects = models.Manager()
 
     class Meta:
@@ -284,27 +314,38 @@ class NttcsCf20231(models.Model):
 
 
 class RiskCatalog(models.Model):
-    risk_grouping = models.CharField(db_column='Risk Grouping', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    risk_id = models.CharField(db_column='Risk ID', primary_key=True, max_length=255)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    risk_grouping = models.CharField(db_column='Risk Grouping', max_length=255, blank=True,
+                                     null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    risk_id = models.CharField(db_column='Risk ID', primary_key=True,
+                               max_length=255)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     risk = models.CharField(db_column='Risk', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    description_of_possible_risk_due_to_control_deficiency = models.CharField(db_column='Description of Possible Risk Due To Control Deficiency', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    frequency = models.CharField(db_column='Frequency', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    description_of_possible_risk_due_to_control_deficiency = models.CharField(
+        db_column='Description of Possible Risk Due To Control Deficiency', max_length=255, blank=True,
+        null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    frequency = models.CharField(db_column='Frequency', max_length=255, blank=True,
+                                 null=True)  # Field name made lowercase.
     freqnum = models.FloatField(db_column='FreqNum', blank=True, null=True)  # Field name made lowercase.
     impact = models.CharField(db_column='Impact', max_length=255, blank=True, null=True)  # Field name made lowercase.
     impactnum = models.FloatField(db_column='ImpactNum', blank=True, null=True)  # Field name made lowercase.
-    risk_val = models.FloatField(db_column='Risk Val', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    function = models.CharField(db_column='Function', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    risk_val = models.FloatField(db_column='Risk Val', blank=True,
+                                 null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    function = models.CharField(db_column='Function', max_length=255, blank=True,
+                                null=True)  # Field name made lowercase.
     objects = models.Manager()
 
     class Meta:
         managed = False
         db_table = 'risk catalog'
 
+
 class ThreatCatalog(models.Model):
-    threat_group = models.CharField(db_column='Threat Group', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    threat_id = models.CharField(db_column='Threat ID', primary_key=True, max_length=255)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    threat_group = models.CharField(db_column='Threat Group', max_length=255, blank=True,
+                                    null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    threat_id = models.CharField(db_column='Threat ID', primary_key=True,
+                                 max_length=255)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     threat = models.CharField(db_column='Threat', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    threat_description = models.TextField(db_column='Threat Description', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    threat_description = models.TextField(db_column='Threat Description', blank=True,
+                                          null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     objects = models.Manager()
 
     class Meta:
