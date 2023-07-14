@@ -1,9 +1,11 @@
 from django.urls import path
 from . import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('', views.index.as_view()),
-    path('', views.menu.as_view(), name='index'),
+    path('', views.index.as_view(), name='login'),
+    path('accounts/login/', views.index.as_view(), name='login'),
+    path('menu/', views.menu.as_view(), name='menu'),
     path('assessment/', views.assessment.as_view(), name='assessment'),
     path('assessmentselect/', views.assessmentselect.as_view(), name='assessmentselect'),
     path('exportaciones/', views.Exportaciones.as_view(), name='exportaciones'),
@@ -26,10 +28,11 @@ urlpatterns = [
     path('MantenimientoMapeoMarcos/EliminarMapeo/', views.MantenimientoMapeoMarcos.EliminarMapeo, name='EliminarMapeo'),
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
     path('MantenimientoAssessmentArchivados/EliminarAssessment/', views.MantenimientoAssessmentArchivados.EliminarAssessment, name='EliminarAssessment'),
-
+    path('logout', views.logout, name='logout'),
     #prueba jose
     path('MantDominios2/', views.MantDominios2.as_view(), name='MantDominios2'),
     path('MantDom3/', views.MantDom3.as_view(), name='MantDom3'),
 
 ]
+
 

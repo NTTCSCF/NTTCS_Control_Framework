@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'homepage'
+    'homepage',
+    'acounts'
 ]
+AUTH_USER_MODEL = "acounts.user"
+LOGIN_REDIRECT_URL = 'menu/'
+LOGOUT_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,7 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'NTTCS_CF_project.wsgi.application'
 
-AUTH_USER_MODEL = "homepage.CustomUsuarios"
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
