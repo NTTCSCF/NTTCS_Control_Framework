@@ -1,35 +1,48 @@
 from typing import Dict, Any
 
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, HttpResponse, redirect
-from select import select
-
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias
 from django.views.generic import TemplateView
 import mysql.connector
 from django.contrib import messages
-from django.contrib.sessions.backends.db import SessionStore
 
 
 # Create your views here.
 
 # Clase para la pagina del login
-class index(TemplateView):
+class index(LoginView):
     template_name = "homepage/index.html"
 
     def post(self, request):
         user = request.POST.get('user')
         pas = request.POST.get('pass')
+        usuario = authenticate(request, username=user, password=pas)
 
-        if user == 'eloy' and pas == '1234':
-            return render(request, 'homepage/menu.html')
-        return render(request, self.template_name)
+        if usuario is not None:
+            login(request, usuario)
+
+            return redirect('menu')
+
+        else:
+            return render(request, self.template_name)
+
+
+@login_required
+def logout(request):
+    logout(request)
+    return redirect('/')
 
 
 # Clase para la pagina de Assessment
+class assessment(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
 
-class assessment(TemplateView):
     template_name = "homepage/assessment.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
@@ -126,7 +139,8 @@ class assessment(TemplateView):
                 self.conn.commit()
                 self.request.session["controlSelect"] = 'noSel'
             else:
-                messages.error(request, 'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
                 context = super(assessment, self).get_context_data(**knwargs)
                 mycursor = self.conn.cursor(buffered=True)
                 mycursor.execute("SELECT * FROM " + assSelect)
@@ -142,8 +156,10 @@ class assessment(TemplateView):
             controlId = request.session["controlSelect"]
             print(controlId)
             if controlId != 'noSel':
-                if idEvidencia != '' and descripcionEvidencia != '': # recogemos la pulsacion de guardar la evidencia
-                    if Evidencias.objects.filter(evidencia_id=idEvidencia,control_id=controlId,assessment=Assessmentguardados.objects.get(id_assessment=assSelect)).exists() == False:
+                if idEvidencia != '' and descripcionEvidencia != '':  # recogemos la pulsacion de guardar la evidencia
+                    if not Evidencias.objects.filter(evidencia_id=idEvidencia, control_id=controlId,
+                                                     assessment=Assessmentguardados.objects.get(
+                                                         id_assessment=assSelect)).exists():
 
                         ev = Evidencias(evidencia_id=idEvidencia, comentario=descripcionEvidencia, links=linkEvidencia,
                                         control_id=controlId,
@@ -151,6 +167,7 @@ class assessment(TemplateView):
                         ev.save()
                         mycursor = self.conn.cursor(buffered=True)
                         mycursor.execute("SELECT * FROM " + assSelect + " WHERE ID='" + controlId + "'")
+                        evidencia=''
                         for fila in mycursor:
                             evidencia = fila[6]
                         evidencia += '\n' + idEvidencia
@@ -159,7 +176,7 @@ class assessment(TemplateView):
                         mycursor.execute(query)
                         self.conn.commit()
                         context = super(assessment, self).get_context_data(**knwargs)
-                        request,context = self.contextTotal(request, controlId, assSelect, context)
+                        request, context = self.contextTotal(request, controlId, assSelect, context)
                         return render(request, self.template_name, context=context)
                     else:
                         context = super(assessment, self).get_context_data(**knwargs)
@@ -174,7 +191,8 @@ class assessment(TemplateView):
                                             'evidencia')  # Se crea mensage de error
                     return render(request, self.template_name, context=context)
             else:
-                messages.error(request, 'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
                 context = super(assessment, self).get_context_data(**knwargs)
                 mycursor = self.conn.cursor(buffered=True)
                 mycursor.execute("SELECT * FROM " + assSelect)
@@ -200,7 +218,10 @@ class assessment(TemplateView):
 
 
 # Clase para la pagina de AssessmentSelect
-class assessmentselect(TemplateView):
+
+class assessmentselect(LoginRequiredMixin,TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/assessmentselect.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')  # constante para la conexion con la base de datos
@@ -292,22 +313,30 @@ class assessmentselect(TemplateView):
 
 
 # Clase para la pagina de Exportaciones
-class Exportaciones(TemplateView):
+class Exportaciones(LoginRequiredMixin,TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/Exportaciones.html"
 
 
 # Clase para la pagina de informes
-class informes(TemplateView):
+class informes(LoginRequiredMixin,TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/informes.html"
 
 
 # Clase para la pagina de Mantenimiento
-class Mantenimiento(TemplateView):
+class Mantenimiento(LoginRequiredMixin,TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/Mantenimiento.html"
 
 
 # Clase para la pagina de MantenimientoNivelMadurez
-class MantenimientoNivelMadurez(TemplateView):
+class MantenimientoNivelMadurez(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoNivelMadurez.html"
 
     # funcion post que recoge los summit del formulario de la pagina.
@@ -384,12 +413,16 @@ class MantenimientoNivelMadurez(TemplateView):
 
 
 # Clase para la pagina de menu
-class menu(TemplateView):
+class menu(LoginRequiredMixin,TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/menu.html"
 
 
 # Clase para la pagina de MantenimientoDominios
-class MantenimientoDominios(TemplateView):
+class MantenimientoDominios(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoDominios.html"
 
     # funcion post que recoge los summit del formulario de la pagina.
@@ -465,7 +498,9 @@ class MantenimientoDominios(TemplateView):
 
 
 # Clase para la pagina de MantenimientoEvidencias
-class MantenimientoEvidencias(TemplateView):
+class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoEvidencias.html"
 
     # funcion post que recoge los summit del formulario de la pagina.
@@ -546,7 +581,9 @@ class MantenimientoEvidencias(TemplateView):
 
 
 # Clase para la pagina de MantenimientoPreguntas
-class MantenimientoPreguntas(TemplateView):
+class MantenimientoPreguntas(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoPreguntas.html"
 
     # funcion post que recoge los summit del formulario de la pagina.
@@ -617,7 +654,9 @@ class MantenimientoPreguntas(TemplateView):
 
 
 # Clase para la pagina de MantenimientoMarcosExistentes
-class MantenimientoMarcosExistentes(TemplateView):
+class MantenimientoMarcosExistentes(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoMarcosExistentes.html"
 
     # funcion post que recoge los summit del formulario de la pagina.
@@ -688,7 +727,9 @@ class MantenimientoMarcosExistentes(TemplateView):
 
 
 # Clase para la pagina de MantenimientoControlesNTTCS
-class MantenimientoControlesNTTCS(TemplateView):
+class MantenimientoControlesNTTCS(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoControlesNTTCS.html"
 
     # funcion post que recoge los summit del formulario de la pagina.
@@ -788,7 +829,9 @@ class MantenimientoControlesNTTCS(TemplateView):
 
 
 # Clase para la pagina de MantenimientoMapeoMarcos
-class MantenimientoMapeoMarcos(TemplateView):
+class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoMapeoMarcos.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
@@ -890,7 +933,9 @@ class MantenimientoMapeoMarcos(TemplateView):
 
 
 # Clase para la pagina de MantenimientoAssessmentArchivados
-class MantenimientoAssessmentArchivados(TemplateView):
+class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoAssessmentArchivados.html"
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
@@ -1032,7 +1077,9 @@ class MantenimientoAssessmentArchivados(TemplateView):
 
 
 # clase de prueba codigo python
-class MantDominios2(TemplateView):
+class MantDominios2(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantDominios2.html"
 
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
@@ -1117,7 +1164,9 @@ class MantDominios2(TemplateView):
             return render(request, self.template_name, context=context)
 
 
-class MantDom3(TemplateView):
+class MantDom3(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
     template_name = "homepage/MantDom3.html"
 
 
