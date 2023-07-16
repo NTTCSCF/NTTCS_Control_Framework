@@ -17,29 +17,24 @@
         </div>
     </div>
 
-    <div class="rowCajas">
-        <form class="tablasBuscaFlex" method="post" id="busquedaForm">
+    <div class="rowCajasMantenimiento">
+        <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
-            <div class="buscarMantenimiento">
-                 <div >
-                    <input class="form-control" placeholder="Búsqueda ..."  id="busqueda" name="busqueda">
-                 </div>
-                 <div >
-                    <button class="btn btn-primary"  type="submit">Buscar</button>
-                 </div>
-            </div>
-       </form>
-        <form class="tablasBtnFlex" method="post" >
-            {% csrf_token %}
-            <div >
-                <button class="btn btn-warning"  type="submit">Modificar</button>
+            <div class="cajaInputBuscar input-group">
+                 <input class="form-control" placeholder="Búsqueda ..."  id="busqueda" name="busqueda">
+                 <button class="btn btn-outline-primary"  type="submit">Buscar</button>
             </div>
         </form>
+
+        <form class="tablasBtnFlex" method="post" >
+            {% csrf_token %}
+            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
+        </form>
+
         <div class="tablasBtnFlex">
-            <div >
-                <a class="btn btn-danger" href="{% url 'EliminarDominios' %}" >Eliminar</a>
-            </div>
+            <a class="btn btn-danger btn-block" href="{% url 'EliminarDominios' %}" >Eliminar</a>
         </div>
+
     </div>
 
     <!-- INSERTAR DATOS -->

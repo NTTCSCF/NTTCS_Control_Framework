@@ -6,7 +6,7 @@
 
 
 
-        <!-- titulo  -->
+    <!-- titulo  -->
     <div class="rowTitulo">
     <!-- Titulo con el nombre del assessment -->
         <div class="cajaTitulo">
@@ -14,36 +14,29 @@
         </div>
     </div>
 
-    <div class="rowCajas">
+    <div class="rowCajasMantenimiento">
 
-         <form class="cajaBuscar" method="post" id="busquedaForm">
+        <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
-
-                <div class="cajaInputBuscar">
-                    <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
-                </div>
-                <div class="cajaBotonBusqueda">
-                    <button class="btn btn-primary btn-block"  type="submit">Buscar</button>
-                </div>
-
+            <div class="cajaInputBuscar input-group">
+                <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
+                <button class="btn btn-outline-primary"  type="submit">Buscar</button>
+            </div>
         </form>
 
-        <form class="cajaBotonModificar" method="post" >
+        <form class="btnFlexMant" method="post" >
             {% csrf_token %}
             <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
         </form>
 
+        <!-- Boton eliminar -->
+        <div class="btnFlexMant">
+            <a class="btn btn-danger btn-block" href="{% url 'Eliminar' %}" >Eliminar</a>
+        </div>
 
     </div>
 
-    <!-- Boton eliminar -->
-        <div class="rowBotonEliminar">
 
-            <div class="cajabotonEliminar">
-                <a class="btn btn-danger btn-block" href="{% url 'Eliminar' %}" >Eliminar</a>
-            </div>
-
-        </div>
 
         <!-- tabla de contenido de los controles  -->
 

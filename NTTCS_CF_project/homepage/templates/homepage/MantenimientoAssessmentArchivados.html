@@ -3,12 +3,91 @@
 {% block titulo %} Assesment Archivados {% endblock %}
 
 {% block contenido %}
-    <!-- Contenedor de la página  -->
-    <div class="box wrapper">
+
+     <!-- titulo  -->
+    <div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+        <div class="cajaTitulo">
+            <h1>Mantenimiento Assesments Archivados</h1>
+        </div>
+    </div>
+
+
+    <!-- SELECTOR DE CONTROLES -->
+    <div class="">
+        <form class="rowCajasMantenimiento" method="post">
+            {% csrf_token %}
+            <div class="cajaBuscar input-group">
+                <label class="input-group-text">Control</label>
+                <select class="form-select"  id="selector" name="selector">
+                    <option selected>Elige una opción ... </option>
+                    {% for ids in selector %}
+                    <option selected value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="btnFlexMant">
+                <button class="btn btn-info btn-block" type="submit" id="boton" name="boton" value="btn1">Rellenar</button>
+            </div>
+            <div class="btnFlexMant"></div>
+        </form>
+    </div>
+
+    <!-- BOTONES DE BUSQUEDA, MODIFICAR Y ELIMINAR -->
+    <div class="rowCajasMantenimiento">
+        <form class="cajaBuscar" method="post" id="busquedaForm">
+            {% csrf_token %}
+            <div class="cajaInputBuscar input-group">
+                <input class="form-control" type="text" id="busqueda" name="busqueda" placeholder="Buscar ...">
+                <button class="btn btn-outline-primary"  type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <form class="btnFlexMant" method="post" >
+            {% csrf_token %}
+            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
+        </form>
+
+        <div class="btnFlexMant">
+            <a class="btn btn-danger btn-block" href="{% url 'EliminarAssessment' %}" >Eliminar</a>
+        </div>
+    </div>
+
+    <!-- TABLA DE CONTENIDO -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Pregunta</th>
+                <th scope="col">Criterio de valoracion</th>
+                <th scope="col">Respuesta</th>
+                <th scope="col">Valoracion</th>
+                <th scope="col">Evidencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ids in consulta %}
+            <tr>
+                <td>{{ids.0}}</td>
+                <td>{{ids.1}}</td>
+                <td>{{ids.2}}</td>
+                <td>{{ids.3}}</td>
+                <td>{{ids.4}}</td>
+                <td>{{ids.5}}</td>
+                <td>{{ids.6}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 
 
-        <!-- titulo  -->
+
+
+
+        <!-- COPIA ORIGINAL
+        <!-- titulo
         <div class="tituloMantenimiento">
             <div class="flexTitulo">
                 <div class="cajaTexto">
@@ -17,7 +96,7 @@
             </div>
         </div>
 
-        <!-- Seccion select de los assesment guardados -->
+        <!-- Seccion select de los assesment guardados
         <div class="selectorTablas2">
             <form class="selectorTablasFlex2" method="post">
                 {% csrf_token %}
@@ -35,7 +114,7 @@
             </form>
         </div>
 
-        <!-- vista del boton de modificar -->
+        <!-- vista del boton de modificar
         <div class="botonModificar2">
             <form class="tablasModificarFlex" method="post" >
                 {% csrf_token %}
@@ -45,7 +124,7 @@
             </form>
         </div>
 
-        <!-- Seccion de busqueda -->
+        <!-- Seccion de busqueda
         <div class="tablasBusca2">
             <form class="tablasBuscaFlex" method="post" id="busquedaForm">
                 {% csrf_token %}
@@ -58,7 +137,7 @@
             </form>
         </div>
 
-        <!-- Boton eliminar -->
+        <!-- Boton eliminar
         <div class="botonEliminar2">
             <div class="tablasEliminarFlex">
                 <div >
@@ -67,7 +146,7 @@
             </div>
         </div>
 
-        <!-- tabla de contenido de los controles  -->
+        <!-- tabla de contenido de los controles
         <div class="tablasTablas2">
             <div class="tabasFlex">
                 <div class="cajaTablasTitulo">
@@ -81,7 +160,7 @@
             </div>
         </div>
 
-        <!-- formulario para insertar datos -->
+        <!-- formulario para insertar datos
         <div class="tablasInsertar2">
             <form class="tablasInsertarFlex" method="post">
                 {% csrf_token %}
@@ -119,7 +198,7 @@
                 </div>
             </form>
         </div>
+    -->
 
-    </div>
 
 {% endblock %}
