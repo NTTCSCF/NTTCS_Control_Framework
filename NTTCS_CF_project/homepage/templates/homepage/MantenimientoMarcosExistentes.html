@@ -17,43 +17,38 @@
         </div>
 
         <!-- BUSQUEDA -->
-        <div class="rowCajas">
-            <form class="cajaBuscar col-8" method="post" id="busquedaForm">
+        <div class="rowCajasMantenimiento">
+            <form class="cajaBuscar"  method="post" id="busquedaForm">
                 {% csrf_token %}
-                <div class="cajaInputBuscar">
-                     <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
-                 </div>
-                 <div class="cajaBotonBusqueda col-2">
-                    <button class="btn btn-primary btn-block"  type="submit">Buscar</button>
+                <div class="cajaInputBuscar input-group">
+                    <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
+                    <button class="btn btn-outline-primary"  type="submit">Buscar</button>
                  </div>
             </form>
 
-            <form class="tablasBtnFlex col-2" method="post" >
+            <form class="btnFlexMant" method="post" >
                 {% csrf_token %}
-                <div >
-                    <button class="btn btn-warning btn-block" type="submit">Modificar</button>
-                </div>
+                <button class="btn btn-warning btn-block" type="submit">Modificar</button>
             </form>
-            <div class="col-2" >
+            <div class="btnFlexMant" >
                 <a class="btn btn-danger btn-block" href="{% url 'EliminarMarcos' %}" >Eliminar</a>
             </div>
        </div>
 
-
         <!-- FILA DE ROW INSERTAR DATOS -->
-        <div class="row">
-            <span>Ingresar un nuevo registro:</span>
+        <div class="row rowCajasMantenimiento">
+            <span><h6>Ingresar un nuevo registro:</h6></span>
             <form class="rowInsertar" method="post">
                 {% csrf_token %}
-                <div class="col-5">
-                    <label class="form-label" for="marco_id">marco_id</label>
+                <div class="rowInsertMantMarcosExistentes">
+                    <label class="form-label" for="marco_id">marco_id:</label>
                     <input class="form-control" type="text" id="marco_id" name="marco_id" value="{{seleccion.marco_id}}">
                 </div>
-                <div class="col-5">
-                    <label class="form-label" for="nombre_tabla">table_name</label>
+                <div class="rowInsertMantMarcosExistentes">
+                    <label class="form-label" for="nombre_tabla">table_name:</label>
                     <input class="form-control" type="text" id="nombre_tabla" name="nombre_tabla" value="{{seleccion.nombre_tabla}}">
                 </div>
-                <div class="col-2" style="justify-content:end;align-items:center;">
+                <div class="btnFlexMant" style="justify-content:end;align-items:center;">
                     <button class="btn btn-success btn-block"  type="submit">Insertar</button>
                 </div>
             </form>

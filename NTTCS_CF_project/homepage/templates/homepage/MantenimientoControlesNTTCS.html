@@ -5,20 +5,94 @@
 {% block contenido %}
 
     <!-- Contenedor de la página  -->
-    <div class="box wrapper">
 
-
-         <!-- titulo  -->
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Mantenimiento Controles NTTCS</h1>
-                </div>
-            </div>
+    <!-- titulo  -->
+    <div class="rowTitulo">
+        <!-- Titulo con el nombre del assessment -->
+        <div class="cajaTitulo">
+            <h1>Mantenimiento Controles NTTCS</h1>
         </div>
+    </div>
+
+    <div class="rowCajasMantenimiento">
+        <form class="cajaBuscar" method="post" id="busquedaForm">
+            {% csrf_token %}
+            <div class="cajaInputBuscar input-group">
+                <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
+                <button class="btn btn-outline-primary"  type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <form class="btnFlexMant" method="post" >
+            {% csrf_token %}
+            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
+        </form>
+
+        <div class="btnFlexMant">
+            <a class="btn btn-danger btn-block" href="{% url 'EliminarControles' %}" >Eliminar</a>
+        </div>
+    </div>
+
+    <!-- TABLA DE CONTENIDO -->
+
+    <table class="table table fixed">
+        <thead>
+            <tr>
+                <th scope="col">Domain</th>
+                <th scope="col">selected y n field</th>
+                <th scope="col">control</th>
+                <th scope="col">Description</th>
+                <th scope="col">relative control weighting</th>
+                <th scope="col">function grouping</th>
+                <th scope="col">assesed result</th>
+                <th scope="col">numeric result</th>
+                <th scope="col">weighted numeric result</th>
+                <th scope="col">assessment comments</th>
+                <th scope="col">relative result by function</th>
+                <th scope="col">relative result by domain</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if lenConsulta > 1 %}
+
+            {% for ids in consulta %}
+            <tr>
+                <td>{{ids.domain}}</td>
+                <td>{{ids.selected_y_n_field}}</td>
+                <td>{{ids.control}}</td>
+                <td>{{ids.control_description}}</td>
+                <td>{{ids.relative_control_weighting}}</td>
+                <td>{{ids.function_grouping}}</td>
+                <td>{{ids.assesed_result}}</td>
+                <td>{{ids.numeric_result}}</td>
+                <td>{{ids.weighted_numeric_result}}</td>
+                <td>{{ids.assessment_comments}}</td>
+                <td>{{ids.relative_result_by_function}}</td>
+                <td>{{ids.relative_result_by_domain}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td>{{domain.domain}}</td>
+                <td>{{domain.selected_y_n_field}}</td>
+                <td>{{domain.control}}</td>
+                <td>{{domain.control_description}}</td>
+                <td>{{domain.relative_control_weighting}}</td>
+                <td>{{domain.function_grouping}}</td>
+                <td>{{domain.assesed_result}}</td>
+                <td>{{domain.numeric_result}}</td>
+                <td>{{domain.weighted_numeric_result}}</td>
+                <td>{{domain.assessment_comments}}</td>
+                <td>{{domain.relative_result_by_function}}</td>
+                <td>{{domain.relative_result_by_domain}}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
 
 
-        <!-- vista del boton de modificar -->
+        <!-- COPIA ORIGINAL
+        <!-- vista del boton de modificar
         <div class="botonModificar">
             <form class="tablasBtnFlex" method="post" >
                 {% csrf_token %}
@@ -28,7 +102,7 @@
             </form>
         </div>
 
-        <!-- Seccion de busqueda -->
+        <!-- Seccion de busqueda
         <div class="tablasBusca">
             <form class="tablasBuscaFlex" method="post" id="busquedaForm">
                 {% csrf_token %}
@@ -43,7 +117,7 @@
             </form>
         </div>
 
-        <!-- Boton eliminar -->
+        <!-- Boton eliminar
         <div class="botonEliminar">
             <div class="tablasBtnFlex">
                 <div >
@@ -52,7 +126,7 @@
             </div>
         </div>
 
-        <!-- tabla de contenido de los controles  -->
+        <!-- tabla de contenido de los controles
         <div class="tablasTablas">
             <div class="tabasFlex">
                 <div class="cajaTablasTitulo">
@@ -71,7 +145,7 @@
             </div>
         </div>
 
-        <!-- formulario para insertar datos -->
+        <!-- formulario para insertar datos
         <div class="tablasInsertar">
             <form class="tablasInsertarFlex" method="post">
                 {% csrf_token %}
@@ -133,7 +207,7 @@
                 </div>
             </form>
         </div>
+    -->
 
-    </div>
 
 {% endblock %}

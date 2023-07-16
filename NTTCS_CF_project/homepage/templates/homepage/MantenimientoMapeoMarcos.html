@@ -3,21 +3,85 @@
 {% block titulo %} Mapeo Marcos {% endblock %}
 
 {% block contenido %}
-    <!-- Contenedor de la página  -->
-    <div class="wrapper2">
+
 
 
         <!-- titulo  -->
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Mapeo de Marcos</h1>
-                </div>
+        <div class="rowTitulo">
+        <!-- Titulo con el nombre del assessment -->
+            <div class="cajaTitulo">
+                <h1>Mantenimiento Mapeo de Marcos</h1>
             </div>
         </div>
 
+        <!-- SELECTOR TABLAS MAPEO -->
+        <div class="">
+            <form class="rowCajasMantenimiento" method="post" id="busquedaForm">
+                <div class="cajaBuscar input-group">
+                    {% csrf_token %}
+                    <label class="input-group-text" for="selectorMapeo">NTT Controles: </label>
+                    <select class="form-select" id="selectorMapeo" name="selectorMapeo">
+                        <option selected>Elige una opción ... </option>
+                        {% for ids in assess %}
+                        <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="btnFlexMant">
+                    <button class="btn btn-info btn-block"  type="submit" name="boton1" value="btn1">Mostrar</button>
+                </div>
+                <div class="btnFlexMant">
+                    <span></span><!-- span vacio para alinear botones en filas -->
+                </div>
+            </form>
+        </div>
 
-        <!-- seleccion de controls BTT para mostrar en pantalla -->
+
+        <!-- BOTONES DE BUSCAR, MODIFICAR Y ELIMINAR -->
+        <div class="rowCajasMantenimiento">
+            <form class="cajaBuscar" method="post" >
+                {% csrf_token %}
+                <div class="cajaInputBuscar input-group">
+                    <input class="form-control" type="text" id="busqueda" name="busqueda" placeholder="Buscar ...">
+                    <button class="btn btn-outline-primary"  type="submit">Buscar</button>
+                </div>
+            </form>
+
+            <form class="btnFlexMant" method="post" >
+                {% csrf_token %}
+                <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
+            </form>
+
+            <div class="btnFlexMant">
+                <a class="btn btn-danger btn-block" href="{% url 'EliminarMapeo' %}" >Eliminar</a>
+            </div>
+        </div>
+
+        <!-- TABLA DE CONTENIDO -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">NTT DATA ID</th>
+                    <th scope="col">Marco referencia</th>
+                    <th scope="col">ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ids in consulta %}
+                <tr>
+                    <td>{{ids.0}}</td>
+                    <td>{{ids.1}}</td>
+                    <td>{{ids.2}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
+        <!-- COPIA ORIGINAL
+        <!-- seleccion de controls BTT para mostrar en pantalla
         <div class="selectorTablasMapeo">
 
             <div class="selectorTablasFlexMapeo">
@@ -38,7 +102,7 @@
 
         </div>
 
-        <!-- vista del boton de modificar -->
+        <!-- vista del boton de modificar
         <div class="botonModificarMapeo">
             <form class="tablasModificarFlex" method="post" >
                 {% csrf_token %}
@@ -48,7 +112,7 @@
             </form>
         </div>
 
-        <!-- bloque formulario busqueda de controles NTT -->
+        <!-- bloque formulario busqueda de controles NTT
         <div class="tablasBuscaMapeo">
             <form class="tablasBuscaFlex" method="post" >
                 {% csrf_token %}
@@ -61,7 +125,7 @@
             </form>
         </div>
 
-        <!-- Boton eliminar -->
+        <!-- Boton eliminar
         <div class="botonEliminarMapeo">
             <div class="tablasEliminarFlex">
                 <div >
@@ -70,7 +134,7 @@
             </div>
         </div>
 
-        <!-- tabla de contenido de los controles -->
+        <!-- tabla de contenido de los controles
         <div class="tablasTablas2">
             <div class="tabasFlex">
                 <div class="cajaTablasTitulo">
@@ -84,7 +148,7 @@
             </div>
         </div>
 
-        <!-- formulario para ingreso de datos -->
+        <!-- formulario para ingreso de datos
         <div class="tablasInsertar2">
             <form class="tablasInsertarFlex" method="post">
                 {% csrf_token %}
@@ -107,5 +171,5 @@
         </div>
 
     </div>
-
+    -->
 {% endblock %}
