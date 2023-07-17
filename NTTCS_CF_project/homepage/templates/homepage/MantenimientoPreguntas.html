@@ -61,6 +61,33 @@
         </tbody>
     </table>
 
+    <!-- INSERTAR NUEVO REGISTRO -->
+     <form class="" method="post">
+         <span><h6>Insertar nuevo registro:</h6></span>
+        {% csrf_token %}
+         <div class="rowInsertar">
+            <div class="cajaSmallInsertar">
+                <label class="form-label" for="id">id:</label>
+                <input class="form-control" type="text" id="id" name="id" value="{{seleccion.id}}">
+            </div>
+            <div class="cajaBigInsertar">
+                <label class="form-label" for="control_description">control_description:</label>
+                <input class="form-control" type="text" id="control_description" name="control_description" value="{{seleccion.control_description}}">
+            </div>
+         </div>
+
+         <div class="">
+            <label class="form-label" for="control_question">control_question:</label>
+             <textarea class="form-control" type="text" id="control_question" name="control_question" value="{{seleccion.control_question}}"></textarea>
+
+         </div>
+         <div class="btnFlexMant mt-1">
+            <button class="btn btn-success"  type="submit">Insertar</button>
+         </div>
+
+     </form>
+
+
 
 
 

@@ -35,7 +35,7 @@
 
     <!-- TABLA DE CONTENIDO -->
 
-    <table class="table table fixed">
+    <table class="table table-fixed">
         <thead>
             <tr>
                 <th scope="col">Domain</th>
@@ -89,6 +89,80 @@
             {% endif %}
         </tbody>
     </table>
+
+    <!-- INSERTAR DATOS NTTC CONTROL -->
+    <form class="" method="post">
+        <span><h6>Insertar nuevo registro:</h6></span>
+        {% csrf_token %}
+        <div class="rowInsertar">
+            <div class="mr-2">
+                <label class="form-label" for="domain">domain area:</label>
+                <input class="form-control" type="text" id="domain" name="domain" value="{{seleccion.domain}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label"  for="selected_y_n_field">area of focus:</label>
+                <input class="form-control" type="text" id="selected_y_n_field" name="selected_y_n_field" value="{{seleccion.selected_y_n_field}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="control">control area:</label>
+                <input class="form-control" type="text" id="control" name="control" value="{{seleccion.control}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="id">id focus area:</label>
+                <input class="form-control" type="text" id="id" name="id" value="{{seleccion.id}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="control_description">control description:</label>
+                <input class="form-control" type="text" id="control_description" name="control_description" value="{{seleccion.control_description}}">
+            </div>
+        </div>
+
+        <div class="rowInsertar">
+            <div class="mr-2">
+                <label class="form-label" for="relative_control_weighting">relative control:</label>
+                <input class="form-control" type="text" id="relative_control_weighting" name="relative_control_weighting" value="{{seleccion.relative_control_weighting}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="function_grouping">function grouping:</label>
+                <input class="form-control" type="text" id="function_grouping" name="function_grouping" value="{{seleccion.function_grouping}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="assesed_result">assesed result:</label>
+                <input class="form-control" type="text" id="assesed_result" name="assesed_result" value="{{seleccion.assesed_result}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="numeric_result">numeric result:</label>
+                <input class="form-control" type="text" id="numeric_result" name="numeric_result" value="{{seleccion.numeric_result}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="weighted_numeric_result">weighted result:</label>
+                <input class="form-control" type="text" id="weighted_numeric_result" name="weighted_numeric_result" value="{{seleccion.controlweighted_numeric_result_mappings}}">
+            </div>
+        </div>
+
+        <div class="rowInsertar">
+            <div class="mr-2">
+                <label class="form-label" for="assessment_comments">assessment comments:</label>
+                <input class="form-control" type="text" id="assessment_comments" name="assessment_comments" value="{{seleccion.assessment_comments}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="relative_result_by_function">result by function:</label>
+                <input class="form-control" type="text" id="relative_result_by_function" name="relative_result_by_function" value="{{seleccion.relative_result_by_function}}">
+            </div>
+            <div class="mr-2">
+                <label class="form-label" for="relative_result_by_domain">result by domain:</label>
+                <input class="form-control" type="text" id="relative_result_by_domain" name="relative_result_by_domain" value="{{seleccion.relative_result_by_domain}}">
+            </div>
+
+            <div class="btnFlexMant" >
+                <button class="btn btn-success btn-block"  type="submit">Insertar</button>
+            </div>
+
+            <div class="btnFlexMant"></div>
+        </div>
+
+     </form>
+
 
 
         <!-- COPIA ORIGINAL
