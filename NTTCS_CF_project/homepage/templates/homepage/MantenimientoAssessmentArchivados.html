@@ -13,48 +13,43 @@
     </div>
 
 
-    <!-- SELECTOR DE CONTROLES -->
+    <!-- SELECTOR TABLAS MAPEO -->
     <div class="">
-        <form class="rowCajasMantenimiento" method="post">
+        <form class="rowCajasMantenimiento " method="post">
             {% csrf_token %}
-            <div class="cajaBuscar input-group">
-                <label class="input-group-text">Control</label>
-                <select class="form-select"  id="selector" name="selector">
-                    <option selected>Elige una opción ... </option>
-                    {% for ids in selector %}
+
+            <div class="cajalabelMantenimiento">
+                <label style="font-size:1vw; padding:3%;" class="input-group-text " for="selector" >NTT Controles: </label>
+            </div>
+            <div class="cajaSelectorMantenimiento">
+                <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector" >
+                    <option selected value="None">--- No Seleccionado ---</option>
+                    {% for ids in assess %}
+                    {% if ids.id_assessment == marcoSeleccionado %}
                     <option selected value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
+                    {% else %}
+                    <option value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
+                    {% endif %}
+
                     {% endfor %}
                 </select>
             </div>
-            <div class="btnFlexMant">
-                <button class="btn btn-info btn-block" type="submit" id="boton" name="boton" value="btn1">Rellenar</button>
-            </div>
-            <div class="btnFlexMant"></div>
         </form>
     </div>
 
-    <!-- BOTONES DE BUSQUEDA, MODIFICAR Y ELIMINAR -->
+    {% if seleccionado %}
+    <!-- BOTONES DE BUSCAR, MODIFICAR Y ELIMINAR -->
     <div class="rowCajasMantenimiento">
-        <form class="cajaBuscar" method="post" id="busquedaForm">
+        <form class="cajaInputBuscar" method="post" >
             {% csrf_token %}
-            <div class="cajaInputBuscar input-group">
-                <input class="form-control" type="text" id="busqueda" name="busqueda" placeholder="Buscar ...">
-                <button class="btn btn-outline-primary"  type="submit">Buscar</button>
-            </div>
+                <input class="form-control form-control-lg" aria-label=".form-control-lg example" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
         </form>
 
-        <form class="btnFlexMant" method="post" >
-            {% csrf_token %}
-            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
-        </form>
 
-        <div class="btnFlexMant">
-            <a class="btn btn-danger btn-block" href="{% url 'EliminarAssessment' %}" >Eliminar</a>
-        </div>
     </div>
 
     <!-- TABLA DE CONTENIDO -->
-    <table class="table table-fixed">
+    <table class="table table-fixed" id="datos">
         <thead>
             <tr>
                 <th scope="col">id</th>
@@ -64,141 +59,58 @@
                 <th scope="col">Respuesta</th>
                 <th scope="col">Valoracion</th>
                 <th scope="col">Evidencia</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <form method="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text"  name="id" placeholder="inserte id" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text"  name="descripcion" placeholder="inserte Descripción" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text"  name="pregunta" placeholder="inserte Pregunta" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text"  name="criterio" placeholder="inserte Criterio" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text"  name="respuesta" placeholder="inserte Respuesta" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text"  name="valoracion" placeholder="inserte Valoracion" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text"  name="evidencia" placeholder="inserte Evidencia" autocomplete="false" ></td>
+
+                    <td class="botonesTabla">
+                        <button class="btn btn-primary btn-sm" title="Editar" id="insertar" name="insertar">
+                            <i class="bi bi-save"></i>
+                        </button>
+                    </td>
+                </form>
+            </tr>
             {% for ids in consulta %}
             <tr>
-                <td>{{ids.0}}</td>
-                <td>{{ids.1}}</td>
-                <td>{{ids.2}}</td>
-                <td>{{ids.3}}</td>
-                <td>{{ids.4}}</td>
-                <td>{{ids.5}}</td>
-                <td>{{ids.6}}</td>
+                <form method="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" value="{{ids.0}}" name="id" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.1}}" name="descripcion" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.2}}" name="pregunta" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.3}}" name="criterio" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.4}}" name="respuesta" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.5}}" name="valoracion" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.6}}" name="evidencia" ></td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" title="Editar" id="eliminar" name="eliminar">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+
+                    </td>
+                </form>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
+    {% endif %}
 
 
 
-
-
-        <!-- COPIA ORIGINAL
-        <!-- titulo
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Mantenimiento Assesments Archivados</h1>
-                </div>
-            </div>
-        </div>
-
-        <!-- Seccion select de los assesment guardados
-        <div class="selectorTablas2">
-            <form class="selectorTablasFlex2" method="post">
-                {% csrf_token %}
-                <div class="cajaSelectTabla">
-                    <label>Control</label>
-                    <select style="width:100%;" class="selectStyleAssessment"  id="selector" name="selector">
-                        {% for ids in selector %}
-                        <option selected value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="cajaBotonTabla">
-                    <button class="btnBorde btnAss" type="submit" id="boton" name="boton" value="btn1">Rellenar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- vista del boton de modificar
-        <div class="botonModificar2">
-            <form class="tablasModificarFlex" method="post" >
-                {% csrf_token %}
-                <div >
-                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Seccion de busqueda
-        <div class="tablasBusca2">
-            <form class="tablasBuscaFlex" method="post" id="busquedaForm">
-                {% csrf_token %}
-                <div >
-                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
-                </div>
-                <div >
-                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Boton eliminar
-        <div class="botonEliminar2">
-            <div class="tablasEliminarFlex">
-                <div >
-                    <a class="btnBorde btnTablas" href="{% url 'EliminarAssessment' %}" >Eliminar</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- tabla de contenido de los controles
-        <div class="tablasTablas2">
-            <div class="tabasFlex">
-                <div class="cajaTablasTitulo">
-                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">id</div><div class="tb_colprueba">descripcion</div><div class="tb_colprueba">Pregunta</div><div class="tb_colprueba">Criterio de valoracion</div><div class="tb_colprueba">respuesta</div><div class="tb_colprueba">Valoracion</div><div class="tb_colprueba">evidencia</div></div>
-                </div>
-                <div class="cajaTablas">
-                    {% for ids in consulta %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.0}}</div><div class="tb_colprueba">{{ids.1}}</div><div class="tb_colprueba">{{ids.2}}</div><div class="tb_colprueba">{{ids.3}}</div><div class="tb_colprueba">{{ids.4}}</div><div class="tb_colprueba">{{ids.5}}</div><div class="tb_colprueba">{{ids.6}}</div></div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <!-- formulario para insertar datos
-        <div class="tablasInsertar2">
-            <form class="tablasInsertarFlex" method="post">
-                {% csrf_token %}
-                <div class="cajaInsertar1">
-                    <label for="id">id</label>
-                    <input style="width:100%;height:20px;" type="text" id="id" name="id" value="{{seleccion.0}}">
-                </div>
-                <div class="cajaInsertar2">
-                    <label for="descripcion">descripcion</label>
-                    <input style="width:100%;height:20px;" type="text" id="descripcion" name="descripcion" value="{{seleccion.1}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="Pregunta">Pregunta</label>
-                    <input style="width:100%;height:20px;" type="text" id="Pregunta" name="Pregunta" value="{{seleccion.2}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="criterio">criterio</label>
-                    <input style="width:100%;height:20px;" type="text" id="criterio" name="criterio" value="{{seleccion.3}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="respuesta">respuesta</label>
-                    <input style="width:100%;height:20px;" type="text" id="respuesta" name="respuesta" value="{{seleccion.4}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="valoracion">valoracion</label>
-                    <input style="width:100%;height:20px;" type="text" id="valoracion" name="valoracion" value="{{seleccion.5}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="evidencia">evidencia</label>
-                    <input style="width:100%;height:20px;" type="text" id="evidencia" name="evidencia" value="{{seleccion.6}}">
-                </div>
-
-                <div class="cajaInsertar1 cajaButton" >
-                    <button class="btn btn-success btnBorde btnTablas2"  type="submit">Insertar</button>
-                </div>
-            </form>
-        </div>
-    -->
 
 
 {% endblock %}
