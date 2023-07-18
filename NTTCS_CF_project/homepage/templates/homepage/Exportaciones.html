@@ -4,41 +4,59 @@
 
 {% block contenido %}
 
-    <!-- Contenedor de la página  -->
-    <div class="rowInformes">
-
-
-        <div class="rowTitulo">
-        <!-- Titulo con el nombre del assessment -->
-            <div class="cajaTitulo">
-                <h1>EXPORTACIONES</h1>
-            </div>
-        </div>
-
-        <br>
-
-        <!-- Section botones -->
-
-        <div class="rowInformesSelect">
-
-            <h3>Assesment Existente</h3>
-            <select class="form-select form-select-md">
-                <option value="none">None</option>
-            </select>
-        </div>
+<!-- Contenedor de la página  -->
 
 
 
-        <div class="rowExport">
-            <div class="btn-group btnGroupInformes" role="group">
-                <button class="btn btn-success" >Excel</button>
-
-                <button class="btn btn-primary" >Word</button>
-
-                <button class="btn btn-secondary" >CSV</button>
-            </div>
-        </div>
-
-
+<div class="rowTitulo">
+<!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>EXPORTACIONES</h1>
     </div>
+</div>
+
+<div class="rowTitulo">
+    <div class="cajaSeleccionAsssessment">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Exportar Assessment
+                </div>
+            </div>
+            <form class="textoTarjeta" method="post">
+                {% csrf_token %}
+                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                    <div class="margenArriba">
+                        <label> Seleccione un Assessment</label>
+                    </div>
+                </div>
+                <div class="cajaTextoSeleccionAssesment">
+                    <div class="cajaSelectorCentrado margenAbajo">
+                        <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"   id="selector1" name="selector1">
+                            <option value="None">--- No Seleccionado ---</option>
+                            {% for ids in assess %}
+                            <option value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <!-- Section botones -->
+                <div class="rowExport">
+                    <div class="btn-group-lg btnGroupInformes" role="group">
+                        <button class="btn btn-success" ><i class="bi bi-file-earmark-spreadsheet"></i> Excel </button>
+
+                        <button class="btn btn-primary" ><i class="bi bi-file-earmark-word"></i> Word </button>
+
+                        <button class="btn btn-secondary" ><i class="bi bi-filetype-csv"></i> CSV </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
 {% endblock %}
