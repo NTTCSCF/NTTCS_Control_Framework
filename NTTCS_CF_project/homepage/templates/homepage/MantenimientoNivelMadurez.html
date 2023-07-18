@@ -19,21 +19,10 @@
         <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
             <div class="cajaInputBuscar input-group">
-                <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
-                <button class="btn btn-outline-primary"  type="submit">Buscar</button>
+                <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda" onkeyup="doSearch()">
+
             </div>
         </form>
-
-        <form class="btnFlexMant" method="post" >
-            {% csrf_token %}
-            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
-        </form>
-
-        <!-- Boton eliminar -->
-        <div class="btnFlexMant">
-            <a class="btn btn-danger btn-block" href="{% url 'Eliminar' %}" >Eliminar</a>
-        </div>
-
     </div>
 
         <!-- tabla de contenido de los controles  -->
@@ -48,7 +37,22 @@
                 </tr>
             </thead>
             <tbody>
-                {% if lenConsulta > 1 %}
+                <tr>
+                    <form action="post">
+                        {% csrf_token %}
+                        <td><input class="inputTabas" type="text" name="ccmmcod" placeholder="Insert ccmmcod" autocomplete="false" ></td>
+                        <td><input class="inputTabas" type="text" name="description" placeholder="Insert description" autocomplete="false" ></td>
+                        <td><input class="inputTabas" type="text" name="sublevels" placeholder="Insert sublevels" autocomplete="false"></td>
+                        <td><input class="inputTabas" type="text" name="percentage" placeholder="insert percentage" autocomplete="false"></td>
+
+                        <td class="botonesTabla">
+                            <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                                <i class="bi bi-check2-square"></i>
+                            </button>
+                        </td>
+                    </form>
+                </tr>
+
                 {% for ids in consulta %}
                 <tr>
                     <td>{{ids.ccmmcod}}</td>
@@ -56,57 +60,21 @@
                     <td>{{ids.sublevels}}</td>
                     <td>{{ids.percentage}}</td>
                     <td class="botonesTabla">
-                        <button class="btn btn-warning btn-sm" title="Editar">
+                        <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'Eliminar' %}">
+                        <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
                             <i class="bi bi-trash3"></i>
-                        </a>
+                        </button>
                     </td>
                 </tr>
                 {% endfor %}
-                {% endif %}
+
             </tbody>
         </table>
 
 
-        <!-- formulario para insertar datos -->
-        <div class="row">
 
-                <form class="" method="post">
-                    <h5>Ingresar datos:</h5>
-                    {% csrf_token %}
-                    <div class="row rowInsertar">
-                        <div class="col-4">
-                            <label class="form-label" for="Ccmmcod">Ccmmcod:</label>
-                            <input class="form-control" type="text" id="Ccmmcod" name="Ccmmcod" value="{{seleccion.ccmmcod}}">
-                        </div>
-                         <div class="col-4">
-                            <label class="form-label" for="Sublevels">Sublevels:</label>
-                            <input class="form-control" type="text" id="Sublevels" name="Sublevels" value="{{seleccion.sublevels}}">
-                        </div>
-                        <div class="col-4">
-                            <label class="form-label" for="Percentage">Percentage:</label>
-                            <input class="form-control" type="text" id="Percentage" name="Percentage" value="{{seleccion.percentage}}">
-                        </div>
-                    </div>
-
-                    <div class="row rowInsertar">
-                         <div class="">
-                            <label class="form-label" for="Description">Description:</label>
-                            <!-- <input class="" type="text" id="Description" name="Description" value="{{seleccion.description}}"> -->
-                            <textarea class="form-control" name="comentarios" cols="auto" id="Description" name="Description" value="{{seleccion.description}}">Escribe aquí una descripción</textarea>
-                         </div>
-                    </div>
-
-
-                    <div class="cajaButton mt-2" >
-                        <button class="btn btn-success"  type="submit">Insertar</button>
-                    </div>
-                </form>
-
-
-        </div>
 
 
 
