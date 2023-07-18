@@ -26,7 +26,7 @@
     </div>
 
         <!-- tabla de contenido de los controles  -->
-        <table class="table table-bordered table-fixed">
+        <table class="table table-fixed" id="datos">
             <thead>
                 <tr>
                     <th scope="col">Ccmmcod</th>
@@ -38,12 +38,12 @@
             </thead>
             <tbody>
                 <tr>
-                    <form action="post">
+                    <form method="post">
                         {% csrf_token %}
-                        <td><input class="inputTabas" type="text" name="ccmmcod" placeholder="Insert ccmmcod" autocomplete="false" ></td>
-                        <td><input class="inputTabas" type="text" name="description" placeholder="Insert description" autocomplete="false" ></td>
-                        <td><input class="inputTabas" type="text" name="sublevels" placeholder="Insert sublevels" autocomplete="false"></td>
-                        <td><input class="inputTabas" type="text" name="percentage" placeholder="insert percentage" autocomplete="false"></td>
+                        <td><input class="inputTabas" type="text" name="Ccmmcod" placeholder="Insert ccmmcod" autocomplete="false" ></td>
+                        <td><input class="inputTabas" type="text" name="Description" placeholder="Insert description" autocomplete="false" ></td>
+                        <td><input class="inputTabas" type="text" name="Sublevels" placeholder="Insert sublevels" autocomplete="false"></td>
+                        <td><input class="inputTabas" type="text" name="Percentage" placeholder="insert percentage" autocomplete="false"></td>
 
                         <td class="botonesTabla">
                             <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
@@ -55,19 +55,23 @@
 
                 {% for ids in consulta %}
                 <tr>
-                    <td>{{ids.ccmmcod}}</td>
-                    <td>{{ids.description}}</td>
-                    <td>{{ids.sublevels}}</td>
-                    <td>{{ids.percentage}}</td>
-                    <td class="botonesTabla">
-                        <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
-                            <i class="bi bi-trash3"></i>
-                        </button>
-                    </td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <td><input class="inputTabas" type="text" value="{{ids.ccmmcod}}" name="Ccmmcod" ></td>
+                        <td><input class="inputTabas" type="text" value="{{ids.description}}" name="Description" ></td>
+                        <td><input class="inputTabas" type="text" value="{{ids.sublevels}}" name="Sublevels" ></td>
+                        <td><input class="inputTabas" type="text" value="{{ids.percentage}}" name="Percentage" ></td>
+                        <td class="botonesTabla">
+                            <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+                    </form>
                 </tr>
+
                 {% endfor %}
 
             </tbody>

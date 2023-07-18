@@ -28,7 +28,7 @@
 
     <!-- INSERTAR DATOS -->
 
-    <table class="table table-fixed">
+    <table class="table table-fixed" id="datos">
         <thead>
             <form action="post">
                 <tr scope="rowgroup">
@@ -42,28 +42,31 @@
 
         </thead>
         <tbody>
-            <form action="post">
-                <tr>
+
+            <tr>
+                <form method="post">
                     {% csrf_token %}
                     <td><input class="inputTabas" type="text" name="identifier" placeholder="Insert identifier" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
-                    <td><input class="inputTabas" type="text" name="security" placeholder="Insert security & privacy" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="security_privacy_by_design_s_p_principles" placeholder="Insert security & privacy" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="principle_intent" placeholder="insert principle_intent" autocomplete="false"></td>
                     <td class="botonesTabla">
                         <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
                             <i class="bi bi-check2-square"></i>
                         </button>
                     </td>
-                </tr>
-            </form>
+                </form>
+            </tr>
+
 
             {% for ids in consulta %}
             <tr>
-                <form action="post">
-                    <td>{{ids.identifier}}</td>
-                    <td>{{ids.domain}}</td>
-                    <td>{{ids.security_privacy_by_design_s_p_principles}}</td>
-                    <td>{{ids.principle_intent}}</td>
+                <form method="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" value="{{ids.identifier}}" name="identifier" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.domain}}" name="domain" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.security_privacy_by_design_s_p_principles}}" name="security_privacy_by_design_s_p_principles" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.principle_intent}}" name="principle_intent" ></td>
                     <td class="botonesTabla">
                         <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                             <i class="bi bi-pencil-square"></i>

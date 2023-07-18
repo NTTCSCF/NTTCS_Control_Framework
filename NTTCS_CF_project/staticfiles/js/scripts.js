@@ -38,10 +38,5 @@ function doSearch()
             lastTR.classList.remove("hide", "red");
             if (searchText == "") {
                 lastTR.classList.add("hide");
-            } else if (total) {
-                td.innerHTML="Se ha encontrado "+total+" coincidencia"+((total>1)?"s":"");
-            } else {
-                lastTR.classList.add("red");
-                td.innerHTML="No se han encontrado coincidencias";
             }
         }
