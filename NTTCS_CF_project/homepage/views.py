@@ -844,6 +844,7 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
         context["lenConsulta"] = 1
         return context
 
+
     # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
         boton1 = request.POST.get('boton1')

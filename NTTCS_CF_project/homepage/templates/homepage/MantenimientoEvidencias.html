@@ -41,6 +41,7 @@
                 <th scope="col">Artifact</th>
                 <th scope="col">Artifact Description</th>
                 <th scope="col">Control Mappings</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +53,14 @@
                 <td>{{ids.artifact}}</td>
                 <td>{{ids.artifact_description}}</td>
                 <td>{{ids.control_mappings}}</td>
+                <td class="botonesTabla">
+                    <button class="btn btn-warning btn-sm" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </td>
             </tr>
             {% endfor %}
             {% else %}
@@ -61,6 +70,14 @@
                 <td>{{consulta.artifact}}</td>
                 <td>{{consulta.artifact_description}}</td>
                 <td>{{consulta.control_mappings}}</td>
+                <td class="botonesTabla">
+                    <button class="btn btn-warning btn-sm" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </td>
             </tr>
             {% endif %}
         </tbody>
