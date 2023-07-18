@@ -16,10 +16,13 @@
 
         <!-- SELECTOR TABLAS MAPEO -->
         <div class="">
-            <div class="rowCajasMantenimiento" >
-                <form class="cajaBuscar input-group" method="post">
-                    {% csrf_token %}
-                    <label class="input-group-text" for="selector">NTT Controles: </label>
+            <form class="rowCajasMantenimiento " method="post">
+                {% csrf_token %}
+
+                <div class="cajalabelMantenimiento">
+                    <label style="font-size:1vw; padding:3%;" class="input-group-text " for="selector" >NTT Controles: </label>
+                </div>
+                <div class="cajaSelectorMantenimiento">
                     <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector" >
                         <option selected value="None">--- No Seleccionado ---</option>
                         {% for ids in assess %}
@@ -31,21 +34,17 @@
 
                         {% endfor %}
                     </select>
-
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
 
         {% if seleccionado %}
         <!-- BOTONES DE BUSCAR, MODIFICAR Y ELIMINAR -->
         <div class="rowCajasMantenimiento">
-            <form class="cajaBuscar" method="post" >
+            <form class="cajaInputBuscar" method="post" >
                 {% csrf_token %}
-                <div class="cajaInputBuscar input-group">
-                    <input class="form-control" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
-                </div>
+                    <input class="form-control form-control-lg" aria-label=".form-control-lg example" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
             </form>
-
 
         </div>
 

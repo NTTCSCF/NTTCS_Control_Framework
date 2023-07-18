@@ -1029,7 +1029,6 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
         context["seleccionado"] = False
         return context
 
-
     # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
 
@@ -1043,7 +1042,8 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
                 return render(request, self.template_name, context=context)
             else:
                 mycursor = self.conn.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(marco_id=selector).nombre_tabla)  # realizamos la consulta para obtener los contrloles del marco seleccionado
+                mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(
+                    marco_id=selector).nombre_tabla)  # realizamos la consulta para obtener los contrloles del marco seleccionado
                 context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
                 context["assess"] = AsociacionMarcos.objects.all()
                 context["consulta"] = mycursor  # fijamos la tabla a el valor seleccionado
@@ -1084,26 +1084,6 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
             mycursor.execute(query)
             self.conn.commit()
 
-
-        elif request.POST.get('busqueda') is not None:  # if que recoge la pulsacion del boton de busqueda
-            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
-            if busqueda == '':  # detectamos si el valor del buscador esta vacio
-                mycursor = self.conn.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM " + request.session["seleccion"])
-                context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
-                context["assess"] = AsociacionMarcos.objects.all()
-                context["consulta"] = mycursor  # pasamos el valor de la tabla completa
-                return render(request, self.template_name, context=context)
-            else:
-                mycursor = self.conn.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM " + request.session[
-                    "seleccion"] + " WHERE ID='" + busqueda + "'")  # consultamos el valor buscado en la tabla
-                context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
-                context["assess"] = AsociacionMarcos.objects.all()
-                context["consulta"] = mycursor  # pasamos la consulta para que se muestre en la tabla
-                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
-                return render(request, self.template_name, context=context)
-
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + request.session["seleccion"])
         context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
@@ -1123,125 +1103,108 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
 
     # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
-        boton = request.POST.get('boton')
-
-        if boton == 'btn1':  # if que recoge la pulsacion del boton de seleccion
+        if 'selector' in request.POST:  # if que recoge la pulsacion del boton de seleccion
             selector = request.POST.get('selector')  # guardamos el valor del selecctor de marcos
-            mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute(
-                "SELECT * FROM " + selector)  # realizamos la consulta para obtener los contrloles del marco seleccionado
-            context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-            s = Assessmentguardados.objects.all()
-            p = []
-            for i in s:
-                if i.archivado == 1:
-                    p += [i]
-            context["selector"] = p
-            context["consulta"] = mycursor  # fijamos la tabla a el valor seleccionado
-            request.session["seleccion"] = selector  # guardamos la seleecion del marco
-            return render(request, self.template_name, context=context)
-        elif request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
-            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
-            print(busqueda)
-            if busqueda == '':  # detectamos si el valor del buscador esta vacio
-                mycursor = self.conn.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM " + request.session["seleccion"])
+            if selector == 'None':
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-                s = Assessmentguardados.objects.all()
-                p = []
-                for i in s:
-                    if i.archivado == 1:
-                        p += [i]
-                context["selector"] = p
-                context["consulta"] = mycursor  # pasamos el valor de la tabla completa
-                request.session["ultBusqueda"] = busqueda
+                s = Assessmentguardados.objects.get(archivado=1)
+                try:
+                    len(s)
+                    p = s
+                except:
+                    p = [s]
+                context["assess"] = p
+                context["seleccionado"] = False
                 return render(request, self.template_name, context=context)
             else:
                 mycursor = self.conn.cursor(buffered=True)
-                query = "SELECT * FROM " + request.session[
-                    "seleccion"] + " WHERE ID='" + busqueda + "'"  # consultamos el valor buscado en la tabla
-                mycursor.execute(query)
+                mycursor.execute("SELECT * FROM " + selector)  # realizamos la consulta para obtener los contrloles
+                # del marco seleccionado
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-                s = Assessmentguardados.objects.all()
-                p = []
-                for i in s:
-                    if i.archivado == 1:
-                        p += [i]
-                context["selector"] = p
-                context["consulta"] = mycursor  # pasamos la consulta para que se muestre en la tabla
-                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
+                s = Assessmentguardados.objects.get(archivado=1)
+                try:
+                    len(s)
+                    p = s
+                except:
+                    p = [s]
+                context["assess"] = p
+                context["consulta"] = mycursor  # fijamos la tabla a el valor seleccionado
+                context["seleccionado"] = True
+                context['marcoSeleccionado'] = selector
+                request.session["seleccion"] = selector
                 return render(request, self.template_name, context=context)
 
-        elif request.POST.get('id') != None:  # if que recoge la pulsacion del boton de insertar.
+        elif 'modificar' in request.POST:
             id = request.POST.get('id')  # valor del input de id
             descripcion = request.POST.get('descripcion')  # valor del input de descripcion
-            Pregunta = request.POST.get('Pregunta')  # valor del input de Pregunta
+            Pregunta = request.POST.get('pregunta')  # valor del input de Pregunta
             criterio = request.POST.get('criterio')  # valor del input de criterio
             respuesta = request.POST.get('respuesta')  # valor del input de respuesta
             valoracion = request.POST.get('valoracion')  # valor del input de respuesta
             evidencia = request.POST.get('evidencia')  # valor del input de evidencia
 
-            try:
-                query = """UPDATE """ + request.session["seleccion"] + """ SET descripcion='""" + descripcion + """', 
-                            pregunta='""" + Pregunta + """', criterioValoracion='""" + criterio + """', respuesta='""" + \
-                        respuesta + """', valoracion='""" + valoracion + """', 
-                                    evidencia='""" + evidencia + """' WHERE ID='""" + id + """';"""  # si esta en la tabla seleccionamos el ojeto en la tabla
-                mycursor = self.conn.cursor()
-                mycursor.execute(query)
-                self.conn.commit()
-            except:  # si el valor no esta en la tabla
-                query = """INSERT INTO """ + request.session[
-                    "seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, 
-                    evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', 
-                    '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia + \
-                        """');"""  # creamos un nuevo input en la tabla
-                mycursor = self.conn.cursor()
-                mycursor.execute(query)
-                self.conn.commit()
-
-            mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + request.session["seleccion"])
-            context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-            s = Assessmentguardados.objects.all()
-            p = []
-            for i in s:
-                if i.archivado == 1:
-                    p += [i]
-            context["selector"] = p
-            context["consulta"] = mycursor
-            return render(request, self.template_name,
-                          context=context)  # siempre retornamos el valor con la tabla completa.
-
-        else:  # else que recoge la pulsacion del boton de modificar.
-            mycursor = self.conn.cursor(buffered=True)
-            query = "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session[
-                "ultBusqueda"] + "'"  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
+            query = """UPDATE """ + request.session["seleccion"] + """ SET descripcion='""" + descripcion + """', 
+                                        pregunta='""" + Pregunta + """', criterioValoracion='""" + criterio + """', 
+                                        respuesta='""" + \
+                    respuesta + """', valoracion='""" + valoracion + """', 
+                                                evidencia='""" + evidencia + """' WHERE ID='""" + id + """';"""  # si
+            # esta en la tabla seleccionamos el ojeto en la tabla
+            mycursor = self.conn.cursor()
             mycursor.execute(query)
-            context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-            s = Assessmentguardados.objects.all()
-            p = []
-            for i in s:
-                if i.archivado == 1:
-                    p += [i]
-            context["selector"] = p
-            context["consulta"] = mycursor
-            for o in mycursor:
-                context[
-                    "seleccion"] = o  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
-            return render(request, self.template_name, context=context)
+            self.conn.commit()
+
+
+        elif 'eliminar' in request.POST:
+            id = request.POST.get('id')  # valor del input de id
+
+            mycursor = self.conn.cursor(buffered=True)
+            mycursor.execute(
+                "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + id + "';")
+            self.conn.commit()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
+
+
+        elif 'insertar' in request.POST:
+            id = request.POST.get('id')  # valor del input de id
+            descripcion = request.POST.get('descripcion')  # valor del input de descripcion
+            Pregunta = request.POST.get('pregunta')  # valor del input de Pregunta
+            criterio = request.POST.get('criterio')  # valor del input de criterio
+            respuesta = request.POST.get('respuesta')  # valor del input de respuesta
+            valoracion = request.POST.get('valoracion')  # valor del input de respuesta
+            evidencia = request.POST.get('evidencia')  # valor del input de evidencia
+
+            query = """INSERT INTO """ + request.session[
+                "seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, 
+                                evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', 
+                                '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia + \
+                    """');"""  # creamos un nuevo input en la tabla
+            mycursor = self.conn.cursor()
+            mycursor.execute(query)
+            self.conn.commit()
+
+        mycursor = self.conn.cursor(buffered=True)
+        mycursor.execute("SELECT * FROM " + request.session["seleccion"])
+        context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
+        s = Assessmentguardados.objects.get(archivado=1)
+        try:
+            len(s)
+            p = s
+        except:
+            p = [s]
+        context["assess"] = p
+        context["consulta"] = mycursor
+        return render(request, self.template_name,
+                      context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-        s = Assessmentguardados.objects.all()
-        p = []
-        for i in s:
-            if i.archivado == 1:
-                p += [i]
-        context["selector"] = p
-        context["consulta"] = [
-            ['No Seleccionado', 'No Seleccionado', 'No Seleccionado', 'No Seleccionado', 'No Seleccionado',
-             'No Seleccionado', 'No Seleccionado']]
+        s = Assessmentguardados.objects.get(archivado=1)
+        try:
+            len(s)
+            p = s
+        except:
+            p = [s]
+        context["assess"] = p
 
         return context
 
