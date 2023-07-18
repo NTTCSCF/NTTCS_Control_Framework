@@ -26,7 +26,7 @@
 
 
 
-    <table class="table table-fixed">
+    <table class="table table-fixed" id="datos">
         <thead>
             <tr>
                 <th scope="col">Evidence Request References</th>
@@ -39,9 +39,9 @@
         </thead>
         <tbody>
             <tr>
-                <form action="post">
+                <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" name="evidence_request" placeholder="Insert Evidence Request" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="evidence_request_references" placeholder="Insert Evidence Request" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="area_of_focus" placeholder="Insert Aera of focus" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="artifact" placeholder="Insert artifact" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="artifact_description" placeholder="insert artifact description" autocomplete="false"></td>
@@ -56,12 +56,13 @@
 
             {% for ids in consulta %}
             <tr>
-                <form action="post">
-                    <td>{{ids.evidence_request_references}}</td>
-                    <td>{{ids.area_of_focus}}</td>
-                    <td>{{ids.artifact}}</td>
-                    <td>{{ids.artifact_description}}</td>
-                    <td>{{ids.control_mappings}}</td>
+                <form method="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" value="{{ids.evidence_request_references}}" name="evidence_request_references" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.area_of_focus}}" name="area_of_focus" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.artifact}}" name="artifact" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.artifact_description}}" name="artifact_description" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.control_mappings}}" name="control_mappings" ></td>
                     <td class="botonesTabla">
                         <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                             <i class="bi bi-pencil-square"></i>
@@ -80,111 +81,5 @@
 
 
 
-    <!-- COPIA ORIGINAL
-    <!-- Contenedor de la página
-    <div class="box wrapper">
-
-        <!-- Logo NTT Control Framework
-        <div class="logoGrande1">
-            <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
-        </div>
-
-        <!-- titulo
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Mantenimiento Evidencias</h1>
-                </div>
-            </div>
-        </div>
-
-        <!-- Logo de NTT DATA
-        <div class="logoPequeno">
-            <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
-        </div>
-
-        <!-- vista del boton de modificar
-        <div class="botonModificar">
-            <form class="tablasModificarFlex" method="post" >
-                {% csrf_token %}
-                <div >
-                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Seccion de busqueda
-        <div class="tablasBusca">
-            <form class="tablasBuscaFlex" method="post" id="busquedaForm">
-                {% csrf_token %}
-                <div >
-                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
-                </div>
-                <div >
-                    <button class="btnBorde btnTablas"  type="submit">Buscar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Boton eliminar
-        <div class="botonEliminar">
-            <div class="tablasEliminarFlex">
-                <div >
-                    <a class="btnBorde btnTablas" href="{% url 'EliminarEvidencias' %}" >Eliminar</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- tabla de contenido de los controles
-        <div class="tablasTablas">
-            <div class="tabasFlex">
-                <div class="cajaTablasTitulo">
-                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">Evidence Request References</div><div class="tb_colprueba">Area of Focus</div><div class="tb_colprueba">Artifact</div><div class="tb_colprueba">Artifact Description</div><div class="tb_colprueba">Control Mappings</div></div>
-                </div>
-                <div class="cajaTablas">
-                    {% if lenConsulta > 1 %}
-
-                    {% for ids in consulta %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.evidence_request_references}}</div><div class="tb_colprueba">{{ids.area_of_focus}}</div><div class="tb_colprueba">{{ids.artifact}}</div><div class="tb_colprueba">{{ids.artifact_description}}</div> <div class="tb_colprueba">{{ids.control_mappings}}</div></div>
-                    {% endfor %}
-                    {% else %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{consulta.evidence_request_references}}</div><div class="tb_colprueba">{{consulta.area_of_focus}}</div><div class="tb_colprueba">{{consulta.artifact}}</div><div class="tb_colprueba">{{consulta.artifact_description}}</div><div class="tb_colprueba">{{consulta.control_mappings}}</div></div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <!-- formulario para insertar datos
-        <div class="tablasInsertar">
-            <form class="tablasInsertarFlex" method="post">
-                {% csrf_token %}
-                <div class="cajaInsertar1">
-                    <label for="evidence_request_references">evidence_request_references</label>
-                    <input style="width:100%;height:20px;" type="text" id="evidence_request_references" name="evidence_request_references" value="{{seleccion.evidence_request_references}}">
-                </div>
-                <div class="cajaInsertar2">
-                    <label for="area_of_focus">area_of_focus</label>
-                    <input style="width:100%;height:20px;" type="text" id="area_of_focus" name="area_of_focus" value="{{seleccion.area_of_focus}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="artifact">artifact</label>
-                    <input style="width:100%;height:20px;" type="text" id="artifact" name="artifact" value="{{seleccion.artifact}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="artifact_description">artifact_description</label>
-                    <input style="width:100%;height:20px;" type="text" id="artifact_description" name="artifact_description" value="{{seleccion.artifact_description}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="control_mappings">control_mappings</label>
-                    <input style="width:100%;height:20px;" type="text" id="control_mappings" name="control_mappings" value="{{seleccion.control_mappings}}">
-                </div>
-                <div class="cajaInsertar1 cajaButton" >
-                    <button class="btn btn-success btnBorde btnTablas2"  type="submit">Insertar</button>
-                </div>
-            </form>
-        </div>
-
-    </div>
-    -->
 
 {% endblock %}
