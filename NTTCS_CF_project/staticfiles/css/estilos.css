@@ -73,6 +73,15 @@
     flex-basis: calc(15% - 1rem);
 }
 
+.cajaSmallInsertar {
+    flex-basis: calc(30% - 1rem);
+}
+
+.cajaBigInsertar {
+    flex-basis: calc(70% - 1rem);
+}
+
+
 /* INSERTAR DATOS PAGINA MANTENIMIENTO */
 .rowInsertar{
     display:flex;
@@ -82,8 +91,19 @@
     /*border: 1px solid black;*/
 }
 
+.rowInsertar2{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    /*border: 1px solid black;*/
+}
+
 .rowInsertMantMarcosExistentes {
     flex-basis: calc(42.5% - 1rem);
+}
+
+.cajaTripleInsertar {
+    flex-basis: calc(33.3% - 1rem);
 }
 
 
@@ -92,22 +112,25 @@
     width: 100%;
 }
 
+.botonesTabla {
+    display: inline-block;
+}
+table {
+  position: relative;
+}
+
+.table-fixed thead tr th {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+    border-bottom: 2px solid black;
+}
+
 .table-fixed tbody {
-    width:100%;
-    height: 230px;
-    overflow-y:auto;
+    height: 300px;
+    overflow: auto;
 }
-
-.table-fixed tbody td,
-.table-fixed thead tr > th {
-
-    border-bottom-width: 0;
-}
-
-
-
-
-
 
 /* INFORMES DEL SISTEMA */
 .rowExport {
@@ -131,7 +154,7 @@
 
 
 
-/* LOGIN DEL SISTEMA */
+/* PAGINA LOGIN DEL SISTEMA */
 body {
     font-family: 'Overpass', sans-serif;
     font-weight: normal;

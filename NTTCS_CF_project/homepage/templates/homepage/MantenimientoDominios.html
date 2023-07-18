@@ -82,6 +82,7 @@
                 <th>Domain</th>
                 <th>Security & Privacy by Design (S|P) Principles</th>
                 <th>Principle Intent</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -92,6 +93,14 @@
                 <td>{{ids.domain}}</td>
                 <td>{{ids.security_privacy_by_design_s_p_principles}}</td>
                 <td>{{ids.principle_intent}}</td>
+                <td class="botonesTabla">
+                    <button class="btn btn-warning btn-sm" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </td>
             </tr>
             {% endfor %}
             {% else %}
@@ -100,6 +109,14 @@
                 <td>{{ids.domain}}</td>
                 <td>{{ids.security_privacy_by_design_s_p_principles}}</td>
                 <td>{{ids.principle_intent}}</td>
+                <td class="botonesTabla">
+                    <button class="btn btn-warning btn-sm" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
+                        <i class="bi bi-trash3"></i>
+                    </a>
+                </td>
             </tr>
             {% endif %}
         </tbody>

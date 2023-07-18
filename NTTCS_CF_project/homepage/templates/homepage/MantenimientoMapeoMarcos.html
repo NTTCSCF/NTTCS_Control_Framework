@@ -20,12 +20,39 @@
                 <div class="cajaBuscar input-group">
                     {% csrf_token %}
                     <label class="input-group-text" for="selectorMapeo">NTT Controles: </label>
+                    <!--
                     <select class="form-select" id="selectorMapeo" name="selectorMapeo">
                         <option selected>Elige una opción ... </option>
                         {% for ids in assess %}
+
                         <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
                         {% endfor %}
                     </select>
+                    -->
+                    <select class="form-select" id="selectorMapeo" name="selectorMapeo">
+                        <option selected>Elige una opción ... </option>
+                        {% for ids in assess %}
+                        {% if ids.0 == idControl %}
+                            <option selected value="{{ids.0}}">{{ids.0}}</option>
+                        {% else %}
+                            <option value="{{ids.0}}">{{ids.0}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <!--
+                     <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector" value="btn1">
+                        <option selected value="noSel">--- No Seleccionado ---</option>
+                        {% for ids in assess %}
+                        {% if ids.0 == idControl %}
+                        <option selected value="{{ids.0}}">{{ids.0}}</option>
+                        {% else %}
+                        <option value="{{ids.0}}">{{ids.0}}</option>
+                        {% endif %}
+
+                        {% endfor %}
+                    </select> -->
+
                 </div>
                 <div class="btnFlexMant">
                     <button class="btn btn-info btn-block"  type="submit" name="boton1" value="btn1">Mostrar</button>
@@ -58,12 +85,13 @@
         </div>
 
         <!-- TABLA DE CONTENIDO -->
-        <table class="table">
+        <table class="table table-fixed">
             <thead>
                 <tr>
                     <th scope="col">NTT DATA ID</th>
                     <th scope="col">Marco referencia</th>
                     <th scope="col">ID</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,6 +100,14 @@
                     <td>{{ids.0}}</td>
                     <td>{{ids.1}}</td>
                     <td>{{ids.2}}</td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-warning btn-sm" title="Editar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'Eliminar' %}">
+                            <i class="bi bi-trash3"></i>
+                        </a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
