@@ -707,6 +707,18 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
                 request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
 
+        elif 'insertar' in request.POST:
+            evidence_request = request.POST.get('evidence_request')  # valor del input de ntt_id
+            area_of_focus = request.POST.get('area_of_focus')  # valor del input area of focus
+            artifact = request.POST.get('artifact') #valor del input artifact
+            artifact_description = request.POST.get('artifact_description')  # valor del input de artifact_description
+            control_mappings = request.POST.get('control_mappings')  # valor del input de control_mappings
+            query = "INSERT INTO " + request.session["seleccion"] + " (NTT_ID, " + request.session[
+                "seleccion"] + ") VALUES('" + ntt_id + "', '" + marco + "');"  # creamos un nuevo input en la tabla
+            mycursor = self.conn.cursor()
+            mycursor.execute(query)
+            self.conn.commit()
+
         elif request.POST.get(
                 'evidence_request_references') != None:  # if que recoge la pulsacion del boton de insertar.
             evidence_request_references = request.POST.get(
