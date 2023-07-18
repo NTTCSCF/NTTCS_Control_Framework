@@ -16,19 +16,12 @@
         <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
             <div class="cajaInputBuscar input-group">
-                <input class="form-control" type="text" id="busqueda" name="busqueda" placeholder="Busqueda ....">
-                <button class="btn btn-outline-primary"  type="submit">Buscar</button>
+                <input class="form-control" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
+
             </div>
+
         </form>
 
-        <form class="btnFlexMant" method="post" >
-            {% csrf_token %}
-            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
-        </form>
-
-        <div class="btnFlexMant">
-            <a class="btn btn-danger btn-block" href="{% url 'EliminarEvidencias' %}" >Eliminar</a>
-        </div>
     </div>
 
 
@@ -45,82 +38,44 @@
             </tr>
         </thead>
         <tbody>
-            {% if lenConsulta > 1 %}
+            <tr>
+                <form action="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" name="evidence_request" placeholder="Insert Evidence Request" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="area_of_focus" placeholder="Insert Aera of focus" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="artifact" placeholder="Insert artifact" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="artifact_description" placeholder="insert artifact description" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="control_mappings" placeholder="insert control mappings" autocomplete="false"></td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                            <i class="bi bi-check2-square"></i>
+                        </button>
+                    </td>
+                </form>
+            </tr>
+
             {% for ids in consulta %}
             <tr>
-                <td>{{ids.evidence_request_references}}</td>
-                <td>{{ids.area_of_focus}}</td>
-                <td>{{ids.artifact}}</td>
-                <td>{{ids.artifact_description}}</td>
-                <td>{{ids.control_mappings}}</td>
-                <td class="botonesTabla">
-                    <button class="btn btn-warning btn-sm" title="Editar">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
-                        <i class="bi bi-trash3"></i>
-                    </a>
-                </td>
+                <form action="post">
+                    <td>{{ids.evidence_request_references}}</td>
+                    <td>{{ids.area_of_focus}}</td>
+                    <td>{{ids.artifact}}</td>
+                    <td>{{ids.artifact_description}}</td>
+                    <td>{{ids.control_mappings}}</td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+                </form>
             </tr>
             {% endfor %}
-            {% else %}
-            <tr>
-                <td>{{consulta.evidence_request_references}}</td>
-                <td>{{consulta.area_of_focus}}</td>
-                <td>{{consulta.artifact}}</td>
-                <td>{{consulta.artifact_description}}</td>
-                <td>{{consulta.control_mappings}}</td>
-                <td class="botonesTabla">
-                    <button class="btn btn-warning btn-sm" title="Editar">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
-                        <i class="bi bi-trash3"></i>
-                    </a>
-                </td>
-            </tr>
-            {% endif %}
+
         </tbody>
     </table>
-
-    <!-- INSERTAR DATOS  -->
-    <form class="" method="post">
-        <span><h6>Insertar nuevo registro:</h6></span>
-        {% csrf_token %}
-        <div class="rowInsertar">
-            <div class="cajaTripleInsertar">
-                <label class="form-label" for="evidence_request_references">evidence_request_references:</label>
-                <input class="form-control" type="text" id="evidence_request_references" name="evidence_request_references" value="{{seleccion.evidence_request_references}}">
-            </div>
-            <div class="cajaTripleInsertar">
-                <label class="form-label" for="area_of_focus">area_of_focus:</label>
-                <input class="form-control" type="text" id="area_of_focus" name="area_of_focus" value="{{seleccion.area_of_focus}}">
-            </div>
-            <div class="cajaTripleInsertar">
-                <label class="form-label" for="artifact">artifact:</label>
-                <input class="form-control" type="text" id="artifact" name="artifact" value="{{seleccion.artifact}}">
-            </div>
-        </div>
-
-        <div class="rowInsertar2">
-            <div class="cajaSmallInsertar">
-                <label class="form-label" for="artifact_description">artifact_description:</label>
-                <input class="form-control" type="text" id="artifact_description" name="artifact_description" value="{{seleccion.artifact_description}}">
-            </div>
-            <div class="cajaBigInsertar">
-                <label class="form-label" for="control_mappings">control_mappings:</label>
-                <textarea class="form-control" type="text" id="control_mappings" name="control_mappings" value="{{seleccion.control_mappings}}"></textarea>
-            </div>
-        </div>
-
-
-        <div class="btnFlexMant mt-2" >
-            <button class="btn btn-success"  type="submit">Insertar</button>
-        </div>
-    </form>
-
-
-
 
 
 

@@ -18,23 +18,12 @@
         <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
             <div class="cajaInputBuscar input-group">
-                <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda">
-                <button class="btn btn-outline-primary"  type="submit">Buscar</button>
+                <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda" onkeyup="doSearch()">
             </div>
         </form>
-
-        <form class="btnFlexMant" method="post" >
-            {% csrf_token %}
-            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
-        </form>
-
-        <div class="btnFlexMant">
-            <a class="btn btn-danger btn-block" href="{% url 'EliminarControles' %}" >Eliminar</a>
-        </div>
     </div>
 
     <!-- TABLA DE CONTENIDO -->
-
     <table class="table table-fixed">
         <thead>
             <tr>
@@ -54,7 +43,28 @@
             </tr>
         </thead>
         <tbody>
-            {% if lenConsulta > 1 %}
+            <tr>
+                <form action="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="selected_y_n_field" placeholder="Insert selected_y_n_field" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="control" placeholder="Insert control" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="Description" placeholder="insert Description" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="relative_control_weighting" placeholder="insert relative_control_weighting" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="function_grouping" placeholder="insert function_grouping" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="assesed_result" placeholder="insert assesed_result" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="numeric_result" placeholder="insert numeric_result" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="weighted_numeric_result" placeholder="insert weighted_numeric_result" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="assessment_comments" placeholder="insert assessment_comments" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="relative_result_by_function" placeholder="insert relative_result_by_function" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="relative_result_by_domain" placeholder="insert relative_result_by_domain" autocomplete="false"></td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                            <i class="bi bi-check2-square"></i>
+                        </button>
+                    </td>
+                </form>
+            </tr>
 
             {% for ids in consulta %}
             <tr>
@@ -71,114 +81,19 @@
                 <td>{{ids.relative_result_by_function}}</td>
                 <td>{{ids.relative_result_by_domain}}</td>
                 <td class="botonesTabla">
-                    <button class="btn btn-warning btn-sm" title="Editar">
+                    <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
+                    <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
                         <i class="bi bi-trash3"></i>
-                    </a>
+                    </button>
                 </td>
             </tr>
             {% endfor %}
-            {% else %}
-            <tr>
-                <td>{{domain.domain}}</td>
-                <td>{{domain.selected_y_n_field}}</td>
-                <td>{{domain.control}}</td>
-                <td>{{domain.control_description}}</td>
-                <td>{{domain.relative_control_weighting}}</td>
-                <td>{{domain.function_grouping}}</td>
-                <td>{{domain.assesed_result}}</td>
-                <td>{{domain.numeric_result}}</td>
-                <td>{{domain.weighted_numeric_result}}</td>
-                <td>{{domain.assessment_comments}}</td>
-                <td>{{domain.relative_result_by_function}}</td>
-                <td>{{domain.relative_result_by_domain}}</td>
-                <td class="botonesTabla">
-                    <button class="btn btn-warning btn-sm" title="Editar">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
-                        <i class="bi bi-trash3"></i>
-                    </a>
-                </td>
-            </tr>
-            {% endif %}
+
         </tbody>
     </table>
 
-    <!-- INSERTAR DATOS NTTC CONTROL -->
-    <form class="" method="post">
-        <span><h6>Insertar nuevo registro:</h6></span>
-        {% csrf_token %}
-        <div class="rowInsertar">
-            <div class="mr-2">
-                <label class="form-label" for="domain">domain area:</label>
-                <input class="form-control" type="text" id="domain" name="domain" value="{{seleccion.domain}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label"  for="selected_y_n_field">area of focus:</label>
-                <input class="form-control" type="text" id="selected_y_n_field" name="selected_y_n_field" value="{{seleccion.selected_y_n_field}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="control">control area:</label>
-                <input class="form-control" type="text" id="control" name="control" value="{{seleccion.control}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="id">id focus area:</label>
-                <input class="form-control" type="text" id="id" name="id" value="{{seleccion.id}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="control_description">control description:</label>
-                <input class="form-control" type="text" id="control_description" name="control_description" value="{{seleccion.control_description}}">
-            </div>
-        </div>
-
-        <div class="rowInsertar">
-            <div class="mr-2">
-                <label class="form-label" for="relative_control_weighting">relative control:</label>
-                <input class="form-control" type="text" id="relative_control_weighting" name="relative_control_weighting" value="{{seleccion.relative_control_weighting}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="function_grouping">function grouping:</label>
-                <input class="form-control" type="text" id="function_grouping" name="function_grouping" value="{{seleccion.function_grouping}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="assesed_result">assesed result:</label>
-                <input class="form-control" type="text" id="assesed_result" name="assesed_result" value="{{seleccion.assesed_result}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="numeric_result">numeric result:</label>
-                <input class="form-control" type="text" id="numeric_result" name="numeric_result" value="{{seleccion.numeric_result}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="weighted_numeric_result">weighted result:</label>
-                <input class="form-control" type="text" id="weighted_numeric_result" name="weighted_numeric_result" value="{{seleccion.controlweighted_numeric_result_mappings}}">
-            </div>
-        </div>
-
-        <div class="rowInsertar">
-            <div class="mr-2">
-                <label class="form-label" for="assessment_comments">assessment comments:</label>
-                <input class="form-control" type="text" id="assessment_comments" name="assessment_comments" value="{{seleccion.assessment_comments}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="relative_result_by_function">result by function:</label>
-                <input class="form-control" type="text" id="relative_result_by_function" name="relative_result_by_function" value="{{seleccion.relative_result_by_function}}">
-            </div>
-            <div class="mr-2">
-                <label class="form-label" for="relative_result_by_domain">result by domain:</label>
-                <input class="form-control" type="text" id="relative_result_by_domain" name="relative_result_by_domain" value="{{seleccion.relative_result_by_domain}}">
-            </div>
-
-            <div class="btnFlexMant" >
-                <button class="btn btn-success btn-block"  type="submit">Insertar</button>
-            </div>
-
-            <div class="btnFlexMant"></div>
-        </div>
-
-     </form>
 
 
 
