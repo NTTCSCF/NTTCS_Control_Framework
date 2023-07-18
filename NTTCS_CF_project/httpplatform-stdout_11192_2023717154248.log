@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+[17/Jul/2023 17:42:50] "GET / HTTP/1.0" 200 1526
+Not Found: /robots.txt
+[17/Jul/2023 17:47:36] "GET /robots.txt HTTP/1.1" 404 7648
+[17/Jul/2023 17:47:36] "GET / HTTP/1.1" 200 1526
+Not Found: /geoip/
+[17/Jul/2023 17:51:19] "GET /geoip/ HTTP/1.1" 404 7643
+[17/Jul/2023 17:51:19] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[17/Jul/2023 17:51:20] "GET /favicon.ico HTTP/1.1" 404 7658
+[17/Jul/2023 17:55:46] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 18:02:23] "GET / HTTP/1.1" 200 1526

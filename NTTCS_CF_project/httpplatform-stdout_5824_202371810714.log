@@ -1,0 +1,35 @@
+Watching for file changes with StatReloader
+Not Found: /robots.txt
+[18/Jul/2023 12:07:19] "GET /robots.txt HTTP/1.1" 404 7648
+Not Found: /robots.txt
+[18/Jul/2023 12:07:19] "GET /robots.txt HTTP/1.1" 404 7648
+Not Found: /xmlrpc.php
+[18/Jul/2023 12:08:56] "POST /xmlrpc.php HTTP/1.1" 404 7649
+Not Found: /payment/index.php
+[18/Jul/2023 12:25:07] "GET /payment/index.php HTTP/1.1" 404 7674
+[18/Jul/2023 12:25:07] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 12:38:52] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 12:38:52] "GET / HTTP/1.1" 200 1526
+Not Found: /api/sonicos/auth
+[18/Jul/2023 12:38:52] "GET /api/sonicos/auth HTTP/1.1" 404 7676
+Not Found: /sslvpnLogin.html
+Not Found: /auth.html
+[18/Jul/2023 12:38:52] "GET /sslvpnLogin.html HTTP/1.1" 404 7676
+Not Found: /auth1.html
+[18/Jul/2023 12:38:52] "GET /auth1.html HTTP/1.1" 404 7658
+[18/Jul/2023 12:38:52] "GET /auth.html HTTP/1.1" 404 7655
+Not Found: /api/sonicos/tfa
+[18/Jul/2023 12:38:52] "GET /api/sonicos/tfa HTTP/1.1" 404 7673
+Not Found: /wsman
+[18/Jul/2023 12:39:04] "POST /wsman HTTP/1.1" 404 7644
+[18/Jul/2023 12:39:26] "GET / HTTP/1.0" 200 1526
+[18/Jul/2023 12:39:28] "OPTIONS / HTTP/1.0" 200 0
+[18/Jul/2023 12:39:34] "GET / HTTP/1.0" 200 1526
+[18/Jul/2023 12:40:26] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[18/Jul/2023 12:40:26] "GET /favicon.ico HTTP/1.1" 404 7658
+[18/Jul/2023 12:40:26] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 12:40:46] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 12:40:47] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 12:57:01] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 13:00:28] "GET / HTTP/1.1" 200 1526

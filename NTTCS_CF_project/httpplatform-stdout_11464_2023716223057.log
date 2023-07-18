@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[17/Jul/2023 00:30:59] "GET /.env HTTP/1.1" 404 7637
+Forbidden (CSRF cookie not set.): /
+[17/Jul/2023 00:30:59] "POST / HTTP/1.1" 403 2922
+Not Found: /favicon.ico
+[17/Jul/2023 00:33:09] "GET /favicon.ico HTTP/1.1" 404 7658
+Not Found: /image/lgbg.jpg
+[17/Jul/2023 00:33:10] "GET /image/lgbg.jpg HTTP/1.1" 404 7667
+Not Found: /skin/default_1/images/logo.png
+[17/Jul/2023 00:33:10] "GET /skin/default_1/images/logo.png HTTP/1.1" 404 7715
+[17/Jul/2023 00:33:10] "GET / HTTP/1.1" 200 1526
+Not Found: /login.rsp
+[17/Jul/2023 00:33:11] "GET /login.rsp HTTP/1.1" 404 7652
+[17/Jul/2023 00:39:55] "GET / HTTP/1.1" 200 1526

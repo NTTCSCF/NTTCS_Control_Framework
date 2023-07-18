@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+[15/Jul/2023 23:14:05] "HEAD / HTTP/1.1" 200 0
+[15/Jul/2023 23:14:06] "HEAD / HTTP/1.1" 200 0
+[15/Jul/2023 23:24:02] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 23:30:14] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 23:30:14] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[15/Jul/2023 23:30:14] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 4988
+[15/Jul/2023 23:30:14] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[15/Jul/2023 23:30:14] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /_ignition/health-check
+[15/Jul/2023 23:34:50] "GET /_ignition/health-check HTTP/1.1" 404 7691

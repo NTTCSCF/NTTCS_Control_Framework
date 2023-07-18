@@ -1,0 +1,5 @@
+Watching for file changes with StatReloader
+[16/Jul/2023 01:05:56] "GET / HTTP/1.1" 200 1526
+[16/Jul/2023 01:13:57] "GET /admin/config.php HTTP/1.1" 302 0
+[16/Jul/2023 01:13:57] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296
+[16/Jul/2023 01:32:01] "GET / HTTP/1.1" 200 1526

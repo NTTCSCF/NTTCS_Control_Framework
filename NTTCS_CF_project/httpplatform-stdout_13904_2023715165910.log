@@ -1,0 +1,5 @@
+Watching for file changes with StatReloader
+[15/Jul/2023 18:59:12] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 18:59:12] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[15/Jul/2023 19:07:11] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 19:19:39] "GET / HTTP/1.1" 200 1526

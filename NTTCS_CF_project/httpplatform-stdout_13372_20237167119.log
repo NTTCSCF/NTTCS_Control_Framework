@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+[16/Jul/2023 09:11:11] "GET / HTTP/1.1" 200 1526
+[16/Jul/2023 09:11:11] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[16/Jul/2023 09:11:11] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 4988
+[16/Jul/2023 09:11:11] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[16/Jul/2023 09:11:11] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[16/Jul/2023 09:11:29] "POST / HTTP/1.1" 302 0
+[16/Jul/2023 09:11:29] "GET /menu/ HTTP/1.1" 200 8155
+[16/Jul/2023 09:11:30] "GET /staticfiles/css/ass.css HTTP/1.1" 200 6735
+[16/Jul/2023 09:11:34] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[16/Jul/2023 09:11:34] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[16/Jul/2023 09:11:38] "GET /assessmentselect/ HTTP/1.1" 200 20056
+[16/Jul/2023 09:11:41] "GET /informes/ HTTP/1.1" 200 8499
+[16/Jul/2023 09:11:43] "GET /exportaciones/ HTTP/1.1" 200 8359
+[16/Jul/2023 09:11:48] "GET /mantenimientoNivelMadurez/ HTTP/1.1" 200 17096

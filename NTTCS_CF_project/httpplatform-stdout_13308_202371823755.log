@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+[18/Jul/2023 04:37:57] "GET / HTTP/1.1" 200 1526
+Not Found: /nice ports,/Trinity.txt.bak
+[18/Jul/2023 04:37:58] "GET /nice%20ports,/Trinity.txt.bak HTTP/1.0" 404 7707
+[18/Jul/2023 04:37:58] "GET / HTTP/1.0" 200 1526
+[18/Jul/2023 04:37:58] "OPTIONS / HTTP/1.0" 200 0
+Not Found: /nice ports,/Trinity.txt.bak
+[18/Jul/2023 04:38:13] "GET /nice%20ports,/Trinity.txt.bak HTTP/1.0" 404 7707
+[18/Jul/2023 04:38:13] "GET / HTTP/1.0" 200 1526
+[18/Jul/2023 04:38:14] "OPTIONS / HTTP/1.0" 200 0
+[18/Jul/2023 04:39:06] "GET / HTTP/1.1" 200 1526

@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[17/Jul/2023 15:33:35] "GET / HTTP/1.1" 200 1526
+Not Found: /backend/.env
+[17/Jul/2023 15:35:22] "GET /backend/.env HTTP/1.1" 404 7661
+Not Found: /backend
+[17/Jul/2023 15:35:23] "POST /backend HTTP/1.1" 404 7647

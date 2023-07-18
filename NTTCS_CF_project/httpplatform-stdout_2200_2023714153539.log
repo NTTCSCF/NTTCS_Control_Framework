@@ -1,0 +1,18 @@
+Watching for file changes with StatReloader
+Not Found: /payment/index.php
+[14/Jul/2023 17:35:41] "GET /payment/index.php HTTP/1.1" 404 7674
+[14/Jul/2023 17:35:41] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 17:49:15] "GET / HTTP/1.1" 200 1526
+Not Found: /phpmyadmin/index.php
+[14/Jul/2023 18:01:32] "GET /phpmyadmin/index.php HTTP/1.1" 404 7685
+[14/Jul/2023 18:15:45] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 18:28:58] "GET / HTTP/1.1" 200 1526
+Not Found: /boaform/admin/formLogin
+[14/Jul/2023 19:05:01] "POST /boaform/admin/formLogin HTTP/1.1" 404 7698
+[14/Jul/2023 19:22:06] "GET / HTTP/1.1" 200 1526
+Not Found: /.env
+[14/Jul/2023 19:25:19] "GET /.env HTTP/1.1" 404 7637
+Forbidden (CSRF cookie not set.): /
+[14/Jul/2023 19:25:20] "POST / HTTP/1.1" 403 2922
+Not Found: /robots.txt
+[14/Jul/2023 19:54:00] "HEAD /robots.txt HTTP/1.0" 404 0

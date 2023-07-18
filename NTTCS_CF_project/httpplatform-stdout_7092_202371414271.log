@@ -1,0 +1,13 @@
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+[14/Jul/2023 16:27:04] "GET /favicon.ico HTTP/1.1" 404 7658
+Not Found: /1.php
+[14/Jul/2023 16:27:04] "GET /1.php HTTP/1.1" 404 7640
+Not Found: /bundle.js
+[14/Jul/2023 16:27:05] "GET /bundle.js HTTP/1.1" 404 7652
+Not Found: /files/
+[14/Jul/2023 16:27:05] "GET /files/ HTTP/1.1" 404 7643
+Not Found: /login
+[14/Jul/2023 16:43:23] "GET /login?from=%2F HTTP/1.1" 404 7649
+Not Found: /wp-login.php
+[14/Jul/2023 16:45:51] "GET /wp-login.php HTTP/1.1" 404 7654

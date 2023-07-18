@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+Not Found: /boaform/admin/formLogin
+[16/Jul/2023 06:37:39] "POST /boaform/admin/formLogin HTTP/1.1" 404 7698
+Not Found: /.git/config
+[16/Jul/2023 06:44:36] "GET /.git/config HTTP/1.1" 404 7651
+Not Found: /aaa9
+[16/Jul/2023 06:45:24] "GET /aaa9 HTTP/1.1" 404 7637
+Not Found: /aab8
+[16/Jul/2023 06:45:39] "GET /aab8 HTTP/1.1" 404 7637
+[16/Jul/2023 06:45:43] "GET / HTTP/1.1" 200 1526

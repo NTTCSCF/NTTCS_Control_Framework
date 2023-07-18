@@ -1,0 +1,5 @@
+Watching for file changes with StatReloader
+[18/Jul/2023 06:13:47] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[18/Jul/2023 06:13:47] "GET /payment/index.php HTTP/1.1" 404 7674
+[18/Jul/2023 06:14:12] "GET / HTTP/1.1" 200 1526

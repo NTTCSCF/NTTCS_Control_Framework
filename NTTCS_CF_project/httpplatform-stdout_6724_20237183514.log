@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+[18/Jul/2023 05:05:16] "GET / HTTP/1.1" 200 1526
+Not Found: /upl.php
+[18/Jul/2023 05:05:17] "GET /upl.php HTTP/1.1" 404 7646
+Not Found: /geoip/
+[18/Jul/2023 05:05:17] "GET /geoip/ HTTP/1.1" 404 7643
+Not Found: /1.php
+[18/Jul/2023 05:05:18] "GET /1.php HTTP/1.1" 404 7640
+Not Found: /bundle.js
+[18/Jul/2023 05:05:19] "GET /bundle.js HTTP/1.1" 404 7652
+[18/Jul/2023 05:43:18] "GET / HTTP/1.1" 200 1526

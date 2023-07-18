@@ -1,0 +1,7 @@
+Watching for file changes with StatReloader
+Not Found: /doc/xml/version.xml
+[18/Jul/2023 14:41:32] "GET /doc/xml/version.xml HTTP/1.1" 404 7682
+[18/Jul/2023 14:49:06] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[18/Jul/2023 15:01:10] "GET /payment/index.php HTTP/1.1" 404 7674
+[18/Jul/2023 15:01:10] "GET / HTTP/1.1" 200 1526

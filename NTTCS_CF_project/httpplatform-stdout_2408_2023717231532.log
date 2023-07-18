@@ -1,0 +1,47 @@
+Watching for file changes with StatReloader
+Not Found: /_ignition/health-check/
+[18/Jul/2023 01:15:34] "GET /_ignition/health-check/ HTTP/1.1" 404 7687
+Not Found: /public/_ignition/health-check/
+[18/Jul/2023 01:15:36] "GET /public/_ignition/health-check/ HTTP/1.1" 404 7708
+Not Found: /wp-includes/wlwmanifest.xml
+[18/Jul/2023 01:15:38] "GET /wp-includes/wlwmanifest.xml HTTP/1.1" 404 7699
+[18/Jul/2023 01:17:27] "GET / HTTP/1.1" 200 1526
+Not Found: /boaform/admin/formLogin
+[18/Jul/2023 01:20:56] "POST /boaform/admin/formLogin HTTP/1.1" 404 7698
+[18/Jul/2023 01:21:13] "GET / HTTP/1.1" 200 1526
+Not Found: /wordpress/wp-login.php
+[18/Jul/2023 01:51:24] "GET /wordpress/wp-login.php HTTP/1.1" 404 7684
+[18/Jul/2023 01:54:50] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 01:54:51] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[18/Jul/2023 01:54:51] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[18/Jul/2023 01:54:51] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 4988
+[18/Jul/2023 01:54:51] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 01:56:49] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:00:57] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:03] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:04] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:08] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:08] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:09] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:10] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:10] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:10] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:10] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:11] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:14] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:15] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:16] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:17] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:17] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:19] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:19] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:20] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:20] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:21] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:23] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:23] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:01:45] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 02:01:46] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[18/Jul/2023 02:11:42] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[18/Jul/2023 02:11:42] "GET /payment/index.php HTTP/1.1" 404 7674

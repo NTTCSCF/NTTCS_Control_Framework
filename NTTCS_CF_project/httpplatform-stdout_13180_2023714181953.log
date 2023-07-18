@@ -1,0 +1,46 @@
+Watching for file changes with StatReloader
+[14/Jul/2023 20:19:54] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 20:37:26] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[14/Jul/2023 20:39:21] "GET /payment/index.php HTTP/1.1" 404 7674
+[14/Jul/2023 20:39:26] "GET / HTTP/1.1" 200 1526
+Not Found: /.env
+[14/Jul/2023 20:39:28] "GET /.env HTTP/1.1" 404 7637
+Forbidden (CSRF cookie not set.): /
+[14/Jul/2023 20:39:29] "POST / HTTP/1.1" 403 2922
+Not Found: /.env
+[14/Jul/2023 20:39:30] "GET /.env HTTP/1.1" 404 7637
+Forbidden (CSRF cookie not set.): /
+[14/Jul/2023 20:39:31] "POST / HTTP/1.1" 403 2922
+Not Found: /wp-login.php
+[14/Jul/2023 20:44:34] "GET /wp-login.php HTTP/1.1" 404 7673
+[14/Jul/2023 21:15:44] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 21:34:48] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[14/Jul/2023 21:35:10] "GET /favicon.ico HTTP/1.1" 404 7651
+[14/Jul/2023 21:35:11] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 21:36:33] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[14/Jul/2023 21:36:57] "GET /favicon.ico HTTP/1.1" 404 7651
+[14/Jul/2023 21:36:59] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 21:48:25] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 21:52:05] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 21:52:05] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[14/Jul/2023 21:52:05] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 4988
+[14/Jul/2023 21:52:05] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[14/Jul/2023 21:52:05] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[14/Jul/2023 21:52:19] "POST / HTTP/1.1" 200 1526
+[14/Jul/2023 21:54:43] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 21:59:08] "HEAD / HTTP/1.1" 200 0
+[14/Jul/2023 21:59:09] "HEAD / HTTP/1.1" 200 0
+[14/Jul/2023 22:19:17] "GET / HTTP/1.1" 200 1526
+[14/Jul/2023 22:19:18] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[14/Jul/2023 22:19:18] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 4988
+[14/Jul/2023 22:19:18] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[14/Jul/2023 22:19:18] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /upl.php
+[14/Jul/2023 22:20:27] "GET /upl.php HTTP/1.1" 404 7646
+[14/Jul/2023 22:27:35] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[14/Jul/2023 22:30:17] "GET /favicon.ico HTTP/1.1" 404 7658
+[14/Jul/2023 22:36:48] "GET / HTTP/1.1" 200 1526

@@ -1,0 +1,42 @@
+Watching for file changes with StatReloader
+[15/Jul/2023 15:14:44] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 15:35:37] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[15/Jul/2023 15:35:38] "GET /favicon.ico HTTP/1.1" 404 7658
+[15/Jul/2023 15:37:13] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 15:40:12] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 15:40:12] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 15:43:49] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[15/Jul/2023 15:43:49] "GET /favicon.ico HTTP/1.1" 404 7658
+[15/Jul/2023 15:50:08] "GET / HTTP/1.1" 200 1526
+Not Found: /hudson
+[15/Jul/2023 16:11:15] "GET /hudson HTTP/1.1" 404 7643
+[15/Jul/2023 16:12:17] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 16:20:29] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 16:50:22] "GET / HTTP/1.1" 200 1526
+Not Found: /wordpress
+[15/Jul/2023 16:50:22] "GET /wordpress HTTP/1.1" 404 7645
+Not Found: /wp
+[15/Jul/2023 16:50:23] "GET /wp HTTP/1.1" 404 7624
+Not Found: /blog
+[15/Jul/2023 16:50:23] "GET /blog HTTP/1.1" 404 7630
+Not Found: /new
+[15/Jul/2023 16:50:23] "GET /new HTTP/1.1" 404 7627
+Not Found: /old
+[15/Jul/2023 16:50:23] "GET /old HTTP/1.1" 404 7627
+Not Found: /test
+[15/Jul/2023 16:50:23] "GET /test HTTP/1.1" 404 7630
+Not Found: /main
+[15/Jul/2023 16:50:23] "GET /main HTTP/1.1" 404 7630
+Not Found: /testing
+[15/Jul/2023 16:50:23] "GET /testing HTTP/1.1" 404 7639
+Not Found: /robots.txt
+[15/Jul/2023 17:01:35] "GET /robots.txt HTTP/1.1" 404 7648
+Not Found: /robots.txt
+[15/Jul/2023 17:01:35] "GET /robots.txt HTTP/1.1" 404 7648
+Not Found: /mgmt/tm/util/bash
+[15/Jul/2023 17:04:56] "POST /mgmt/tm/util/bash HTTP/1.1" 404 7680
+[15/Jul/2023 17:04:58] "GET / HTTP/1.1" 200 1526
+Not Found: /wp-login.php
+[15/Jul/2023 17:08:22] "GET /wp-login.php HTTP/1.1" 404 7659

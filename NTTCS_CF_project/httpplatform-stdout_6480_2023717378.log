@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+[17/Jul/2023 05:07:10] "GET / HTTP/1.1" 200 1526
+Not Found: /boaform/admin/formLogin
+[17/Jul/2023 05:15:24] "POST /boaform/admin/formLogin HTTP/1.1" 404 7698
+[17/Jul/2023 05:24:26] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 05:24:26] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 05:24:27] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[17/Jul/2023 05:24:27] "GET /favicon.ico HTTP/1.1" 404 7658
+[17/Jul/2023 05:32:15] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 06:09:21] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 06:12:33] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 06:12:33] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[17/Jul/2023 06:12:34] "GET /favicon.ico HTTP/1.1" 404 7658
+[17/Jul/2023 06:21:05] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 06:28:48] "GET / HTTP/1.1" 200 1526

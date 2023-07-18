@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+[17/Jul/2023 10:16:16] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 10:30:12] "OPTIONS / HTTP/1.0" 200 0
+[17/Jul/2023 10:30:36] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 10:30:54] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 10:30:54] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 10:30:55] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[17/Jul/2023 10:30:55] "GET /favicon.ico HTTP/1.1" 404 7674
+[17/Jul/2023 10:35:35] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 10:35:35] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 10:35:35] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[17/Jul/2023 10:35:36] "GET /favicon.ico HTTP/1.1" 404 7658
+[17/Jul/2023 10:52:09] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[17/Jul/2023 10:52:09] "GET /payment/index.php HTTP/1.1" 404 7674

@@ -1,0 +1,5 @@
+Watching for file changes with StatReloader
+[16/Jul/2023 21:06:26] "GET / HTTP/1.1" 200 1526
+[16/Jul/2023 21:06:32] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /robots.txt
+[16/Jul/2023 21:06:34] "GET /robots.txt HTTP/1.1" 404 7653

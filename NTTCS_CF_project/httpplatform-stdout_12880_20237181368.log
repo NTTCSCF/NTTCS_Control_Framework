@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+[18/Jul/2023 03:36:10] "GET /admin/config.php HTTP/1.1" 302 0
+[18/Jul/2023 03:36:10] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296
+[18/Jul/2023 03:48:13] "GET / HTTP/1.1" 200 1526
+Not Found: /nice ports,/Trinity.txt.bak
+[18/Jul/2023 03:48:13] "GET /nice%20ports,/Trinity.txt.bak HTTP/1.0" 404 7708
+[18/Jul/2023 03:48:13] "GET / HTTP/1.0" 200 1526
+[18/Jul/2023 03:48:13] "OPTIONS / HTTP/1.0" 200 0
+Not Found: /nice ports,/Trinity.txt.bak
+[18/Jul/2023 03:48:28] "GET /nice%20ports,/Trinity.txt.bak HTTP/1.0" 404 7708
+[18/Jul/2023 03:48:29] "GET / HTTP/1.0" 200 1526
+[18/Jul/2023 03:48:29] "OPTIONS / HTTP/1.0" 200 0
+Not Found: /level/15/exec/-/sh/run/CR
+[18/Jul/2023 03:57:20] "GET /level/15/exec/-/sh/run/CR HTTP/1.1" 404 7704
+[18/Jul/2023 04:13:17] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[18/Jul/2023 04:13:17] "GET /payment/index.php HTTP/1.1" 404 7674

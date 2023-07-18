@@ -1,0 +1,8 @@
+Watching for file changes with StatReloader
+[18/Jul/2023 06:37:13] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[18/Jul/2023 06:39:11] "GET /favicon.ico HTTP/1.1" 404 7658
+Not Found: /geoserver/web/
+[18/Jul/2023 06:40:14] "GET /geoserver/web/ HTTP/1.1" 404 7667
+[18/Jul/2023 06:40:32] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 06:52:09] "GET / HTTP/1.1" 200 1526

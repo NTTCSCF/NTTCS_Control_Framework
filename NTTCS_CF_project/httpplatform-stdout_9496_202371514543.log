@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+[15/Jul/2023 03:45:45] "GET / HTTP/1.0" 200 1526
+[15/Jul/2023 03:51:25] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 04:01:22] "HEAD / HTTP/1.1" 200 0
+Not Found: /boaform/admin/formLogin
+[15/Jul/2023 04:15:59] "GET /boaform/admin/formLogin?username=user&psd=user HTTP/1.0" 404 7720
+Not Found: /index.php
+[15/Jul/2023 04:18:26] "GET /index.php HTTP/1.1" 404 7652
+Not Found: /phpmyadmin/index.php
+[15/Jul/2023 04:18:26] "GET /phpmyadmin/index.php HTTP/1.1" 404 7685
+[15/Jul/2023 04:21:33] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 04:22:06] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 04:32:00] "GET / HTTP/1.1" 200 1526
+Not Found: /robots.txt
+[15/Jul/2023 04:42:35] "GET /robots.txt HTTP/1.1" 404 7648
+Not Found: /robots.txt
+[15/Jul/2023 04:42:35] "GET /robots.txt HTTP/1.1" 404 7648

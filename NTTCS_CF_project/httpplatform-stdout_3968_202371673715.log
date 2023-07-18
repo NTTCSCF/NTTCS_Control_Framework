@@ -1,0 +1,22 @@
+Watching for file changes with StatReloader
+[16/Jul/2023 09:37:17] "GET / HTTP/1.1" 200 1526
+[16/Jul/2023 09:42:17] "GET / HTTP/1.1" 200 1526
+[16/Jul/2023 09:49:07] "GET / HTTP/1.0" 200 1526
+[16/Jul/2023 09:49:07] "OPTIONS / HTTP/1.0" 200 0
+Not Found: /nice ports,/Trinity.txt.bak
+[16/Jul/2023 09:49:08] "GET /nice%20ports,/Trinity.txt.bak HTTP/1.0" 404 7708
+Not Found: /nmaplowercheck1689493853
+[16/Jul/2023 09:50:54] "GET /nmaplowercheck1689493853 HTTP/1.1" 404 7697
+Not Found: /evox/about
+[16/Jul/2023 09:50:54] "GET /evox/about HTTP/1.1" 404 7655
+[16/Jul/2023 09:50:55] "HEAD / HTTP/1.1" 200 0
+[16/Jul/2023 09:50:56] "GET / HTTP/1.0" 200 1526
+Not Found: /HNAP1
+[16/Jul/2023 09:50:56] "GET /HNAP1 HTTP/1.1" 404 7640
+[16/Jul/2023 09:50:57] "GET / HTTP/1.1" 200 1526
+Not Found: /sdk
+[16/Jul/2023 09:50:58] "POST /sdk HTTP/1.1" 404 7635
+Not Found: /mgmt/tm/util/bash
+[16/Jul/2023 10:08:10] "POST /mgmt/tm/util/bash HTTP/1.1" 404 7680
+[16/Jul/2023 10:08:10] "GET / HTTP/1.1" 200 1526
+[16/Jul/2023 10:18:24] "GET / HTTP/1.1" 200 1526

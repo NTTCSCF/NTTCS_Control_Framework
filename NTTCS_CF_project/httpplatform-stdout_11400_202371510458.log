@@ -1,0 +1,13 @@
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+[15/Jul/2023 12:05:00] "GET /favicon.ico HTTP/1.1" 404 7658
+Not Found: /payment/index.php
+[15/Jul/2023 12:09:32] "GET /payment/index.php HTTP/1.1" 404 7674
+[15/Jul/2023 12:09:32] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 12:15:11] "GET / HTTP/1.1" 200 1526
+Not Found: /robots.txt
+[15/Jul/2023 12:15:57] "GET /robots.txt HTTP/1.1" 404 7655
+Not Found: /sitemap.xml
+[15/Jul/2023 12:15:58] "GET /sitemap.xml HTTP/1.1" 404 7658
+Not Found: /.well-known/security.txt
+[15/Jul/2023 12:16:00] "GET /.well-known/security.txt HTTP/1.1" 404 7697

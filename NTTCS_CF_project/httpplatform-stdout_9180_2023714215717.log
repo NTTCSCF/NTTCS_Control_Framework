@@ -1,0 +1,44 @@
+Watching for file changes with StatReloader
+[14/Jul/2023 23:57:19] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 00:06:09] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 00:06:09] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 00:06:10] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[15/Jul/2023 00:06:12] "GET /favicon.ico HTTP/1.1" 404 7658
+[15/Jul/2023 00:23:20] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 00:33:13] "GET / HTTP/1.1" 200 1526
+Not Found: /.env
+[15/Jul/2023 00:36:53] "GET /.env HTTP/1.1" 404 7637
+Not Found: /mgmt/tm/util/bash
+[15/Jul/2023 00:42:29] "POST /mgmt/tm/util/bash HTTP/1.1" 404 7680
+[15/Jul/2023 00:42:29] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 00:51:38] "GET / HTTP/1.1" 200 1526
+Not Found: /.env
+[15/Jul/2023 00:55:46] "GET /.env HTTP/1.1" 404 7637
+Not Found: /_profiler/phpinfo
+[15/Jul/2023 00:55:47] "GET /_profiler/phpinfo HTTP/1.1" 404 7676
+Not Found: /public/.env
+[15/Jul/2023 00:55:48] "GET /public/.env HTTP/1.1" 404 7658
+Not Found: /phpinfo
+[15/Jul/2023 00:55:49] "GET /phpinfo HTTP/1.1" 404 7646
+Not Found: /phpinfo.php
+[15/Jul/2023 00:55:50] "GET /phpinfo.php HTTP/1.1" 404 7658
+Not Found: /info.php
+[15/Jul/2023 00:55:51] "GET /info.php HTTP/1.1" 404 7649
+Not Found: /php.php
+[15/Jul/2023 00:55:52] "GET /php.php HTTP/1.1" 404 7646
+Not Found: /test.php
+[15/Jul/2023 00:55:53] "GET /test.php HTTP/1.1" 404 7649
+Not Found: /public/phpinfo
+[15/Jul/2023 00:55:55] "GET /public/phpinfo HTTP/1.1" 404 7667
+Not Found: /public/phpinfo.php
+[15/Jul/2023 00:55:55] "GET /public/phpinfo.php HTTP/1.1" 404 7679
+Not Found: /public/info.php
+[15/Jul/2023 00:55:57] "GET /public/info.php HTTP/1.1" 404 7670
+Not Found: /public/php.php
+[15/Jul/2023 00:55:58] "GET /public/php.php HTTP/1.1" 404 7667
+Not Found: /public/test.php
+[15/Jul/2023 00:55:59] "GET /public/test.php HTTP/1.1" 404 7670
+[15/Jul/2023 01:20:47] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 01:22:54] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 01:32:05] "GET / HTTP/1.1" 200 1526

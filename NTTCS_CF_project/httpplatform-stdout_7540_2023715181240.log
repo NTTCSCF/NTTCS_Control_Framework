@@ -1,0 +1,32 @@
+Watching for file changes with StatReloader
+[15/Jul/2023 20:12:43] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 20:21:16] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 20:40:55] "GET / HTTP/1.1" 200 1526
+Not Found: /mgmt/tm/util/bash
+[15/Jul/2023 20:55:41] "POST /mgmt/tm/util/bash HTTP/1.1" 404 7680
+[15/Jul/2023 20:55:42] "GET / HTTP/1.1" 200 1526
+Not Found: /actuator/health
+[15/Jul/2023 21:00:21] "GET /actuator/health HTTP/1.1" 404 7670
+Not Found: /portal/redlion
+[15/Jul/2023 21:04:35] "GET /portal/redlion HTTP/1.1" 404 7667
+Not Found: /files/
+[15/Jul/2023 21:24:13] "GET /files/ HTTP/1.1" 404 7643
+[15/Jul/2023 21:40:34] "GET / HTTP/1.1" 200 1526
+Not Found: /robots.txt
+[15/Jul/2023 21:44:46] "GET /robots.txt HTTP/1.1" 404 7648
+[15/Jul/2023 21:55:44] "GET / HTTP/1.1" 200 1526
+Not Found: /cgi-bin/luci
+[15/Jul/2023 22:00:23] "GET /cgi-bin/luci HTTP/1.1" 404 7661
+[15/Jul/2023 22:03:15] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[15/Jul/2023 22:03:41] "GET /favicon.ico HTTP/1.1" 404 7651
+[15/Jul/2023 22:03:43] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 22:03:54] "GET / HTTP/1.1" 200 1526
+Not Found: /boaform/admin/formLogin
+[15/Jul/2023 22:09:02] "GET /boaform/admin/formLogin?username=ec8&psd=ec8 HTTP/1.0" 404 7719
+[15/Jul/2023 22:09:02] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 22:24:54] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 22:36:35] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[15/Jul/2023 22:36:35] "GET /payment/index.php HTTP/1.1" 404 7674
+[15/Jul/2023 22:52:09] "GET / HTTP/1.1" 200 1526

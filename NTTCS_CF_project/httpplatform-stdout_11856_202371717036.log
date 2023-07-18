@@ -1,0 +1,39 @@
+Watching for file changes with StatReloader
+Not Found: /blog/wp-login.php
+[17/Jul/2023 19:00:38] "GET /blog/wp-login.php HTTP/1.1" 404 7669
+[17/Jul/2023 19:17:40] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 19:33:37] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[17/Jul/2023 19:33:37] "GET /payment/index.php HTTP/1.1" 404 7674
+Not Found: /favicon.ico
+[17/Jul/2023 19:37:14] "GET /favicon.ico HTTP/1.1" 404 7658
+[17/Jul/2023 19:43:58] "GET / HTTP/1.1" 200 1526
+Not Found: /.env
+[17/Jul/2023 19:43:59] "GET /.env HTTP/1.1" 404 7630
+Forbidden (CSRF cookie not set.): /
+[17/Jul/2023 19:44:00] "POST / HTTP/1.1" 403 2922
+Not Found: /_profiler/phpinfo
+[17/Jul/2023 19:44:02] "GET /_profiler/phpinfo HTTP/1.1" 404 7669
+Not Found: /debug/default/view
+[17/Jul/2023 19:44:03] "GET /debug/default/view?panel=config HTTP/1.1" 404 7685
+Not Found: /config.json
+[17/Jul/2023 19:44:05] "GET /config.json HTTP/1.1" 404 7651
+Not Found: /.git/config
+[17/Jul/2023 19:44:06] "GET /.git/config HTTP/1.1" 404 7651
+Not Found: /wp-login.php
+[17/Jul/2023 19:59:23] "GET /wp-login.php HTTP/1.1" 404 7659
+Not Found: /.env
+[17/Jul/2023 20:08:48] "GET /.env HTTP/1.1" 404 7637
+[17/Jul/2023 20:20:38] "GET / HTTP/1.1" 200 1526
+Not Found: /.env
+[17/Jul/2023 20:23:12] "GET /.env HTTP/1.1" 404 7630
+Forbidden (CSRF cookie not set.): /
+[17/Jul/2023 20:23:12] "POST / HTTP/1.1" 403 2922
+Not Found: /sendgrid/.env
+[17/Jul/2023 20:23:12] "GET /sendgrid/.env HTTP/1.1" 404 7657
+Forbidden (CSRF cookie not set.): /
+[17/Jul/2023 20:23:12] "POST / HTTP/1.1" 403 2922
+[17/Jul/2023 20:34:16] "GET / HTTP/1.1" 200 1526
+Not Found: /wp-login.php
+[17/Jul/2023 21:02:38] "GET /wp-login.php HTTP/1.1" 404 7654
+[17/Jul/2023 21:05:32] "GET / HTTP/1.1" 200 1526

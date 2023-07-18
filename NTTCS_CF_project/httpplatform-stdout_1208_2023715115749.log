@@ -1,0 +1,42 @@
+Watching for file changes with StatReloader
+[15/Jul/2023 13:57:51] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 13:57:51] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 13:57:51] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /Assets/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:58] "GET /Assets/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7745
+Not Found: /DesktopModules/Admin/RadEditorProvider/DialogHandler.aspx
+[15/Jul/2023 13:57:58] "GET /DesktopModules/Admin/RadEditorProvider/DialogHandler.aspx HTTP/1.1" 404 7796
+Not Found: /providers/htmleditorproviders/telerik/telerik.web.ui.dialoghandler.aspx
+[15/Jul/2023 13:57:58] "GET /providers/htmleditorproviders/telerik/telerik.web.ui.dialoghandler.aspx HTTP/1.1" 404 7838
+Not Found: /Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:58] "GET /Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7724
+Not Found: /common/admin/Jobs2/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:58] "GET /common/admin/Jobs2/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7781
+Not Found: /common/admin/Calendar/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:58] "GET /common/admin/Calendar/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7790
+Not Found: /AsiCommon/Controls/ContentManagement/ContentDesigner/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:58] "GET /AsiCommon/Controls/ContentManagement/ContentDesigner/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7883
+Not Found: /Providers/HtmlEditorProviders/Telerik/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:59] "GET /Providers/HtmlEditorProviders/Telerik/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7838
+Not Found: /cms/portlets/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:59] "GET /cms/portlets/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7763
+Not Found: /sitecore/shell/RadControls/Spell/Telerik.Spell.DialogHandler.aspx
+[15/Jul/2023 13:57:59] "GET /sitecore/shell/RadControls/Spell/Telerik.Spell.DialogHandler.aspx HTTP/1.1" 404 7820
+Not Found: /common/admin/PhotoGallery2/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:59] "GET /common/admin/PhotoGallery2/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7805
+Not Found: /_controls/responsive/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:59] "GET /_controls/responsive/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7787
+Not Found: /controls/events/v2/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:59] "GET /controls/events/v2/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7781
+Not Found: /_wpresources/RadEditorSharePoint/6.9.0.0__1f131a624888eeed/Resources/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:59] "GET /_wpresources/RadEditorSharePoint/6.9.0.0__1f131a624888eeed/Resources/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7931
+Not Found: /app_master/telerik.web.ui.dialoghandler.aspx
+[15/Jul/2023 13:57:59] "GET /app_master/telerik.web.ui.dialoghandler.aspx HTTP/1.1" 404 7757
+Not Found: /en/providers/htmleditorproviders/telerik/telerik.web.ui.dialoghandler.aspx
+[15/Jul/2023 13:57:59] "GET /en/providers/htmleditorproviders/telerik/telerik.web.ui.dialoghandler.aspx HTTP/1.1" 404 7847
+Not Found: /desktopmodules/telerikwebui/radeditorprovider/telerik.web.ui.dialoghandler.aspx
+[15/Jul/2023 13:57:59] "GET /desktopmodules/telerikwebui/radeditorprovider/telerik.web.ui.dialoghandler.aspx HTTP/1.1" 404 7862
+Not Found: /desktopmodules/dnnwerk.radeditorprovider/dialoghandler.aspx
+[15/Jul/2023 13:57:59] "GET /desktopmodules/dnnwerk.radeditorprovider/dialoghandler.aspx HTTP/1.1" 404 7802
+Not Found: /dashboard/UserControl/CMS/Page/Telerik.Web.UI.DialogHandler.aspx
+[15/Jul/2023 13:57:59] "GET /dashboard/UserControl/CMS/Page/Telerik.Web.UI.DialogHandler.aspx HTTP/1.1" 404 7817

@@ -1,0 +1,29 @@
+Watching for file changes with StatReloader
+[15/Jul/2023 08:35:51] "GET / HTTP/1.1" 200 1526
+[15/Jul/2023 08:44:37] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[15/Jul/2023 08:45:42] "GET /favicon.ico HTTP/1.1" 404 7658
+Not Found: /geoserver/web/
+[15/Jul/2023 08:46:12] "GET /geoserver/web/ HTTP/1.1" 404 7667
+Not Found: /_profiler/phpinfo
+[15/Jul/2023 08:52:24] "GET /_profiler/phpinfo HTTP/1.1" 404 7676
+Not Found: /_profiler/phpinfo
+[15/Jul/2023 08:52:24] "GET /_profiler/phpinfo HTTP/1.1" 404 7676
+[15/Jul/2023 09:18:27] "GET / HTTP/1.0" 200 1526
+Not Found: /.git/config
+[15/Jul/2023 09:26:09] "GET /.git/config HTTP/1.1" 404 7656
+[15/Jul/2023 09:34:18] "GET / HTTP/1.1" 200 1526
+Not Found: /1.php
+[15/Jul/2023 09:46:31] "GET /1.php HTTP/1.1" 404 7640
+Not Found: /bundle.js
+[15/Jul/2023 09:46:31] "GET /bundle.js HTTP/1.1" 404 7652
+Not Found: /files/
+[15/Jul/2023 09:46:32] "GET /files/ HTTP/1.1" 404 7643
+[15/Jul/2023 10:02:51] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[15/Jul/2023 10:02:51] "GET /payment/index.php HTTP/1.1" 404 7674
+[15/Jul/2023 10:06:11] "GET / HTTP/1.0" 200 1526
+Forbidden (CSRF cookie not set.): /
+[15/Jul/2023 10:18:05] "POST / HTTP/1.1" 403 2922
+Not Found: /.env
+[15/Jul/2023 10:23:10] "GET /.env HTTP/1.1" 404 7637

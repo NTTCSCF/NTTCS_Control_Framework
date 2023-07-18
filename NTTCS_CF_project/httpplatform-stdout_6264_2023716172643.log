@@ -1,0 +1,25 @@
+Watching for file changes with StatReloader
+[16/Jul/2023 19:26:45] "GET / HTTP/1.1" 200 1526
+Not Found: /level/15/exec/-/sh/run/CR
+[16/Jul/2023 19:35:03] "GET /level/15/exec/-/sh/run/CR HTTP/1.1" 404 7703
+Not Found: /geoip/
+[16/Jul/2023 19:43:32] "GET /geoip/ HTTP/1.1" 404 7643
+Not Found: /favicon.ico
+[16/Jul/2023 19:43:32] "GET /favicon.ico HTTP/1.1" 404 7658
+Not Found: /1.php
+[16/Jul/2023 19:43:32] "GET /1.php HTTP/1.1" 404 7640
+Not Found: /bundle.js
+[16/Jul/2023 19:43:32] "GET /bundle.js HTTP/1.1" 404 7652
+Not Found: /files/
+[16/Jul/2023 19:43:32] "GET /files/ HTTP/1.1" 404 7643
+[16/Jul/2023 19:59:56] "GET / HTTP/1.1" 200 1526
+[16/Jul/2023 20:02:30] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /robots.txt
+[16/Jul/2023 20:02:30] "GET /robots.txt HTTP/1.1" 404 7653
+Not Found: /wp-login.php
+[16/Jul/2023 20:15:33] "GET /wp-login.php HTTP/1.1" 404 7654
+Not Found: /.env
+[16/Jul/2023 20:19:27] "GET /.env HTTP/1.1" 404 7637
+Forbidden (CSRF cookie not set.): /
+[16/Jul/2023 20:19:28] "POST / HTTP/1.1" 403 2922
+[16/Jul/2023 20:20:49] "GET / HTTP/1.1" 200 1526

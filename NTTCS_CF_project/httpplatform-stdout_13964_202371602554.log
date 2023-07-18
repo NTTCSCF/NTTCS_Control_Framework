@@ -1,0 +1,9 @@
+Watching for file changes with StatReloader
+[16/Jul/2023 02:25:55] "GET / HTTP/1.0" 200 1526
+[16/Jul/2023 02:26:51] "GET / HTTP/1.1" 200 1526
+Not Found: /geoip/
+[16/Jul/2023 02:26:51] "GET /geoip/ HTTP/1.1" 404 7643
+Not Found: /.env
+[16/Jul/2023 02:44:37] "GET /.env HTTP/1.1" 404 7637
+Not Found: /wp-content/
+[16/Jul/2023 02:44:37] "GET /wp-content/ HTTP/1.1" 404 7658

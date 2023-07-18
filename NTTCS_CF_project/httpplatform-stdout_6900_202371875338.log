@@ -1,0 +1,8 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[18/Jul/2023 09:53:40] "GET /.env HTTP/1.1" 404 7637
+Forbidden (CSRF cookie not set.): /
+[18/Jul/2023 09:53:40] "POST / HTTP/1.1" 403 2922
+[18/Jul/2023 09:58:32] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 10:06:23] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 10:25:10] "GET / HTTP/1.1" 200 1526

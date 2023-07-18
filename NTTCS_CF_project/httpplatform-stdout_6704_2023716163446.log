@@ -1,0 +1,7 @@
+Watching for file changes with StatReloader
+[16/Jul/2023 18:34:48] "GET /admin/config.php HTTP/1.1" 302 0
+[16/Jul/2023 18:34:48] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296
+Not Found: /.env
+[16/Jul/2023 18:44:09] "GET /.env HTTP/1.1" 404 7637
+Forbidden (CSRF cookie not set.): /
+[16/Jul/2023 18:44:09] "POST / HTTP/1.1" 403 2922

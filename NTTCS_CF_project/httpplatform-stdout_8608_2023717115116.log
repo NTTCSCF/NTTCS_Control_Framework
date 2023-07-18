@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+[17/Jul/2023 13:51:20] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 13:54:19] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 14:11:08] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 14:24:55] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 14:30:51] "GET / HTTP/1.1" 200 1526
+Not Found: /boaform/admin/formLogin
+[17/Jul/2023 14:31:59] "POST /boaform/admin/formLogin HTTP/1.1" 404 7698
+[17/Jul/2023 14:34:29] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 14:42:45] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 14:52:44] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 14:52:45] "GET / HTTP/1.1" 200 1526

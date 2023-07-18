@@ -1,0 +1,18 @@
+Watching for file changes with StatReloader
+[18/Jul/2023 08:14:05] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[18/Jul/2023 08:14:05] "GET /payment/index.php HTTP/1.1" 404 7674
+[18/Jul/2023 08:22:45] "GET / HTTP/1.1" 200 1526
+Not Found: /showLogin.cc
+[18/Jul/2023 08:22:48] "GET /showLogin.cc HTTP/1.1" 404 7661
+[18/Jul/2023 08:41:39] "GET / HTTP/1.1" 200 1526
+[18/Jul/2023 08:41:59] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /robots.txt
+[18/Jul/2023 08:42:01] "GET /robots.txt HTTP/1.1" 404 7655
+Not Found: /sitemap.xml
+[18/Jul/2023 08:42:03] "GET /sitemap.xml HTTP/1.1" 404 7658
+Not Found: /aaa9
+[18/Jul/2023 08:58:00] "GET /aaa9 HTTP/1.1" 404 7637
+Not Found: /aab8
+[18/Jul/2023 08:58:16] "GET /aab8 HTTP/1.1" 404 7637
+[18/Jul/2023 08:58:41] "GET / HTTP/1.1" 200 1526

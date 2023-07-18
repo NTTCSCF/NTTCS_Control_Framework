@@ -1,0 +1,63 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[17/Jul/2023 16:05:23] "GET /.env HTTP/1.1" 404 7637
+Forbidden (CSRF cookie not set.): /
+[17/Jul/2023 16:05:23] "POST / HTTP/1.1" 403 2922
+Not Found: /sendgrid/.env
+[17/Jul/2023 16:05:24] "GET /sendgrid/.env HTTP/1.1" 404 7664
+Forbidden (CSRF cookie not set.): /
+[17/Jul/2023 16:05:24] "POST / HTTP/1.1" 403 2922
+[17/Jul/2023 16:08:41] "HEAD / HTTP/1.1" 200 0
+[17/Jul/2023 16:10:33] "GET / HTTP/1.1" 200 1526
+Not Found: /boaform/admin/formLogin
+[17/Jul/2023 16:12:20] "POST /boaform/admin/formLogin HTTP/1.1" 404 7698
+[17/Jul/2023 16:22:54] "GET / HTTP/1.0" 200 1526
+[17/Jul/2023 16:22:54] "OPTIONS / HTTP/1.0" 200 0
+Not Found: /.git/HEAD
+[17/Jul/2023 16:23:06] "GET /.git/HEAD HTTP/1.1" 404 7687
+[17/Jul/2023 16:23:06] "GET /?=PHPE9568F36-D428-11d2-A769-00AA001ACF42 HTTP/1.1" 200 1526
+[17/Jul/2023 16:23:06] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 16:23:06] "GET / HTTP/1.0" 200 1526
+Not Found: /hGSZ
+[17/Jul/2023 16:23:06] "HEAD / HTTP/1.1" 200 0
+[17/Jul/2023 16:23:06] "GET /hGSZ HTTP/1.1" 404 7672
+Not Found: /scripts/WPnBr.dll
+Not Found: /nmaplowercheck1689603786
+[17/Jul/2023 16:23:06] "GET /nmaplowercheck1689603786 HTTP/1.1" 404 7732
+[17/Jul/2023 16:23:06] "POST /scripts/WPnBr.dll HTTP/1.1" 404 7712
+[17/Jul/2023 16:23:06] "GET /?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000 HTTP/1.1" 200 1526
+Not Found: /pools/default/buckets
+[17/Jul/2023 16:23:06] "GET /pools/default/buckets HTTP/1.1" 404 7723
+Not Found: /sdk
+[17/Jul/2023 16:23:06] "POST /sdk HTTP/1.1" 404 7670
+Not Found: /home.pl
+[17/Jul/2023 16:23:06] "GET /home.pl HTTP/1.1" 404 7681
+Not Found: /HNAP1
+[17/Jul/2023 16:23:06] "GET /HNAP1 HTTP/1.1" 404 7675
+[17/Jul/2023 16:23:06] "GET / HTTP/1.1" 200 1526
+Not Found: /pools
+[17/Jul/2023 16:23:06] "GET /pools HTTP/1.1" 404 7675
+Not Found: /favicon.ico
+Not Found: /Portal/Portal.mwsl
+[17/Jul/2023 16:23:06] "GET /favicon.ico HTTP/1.1" 404 7693
+[17/Jul/2023 16:23:06] "GET /Portal/Portal.mwsl HTTP/1.1" 404 7714
+Not Found: /localstart.jhtml
+[17/Jul/2023 16:23:06] "GET /localstart.jhtml HTTP/1.1" 404 7708
+Not Found: /CSS/Miniweb.css
+[17/Jul/2023 16:23:07] "GET /CSS/Miniweb.css HTTP/1.1" 404 7705
+Not Found: /start.jhtml
+Not Found: /docs/cplugError.html/
+[17/Jul/2023 16:23:07] "GET /start.jhtml HTTP/1.1" 404 7693
+[17/Jul/2023 16:23:07] "GET /docs/cplugError.html/ HTTP/1.1" 404 7723
+Not Found: /Portal0000.htm
+[17/Jul/2023 16:23:07] "GET /Portal0000.htm HTTP/1.1" 404 7702
+[17/Jul/2023 16:23:07] "GET / HTTP/1.1" 200 1526
+Not Found: /menu.jsp
+[17/Jul/2023 16:23:07] "GET /menu.jsp HTTP/1.1" 404 7684
+Not Found: /__Additional
+[17/Jul/2023 16:23:07] "GET /__Additional HTTP/1.1" 404 7696
+Not Found: /home.php
+[17/Jul/2023 16:23:07] "GET /home.php HTTP/1.1" 404 7684
+[17/Jul/2023 16:23:07] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[17/Jul/2023 16:23:17] "GET / HTTP/1.0" 200 1526
+[17/Jul/2023 16:23:17] "GET / HTTP/1.1" 200 1526

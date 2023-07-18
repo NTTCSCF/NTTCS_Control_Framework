@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+Not Found: /druid/index.html
+[17/Jul/2023 01:09:20] "GET /druid/index.html HTTP/1.1" 404 7673
+[17/Jul/2023 01:21:00] "GET / HTTP/1.1" 200 1526
+Not Found: /upl.php
+[17/Jul/2023 01:33:53] "GET /upl.php HTTP/1.1" 404 7646
+Not Found: /bundle.js
+[17/Jul/2023 01:33:54] "GET /bundle.js HTTP/1.1" 404 7652
+Not Found: /files/
+[17/Jul/2023 01:33:55] "GET /files/ HTTP/1.1" 404 7643
+[17/Jul/2023 01:41:34] "HEAD / HTTP/1.1" 200 0
+[17/Jul/2023 01:41:35] "HEAD / HTTP/1.1" 200 0
+Not Found: /xmlrpc.php
+[17/Jul/2023 01:45:53] "POST /xmlrpc.php HTTP/1.1" 404 7649
+[17/Jul/2023 01:54:28] "GET / HTTP/1.1" 200 1526

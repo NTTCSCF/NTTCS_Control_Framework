@@ -1,0 +1,7 @@
+Watching for file changes with StatReloader
+Not Found: /laravel/.env
+[16/Jul/2023 14:03:02] "GET /laravel/.env HTTP/1.1" 404 7661
+Not Found: /laravel
+[16/Jul/2023 14:03:03] "POST /laravel HTTP/1.1" 404 7647
+[16/Jul/2023 14:17:04] "GET / HTTP/1.1" 200 1526
+[16/Jul/2023 14:17:04] "GET / HTTP/1.1" 200 1526

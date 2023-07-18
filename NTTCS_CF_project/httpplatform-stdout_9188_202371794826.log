@@ -1,0 +1,16 @@
+Watching for file changes with StatReloader
+[17/Jul/2023 11:48:30] "GET /admin/config.php HTTP/1.1" 302 0
+[17/Jul/2023 11:48:30] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296
+[17/Jul/2023 12:02:44] "GET / HTTP/1.1" 200 1526
+[17/Jul/2023 12:04:30] "GET / HTTP/1.1" 200 1526
+Not Found: /client/get_targets
+[17/Jul/2023 12:04:31] "GET /client/get_targets HTTP/1.1" 404 7679
+Not Found: /upl.php
+[17/Jul/2023 12:04:31] "GET /upl.php HTTP/1.1" 404 7646
+Not Found: /geoip/
+[17/Jul/2023 12:04:32] "GET /geoip/ HTTP/1.1" 404 7643
+[17/Jul/2023 12:04:33] "GET / HTTP/1.1" 200 1526
+Not Found: /favicon.ico
+[17/Jul/2023 12:04:34] "GET /favicon.ico HTTP/1.1" 404 7658
+Not Found: /1.php
+[17/Jul/2023 12:04:34] "GET /1.php HTTP/1.1" 404 7640

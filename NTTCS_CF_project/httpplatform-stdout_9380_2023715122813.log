@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+Not Found: /wp-signin.php
+[15/Jul/2023 14:28:15] "GET /wp-signin.php?dizo&ping HTTP/1.1" 404 7671
+[15/Jul/2023 14:34:57] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[15/Jul/2023 14:34:57] "GET /payment/index.php HTTP/1.1" 404 7674

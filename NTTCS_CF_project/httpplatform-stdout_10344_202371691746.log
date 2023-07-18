@@ -1,0 +1,3 @@
+Watching for file changes with StatReloader
+Not Found: /wp-content/plugins/background-image-cropper/image/ico/accesson.php
+[16/Jul/2023 11:17:50] "GET /wp-content/plugins/background-image-cropper/image/ico/accesson.php HTTP/1.1" 404 7816
