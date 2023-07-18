@@ -1024,27 +1024,66 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **knwargs):
         context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
         context["assess"] = AsociacionMarcos.objects.all()
-        context["consulta"] = [['no seleccionado', 'no seleccionado']]
+
         context["lenConsulta"] = 1
+        context["seleccionado"] = False
         return context
 
 
     # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
-        boton1 = request.POST.get('boton1')
 
-        if boton1 == 'btn1':  # if que recoge la pulsacion del boton de seleccion
-            selector = request.POST.get('selectorMapeo')  # guardamos el valor del selecctor de marcos
+        if 'selector' in request.POST:  # if que recoge la pulsacion del boton de seleccion
+            selector = request.POST.get('selector')  # guardamos el valor del selecctor de marcos
+            if selector == 'None':
+                context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
+                context["assess"] = AsociacionMarcos.objects.all()
+                context["lenConsulta"] = 1
+                context["seleccionado"] = False
+                return render(request, self.template_name, context=context)
+            else:
+                mycursor = self.conn.cursor(buffered=True)
+                mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(marco_id=selector).nombre_tabla)  # realizamos la consulta para obtener los contrloles del marco seleccionado
+                context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
+                context["assess"] = AsociacionMarcos.objects.all()
+                context["consulta"] = mycursor  # fijamos la tabla a el valor seleccionado
+                context["lenConsulta"] = 5
+                context["seleccionado"] = True
+                context['marcoSeleccionado'] = selector
+                request.session["seleccion"] = AsociacionMarcos.objects.get(
+                    marco_id=selector).nombre_tabla  # guardamos la seleecion del marco
+                return render(request, self.template_name, context=context)
+
+        elif 'modificar' in request.POST:
+            ntt_id = request.POST.get('ntt_id')  # valor del input de ntt_id
+            marco = request.POST.get('marco')  # valor del input de marco
+            id = request.POST.get('id')  # valor del input de id
+
+            query = "UPDATE " + request.session["seleccion"] + " SET NTT_ID='" + ntt_id + "', " + request.session[
+                "seleccion"] + "='" + marco + "' WHERE ID=" + id + ";"  # si esta en la tabla seleccionamos el ojeto en la tabla
+            mycursor = self.conn.cursor()
+            mycursor.execute(query)
+            self.conn.commit()
+
+
+        elif 'eliminar' in request.POST:
+            id = request.POST.get('id')  # valor del input de id
             mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(
-                marco_id=selector).nombre_tabla)  # realizamos la consulta para obtener los contrloles del marco seleccionado
-            context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
-            context["assess"] = AsociacionMarcos.objects.all()
-            context["consulta"] = mycursor  # fijamos la tabla a el valor seleccionado
-            context["lenConsulta"] = 5
-            request.session["seleccion"] = AsociacionMarcos.objects.get(
-                marco_id=selector).nombre_tabla  # guardamos la seleecion del marco
-            return render(request, self.template_name, context=context)
+            mycursor.execute(
+                "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + id + "';")
+            self.conn.commit()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
+
+
+        elif 'insertar' in request.POST:
+            ntt_id = request.POST.get('ntt_id')  # valor del input de ntt_id
+            marco = request.POST.get('marco')  # valor del input de marco
+
+            query = "INSERT INTO " + request.session["seleccion"] + " (NTT_ID, " + request.session[
+                "seleccion"] + ") VALUES('" + ntt_id + "', '" + marco + "');"  # creamos un nuevo input en la tabla
+            mycursor = self.conn.cursor()
+            mycursor.execute(query)
+            self.conn.commit()
+
 
         elif request.POST.get('busqueda') is not None:  # if que recoge la pulsacion del boton de busqueda
             busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
@@ -1064,57 +1103,14 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
                 context["consulta"] = mycursor  # pasamos la consulta para que se muestre en la tabla
                 request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
                 return render(request, self.template_name, context=context)
-        elif request.POST.get('marco_id') != None:  # if que recoge la pulsacion del boton de insertar.
-            id = request.POST.get('id')  # valor del input de id
-            marco_id = request.POST.get('marco_id')  # valor del input de marco_id
-            nombre_tabla = request.POST.get('nombre_tabla')  # valor del input de nombre_tabla
 
-            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
-                query = "UPDATE " + request.session["seleccion"] + " SET NTT_ID='" + marco_id + "', " + request.session[
-                    "seleccion"] + "='" + nombre_tabla + "' WHERE ID=" + id + ";"  # si esta en la tabla seleccionamos el ojeto en la tabla
-                mycursor = self.conn.cursor()
-                mycursor.execute(query)
-                self.conn.commit()
-            except:  # si el valor no esta en la tabla
-                query = "INSERT INTO " + request.session["seleccion"] + " (NTT_ID, " + request.session[
-                    "seleccion"] + ") VALUES('" + marco_id + "', '" + nombre_tabla + "');"  # creamos un nuevo input en la tabla
-
-                mycursor = self.conn.cursor()
-                mycursor.execute(query)
-                self.conn.commit()
-
-            mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute("SELECT * FROM " + request.session["seleccion"])
-            context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
-            context["assess"] = AsociacionMarcos.objects.all()
-            context["consulta"] = mycursor
-            return render(request, self.template_name,
-                          context=context)  # siempre retornamos el valor con la tabla completa.
-
-        else:  # else que recoge la pulsacion del boton de modificar.
-
-            mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute(
-                "SELECT * FROM " + request.session["seleccion"] + " WHERE ID='" + request.session[
-                    "ultBusqueda"] + "'")  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
-            context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
-            context["assess"] = AsociacionMarcos.objects.all()
-            context["consulta"] = mycursor
-            for o in mycursor:
-                context[
-                    "seleccion"] = o  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
-            return render(request, self.template_name, context=context)
-
-    # Funcion utilizada para eliminar el valor seleccionado de la tabla
-    def EliminarMapeo(request):
-        conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
-                                       auth_plugin='mysql_native_password')
-        mycursor = conn.cursor(buffered=True)
-        mycursor.execute(
-            "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "';")
-        conn.commit()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
-        conn.close()
-        return redirect('MantenimientoMapeoMarcos')
+        mycursor = self.conn.cursor(buffered=True)
+        mycursor.execute("SELECT * FROM " + request.session["seleccion"])
+        context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
+        context["assess"] = AsociacionMarcos.objects.all()
+        context["consulta"] = mycursor
+        return render(request, self.template_name,
+                      context=context)  # siempre retornamos el valor con la tabla completa.
 
 
 # Clase para la pagina de MantenimientoAssessmentArchivados

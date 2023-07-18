@@ -28,7 +28,7 @@ urlpatterns = [
     path('MantenimientoControlesNTTCS/', views.MantenimientoControlesNTTCS.as_view(), name='MantenimientoControlesNTTCS'),
     path('MantenimientoControlesNTTCS/Eliminar/', views.MantenimientoControlesNTTCS.Eliminar, name='EliminarControles'),
     path('MantenimientoMapeoMarcos/', views.MantenimientoMapeoMarcos.as_view(), name='MantenimientoMapeoMarcos'),
-    path('MantenimientoMapeoMarcos/EliminarMapeo/', views.MantenimientoMapeoMarcos.EliminarMapeo, name='EliminarMapeo'),
+
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
     path('MantenimientoAssessmentArchivados/EliminarAssessment/', views.MantenimientoAssessmentArchivados.EliminarAssessment, name='EliminarAssessment'),
     path('logout', views.logout, name='logout'),

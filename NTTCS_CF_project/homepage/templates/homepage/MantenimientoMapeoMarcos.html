@@ -16,54 +16,27 @@
 
         <!-- SELECTOR TABLAS MAPEO -->
         <div class="">
-            <form class="rowCajasMantenimiento" method="post" id="busquedaForm">
-                <div class="cajaBuscar input-group">
+            <div class="rowCajasMantenimiento" >
+                <form class="cajaBuscar input-group" method="post">
                     {% csrf_token %}
-                    <label class="input-group-text" for="selectorMapeo">NTT Controles: </label>
-                    <!--
-                    <select class="form-select" id="selectorMapeo" name="selectorMapeo">
-                        <option selected>Elige una opción ... </option>
+                    <label class="input-group-text" for="selector">NTT Controles: </label>
+                    <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector" >
+                        <option selected value="None">--- No Seleccionado ---</option>
                         {% for ids in assess %}
-
+                        {% if ids.marco_id == marcoSeleccionado %}
+                        <option selected value="{{ids.marco_id}}">{{ids.marco_id}}</option>
+                        {% else %}
                         <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
-                        {% endfor %}
-                    </select>
-                    -->
-                    <select class="form-select" id="selectorMapeo" name="selectorMapeo">
-                        <option selected>Elige una opción ... </option>
-                        {% for ids in assess %}
-                        {% if ids.0 == idControl %}
-                            <option selected value="{{ids.0}}">{{ids.0}}</option>
-                        {% else %}
-                            <option value="{{ids.0}}">{{ids.0}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-
-                    <!--
-                     <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector" value="btn1">
-                        <option selected value="noSel">--- No Seleccionado ---</option>
-                        {% for ids in assess %}
-                        {% if ids.0 == idControl %}
-                        <option selected value="{{ids.0}}">{{ids.0}}</option>
-                        {% else %}
-                        <option value="{{ids.0}}">{{ids.0}}</option>
                         {% endif %}
 
                         {% endfor %}
-                    </select> -->
+                    </select>
 
-                </div>
-                <div class="btnFlexMant">
-                    <button class="btn btn-info btn-block"  type="submit" name="boton1" value="btn1">Mostrar</button>
-                </div>
-                <div class="btnFlexMant">
-                    <span></span><!-- span vacio para alinear botones en filas -->
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
 
-
+        {% if seleccionado %}
         <!-- BOTONES DE BUSCAR, MODIFICAR Y ELIMINAR -->
         <div class="rowCajasMantenimiento">
             <form class="cajaBuscar" method="post" >
@@ -74,14 +47,7 @@
                 </div>
             </form>
 
-            <form class="btnFlexMant" method="post" >
-                {% csrf_token %}
-                <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
-            </form>
 
-            <div class="btnFlexMant">
-                <a class="btn btn-danger btn-block" href="{% url 'EliminarMapeo' %}" >Eliminar</a>
-            </div>
         </div>
 
         <!-- TABLA DE CONTENIDO -->
@@ -95,117 +61,43 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <form method="post">
+                        {% csrf_token %}
+                        <td><input class="inputTabas" type="text"  name="ntt_id" placeholder="inserte control Ntt" autocomplete="false" ></td>
+                        <td><input class="inputTabas" type="text"  name="marco" placeholder="inserte marco referencia" autocomplete="false" ></td>
+                        <td><input class="inputTabas" type="text"  name="id" disabled ></td>
+                        <td class="botonesTabla">
+                            <button class="btn btn-primary btn-sm" title="Editar" id="insertar" name="insertar">
+                                <i class="bi bi-save"></i>
+                            </button>
+                        </td>
+                    </form>
+                </tr>
                 {% for ids in consulta %}
                 <tr>
-                    <td>{{ids.0}}</td>
-                    <td>{{ids.1}}</td>
-                    <td>{{ids.2}}</td>
-                    <td class="botonesTabla">
-                        <button class="btn btn-warning btn-sm" title="Editar">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'Eliminar' %}">
-                            <i class="bi bi-trash3"></i>
-                        </a>
-                    </td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <td><input class="inputTabas" type="text" value="{{ids.0}}" name="ntt_id" ></td>
+                        <td><input class="inputTabas" type="text" value="{{ids.1}}" name="marco" ></td>
+                        <td><input class="inputTabas" type="text" value="{{ids.2}}" name="id"  ></td>
+                        <td class="botonesTabla">
+                            <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Editar" id="eliminar" name="eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+
+                        </td>
+                    </form>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
 
 
+        {% endif %}
 
 
-        <!-- COPIA ORIGINAL
-        <!-- seleccion de controls BTT para mostrar en pantalla
-        <div class="selectorTablasMapeo">
-
-            <div class="selectorTablasFlexMapeo">
-                <form class="tablasBuscaFlex" method="post" id="busquedaForm">
-                    {% csrf_token %}
-
-                    <label for="selectorMapeo">NTT Controles</label>
-                    <select class="selectStyleAssessmentMapeo" id="selectorMapeo" name="selectorMapeo">
-                    {% for ids in assess %}
-                    <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
-                    {% endfor %}
-                    </select>
-                    <div >
-                        <button class="btn btn-info"  type="submit" name="boton1" value="btn1">Mostrar</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-
-        <!-- vista del boton de modificar
-        <div class="botonModificarMapeo">
-            <form class="tablasModificarFlex" method="post" >
-                {% csrf_token %}
-                <div >
-                    <button class="btn btn-warning btnTablas"  type="submit">Modificar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- bloque formulario busqueda de controles NTT
-        <div class="tablasBuscaMapeo">
-            <form class="tablasBuscaFlex" method="post" >
-                {% csrf_token %}
-                <div >
-                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
-                </div>
-                <div >
-                    <button class="btn btn-primary"  type="submit">Buscar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Boton eliminar
-        <div class="botonEliminarMapeo">
-            <div class="tablasEliminarFlex">
-                <div >
-                    <a class="btn btn-danger btnBorde btnTablas" href="{% url 'EliminarMapeo' %}" >Eliminar</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- tabla de contenido de los controles
-        <div class="tablasTablas2">
-            <div class="tabasFlex">
-                <div class="cajaTablasTitulo">
-                    <div class="tabasTablaFlexTitulo"><div class="tb_colprueba">NTT DATA ID</div><div class="tb_colprueba">Marco referencia</div><div class="tb_colprueba"> ID </div></div>
-                </div>
-                <div class="cajaTablas">
-                    {% for ids in consulta %}
-                    <div class="tabasTablaFlex"><div class="tb_colprueba">{{ids.0}}</div><div class="tb_colprueba">{{ids.1}}</div><div class="tb_colprueba">{{ids.2}}</div></div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <!-- formulario para ingreso de datos
-        <div class="tablasInsertar2">
-            <form class="tablasInsertarFlex" method="post">
-                {% csrf_token %}
-                <div class="cajaInsertar1">
-                    <label for="marco_id">NTT DATA ID</label>
-                    <input style="width:100%;height:20px;" type="text" id="marco_id" name="marco_id" value="{{seleccion.0}}">
-                </div>
-                <div class="cajaInsertar2">
-                    <label for="nombre_tabla">Marco de referencia</label>
-                    <input style="width:100%;height:20px;" type="text" id="nombre_tabla" name="nombre_tabla" value="{{seleccion.1}}">
-                </div>
-                <div class="cajaInsertar2">
-                    <label for="id">id</label>
-                    <input style="width:100%;height:20px;" type="text" id="id" name="id" value="{{seleccion.2}}">
-                </div>
-                <div class="cajaInsertar1 cajaButton" >
-                    <button class="btnBorde btnTablas2"  type="submit" id="insertarMapeo" name="insertarMapeo">Insertar</button>
-                </div>
-            </form>
-        </div>
-
-    </div>
-    -->
 {% endblock %}
