@@ -21,104 +21,62 @@
         <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
             <div class="cajaInputBuscar input-group">
-                 <input class="form-control" placeholder="Búsqueda ..."  id="busqueda" name="busqueda">
-                 <button class="btn btn-outline-primary"  type="submit">Buscar</button>
+                 <input class="form-control" placeholder="Buscar ..."  id="busqueda" name="busqueda" onkeyup="doSearch()">
             </div>
         </form>
-
-        <form class="tablasBtnFlex" method="post" >
-            {% csrf_token %}
-            <button class="btn btn-warning btn-block"  type="submit">Modificar</button>
-        </form>
-
-        <div class="tablasBtnFlex">
-            <a class="btn btn-danger btn-block" href="{% url 'EliminarDominios' %}" >Eliminar</a>
-        </div>
-
     </div>
 
     <!-- INSERTAR DATOS -->
-    <div class="row">
-        <span><h6>Ingresar nuevo registro</h6></span>
-        <form class="" method="post">
-            {% csrf_token %}
-
-            <div class="row">
-                <div class="col-6">
-                    <label class="form-label" for="identifier">Identifier:</label>
-                    <input class="form-control" type="text" id="identifier" name="identifier" value="{{seleccion.identifier}}">
-                </div>
-                <div class="col-6">
-                   <label class="form-label" for="domain">Domain:</label>
-                   <input class="form-control" type="text" id="domain" name="domain" value="{{seleccion.domain}}">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6">
-                    <label class="form-label" for="security_privacy_by_design_s_p_principles">security_privacy_by_design_s_p_principles:</label>
-                    <textarea class="form-control" type="text" id="security_privacy_by_design_s_p_principles" name="security_privacy_by_design_s_p_principles" value="{{seleccion.security_privacy_by_design_s_p_principles}}"></textarea>
-                </div>
-
-                <div class="col-6">
-                    <label class="form-label" for="principle_intent">Principle_intent:</label>
-                    <textarea class="form-control" type="text" id="principle_intent" name="principle_intent" value="{{seleccion.principle_intent}}"></textarea>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-2 mt-2">
-                    <button class="btn btn-success form-control btn-block"  type="submit">Insertar</button>
-                </div>
-            </div>
-
-        </form>
-    </div>
 
     <table class="table table-fixed">
         <thead>
-            <tr scope="rowgroup">
-                <th>Identifier</th>
-                <th>Domain</th>
-                <th>Security & Privacy by Design (S|P) Principles</th>
-                <th>Principle Intent</th>
-                <th>Acciones</th>
-            </tr>
+            <form action="post">
+                <tr scope="rowgroup">
+                    <th>Identifier</th>
+                    <th>Domain</th>
+                    <th>Security & Privacy by Design (S|P) Principles</th>
+                    <th>Principle Intent</th>
+                    <th>Acciones</th>
+                </tr>
+            </form>
+
         </thead>
         <tbody>
-            {% if lenConsulta > 1 %}
+            <form action="post">
+                <tr>
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" name="identifier" placeholder="Insert identifier" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="security" placeholder="Insert security & privacy" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="principle_intent" placeholder="insert principle_intent" autocomplete="false"></td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                            <i class="bi bi-check2-square"></i>
+                        </button>
+                    </td>
+                </tr>
+            </form>
+
             {% for ids in consulta %}
             <tr>
-                <td>{{ids.identifier}}</td>
-                <td>{{ids.domain}}</td>
-                <td>{{ids.security_privacy_by_design_s_p_principles}}</td>
-                <td>{{ids.principle_intent}}</td>
-                <td class="botonesTabla">
-                    <button class="btn btn-warning btn-sm" title="Editar">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
-                        <i class="bi bi-trash3"></i>
-                    </a>
-                </td>
+                <form action="post">
+                    <td>{{ids.identifier}}</td>
+                    <td>{{ids.domain}}</td>
+                    <td>{{ids.security_privacy_by_design_s_p_principles}}</td>
+                    <td>{{ids.principle_intent}}</td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+                </form>
+
             </tr>
             {% endfor %}
-            {% else %}
-            <tr>
-                <td>{{ids.identifier}}</td>
-                <td>{{ids.domain}}</td>
-                <td>{{ids.security_privacy_by_design_s_p_principles}}</td>
-                <td>{{ids.principle_intent}}</td>
-                <td class="botonesTabla">
-                    <button class="btn btn-warning btn-sm" title="Editar">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <a class="btn btn-danger btn-sm" title="Borrar" href="{% url 'EliminarMarcos' %}" >
-                        <i class="bi bi-trash3"></i>
-                    </a>
-                </td>
-            </tr>
-            {% endif %}
+
         </tbody>
     </table>
 
