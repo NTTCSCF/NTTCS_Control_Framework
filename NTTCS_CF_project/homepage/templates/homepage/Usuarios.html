@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+
+{% block titulo %} Usuarios {% endblock %}
+
+{% block contenido %}
+{% load static %}
+
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>Usuarios</h1>
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <div class="cajaSeleccionAsssessment">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Modificacion usuarios
+                </div>
+            </div>
+            <div class="textoTarjeta" >
+
+                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                    <div class="margenArriba">
+                        <label> Seleccione un Usuario</label>
+                    </div>
+                </div>
+                <form class="cajaTextoSeleccionAssesment" method="post">
+                    {% csrf_token %}
+                    <div class="cajaSelectorCentrado margenAbajo">
+                        <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector1" name="selector1">
+                            <option value="None">--- No Seleccionado ---</option>
+
+                            {% for ids in usuarios %}
+                            {% if ids.username != 'admin' %}
+                            {% if ids.username == seleccion.username %}
+                            <option selected value="{{ids.username}}">{{ids.username}}</option>
+                            {% else %}
+                            <option value="{{ids.username}}">{{ids.username}}</option>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+                {% if seleccionado %}
+                <form class="textoTarjeta" method="post" autocomplete="off">
+                    {% csrf_token %}
+
+                    <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                        <div class="margenArriba">
+                            <label> Introduzca el Nombre del usuario</label>
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment">
+                        <div class="cajaSelectorCentrado margenAbajo">
+                            <input autocomplete="off" style="height:100%; width:100%; border-radius:5px;" type="text" name="nUsuarioModificar" id="nUsuarioModificar" value="{{seleccion.username}}">
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                        <div class="margenArriba">
+                            <label> Seleccione un rol para el usuario</label>
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment">
+                        <div class="cajaSelectorCentrado margenAbajo">
+                            <select  class="selectpicker" data-live-search="true" data-width="100%" id="selector3" name="selector3" >
+                                <option value="None">--- No Seleccionado ---</option>
+                                {% for ids in grupos %}
+                                {% if ids == grupoSeleccionado %}
+                                <option selected value="{{ids}}">{{ids}}</option>
+                                {% else %}
+                                <option value="{{ids}}">{{ids}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                        <div class="margenArriba">
+                            <label> Introduzca la contraseña para el usuario</label>
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment">
+                        <div class="cajaSelectorCentrado margenAbajo">
+                            <input autocomplete="off" style="height:100%; width:100%; border-radius:5px;" type="password" name="passwordModificar" id="passwordModificar" value="{{seleccion.password}}">
+                        </div>
+                    </div>
+
+                    <div class="cajaBotonModificar">
+                        <div class="cajaBotonModificar ">
+                            <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton1" name="boton1" value="btn1"><i class="bi bi-pen"></i> Modificar </button>
+                        </div>
+                        <div class="cajaBotonModificar ">
+                            <button class="btn btn-outline-danger btn-lg btn-block" type="button" onclick="clicked(this.form);" id="boton2" name="boton2" value="btn2"><i class="bi bi-trash"></i>  Eliminar </button>
+                        </div>
+                    </div>
+
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="rowTitulo">
+    <div class="cajaTitulo fontGrande">
+        ó
+    </div>
+</div>
+
+
+<div class="rowTitulo">
+    <div class="cajaSeleccionAsssessment">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Crear Usuario
+                </div>
+            </div>
+            <form class="textoTarjeta" method="post" autocomplete="off">
+                {% csrf_token %}
+
+                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                    <div class="margenArriba">
+                        <label> Introduzca el Nombre del usuario</label>
+                    </div>
+                </div>
+
+                <div class="cajaTextoSeleccionAssesment">
+                    <div class="cajaSelectorCentrado margenAbajo">
+                        <input  style="height:100%; width:100%; border-radius:5px;" type="text" name="nUsuario" id="nUsuario">
+                    </div>
+                </div>
+
+                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                    <div class="margenArriba">
+                        <label> Seleccione un rol para el usuario</label>
+                    </div>
+                </div>
+
+                <div class="cajaTextoSeleccionAssesment">
+                    <div class="cajaSelectorCentrado margenAbajo">
+                        <select  class="selectpicker" data-live-search="true" data-width="100%" id="selector" name="selector" >
+                            <option value="None">--- No Seleccionado ---</option>
+                            {% for ids in grupos %}
+                            <option value="{{ids}}">{{ids}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                    <div class="margenArriba">
+                        <label> Introduzca la contraseña para el usuario</label>
+                    </div>
+                </div>
+
+                <div class="cajaTextoSeleccionAssesment">
+                    <div class="cajaSelectorCentrado margenAbajo">
+                        <input style="height:100%; width:100%; border-radius:5px;" type="password" name="password" id="password">
+                    </div>
+                </div>
+
+                <div class="cajaBotonSeleccionAssesment">
+                    <div class="cajaBotonSeleccion ">
+                        <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton3" name="boton3" value="btn3">Crear Usuario</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}
+            <script type="text/javascript">
+                setTimeout(() => {
+                    window.alert("{{ message }}")
+                }, 100);
+            </script>
+        {% endif %}
+
+    {% endfor %}
+{% endif %}
+
+<script type="text/javascript">
+
+    $(function() {
+        $('select').selectpicker();
+    });
+
+</script>
+
+<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
+<script type="text/javascript">
+    function clicked(form) {
+       if (confirm('¿Seguro que quiere borrar el usuario {{seleccion.username}}?')) {
+           form.submit();
+       } else {
+           return false;
+       }
+    }
+</script>
+
+
+
+{% endblock %}

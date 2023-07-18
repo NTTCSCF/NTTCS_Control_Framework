@@ -39,6 +39,17 @@
             </div>
         </div>
     </div>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+                <script type="text/javascript">
+                    setTimeout(() => {
+                        window.alert("{{ message }}")
+                    }, 100);
+                </script>
+            {% endif %}
 
+        {% endfor %}
+    {% endif %}
 </body>
 </html>
