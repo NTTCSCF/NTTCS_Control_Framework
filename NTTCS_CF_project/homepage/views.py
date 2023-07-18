@@ -3,8 +3,11 @@ from typing import Dict, Any
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, HttpResponse, redirect
+
+from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias
 from django.views.generic import TemplateView
@@ -24,9 +27,12 @@ class index(LoginView):
         usuario = authenticate(request, username=user, password=pas)
 
         if usuario is not None:
-            login(request, usuario)
-
-            return redirect('menu')
+            if usuario.last_login is None:
+                login(request, usuario)
+                return redirect('creacionPass')
+            else:
+                login(request, usuario)
+                return redirect('menu')
 
         else:
             return render(request, self.template_name)
@@ -37,6 +43,168 @@ def logout(request):
     logout(request)
     return redirect('/')
 
+# Clase para la pagina de creacion de pass
+class CreacionPass(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+
+    template_name = "homepage/CreacionPass.html"
+
+    # funcion utilizada para comprobar que la contraseña intruducida es correcta
+    def contrasenaValida(self, password):
+        largo = False # se pone a true si la cadena es lo suficientemente larga
+        mayus = False # se pone a true si la cadena contiene una mayuscula
+        numerico = False # se pone a true si la cadena contiene un numero
+        caracterEspecial = False # se pone a true si la cadena contiene un caracter especial /\.,:;!@#$%^&*()-_=+
+        if len(password) > 8: # comprobacion de longitud
+            largo = True
+
+        for i in password:
+            if i.isupper(): # comprobacion de mayus
+                mayus = True
+            if i.isnumeric(): # comprobacion de numero
+                numerico = True
+            if i in '/\.,:;!@#$%^&*()-_=+': # comprobacion de caracter especial
+                caracterEspecial = True
+
+        return largo and mayus and numerico and caracterEspecial # retornemos and logico entre los 4 requerimientos
+
+    def post(self, request, **knwargs):
+        password = request.POST.get('password')  # valor del password
+        passwordModificar = request.POST.get('passwordModificar')  # valor del passwordModificar
+        password2Modificar = request.POST.get('password2Modificar')  # valor del password2Modificar
+        user = request.user
+        if passwordModificar == password2Modificar:
+            if password != passwordModificar:
+                if user.check_password(password):
+                    if self.contrasenaValida(passwordModificar):
+                        user.set_password(passwordModificar)
+                        user.save()
+                        messages.success(request, 'La contraseña ha sido cambiada correctamente')
+                        return redirect('logout')
+                    else:
+                        messages.error(request, 'La contraseña debe contener, 8 caracteres, alguna mayuscula, algun caracter especial y algun numero')  # Se crea mensage de error
+                else:
+                    messages.error(request, 'La contraseña no es correcta')  # Se crea mensage de error
+            else:
+                messages.error(request, 'La contraseña tiene que ser distinta a la anterior')  # Se crea mensage de error
+        else:
+            messages.error(request, 'Las contraseñas no coinciden')  # Se crea mensage de error
+        return render(request, self.template_name)
+
+# Clase para la pagina de Perfil
+class Perfil(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+
+    template_name = "homepage/perfil.html"
+
+    # funcion utilizada para comprobar que la contraseña intruducida es correcta
+    def contrasenaValida(self, password):
+        largo = False # se pone a true si la cadena es lo suficientemente larga
+        mayus = False # se pone a true si la cadena contiene una mayuscula
+        numerico = False # se pone a true si la cadena contiene un numero
+        caracterEspecial = False # se pone a true si la cadena contiene un caracter especial /\.,:;!@#$%^&*()-_=+
+        if len(password) > 8: # comprobacion de longitud
+            largo = True
+
+        for i in password:
+            if i.isupper(): # comprobacion de mayus
+                mayus = True
+            if i.isnumeric(): # comprobacion de numero
+                numerico = True
+            if i in '/\.,:;!@#$%^&*()-_=+': # comprobacion de caracter especial
+                caracterEspecial = True
+
+        return largo and mayus and numerico and caracterEspecial # retornemos and logico entre los 4 requerimientos
+
+
+    def post(self, request, **knwargs):
+        password = request.POST.get('password')  # valor del password
+        passwordModificar = request.POST.get('passwordModificar')  # valor del passwordModificar
+        password2Modificar = request.POST.get('password2Modificar')  # valor del password2Modificar
+        user = request.user
+        if passwordModificar == password2Modificar:
+            if password != passwordModificar:
+                if user.check_password(password):
+                    if self.contrasenaValida(passwordModificar):
+                        user.set_password(passwordModificar)
+                        user.save()
+                        messages.error(request, 'La contraseña ha sido cambiada correctamente')  # Se crea mensage de error
+                    else:
+                        messages.error(request, 'La contraseña debe contener, 8 caracteres, alguna mayuscula, algun caracter especial y algun numero')  # Se crea mensage de error
+                else:
+                    messages.error(request, 'La contraseña no es correcta')  # Se crea mensage de error
+            else:
+                messages.error(request, 'La contraseña tiene que ser distinta a la anterior')  # Se crea mensage de error
+        else:
+            messages.error(request, 'Las contraseñas no coinciden')  # Se crea mensage de error
+        return render(request, self.template_name)
+
+
+# Clase para la pagina de Usuarios
+class Usuarios(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+
+    template_name = "homepage/Usuarios.html"
+
+
+    def get_context_data(self, **knwargs):
+        context = super(Usuarios, self).get_context_data(**knwargs)
+        context["grupos"] = Group.objects.all()
+        context["usuarios"] = User.objects.all()
+        context["seleccionado"] = False
+        return context
+
+    def post(self, request, **knwargs):
+
+        if 'boton3' in request.POST:
+            grupo = request.POST.get('selector')
+            nUsuario = request.POST.get('nUsuario')
+            password = request.POST.get('password')
+            usuario = User.objects.create_user(username=nUsuario, password=password, rol=grupo)
+            usuario.groups.add(Group.objects.get(name__in=[grupo]))
+            usuario.save()
+        elif 'selector1' in request.POST:
+            if request.POST.get('selector1') == 'None':
+                context = super(Usuarios, self).get_context_data(**knwargs)
+                context["grupos"] = Group.objects.all()
+                context["usuarios"] = User.objects.all()
+                return render(request, self.template_name, context=context)
+            else:
+                context = super(Usuarios, self).get_context_data(**knwargs)
+                context["grupos"] = Group.objects.all()
+                context["usuarios"] = User.objects.all()
+                context["seleccionado"] = True
+                usuarioSeleccionado = User.objects.get(username=request.POST.get('selector1'))
+                context["seleccion"] = usuarioSeleccionado
+                context["grupoSeleccionado"] = usuarioSeleccionado.groups.all()[0]
+                request.session["usuarioSeleccionado"] = usuarioSeleccionado.username
+                print(usuarioSeleccionado.password)
+                return render(request, self.template_name, context=context)
+        elif 'selector3' in request.POST:
+            boton1 = request.POST.get('boton1')  # valor del boton 1
+            grupo = request.POST.get('selector3')  # valor del boton 1
+            nUsuarioModificar = request.POST.get('nUsuarioModificar')  # valor del nUsuarioModificar
+            passwordModificar = request.POST.get('passwordModificar')  # valor del passwordModificar
+            user = User.objects.get(username=request.session.get('usuarioSeleccionado'))
+            if boton1 == 'btn1':
+                user.username = nUsuarioModificar
+                user.groups.clear()
+                user.groups.add(Group.objects.get(name__in=[grupo]))
+                if passwordModificar.startswith('pbkdf2_sha256$'):
+                    user.password = passwordModificar
+                else:
+                    user.set_password(passwordModificar)
+                user.save()
+            else:
+                user.delete()
+
+        context = super(Usuarios, self).get_context_data(**knwargs)
+        context["grupos"] = Group.objects.all()
+        context["usuarios"] = User.objects.all()
+        return render(request, self.template_name, context=context)
 
 # Clase para la pagina de Assessment
 class assessment(LoginRequiredMixin, TemplateView):

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block titulo %} Usuarios {% endblock %}
+
+{% block contenido %}
+{% load static %}
+
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>{{user.username}}</h1>
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <div class="cajaSeleccionAsssessment">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Actualizar contraseña
+                </div>
+            </div>
+            <div class="textoTarjeta" >
+
+                <form class="textoTarjeta" method="post">
+                    {% csrf_token %}
+
+                    <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                        <div class="margenArriba">
+                            <label> Introduzca la contraseña actual</label>
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment">
+                        <div class="cajaSelectorCentrado margenAbajo">
+                            <input style="height:100%; width:100%; border-radius:5px;" type="password" name="password" id="password">
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                        <div class="margenArriba">
+                            <label> Introduzca la nueva contraseña para el usuario</label>
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment">
+                        <div class="cajaSelectorCentrado margenAbajo">
+                            <input style="height:100%; width:100%; border-radius:5px;" type="password" name="passwordModificar" id="passwordModificar">
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                        <div class="margenArriba">
+                            <label> Introduzca de nuevo la contraseña para el usuario</label>
+                        </div>
+                    </div>
+
+                    <div class="cajaTextoSeleccionAssesment">
+                        <div class="cajaSelectorCentrado margenAbajo">
+                            <input style="height:100%; width:100%; border-radius:5px;" type="password" name="password2Modificar" id="password2Modificar">
+                        </div>
+                    </div>
+
+                    <div class="cajaBotonModificar">
+                        <div class="cajaBotonModificar ">
+                            <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton1" name="boton1" value="btn1"><i class="bi bi-pen"></i> Modificar </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags %}
+            <script type="text/javascript">
+                setTimeout(() => {
+                    window.alert("{{ message }}")
+                }, 100);
+            </script>
+        {% endif %}
+
+    {% endfor %}
+{% endif %}
+
+<script type="text/javascript">
+
+    $(function() {
+        $('select').selectpicker();
+    });
+
+</script>
+
+<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
+<script type="text/javascript">
+    function clicked(form) {
+       if (confirm('¿Seguro que quiere borrar el usuario {{seleccion.username}}?')) {
+           form.submit();
+       } else {
+           return false;
+       }
+    }
+</script>
+
+
+
+{% endblock %}
