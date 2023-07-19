@@ -1,3 +1,4 @@
+import mimetypes
 from typing import Dict, Any
 
 from django.contrib.auth import authenticate, login
@@ -6,13 +7,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, HttpResponse, redirect
-
+from datetime import datetime
 from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias
 from django.views.generic import TemplateView
 import mysql.connector
 from django.contrib import messages
+import csv
+import xlsxwriter
 
 
 # Create your views here.
@@ -45,7 +48,7 @@ def logout(request):
 
 
 # funcion utilizada para comprobar que la contraseña intruducida es correcta
-def contrasenaValida(self: object, password: str) -> bool:
+def contrasenaValida(password: str) -> bool:
     largo = False  # se pone a true si la cadena es lo suficientemente larga
     mayus = False  # se pone a true si la cadena contiene una mayuscula
     numerico = False  # se pone a true si la cadena contiene un numero
@@ -76,15 +79,16 @@ class CreacionPass(LoginRequiredMixin, TemplateView):
         passwordModificar = request.POST.get('passwordModificar')  # valor del passwordModificar
         password2Modificar = request.POST.get('password2Modificar')  # valor del password2Modificar
         user = request.user
-        if password != '' and passwordModificar != '' and password2Modificar != '':
-            if passwordModificar == password2Modificar:
-                if password != passwordModificar:
-                    if user.check_password(password):
-                        if contrasenaValida(passwordModificar):
+        if password != '' and passwordModificar != '' and password2Modificar != '':  # comprobacion de entrega de cademas vacias
+            if passwordModificar == password2Modificar:  # comprobacion de que las dos nuevas pass sean iguales
+                if password != passwordModificar:  # coprobacion de que la contraseña nueva es distinta que la anterior
+                    if user.check_password(password):  # comprobamos que la pass sea la correcta para el usuario
+                        if contrasenaValida(
+                                passwordModificar):  # comprobamos si la nueva pass cumple los requisitos de seguridad
                             user.set_password(passwordModificar)
                             user.save()
                             messages.success(request, 'La contraseña ha sido cambiada correctamente')
-                            return redirect('logout')
+                            return redirect('logout')  # hacemos log out
                         else:
                             messages.error(request,
                                            'La contraseña debe contener, 8 caracteres, alguna mayuscula, algun caracter '
@@ -113,15 +117,16 @@ class Perfil(LoginRequiredMixin, TemplateView):
         passwordModificar = request.POST.get('passwordModificar')  # valor del passwordModificar
         password2Modificar = request.POST.get('password2Modificar')  # valor del password2Modificar
         user = request.user
-        if password != '' and passwordModificar != '' and password2Modificar != '':
-            if passwordModificar == password2Modificar:
-                if password != passwordModificar:
-                    if user.check_password(password):
-                        if contrasenaValida(passwordModificar):
+        if password != '' and passwordModificar != '' and password2Modificar != '':  # comprobacion de entrega de cademas vacias
+            if passwordModificar == password2Modificar:  # comprobacion de que las dos nuevas pass sean iguales
+                if password != passwordModificar:  # coprobacion de que la contraseña nueva es distinta que la anterior
+                    if user.check_password(password):  # comprobamos que la pass sea la correcta para el usuario
+                        if contrasenaValida(
+                                passwordModificar):  # comprobamos si la nueva pass cumple los requisitos de seguridad
                             user.set_password(passwordModificar)
                             user.save()
-                            messages.error(request,
-                                           'La contraseña ha sido cambiada correctamente')  # Se crea mensage de error
+                            messages.success(request,
+                                             'La contraseña ha sido cambiada correctamente')  # Se crea mensage de error
                         else:
                             messages.error(request,
                                            'La contraseña debe contener, 8 caracteres, alguna mayuscula, algun caracter '
@@ -254,7 +259,6 @@ class assessment(LoginRequiredMixin, TemplateView):
                 evidenciasParaBuscar = fila[6].split('\n')
                 evidencias = []
                 for i in evidenciasParaBuscar:
-                    print(i)
                     try:
                         c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
                         evidencias += ['<p>' + c.evidence_request_references + ', ' + c.artifact_description + '</p>']
@@ -316,23 +320,21 @@ class assessment(LoginRequiredMixin, TemplateView):
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
                 self.conn.commit()
-                self.request.session["controlSelect"] = 'noSel'
+
             else:
                 messages.error(request,
                                'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
-                context = super(assessment, self).get_context_data(**knwargs)
-                mycursor = self.conn.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM " + assSelect)
-                context["NombreAss"] = assSelect
-                context["assess"] = mycursor
-                context["valMad"] = MaturirtyTable.objects.all()
-                return render(request, self.template_name, context=context)
+            context = super(assessment, self).get_context_data(**knwargs)
+            request, context = self.contextTotal(request, request.session.get('controlSelect'), assSelect, context)
+            return render(request, self.template_name, context=context)
         elif boton4 == 'btn4':  # if encargado de rellenar las evidencias
 
             idEvidencia = request.POST.get('idEvidencia')  # valor del idEvidencia
             descripcionEvidencia = request.POST.get('DescripcionEvidencia')  # valor del DescripcionEvidencia
             linkEvidencia = request.POST.get('linkEvidencia')  # valor del linkEvidencia
             controlId = request.session["controlSelect"]
+            consulta = Assessment.objects.get(
+                id=request.session["controlSelect"])
             print(controlId)
             if controlId != 'noSel':
                 if idEvidencia != '' and descripcionEvidencia != '':  # recogemos la pulsacion de guardar la evidencia
@@ -350,7 +352,11 @@ class assessment(LoginRequiredMixin, TemplateView):
                         for fila in mycursor:
                             evidencia = fila[6]
                         evidencia += '\n' + idEvidencia
-                        query = """UPDATE """ + assSelect + """ SET evidencia='""" + evidencia + """' WHERE ID='""" + controlId + """';"""  # consulta para rellenar los valores del control seleccionado
+                        query = """UPDATE """ + assSelect + """ SET descripcion='""" + consulta.control_description + """', 
+                                        pregunta='""" + consulta.control_question + """', respuesta='""" + \
+                                str(request.POST.get('respuesta')) + """', valoracion='""" + request.POST.get(
+                            'valmad') + """', evidencia='""" + evidencia + """'
+                                                WHERE ID='""" + controlId + """';"""  # consulta para rellenar los valores del control seleccionado
                         mycursor = self.conn.cursor()
                         mycursor.execute(query)
                         self.conn.commit()
@@ -496,11 +502,91 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/Exportaciones.html"
+    conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
+                                   auth_plugin='mysql_native_password')  # constante para la conexion con la base de datos
 
     def get_context_data(self, **knwargs):
         context = super(Exportaciones, self).get_context_data(**knwargs)
         context["assess"] = Assessmentguardados.objects.all()
         return context
+
+    # funcion post que recoge los summit del formulario de la pagina.
+    def post(self, request, **knwargs):
+        selector = request.POST.get('selector1')
+        excel = request.POST.get('excel')
+        csvinput = request.POST.get('csv')
+        word = request.POST.get('word')
+        mycursor = self.conn.cursor(buffered=True)
+        mycursor.execute("SELECT * FROM " + selector)  # consulta de la seleccion del assesment
+
+        valores = []
+        for fila in mycursor:  # Rellenamos tanto las casillas de respuesta y valoracion
+
+            if fila[6] != None and fila[6] != '':
+                evidenciasParaBuscar = fila[6].split('\n')
+                evidencias = ''
+                for i in evidenciasParaBuscar:
+                    try:
+                        c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                        evidencias += c.evidence_request_references + ', ' + c.artifact_description + '\n'
+                    except:
+                        c = Evidencias.objects.get(evidencia_id=i)
+                        evidencias += c.evidencia_id + ', ' + c.comentario + ', ' + c.links + '\n'
+            else:
+                evidencias = ''
+
+            consulta = Assessment.objects.get(id=fila[0])
+            valores += {
+                'idControl': fila[0],
+                'nControl': consulta.control,
+                'descripcion': fila[1],
+                'pregunta': fila[2],
+                'respuesta': fila[4],
+                'valoracion': fila[5],
+                'criterio': fila[3],
+                'evidencias': evidencias
+            },
+
+        titulos = ["idControl", "nControl", "descripcion", "pregunta", "respuesta", "valoracion", "criterio",
+                   "evidencias"]
+        now = datetime.now()
+        filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
+            now.year) + '_' + str(now.hour) + '_' + str(now.minute)
+        if 'csv' == csvinput:
+            filename += '.csv'
+            with open(filename, mode='w', encoding="cp437", errors="replace") as file:
+                writer = csv.DictWriter(file, delimiter=',', fieldnames=titulos)
+                writer.writeheader()
+
+                for valor in valores:
+                    writer.writerow(valor)
+
+            path = open(filename, 'r')
+            mime_type, _ = mimetypes.guess_type(filename)
+            response = HttpResponse(path, content_type=mime_type)
+            response['Content-Disposition'] = f"attachment; filename={filename}"
+            return response
+
+        if 'excel' == excel:
+            filename += '.xlsx'
+            workbook = xlsxwriter.Workbook(filename)
+            workbook.encoding = "utf-8"
+            worksheet = workbook.add_worksheet()
+
+            for row, _dict in enumerate(valores):
+                for col, key in enumerate(titulos):
+                    worksheet.write(row, col, _dict[key])
+            workbook.close()
+
+            with open(filename, "rb") as file:
+                response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                response['Content-Disposition'] = f"attachment; filename={filename}"
+            return response
+        if 'word' == word:
+            pass
+        context = super(Exportaciones, self).get_context_data(**knwargs)
+        context["assess"] = Assessmentguardados.objects.all()
+        return render(request, self.template_name, context=context)
 
 
 # Clase para la pagina de informes
@@ -538,7 +624,7 @@ class MantenimientoNivelMadurez(LoginRequiredMixin, TemplateView):
             Ccmmcod = request.POST.get('Ccmmcod')  # valor del input de ccmmcod
             Description = request.POST.get('Description')  # valor del input de descripcion
             Sublevels = request.POST.get('Sublevels')  # valor del input de sublevels
-            Percentage = float(request.POST.get('Percentage').replace(',','.'))  # valor del input de percentaje
+            Percentage = float(request.POST.get('Percentage').replace(',', '.'))  # valor del input de percentaje
             consulta = MaturirtyTable.objects.get(
                 sublevels=Sublevels)  # si esta en la tabla seleccionamos el ojeto en la tabla
             consulta.ccmmcod = Ccmmcod
@@ -562,8 +648,6 @@ class MantenimientoNivelMadurez(LoginRequiredMixin, TemplateView):
         context["consulta"] = MaturirtyTable.objects.all()
         context["lenConsulta"] = len(MaturirtyTable.objects.all())
         return context
-
-
 
 
 # Clase para la pagina de inicio de sesion
@@ -677,7 +761,6 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
-
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
@@ -766,7 +849,6 @@ class MantenimientoMarcosExistentes(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
-
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoMarcosExistentes, self).get_context_data(**knwargs)
@@ -775,7 +857,6 @@ class MantenimientoMarcosExistentes(LoginRequiredMixin, TemplateView):
         return context
 
     # Funcion utilizada para eliminar el valor seleccionado de la tabla
-
 
 
 # Clase para la pagina de MantenimientoControlesNTTCS
@@ -856,7 +937,6 @@ class MantenimientoControlesNTTCS(LoginRequiredMixin, TemplateView):
         context["lenConsulta"] = len(NttcsCf20231.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
-
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
