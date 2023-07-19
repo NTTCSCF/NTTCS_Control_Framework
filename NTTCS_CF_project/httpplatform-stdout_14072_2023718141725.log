@@ -1,0 +1,16 @@
+Watching for file changes with StatReloader
+[18/Jul/2023 16:17:27] "GET / HTTP/1.1" 200 1530
+Not Found: /hudson
+[18/Jul/2023 16:25:03] "GET /hudson HTTP/1.1" 404 6498
+Not Found: /client/get_targets
+[18/Jul/2023 16:39:43] "GET /client/get_targets HTTP/1.1" 404 6534
+Not Found: /upl.php
+[18/Jul/2023 16:39:43] "GET /upl.php HTTP/1.1" 404 6501
+Not Found: /geoip/
+[18/Jul/2023 16:39:43] "GET /geoip/ HTTP/1.1" 404 6498
+Not Found: /favicon.ico
+[18/Jul/2023 16:39:43] "GET /favicon.ico HTTP/1.1" 404 6513
+Not Found: /1.php
+[18/Jul/2023 16:39:44] "GET /1.php HTTP/1.1" 404 6495
+Not Found: /bundle.js
+[18/Jul/2023 16:39:44] "GET /bundle.js HTTP/1.1" 404 6507

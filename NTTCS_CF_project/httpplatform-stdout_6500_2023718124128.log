@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+Not Found: /doc/xml/version.xml
+[18/Jul/2023 14:41:32] "GET /doc/xml/version.xml HTTP/1.1" 404 7682
+[18/Jul/2023 14:49:06] "GET / HTTP/1.1" 200 1526
+Not Found: /payment/index.php
+[18/Jul/2023 15:01:10] "GET /payment/index.php HTTP/1.1" 404 7674
+[18/Jul/2023 15:01:10] "GET / HTTP/1.1" 200 1526
+C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\urls.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 18, 2023 - 14:41:32
+Django version 4.2.2, using settings 'NTTCS_CF_project.settings'
+Starting development server at http://127.0.0.1:27564/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader

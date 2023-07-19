@@ -1,0 +1,16 @@
+Watching for file changes with StatReloader
+[18/Jul/2023 22:09:14] "GET / HTTP/1.1" 200 1530
+Not Found: /payment/index.php
+[18/Jul/2023 22:09:14] "GET /payment/index.php HTTP/1.1" 404 6529
+[18/Jul/2023 22:09:24] "GET / HTTP/1.1" 200 1530
+Not Found: /favicon.ico
+[18/Jul/2023 22:09:59] "GET /favicon.ico HTTP/1.1" 404 6506
+[18/Jul/2023 22:10:01] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 22:26:42] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 22:32:04] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 22:32:04] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 22:32:04] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 22:32:07] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 22:32:07] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 22:32:07] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 22:36:21] "GET / HTTP/1.1" 200 1530

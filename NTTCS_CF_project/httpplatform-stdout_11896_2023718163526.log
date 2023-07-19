@@ -1,0 +1,53 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[18/Jul/2023 18:35:28] "GET /.env HTTP/1.1" 404 6492
+Forbidden (CSRF cookie not set.): /
+[18/Jul/2023 18:35:29] "POST / HTTP/1.1" 403 2922
+[18/Jul/2023 18:40:40] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 18:40:40] "GET / HTTP/1.1" 200 1530
+Not Found: /.vscode/sftp.json
+[18/Jul/2023 18:40:41] "GET /.vscode/sftp.json HTTP/1.1" 404 6531
+Not Found: /about
+[18/Jul/2023 18:40:41] "GET /about HTTP/1.1" 404 6495
+Not Found: /debug/default/view
+[18/Jul/2023 18:40:41] "GET /debug/default/view?panel=config HTTP/1.1" 404 6547
+Not Found: /v2/_catalog
+[18/Jul/2023 18:40:41] "GET /v2/_catalog HTTP/1.1" 404 6513
+Not Found: /ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application
+[18/Jul/2023 18:40:42] "GET /ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application HTTP/1.1" 404 6705
+Not Found: /server-status
+[18/Jul/2023 18:40:42] "GET /server-status HTTP/1.1" 404 6519
+Not Found: /login.action
+[18/Jul/2023 18:40:42] "GET /login.action HTTP/1.1" 404 6516
+Not Found: /_all_dbs
+[18/Jul/2023 18:40:42] "GET /_all_dbs HTTP/1.1" 404 6504
+Not Found: /.DS_Store
+[18/Jul/2023 18:40:43] "GET /.DS_Store HTTP/1.1" 404 6507
+Not Found: /.env
+[18/Jul/2023 18:40:43] "GET /.env HTTP/1.1" 404 6492
+Not Found: /.git/config
+[18/Jul/2023 18:40:43] "GET /.git/config HTTP/1.1" 404 6513
+Not Found: /s/139313e2531323e2636313e2538313/_/;/META-INF/maven/com.atlassian.jira/jira-webapp-dist/pom.properties
+[18/Jul/2023 18:40:43] "GET /s/139313e2531323e2636313e2538313/_/;/META-INF/maven/com.atlassian.jira/jira-webapp-dist/pom.properties HTTP/1.1" 404 6788
+Not Found: /config.json
+[18/Jul/2023 18:40:44] "GET /config.json HTTP/1.1" 404 6513
+Not Found: /telescope/requests
+[18/Jul/2023 18:40:44] "GET /telescope/requests HTTP/1.1" 404 6534
+[18/Jul/2023 18:40:44] "GET /?rest_route=/wp/v2/users/ HTTP/1.1" 200 1530
+[18/Jul/2023 18:41:51] "HEAD / HTTP/1.1" 200 0
+[18/Jul/2023 18:41:52] "HEAD / HTTP/1.1" 200 0
+[18/Jul/2023 18:47:06] "GET / HTTP/1.1" 200 1530
+[18/Jul/2023 18:47:06] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[18/Jul/2023 18:47:06] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[18/Jul/2023 18:47:06] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 5277
+[18/Jul/2023 18:47:06] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /.env
+[18/Jul/2023 18:49:45] "GET /.env HTTP/1.1" 404 6485
+Forbidden (CSRF cookie not set.): /
+[18/Jul/2023 18:49:47] "POST / HTTP/1.1" 403 2922
+Not Found: /.env
+[18/Jul/2023 18:49:50] "GET /.env HTTP/1.1" 404 6485
+Forbidden (CSRF cookie not set.): /
+[18/Jul/2023 18:49:51] "POST / HTTP/1.1" 403 2922
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[18/Jul/2023 18:49:52] "GET /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 6623
