@@ -15,52 +15,54 @@
 <div class="rowTitulo">
     <div class="cajaSeleccionAsssessment">
         <div class="tarjeta">
+            <!-- titulo actualizar contraseña -->
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
                     Actualizar contraseña
                 </div>
             </div>
             <div class="textoTarjeta" >
-
+                <!-- formulario de cambio de contraseña por el usuario -->
                 <form class="textoTarjeta" method="post">
                     {% csrf_token %}
-
+                    <!-- titulo de la caja  -->
                     <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                         <div class="margenArriba">
                             <label> Introduzca la contraseña actual</label>
                         </div>
                     </div>
-
+                    <!-- input de ingreso de contraseña -->
                     <div class="cajaTextoSeleccionAssesment">
                         <div class="cajaSelectorCentrado margenAbajo">
                             <input style="height:100%; width:100%; border-radius:5px;" type="password" name="password" id="password">
                         </div>
                     </div>
-
+                    <!-- titulo para introducir nueva contraseña -->
                     <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                         <div class="margenArriba">
                             <label> Introduzca la nueva contraseña para el usuario</label>
                         </div>
                     </div>
-
+                    <!-- input para introducir la nueva contraseña -->
                     <div class="cajaTextoSeleccionAssesment">
                         <div class="cajaSelectorCentrado margenAbajo">
                             <input style="height:100%; width:100%; border-radius:5px;" type="password" name="passwordModificar" id="passwordModificar">
                         </div>
                     </div>
-
+                    <!-- titulo para introducir nueva contraseña para verificacion -->
                     <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                         <div class="margenArriba">
                             <label> Introduzca de nuevo la contraseña para el usuario</label>
                         </div>
                     </div>
-
+                     <!-- input para introducir la nueva contraseña para verificacion  -->
                     <div class="cajaTextoSeleccionAssesment">
                         <div class="cajaSelectorCentrado margenAbajo">
                             <input style="height:100%; width:100%; border-radius:5px;" type="password" name="password2Modificar" id="password2Modificar">
                         </div>
                     </div>
 
+                    <!-- boton de envio de datos nueva contraseña -->
                     <div class="cajaBotonModificar">
                         <div class="cajaBotonModificar ">
                             <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton1" name="boton1" value="btn1"><i class="bi bi-pen"></i> Modificar </button>

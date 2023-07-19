@@ -5,28 +5,33 @@
 {% block contenido %}
 {% load static %}
 
+<!-- PAGINA PARA LA CREACION DE USUARIOS -->
 <div class="rowTitulo">
-    <!-- Titulo con el nombre del assessment -->
+    <!-- Titulo con el nombre de usuarios -->
     <div class="cajaTitulo">
         <h1>Usuarios</h1>
     </div>
 </div>
 
+<!-- fila de contenido para creacion de usuario -->
 <div class="rowTitulo">
     <div class="cajaSeleccionAsssessment">
         <div class="tarjeta">
+            <!-- titulo de modificacion de usuarios -->
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
                     Modificacion usuarios
                 </div>
             </div>
+            <!-- Caja modificacion de usuario -->
             <div class="textoTarjeta" >
-
+                <!-- seleccion de usuario -->
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                     <div class="margenArriba">
                         <label> Seleccione un Usuario</label>
                     </div>
                 </div>
+                <!-- formulario de seleccion de usuario -->
                 <form class="cajaTextoSeleccionAssesment" method="post">
                     {% csrf_token %}
                     <div class="cajaSelectorCentrado margenAbajo">
@@ -45,28 +50,31 @@
                         </select>
                     </div>
                 </form>
+
+                <!-- formulario pra crear usuario -->
                 {% if seleccionado %}
                 <form class="textoTarjeta" method="post" autocomplete="off">
                     {% csrf_token %}
-
+                    <!-- titulo -->
                     <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                         <div class="margenArriba">
                             <label> Introduzca el Nombre del usuario</label>
                         </div>
                     </div>
 
+
                     <div class="cajaTextoSeleccionAssesment">
                         <div class="cajaSelectorCentrado margenAbajo">
                             <input autocomplete="off" style="height:100%; width:100%; border-radius:5px;" type="text" name="nUsuarioModificar" id="nUsuarioModificar" value="{{seleccion.username}}">
                         </div>
                     </div>
-
+                    <!-- titulo -->
                     <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                         <div class="margenArriba">
                             <label> Seleccione un rol para el usuario</label>
                         </div>
                     </div>
-
+                    <!-- selector de rol de usuario -->
                     <div class="cajaTextoSeleccionAssesment">
                         <div class="cajaSelectorCentrado margenAbajo">
                             <select  class="selectpicker" data-live-search="true" data-width="100%" id="selector3" name="selector3" >
@@ -81,19 +89,19 @@
                             </select>
                         </div>
                     </div>
-
+                    <!-- titulo -->
                     <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                         <div class="margenArriba">
                             <label> Introduzca la contraseña para el usuario</label>
                         </div>
                     </div>
-
+                    <!-- input para contraseña -->
                     <div class="cajaTextoSeleccionAssesment">
                         <div class="cajaSelectorCentrado margenAbajo">
                             <input autocomplete="off" style="height:100%; width:100%; border-radius:5px;" type="password" name="passwordModificar" id="passwordModificar" value="{{seleccion.password}}">
                         </div>
                     </div>
-
+                    <!-- boton para insertar usuario -->
                     <div class="cajaBotonModificar">
                         <div class="cajaBotonModificar ">
                             <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton1" name="boton1" value="btn1"><i class="bi bi-pen"></i> Modificar </button>
@@ -111,43 +119,45 @@
 </div>
 
 
-
+<!-- caja de contenido -->
 <div class="rowTitulo">
     <div class="cajaTitulo fontGrande">
         ó
     </div>
 </div>
 
-
+<!-- fija de contenido -->
 <div class="rowTitulo">
     <div class="cajaSeleccionAsssessment">
         <div class="tarjeta">
+            <!-- titulo -->
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
                     Crear Usuario
                 </div>
             </div>
+            <!-- formulario para la creacion de usuario -->
             <form class="textoTarjeta" method="post" autocomplete="off">
                 {% csrf_token %}
-
+                <!-- titulo -->
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                     <div class="margenArriba">
                         <label> Introduzca el Nombre del usuario</label>
                     </div>
                 </div>
-
+                <!-- input de nombre de usuario -->
                 <div class="cajaTextoSeleccionAssesment">
                     <div class="cajaSelectorCentrado margenAbajo">
                         <input  style="height:100%; width:100%; border-radius:5px;" type="text" name="nUsuario" id="nUsuario">
                     </div>
                 </div>
-
+                <!-- input de contraseña -->
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                     <div class="margenArriba">
                         <label> Seleccione un rol para el usuario</label>
                     </div>
                 </div>
-
+                <!-- seleccion de rol de usuario -->
                 <div class="cajaTextoSeleccionAssesment">
                     <div class="cajaSelectorCentrado margenAbajo">
                         <select  class="selectpicker" data-live-search="true" data-width="100%" id="selector" name="selector" >
@@ -158,19 +168,19 @@
                         </select>
                     </div>
                 </div>
-
+                <!-- input de contraseña -->
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                     <div class="margenArriba">
                         <label> Introduzca la contraseña para el usuario</label>
                     </div>
                 </div>
-
+                <!-- inputs de validacion de contraseña -->
                 <div class="cajaTextoSeleccionAssesment">
                     <div class="cajaSelectorCentrado margenAbajo">
                         <input style="height:100%; width:100%; border-radius:5px;" type="password" name="password" id="password">
                     </div>
                 </div>
-
+                <!-- boton de insertar datos -->
                 <div class="cajaBotonSeleccionAssesment">
                     <div class="cajaBotonSeleccion ">
                         <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton3" name="boton3" value="btn3">Crear Usuario</button>

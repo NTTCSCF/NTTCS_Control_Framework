@@ -6,7 +6,7 @@
 
      <!-- titulo  -->
     <div class="rowTitulo">
-    <!-- Titulo con el nombre del assessment -->
+    <!-- Titulo con el nombre del assessment archivados -->
         <div class="cajaTitulo">
             <h1>Mantenimiento Assesments Archivados</h1>
         </div>
@@ -15,12 +15,14 @@
 
     <!-- SELECTOR TABLAS MAPEO -->
     <div class="">
+        <!-- formulario -->
         <form class="rowCajasMantenimiento " method="post">
             {% csrf_token %}
-
+            <!-- caja etiqueta de selector -->
             <div class="cajalabelMantenimiento">
                 <label style="font-size:1vw; padding:3%;" class="input-group-text " for="selector" >NTT Controles: </label>
             </div>
+            <!-- caja del selector -->
             <div class="cajaSelectorMantenimiento">
                 <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector" >
                     <option selected value="None">--- No Seleccionado ---</option>
@@ -38,7 +40,7 @@
     </div>
 
     {% if seleccionado %}
-    <!-- BOTONES DE BUSCAR, MODIFICAR Y ELIMINAR -->
+    <!-- Input de buscar -->
     <div class="rowCajasMantenimiento">
         <form class="cajaInputBuscar" method="post" >
             {% csrf_token %}
@@ -50,6 +52,7 @@
 
     <!-- TABLA DE CONTENIDO -->
     <table class="table table-fixed" id="datos">
+        <!-- header de la tabla -->
         <thead>
             <tr>
                 <th scope="col">id</th>
@@ -62,7 +65,9 @@
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
+        <!-- cuerpo de la tabla -->
         <tbody>
+        <!-- creacion de fila para insertar datos -->
             <tr>
                 <form method="post">
                     {% csrf_token %}
@@ -81,6 +86,7 @@
                     </td>
                 </form>
             </tr>
+            <!-- muestra el contenido de la tabla -->
             {% for ids in consulta %}
             <tr>
                 <form method="post">
@@ -108,9 +114,6 @@
     </table>
 
     {% endif %}
-
-
-
 
 
 {% endblock %}

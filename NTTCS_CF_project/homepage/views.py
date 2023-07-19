@@ -722,7 +722,9 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
+
         if 'insertar' in request.POST:
+
             evidence_request_references = request.POST.get(
                 'evidence_request_references')  # valor del input de evidence_request_references
             area_of_focus = request.POST.get('area_of_focus')  # valor del input de area_of_focus
@@ -749,8 +751,7 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
             consulta.control_mappings = control_mappings
             consulta.save()  # fijamos los valores y los guardamos.
         elif 'eliminar' in request.POST:
-            evidence_request_references = request.POST.get(
-                'evidence_request_references')  # valor del input de evidence_request_references
+            evidence_request_references = request.POST.get('evidence_request_references')  # valor del input de evidence_request_references
 
             consulta = Evidencerequestcatalog.objects.get(evidence_request_references=evidence_request_references)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
@@ -758,8 +759,7 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
         context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
         context["consulta"] = Evidencerequestcatalog.objects.all()
         context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
-        return render(request, self.template_name,
-                      context=context)  # siempre retornamos el valor con la tabla completa.
+        return render(request, self.template_name,context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
