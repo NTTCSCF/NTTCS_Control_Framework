@@ -3,3 +3,4 @@ pymysql
 mysqlclient
 mysql
 mysql-connector-python
+xlsxwriter
