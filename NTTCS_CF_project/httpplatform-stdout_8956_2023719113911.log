@@ -1,15 +1,4 @@
 Watching for file changes with StatReloader
-[19/Jul/2023 13:36:48] "GET / HTTP/1.1" 200 1530
-C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py changed, reloading.
-Performing system checks...
-
-System check identified no issues (0 silenced).
-July 19, 2023 - 13:36:48
-Django version 4.2.2, using settings 'NTTCS_CF_project.settings'
-Starting development server at http://127.0.0.1:2118/
-Quit the server with CTRL-BREAK.
-
-Watching for file changes with StatReloader
 Exception in thread django-main-thread:
 Traceback (most recent call last):
   File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\threading.py", line 1038, in _bootstrap_inner

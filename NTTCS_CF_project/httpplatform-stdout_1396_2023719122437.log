@@ -1,0 +1,16 @@
+Watching for file changes with StatReloader
+Not Found: /files/
+[19/Jul/2023 14:24:40] "GET /files/ HTTP/1.1" 404 6498
+Not Found: /_profiler/phpinfo
+[19/Jul/2023 14:29:35] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+Not Found: /_profiler/phpinfo
+[19/Jul/2023 14:29:36] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+[19/Jul/2023 14:36:13] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 14:41:27] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 14:41:27] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 5487
+Not Found: /.env
+[19/Jul/2023 14:47:41] "GET /.env HTTP/1.1" 404 6492
+[19/Jul/2023 14:54:40] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 14:54:41] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[19/Jul/2023 14:54:41] "GET /favicon.ico HTTP/1.1" 404 6513

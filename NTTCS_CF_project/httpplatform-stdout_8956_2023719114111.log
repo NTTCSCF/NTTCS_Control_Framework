@@ -1,0 +1,98 @@
+Watching for file changes with StatReloader
+[19/Jul/2023 13:41:14] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 13:41:14] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 13:41:14] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 13:41:14] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[19/Jul/2023 13:41:14] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[19/Jul/2023 13:41:14] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 5487
+[19/Jul/2023 13:41:27] "POST / HTTP/1.1" 302 0
+[19/Jul/2023 13:41:27] "GET /menu/ HTTP/1.1" 200 9259
+[19/Jul/2023 13:41:27] "GET /staticfiles/js/scripts.js HTTP/1.1" 304 0
+[19/Jul/2023 13:41:27] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[19/Jul/2023 13:41:27] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[19/Jul/2023 13:41:27] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[19/Jul/2023 13:41:31] "GET /exportaciones/ HTTP/1.1" 200 11284
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\xlsxwriter\workbook.py", line 322, in close
+    self._store_workbook()
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\xlsxwriter\workbook.py", line 667, in _store_workbook
+    raise e
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\xlsxwriter\workbook.py", line 660, in _store_workbook
+    xlsx_file = ZipFile(
+                ^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\zipfile.py", line 1284, in __init__
+    self.fp = io.open(file, filemode)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'Exportaciones/pAssessment1_Export_19_7_2023_13_41.xlsx'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 579, in post
+    workbook.close()
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\xlsxwriter\workbook.py", line 324, in close
+    raise FileCreateError(e)
+xlsxwriter.exceptions.FileCreateError: [Errno 2] No such file or directory: 'Exportaciones/pAssessment1_Export_19_7_2023_13_41.xlsx'
+[19/Jul/2023 13:41:36] "POST /exportaciones/ HTTP/1.1" 500 115825
+Not Found: /favicon.ico
+[19/Jul/2023 13:41:36] "GET /favicon.ico HTTP/1.1" 404 6513
+[19/Jul/2023 13:42:24] "GET /exportaciones/ HTTP/1.1" 200 11284
+[19/Jul/2023 13:42:24] "GET /staticfiles/css/estilos.css HTTP/1.1" 304 0
+[19/Jul/2023 13:42:30] "POST /exportaciones/ HTTP/1.1" 200 106467
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 530, in post
+    c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+homepage.models.Evidencerequestcatalog.DoesNotExist: Evidencerequestcatalog matching query does not exist.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 533, in post
+    c = Evidencias.objects.get(evidencia_id=i)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+homepage.models.Evidencias.DoesNotExist: Evidencias matching query does not exist.
+[19/Jul/2023 13:44:13] "POST /exportaciones/ HTTP/1.1" 500 114369
+[19/Jul/2023 13:44:16] "GET /exportaciones/ HTTP/1.1" 200 11284
