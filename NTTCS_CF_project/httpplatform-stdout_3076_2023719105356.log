@@ -1,0 +1,22 @@
+Watching for file changes with StatReloader
+Not Found: /robots.txt
+[19/Jul/2023 12:53:59] "GET /robots.txt HTTP/1.1" 404 6503
+Not Found: /robots.txt
+[19/Jul/2023 12:54:00] "GET /robots.txt HTTP/1.1" 404 6503
+[19/Jul/2023 13:03:28] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 13:03:28] "GET /staticfiles/css/estilos.css HTTP/1.1" 304 0
+[19/Jul/2023 13:04:00] "POST / HTTP/1.1" 302 0
+[19/Jul/2023 13:04:00] "GET /menu/ HTTP/1.1" 200 9259
+[19/Jul/2023 13:04:00] "GET /staticfiles/css/ass.css HTTP/1.1" 200 6958
+[19/Jul/2023 13:04:00] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 1798
+[19/Jul/2023 13:04:00] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[19/Jul/2023 13:04:05] "GET /assessmentselect/ HTTP/1.1" 200 21246
+[19/Jul/2023 13:04:07] "POST /assessmentselect/ HTTP/1.1" 302 0
+[19/Jul/2023 13:04:07] "GET /assessment/ HTTP/1.1" 200 63934
+[19/Jul/2023 13:04:10] "GET /assessmentselect/ HTTP/1.1" 200 21246
+[19/Jul/2023 13:04:11] "POST /assessmentselect/ HTTP/1.1" 302 0
+[19/Jul/2023 13:04:12] "GET /assessment/ HTTP/1.1" 200 81751
+[19/Jul/2023 13:04:14] "POST /assessment/ HTTP/1.1" 200 92228
+[19/Jul/2023 13:04:52] "POST /assessment/ HTTP/1.1" 200 88608
+[19/Jul/2023 13:04:59] "POST /assessment/ HTTP/1.1" 200 92300
+[19/Jul/2023 13:05:05] "POST /assessment/ HTTP/1.1" 200 92228

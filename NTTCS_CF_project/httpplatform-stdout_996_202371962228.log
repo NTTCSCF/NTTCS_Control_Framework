@@ -269,3 +269,4 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'EliminarDominios' not found.
 [19/Jul/2023 08:59:05] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
 [19/Jul/2023 08:59:06] "GET /assessmentselect/ HTTP/1.1" 200 21024
 [19/Jul/2023 08:59:07] "GET /informes/ HTTP/1.1" 200 9603
+[19/Jul/2023 09:05:26] "GET / HTTP/1.1" 200 1530

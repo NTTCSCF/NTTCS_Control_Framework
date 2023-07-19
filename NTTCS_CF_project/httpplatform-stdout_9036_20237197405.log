@@ -1,0 +1,35 @@
+Watching for file changes with StatReloader
+[19/Jul/2023 09:40:08] "GET /assessmentselect/ HTTP/1.1" 200 21138
+[19/Jul/2023 09:40:53] "GET /mantenimientoNivelMadurez/ HTTP/1.1" 200 35954
+[19/Jul/2023 09:41:06] "GET /perfil/ HTTP/1.1" 200 11917
+[19/Jul/2023 09:45:38] "GET /assessmentselect/ HTTP/1.1" 200 21138
+[19/Jul/2023 09:45:42] "POST /assessmentselect/ HTTP/1.1" 302 0
+[19/Jul/2023 09:45:42] "GET /assessment/ HTTP/1.1" 200 81751
+[19/Jul/2023 09:45:49] "GET /assessmentselect/ HTTP/1.1" 200 21138
+[19/Jul/2023 09:46:16] "GET /menu/ HTTP/1.1" 200 9259
+[19/Jul/2023 09:46:16] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[19/Jul/2023 09:48:54] "GET /assessmentselect/ HTTP/1.1" 200 21138
+[19/Jul/2023 09:55:09] "GET /informes/ HTTP/1.1" 200 9603
+[19/Jul/2023 09:56:06] "GET /exportaciones/ HTTP/1.1" 200 10770
+[19/Jul/2023 09:57:26] "GET /mantenimientoNivelMadurez/ HTTP/1.1" 200 35954
+[19/Jul/2023 09:57:40] "GET /MantenimientoMarcosExistentes/ HTTP/1.1" 200 84337
+[19/Jul/2023 09:57:42] "GET /MantenimientoDominios/ HTTP/1.1" 200 65246
+[19/Jul/2023 09:57:46] "GET /MantenimientoPreguntas/ HTTP/1.1" 200 1581866
+[19/Jul/2023 09:57:46,208] - Broken pipe from ('127.0.0.1', 53714)
+[19/Jul/2023 09:57:49] "GET /MantenimientoPreguntas/ HTTP/1.1" 200 1581866
+[19/Jul/2023 09:57:52] "GET /MantenimientoMapeoMarcos/ HTTP/1.1" 200 21646
+[19/Jul/2023 09:58:47] "GET /MantenimientoMarcosExistentes/ HTTP/1.1" 200 84337
+[19/Jul/2023 09:58:54] "GET /MantenimientoMarcosExistentes/ HTTP/1.1" 200 84337
+[19/Jul/2023 09:59:13] "GET /MantenimientoControlesNTTCS/ HTTP/1.1" 200 2621462
+[19/Jul/2023 09:59:13,904] - Broken pipe from ('127.0.0.1', 53720)
+[19/Jul/2023 09:59:17] "GET /MantenimientoControlesNTTCS/ HTTP/1.1" 200 2621462
+[19/Jul/2023 09:59:31] "GET /MantenimientoPreguntas/ HTTP/1.1" 200 1581866
+[19/Jul/2023 09:59:50] "GET /informes/ HTTP/1.1" 200 9603
+[19/Jul/2023 09:59:52] "GET /exportaciones/ HTTP/1.1" 200 10770
+[19/Jul/2023 10:03:51] "GET /usuarios/ HTTP/1.1" 200 14650
+[19/Jul/2023 10:05:08] "GET /usuarios/ HTTP/1.1" 302 0
+[19/Jul/2023 10:05:08] "GET /accounts/login/?redirect_to=/usuarios/ HTTP/1.1" 200 1530
+[19/Jul/2023 10:06:47] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 10:07:36] "GET /mantenimientoNivelMadurez/ HTTP/1.1" 200 35954
+[19/Jul/2023 10:08:32] "GET /accounts/logout/ HTTP/1.1" 302 0
+[19/Jul/2023 10:08:32] "GET / HTTP/1.1" 200 1530

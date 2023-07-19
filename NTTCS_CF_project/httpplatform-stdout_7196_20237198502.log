@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+[19/Jul/2023 10:50:05,505] - Broken pipe from ('127.0.0.1', 53975)
+Not Found: /payment/index.php
+[19/Jul/2023 10:50:05] "GET /payment/index.php HTTP/1.1" 404 6529
+[19/Jul/2023 10:54:16] "GET / HTTP/1.0" 200 1530
+[19/Jul/2023 10:57:26] "GET / HTTP/1.1" 200 1530
+[19/Jul/2023 10:57:27] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 5277
+[19/Jul/2023 10:57:27] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[19/Jul/2023 10:57:27] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[19/Jul/2023 10:57:27] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
