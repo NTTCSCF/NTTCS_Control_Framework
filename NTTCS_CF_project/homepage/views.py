@@ -15,7 +15,7 @@ from django.views.generic import TemplateView
 import mysql.connector
 from django.contrib import messages
 import csv
-import xlsxwriter
+#import xlsxwriter
 
 
 # Create your views here.
