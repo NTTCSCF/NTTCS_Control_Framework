@@ -8,25 +8,25 @@
 
     <!-- titulo  -->
     <div class="rowTitulo">
-    <!-- Titulo con el nombre del assessment -->
+    <!-- Titulo con el nombre de nivel de madurez -->
         <div class="cajaTitulo">
             <h1>Mantenimiento Nivel de Madurez</h1>
         </div>
     </div>
 
     <div class="rowCajasMantenimiento">
-
+        <!-- caja para el input de busqueda -->
         <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
             <div class="cajaInputBuscar input-group">
                 <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda" onkeyup="doSearch()">
-
             </div>
         </form>
     </div>
 
         <!-- tabla de contenido de los controles  -->
         <table class="table table-fixed" id="datos">
+             <!-- header de la tabla -->
             <thead>
                 <tr>
                     <th scope="col">Ccmmcod</th>
@@ -37,6 +37,7 @@
                 </tr>
             </thead>
             <tbody>
+            <!-- creacion de fila para insertar datos -->
                 <tr>
                     <form method="post">
                         {% csrf_token %}
@@ -53,6 +54,7 @@
                     </form>
                 </tr>
 
+                <!-- muestra el contenido de la tabla -->
                 {% for ids in consulta %}
                 <tr>
                     <form method="post">
@@ -76,41 +78,6 @@
 
             </tbody>
         </table>
-
-
-
-
-
-
-
-
-        <!-- formulario para insertar datos COPIA ORIGINAL
-        <div class="tablasInsertar">
-            <form class="tablasInsertarFlex" method="post">
-                {% csrf_token %}
-                <div class="cajaInsertar1">
-                    <label for="Ccmmcod">Ccmmcod</label>
-                    <input style="width:100%;height:20px;" type="text" id="Ccmmcod" name="Ccmmcod" value="{{seleccion.ccmmcod}}">
-                </div>
-                <div class="cajaInsertar2">
-                    <label for="Description">Description</label>
-                    <input style="width:100%;height:20px;" type="text" id="Description" name="Description" value="{{seleccion.description}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="Sublevels">Sublevels</label>
-                    <input style="width:100%;height:20px;" type="text" id="Sublevels" name="Sublevels" value="{{seleccion.sublevels}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="Percentage">Percentage</label>
-                    <input style="width:100%;height:20px;" type="text" id="Percentage" name="Percentage" value="{{seleccion.percentage}}">
-                </div>
-                <div class="cajaInsertar1 cajaButton" >
-                    <button class="btnBorde btnTablas2"  type="submit">Insertar</button>
-                </div>
-            </form>
-        </div>
-        -->
-
 
 
 {% endblock %}
