@@ -305,11 +305,16 @@ body {
     margin-top: 15px;
 }
 
-.pie-form .aPie .spanPie {
+.pie-form .aPie {
     display: block;
     text-decoration: none;
     color: #bbe1fa;
     margin-bottom: 3px;
+}
+
+.pie-form .spanPie {
+    display: block;
+    color: #bbe1fa;
 }
 
 .pie-form .aPie:hover {
