@@ -11,7 +11,7 @@
 
     <!-- titulo  -->
     <div class="rowTitulo">
-    <!-- Titulo con el nombre del assessment -->
+    <!-- Titulo con el nombre de dominios -->
         <div class="cajaTitulo">
             <h1>Mantenimiento Dominios</h1>
         </div>
@@ -30,6 +30,7 @@
     <!-- INSERTAR DATOS -->
     <!-- tabla de contenido -->
     <table class="table table-fixed" id="datos">
+        <!-- header de la tabla -->
         <thead>
             <form action="post">
                 <tr scope="rowgroup">
@@ -42,8 +43,9 @@
             </form>
 
         </thead>
+        <!-- cuerpo de la tabla -->
         <tbody>
-
+            <!-- creacion de fila para insertar datos -->
             <tr>
                 <form method="post">
                     {% csrf_token %}
@@ -59,7 +61,7 @@
                 </form>
             </tr>
 
-
+            <!-- muestra el contenido de la tabla -->
             {% for ids in consulta %}
             <tr>
                 <form method="post">

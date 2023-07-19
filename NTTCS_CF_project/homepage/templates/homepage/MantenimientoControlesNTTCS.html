@@ -8,7 +8,7 @@
 
     <!-- titulo  -->
     <div class="rowTitulo">
-        <!-- Titulo con el nombre del assessment -->
+        <!-- Titulo con el nombre de controles NTTCS -->
         <div class="cajaTitulo">
             <h1>Mantenimiento Controles NTTCS</h1>
         </div>
@@ -16,6 +16,7 @@
 
     <!-- input de buscar  -->
     <div class="rowCajasMantenimiento">
+        <!-- caja buscar -->
         <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
             <div class="cajaInputBuscar input-group">
@@ -26,6 +27,7 @@
 
     <!-- TABLA DE CONTENIDO -->
     <table class="table table-fixed" id="datos">
+        <!-- header de la tabla -->
         <thead>
             <tr>
                 <th scope="col">Domain</th>
@@ -43,7 +45,9 @@
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
+        <!-- cuerpo de la tabla -->
         <tbody>
+        <!-- creacion de fila para insertar datos -->
             <tr>
                 <form method="post">
                     {% csrf_token %}
@@ -66,7 +70,7 @@
                     </td>
                 </form>
             </tr>
-
+            <!-- muestra el contenido de la tabla -->
             {% for ids in consulta %}
             <tr>
                 <form method="post">

@@ -638,41 +638,9 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
-<<<<<<< HEAD
-        if request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
-            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
 
-            if busqueda == '':  # detectamos si el valor del buscador esta vacio
-                context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-                context["consulta"] = Evidencerequestcatalog.objects.all()  # pasamos el valor de la tabla completa
-                context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
-                return render(request, self.template_name, context=context)
-            else:
-                consulta = Evidencerequestcatalog.objects.get(
-                    evidence_request_references=busqueda)  # consultamos el valor buscado en la tabla
-                context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-                context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
-                context["lenConsulta"] = 1  # pasamos la longitud de la consulta.
-                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
-                return render(request, self.template_name, context=context)
-
-        elif 'insertar' in request.POST:
-            evidence_request = request.POST.get('evidence_request')  # valor del input de ntt_id
-            area_of_focus = request.POST.get('area_of_focus')  # valor del input area of focus
-            artifact = request.POST.get('artifact') #valor del input artifact
-            artifact_description = request.POST.get('artifact_description')  # valor del input de artifact_description
-            control_mappings = request.POST.get('control_mappings')  # valor del input de control_mappings
-            query = "INSERT INTO " + request.session["seleccion"] + " (NTT_ID, " + request.session[
-                "seleccion"] + ") VALUES('" + ntt_id + "', '" + marco + "');"  # creamos un nuevo input en la tabla
-            mycursor = self.conn.cursor()
-            mycursor.execute(query)
-            self.conn.commit()
-
-        elif request.POST.get(
-                'evidence_request_references') != None:  # if que recoge la pulsacion del boton de insertar.
-=======
         if 'insertar' in request.POST:
->>>>>>> main
+
             evidence_request_references = request.POST.get(
                 'evidence_request_references')  # valor del input de evidence_request_references
             area_of_focus = request.POST.get('area_of_focus')  # valor del input de area_of_focus
@@ -699,7 +667,7 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
             consulta.control_mappings = control_mappings
             consulta.save()  # fijamos los valores y los guardamos.
         elif 'eliminar' in request.POST:
-            evidence_request_references = request.POST.get(evidence_request_references')  # valor del input de evidence_request_references
+            evidence_request_references = request.POST.get('evidence_request_references')  # valor del input de evidence_request_references
 
             consulta = Evidencerequestcatalog.objects.get(evidence_request_references=evidence_request_references)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
