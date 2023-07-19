@@ -35,7 +35,7 @@
     <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
 </head>
 <body>
-
+    <!-- CONTENIDO DE LA PAGINA -->
     <div class="pagina">
         <div class="contenido" style="width:100%;">
             <div class="rowTitulo">
@@ -45,6 +45,7 @@
                 </div>
             </div>
 
+            <!-- ACTUALIZAR CONTRASEÑA -->
             <div class="rowTitulo">
                 <div class="cajaSeleccionAsssessment">
                     <div class="tarjeta">
@@ -109,7 +110,7 @@
 
 
 
-
+        <!-- Codigo JS mensaje -->
         {% if messages %}
             {% for message in messages %}
                 {% if message.tags %}

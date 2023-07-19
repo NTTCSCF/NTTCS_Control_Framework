@@ -18,11 +18,15 @@
 <div class="rowTitulo">
     <div class="cajaSeleccionAsssessment">
         <div class="tarjeta">
+
+            <!-- Titulo de la pagina del contenido -->
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
                     Exportar Assessment
                 </div>
             </div>
+
+            <!-- formulario Creacion de la tarjeta de contenido -->
             <form class="textoTarjeta" method="post">
                 {% csrf_token %}
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
@@ -30,6 +34,7 @@
                         <label> Seleccione un Assessment</label>
                     </div>
                 </div>
+                <!-- seleccion del assessment para generar el fichero de exportacion -->
                 <div class="cajaTextoSeleccionAssesment">
                     <div class="cajaSelectorCentrado margenAbajo">
                         <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"   id="selector1" name="selector1">
@@ -40,7 +45,7 @@
                         </select>
                     </div>
                 </div>
-                <!-- Section botones -->
+                <!-- Section botones por tipo de formato -->
                 <div class="rowExport">
                     <div class="btn-group-lg btnGroupInformes" role="group">
                         <button class="btn btn-success" ><i class="bi bi-file-earmark-spreadsheet"></i> Excel </button>
