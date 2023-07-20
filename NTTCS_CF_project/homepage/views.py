@@ -476,7 +476,6 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 mycursor.execute(query)
 
             self.conn.commit()
-            self.conn.close()
             c = Assessmentguardados(id_assessment=nombre, marcos=marcos,
                                     archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
             c.save()
@@ -1150,7 +1149,6 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
         mycursor.execute(
             "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "';")
         conn.commit()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
-        conn.close()
         return redirect('MantenimientoAssessmentArchivados')
 
 

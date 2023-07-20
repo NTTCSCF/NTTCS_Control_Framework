@@ -1,0 +1,79 @@
+Watching for file changes with StatReloader
+[20/Jul/2023 09:05:06] "GET /assessmentselect/ HTTP/1.1" 200 21254
+[20/Jul/2023 09:05:28] "GET /mantenimientoNivelMadurez/ HTTP/1.1" 200 33480
+[20/Jul/2023 09:06:14] "GET /assessmentselect/ HTTP/1.1" 200 21254
+[20/Jul/2023 09:06:30] "POST /mantenimientoNivelMadurez/ HTTP/1.1" 200 34676
+[20/Jul/2023 09:06:36] "POST /mantenimientoNivelMadurez/ HTTP/1.1" 200 33480
+[20/Jul/2023 09:06:48] "POST /assessmentselect/ HTTP/1.1" 302 0
+[20/Jul/2023 09:06:49] "GET /assessment/ HTTP/1.1" 200 49621
+[20/Jul/2023 09:09:40] "GET /MantenimientoAssessmentArchivados/ HTTP/1.1" 200 9929
+[20/Jul/2023 09:09:53] "GET /MantenimientoMapeoMarcos/ HTTP/1.1" 200 20536
+[20/Jul/2023 09:09:57] "POST /MantenimientoMapeoMarcos/ HTTP/1.1" 200 410528
+[20/Jul/2023 09:10:06] "GET /MantenimientoMarcosExistentes/ HTTP/1.1" 200 79749
+[20/Jul/2023 09:10:20] "GET /MantenimientoDominios/ HTTP/1.1" 200 65470
+[20/Jul/2023 09:10:34] "GET /MantenimientoControlesNTTCS/ HTTP/1.1" 200 2621704
+[20/Jul/2023 09:13:28] "GET /MantenimientoAssessmentArchivados/ HTTP/1.1" 200 9929
+Internal Server Error: /MantenimientoAssessmentArchivados/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 611, in cmd_query
+    self._cmysql.query(
+_mysql_connector.MySQLInterfaceError: Table 'nttcs_cf.passessment1' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 1054, in post
+    mycursor.execute("SELECT * FROM " + selector)  # realizamos la consulta para obtener los contrloles
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 330, in execute
+    result = self._cnx.cmd_query(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 619, in cmd_query
+    raise get_mysql_exception(
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'nttcs_cf.passessment1' doesn't exist
+[20/Jul/2023 09:13:32] "POST /MantenimientoAssessmentArchivados/ HTTP/1.1" 500 91444
+Internal Server Error: /MantenimientoAssessmentArchivados/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 1134, in get_context_data
+    s = Assessmentguardados.objects.get(archivado=1)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+homepage.models.Assessmentguardados.DoesNotExist: Assessmentguardados matching query does not exist.
+[20/Jul/2023 09:14:38] "GET /MantenimientoAssessmentArchivados/ HTTP/1.1" 500 89493
