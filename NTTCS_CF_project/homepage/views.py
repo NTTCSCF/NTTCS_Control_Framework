@@ -1,4 +1,5 @@
 import mimetypes
+from time import sleep
 from typing import Dict, Any
 
 from django.contrib.auth import authenticate, login
@@ -259,13 +260,14 @@ class assessment(LoginRequiredMixin, TemplateView):
                 evidenciasParaBuscar = fila[6].split('\n')
                 evidencias = []
                 for i in evidenciasParaBuscar:
-                    try:
-                        c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
-                        evidencias += ['<p>' + c.evidence_request_references + ', ' + c.artifact_description + '</p>']
-                    except:
-                        c = Evidencias.objects.get(evidencia_id=i)
-                        evidencias += [
-                            '<p>' + c.evidencia_id + ', ' + c.comentario + ', <a href="' + c.links + '">' + c.links + '</a>' + '</p>']
+                    if i != '':
+                        if Evidencerequestcatalog.objects.filter(evidence_request_references=i).exists() == True:
+                            c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                            evidencias += ['<p>' + c.evidence_request_references + ', ' + c.artifact_description + '</p>']
+                        else:
+                            c = Evidencias.objects.get(evidencia_id=i)
+                            evidencias += [
+                                '<p>' + c.evidencia_id + ', ' + c.comentario + ', <a href="' + c.links + '">' + c.links + '</a>' + '</p>']
             else:
                 evidencias = ['']
 
@@ -312,10 +314,10 @@ class assessment(LoginRequiredMixin, TemplateView):
             if request.session["controlSelect"] != 'noSel':
                 consulta = Assessment.objects.get(
                     id=request.session["controlSelect"])  # consulta para consegir los valores del control seleccionado
-                query = """UPDATE """ + assSelect + """ SET descripcion='""" + consulta.control_description + """', 
-                pregunta='""" + consulta.control_question + """', respuesta='""" + \
-                        str(request.POST.get('respuesta')) + """', valoracion='""" + request.POST.get('valmad') + """' 
-                        WHERE ID='""" + consulta.id + """';"""  # consulta para rellenar los valores del control
+                query = '''UPDATE ''' + assSelect + ''' SET descripcion="''' + consulta.control_description + '''", 
+                pregunta="''' + consulta.control_question + '''", respuesta="''' + \
+                        str(request.POST.get('respuesta')) + '''", valoracion="''' + request.POST.get('valmad') + '''" 
+                        WHERE ID="''' + consulta.id + '''";'''  # consulta para rellenar los valores del control
                 # seleccionado
                 mycursor = self.conn.cursor()
                 mycursor.execute(query)
@@ -352,11 +354,11 @@ class assessment(LoginRequiredMixin, TemplateView):
                         for fila in mycursor:
                             evidencia = fila[6]
                         evidencia += '\n' + idEvidencia
-                        query = """UPDATE """ + assSelect + """ SET descripcion='""" + consulta.control_description + """', 
-                                        pregunta='""" + consulta.control_question + """', respuesta='""" + \
-                                str(request.POST.get('respuesta')) + """', valoracion='""" + request.POST.get(
-                            'valmad') + """', evidencia='""" + evidencia + """'
-                                                WHERE ID='""" + controlId + """';"""  # consulta para rellenar los valores del control seleccionado
+                        query = '''UPDATE ''' + assSelect + ''' SET descripcion="''' + consulta.control_description + '''", 
+                                        pregunta="''' + consulta.control_question + '''", respuesta="''' + \
+                                str(request.POST.get('respuesta')) + '''", valoracion="''' + request.POST.get(
+                            'valmad') + '''", evidencia="''' + evidencia + '''"
+                                                WHERE ID="''' + controlId + '''";'''  # consulta para rellenar los valores del control seleccionado
                         mycursor = self.conn.cursor()
                         mycursor.execute(query)
                         self.conn.commit()
@@ -474,8 +476,9 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     "''' + criterioVal.replace('"', "'") + '''", "", "", "''' + evidencia + '''");'''  # query
                 # para insertar en la tabla del assessment creado, todos los controles de ntt
                 mycursor.execute(query)
+                self.conn.commit()
+                sleep(0.005)
 
-            self.conn.commit()
             c = Assessmentguardados(id_assessment=nombre, marcos=marcos,
                                     archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
             c.save()
@@ -581,6 +584,7 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                 response = HttpResponse(file.read(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
                 response['Content-Disposition'] = f"attachment; filename={filename}"
             return response
+
         if 'word' == word:
             pass
         context = super(Exportaciones, self).get_context_data(**knwargs)
@@ -1040,7 +1044,7 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             selector = request.POST.get('selector')  # guardamos el valor del selecctor de marcos
             if selector == 'None':
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-                s = Assessmentguardados.objects.get(archivado=1)
+                s = Assessmentguardados.objects.filter(archivado=1)
                 try:
                     len(s)
                     p = s
@@ -1054,7 +1058,7 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
                 mycursor.execute("SELECT * FROM " + selector)  # realizamos la consulta para obtener los contrloles
                 # del marco seleccionado
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-                s = Assessmentguardados.objects.get(archivado=1)
+                s = Assessmentguardados.objects.filter(archivado=1)
                 try:
                     len(s)
                     p = s
@@ -1114,22 +1118,26 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             mycursor.execute(query)
             self.conn.commit()
         elif 'eliminarAssessment' in request.POST:
+
+            consulta = Assessmentguardados.objects.get(id_assessment=request.session.get('seleccion'))
+            ev = Evidencias.objects.all()
+
+            for i in ev:
+                if i.assessment.id_assessment == consulta.id_assessment:
+                    i.delete()
+
+            consulta.delete()
+
             query = "DROP TABLE " + request.session.get('seleccion')  # eliminamos la tabla
             mycursor = self.conn.cursor()
             mycursor.execute(query)
-            consulta = Assessmentguardados.objects.filter(id_assessment=request.session.get('seleccion'))
-            try:
-                c = Evidencias.objects.filter(assessment=consulta)
-                c.delete()
-            finally:
-                consulta.delete()
 
-            return request('/menu/')
+            return redirect('menu')
 
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + request.session["seleccion"])
         context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-        s = Assessmentguardados.objects.get(archivado=1)
+        s = Assessmentguardados.objects.filter(archivado=1)
         try:
             len(s)
             p = s
@@ -1143,7 +1151,7 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-        s = Assessmentguardados.objects.get(archivado=1)
+        s = Assessmentguardados.objects.filter(archivado=1)
         try:
             len(s)
             p = s
