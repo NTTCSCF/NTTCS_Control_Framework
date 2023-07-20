@@ -1113,6 +1113,18 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             mycursor = self.conn.cursor()
             mycursor.execute(query)
             self.conn.commit()
+        elif 'eliminarAssessment' in request.POST:
+            query = "DROP TABLE " + request.session.get('seleccion')  # eliminamos la tabla
+            mycursor = self.conn.cursor()
+            mycursor.execute(query)
+            consulta = Assessmentguardados.objects.filter(id_assessment=request.session.get('seleccion'))
+            try:
+                c = Evidencias.objects.filter(assessment=consulta)
+                c.delete()
+            finally:
+                consulta.delete()
+
+            return request('/menu/')
 
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + request.session["seleccion"])

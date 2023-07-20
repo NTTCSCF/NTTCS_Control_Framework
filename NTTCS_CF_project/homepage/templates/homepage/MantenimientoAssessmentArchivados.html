@@ -42,12 +42,19 @@
     {% if seleccionado %}
     <!-- Input de buscar -->
     <div class="rowCajasMantenimiento">
-        <form class="cajaInputBuscar" method="post" >
-            {% csrf_token %}
-                <input class="form-control form-control-lg" aria-label=".form-control-lg example" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
-        </form>
+        <div class="cajaAccionesMantenimiento">
+            <form class="cajaInputBuscar" method="post" >
+                {% csrf_token %}
+                    <input class="form-control form-control-lg" aria-label=".form-control-lg example" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
+            </form>
 
-
+            <form class="cajaBotonEliminarAssessment" method="post" >
+                {% csrf_token %}
+                    <button class="btn btn-danger btn-lg btn-block" style="font-size:0.7vw;" title="Eliminar Assessment" id="eliminarAssessment" name="eliminarAssessment">
+                        <i class="bi bi-trash3"></i> Eliminar Assessment
+                    </button>
+            </form>
+        </div>
     </div>
 
     <!-- TABLA DE CONTENIDO -->
