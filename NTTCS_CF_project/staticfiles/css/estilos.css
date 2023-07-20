@@ -68,6 +68,7 @@
     height:100%;
     width:100%;
     border:0;
+    overflow:auto;
 }
 
 .cajaBuscar{
@@ -104,6 +105,17 @@
     height:100%;
     margin:1%;
 }
+.cajaCarga{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-content:cente;
+    margin:2%;
+
+}
+
 
 .cajaBotonEliminarAssessment{
     width:30%;

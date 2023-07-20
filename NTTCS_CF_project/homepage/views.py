@@ -431,60 +431,66 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             return redirect("assessment")
 
         elif nombre != '' and select2 != None:
-            query = '''CREATE TABLE ''' + nombre + ''' (
-                                ID varchar(100) NOT NULL,
-                                descripcion text NULL,
-                                pregunta text NULL,
-                                criterioValoracion text NULL,
-                                respuesta text NULL,
-                                valoracion text NULL,
-                                evidencia text NULL,
-                                CONSTRAINT NewTable_pk PRIMARY KEY (ID)
-                            )
-                            ENGINE=InnoDB
-                            DEFAULT CHARSET=utf8mb4
-                            COLLATE=utf8mb4_0900_ai_ci;'''  # query para la creacion de la tabla para uardar el assessment
-            mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute(query)
-
-            marcos = ''
-            marc = []
-            mycursor = self.conn.cursor(buffered=True)
-            for i in select2:  # recorremos el segundo selector
-
-                mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(
-                    marco_id=i).nombre_tabla)  # query para seleccionar la tabla del marco seleccionado
-                for fila in mycursor:
-                    if fila[0] not in marc:
-                        marc += [fila[
-                                     0]]  # recorremos la tabla del marco cogiendo los controles de ntt que no este repetidos
-
-            for marco in marc:
-                marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
+            if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
+                query = '''CREATE TABLE ''' + nombre + ''' (
+                                    ID varchar(100) NOT NULL,
+                                    descripcion text NULL,
+                                    pregunta text NULL,
+                                    criterioValoracion text NULL,
+                                    respuesta text NULL,
+                                    valoracion text NULL,
+                                    evidencia text NULL,
+                                    CONSTRAINT NewTable_pk PRIMARY KEY (ID)
+                                )
+                                ENGINE=InnoDB
+                                DEFAULT CHARSET=utf8mb4
+                                COLLATE=utf8mb4_0900_ai_ci;'''  # query para la creacion de la tabla para uardar el assessment
                 mycursor = self.conn.cursor(buffered=True)
-                consulta = Assessment.objects.get(id=marco)
-                criterioVal = consulta.campo9 + '\n' + consulta.campo10 + '\n' + consulta.campo11 + '\n' + consulta.campo12 + '\n' + consulta.campo13 + '\n' + consulta.campo14
-                if consulta.evidence_request_references != None:
-                    evidencia = consulta.evidence_request_references
-                else:
-                    evidencia = ''
-                query = '''INSERT INTO ''' + nombre + '''(ID, descripcion, pregunta, criterioValoracion, respuesta, 
-                    valoracion, evidencia) VALUES("''' + str(
-                    marco) + '''", "''' + consulta.control_description.replace('"',
-                                                                               "'") + '''", "''' + consulta.control_question.replace(
-                    '"', "'") + '''", 
-                    "''' + criterioVal.replace('"', "'") + '''", "", "", "''' + evidencia + '''");'''  # query
-                # para insertar en la tabla del assessment creado, todos los controles de ntt
                 mycursor.execute(query)
-                self.conn.commit()
-                sleep(0.005)
 
-            c = Assessmentguardados(id_assessment=nombre, marcos=marcos,
-                                    archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
-            c.save()
+                marcos = ''
+                marc = []
+                mycursor = self.conn.cursor(buffered=True)
+                for i in select2:  # recorremos el segundo selector
 
-            request.session["assessmentGuardado"] = nombre
-            return redirect("assessment")
+                    mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(
+                        marco_id=i).nombre_tabla)  # query para seleccionar la tabla del marco seleccionado
+                    for fila in mycursor:
+                        if fila[0] not in marc:
+                            marc += [fila[
+                                         0]]  # recorremos la tabla del marco cogiendo los controles de ntt que no este repetidos
+
+                for marco in marc:
+                    marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
+                    mycursor = self.conn.cursor(buffered=True)
+                    consulta = Assessment.objects.get(id=marco)
+                    criterioVal = consulta.campo9 + '\n' + consulta.campo10 + '\n' + consulta.campo11 + '\n' + consulta.campo12 + '\n' + consulta.campo13 + '\n' + consulta.campo14
+                    if consulta.evidence_request_references != None:
+                        evidencia = consulta.evidence_request_references
+                    else:
+                        evidencia = ''
+                    query = '''INSERT INTO ''' + nombre + '''(ID, descripcion, pregunta, criterioValoracion, respuesta, 
+                        valoracion, evidencia) VALUES("''' + str(
+                        marco) + '''", "''' + consulta.control_description.replace('"',
+                                                                                   "'") + '''", "''' + consulta.control_question.replace('"', "'") + '''", 
+                        "''' + criterioVal.replace('"', "'") + '''", "", "", "''' + evidencia + '''");'''  # query
+                    # para insertar en la tabla del assessment creado, todos los controles de ntt
+                    mycursor.execute(query)
+                    self.conn.commit()
+                    sleep(0.005)
+
+                c = Assessmentguardados(id_assessment=nombre, marcos=marcos,
+                                        archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
+                c.save()
+
+                request.session["assessmentGuardado"] = nombre
+                return redirect("assessment")
+            else:
+                messages.error(request, 'El Assessment ya exsiste.')
+                context = super().get_context_data(**knwargs)
+                context["assess"] = Assessmentguardados.objects.filter(archivado=0)
+                context["marcos"] = AsociacionMarcos.objects.all()
+                return render(request, self.template_name, context=context)
         elif nombre == '' and select2 is not None:  # if donde se recoge si se ha introducido valores de marcos paro no de nombre para el assessment
 
             messages.error(request, 'Necesitas introducir un nombre para el Assessment')  # Se crea mensage de error
