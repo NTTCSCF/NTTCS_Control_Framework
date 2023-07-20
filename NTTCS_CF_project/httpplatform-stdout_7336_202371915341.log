@@ -1,6 +1,0 @@
-Watching for file changes with StatReloader
-Not Found: /actuator/health
-[19/Jul/2023 03:53:43] "GET /actuator/health HTTP/1.1" 404 6525
-Not Found: /portal/redlion
-[19/Jul/2023 04:01:57] "GET /portal/redlion HTTP/1.1" 404 6522
-[19/Jul/2023 04:12:52] "GET / HTTP/1.1" 200 1530

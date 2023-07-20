@@ -1,9 +1,0 @@
-Watching for file changes with StatReloader
-[19/Jul/2023 20:41:41] "GET / HTTP/1.1" 200 1515
-Not Found: /payment/index.php
-[19/Jul/2023 20:41:41] "GET /payment/index.php HTTP/1.1" 404 6529
-Not Found: /favicon-32x32.png
-[19/Jul/2023 21:02:26] "GET /favicon-32x32.png HTTP/1.1" 404 6531
-[19/Jul/2023 21:03:29] "HEAD / HTTP/1.1" 200 0
-[19/Jul/2023 21:03:30] "HEAD / HTTP/1.1" 200 0
-[19/Jul/2023 21:23:34] "GET / HTTP/1.1" 200 1515

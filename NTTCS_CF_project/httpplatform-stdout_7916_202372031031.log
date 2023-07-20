@@ -1,9 +1,0 @@
-Watching for file changes with StatReloader
-[20/Jul/2023 05:10:33] "GET /admin/config.php HTTP/1.1" 302 0
-[20/Jul/2023 05:10:33] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296
-[20/Jul/2023 05:23:38] "GET / HTTP/1.1" 200 1515
-Not Found: /payment/index.php
-[20/Jul/2023 05:23:38] "GET /payment/index.php HTTP/1.1" 404 6529
-[20/Jul/2023 05:28:39] "GET / HTTP/1.1" 200 1515
-[20/Jul/2023 05:40:35] "GET / HTTP/1.1" 200 1515
-[20/Jul/2023 05:40:36] "GET / HTTP/1.1" 200 1515
