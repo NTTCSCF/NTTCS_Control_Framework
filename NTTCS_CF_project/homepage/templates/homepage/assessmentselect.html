@@ -48,7 +48,6 @@
     </div>
 </div>
 
-
 <div class="rowTitulo">
     <div class="cajaSeleccionAsssessment">
         <div class="tarjeta">
@@ -59,15 +58,7 @@
             </div>
             <form class="textoTarjeta" method="post">
                 {% csrf_token %}
-                {% if messages %}
-                <div class=" cuadroAlerta">
-                    <ul class="messages">
-                        {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
+
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                     <div class="margenArriba">
                         <label> Introduzca el Nombre del Assessment</label>
@@ -94,10 +85,29 @@
                 </div>
                 <div class="cajaBotonSeleccionAssesment">
                     <div class="cajaBotonSeleccion ">
-                        <button class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton3" name="boton3" value="btn3">Crear Assessment</button>
+                        <button style="font-size:1.2vw;" class="btn btn-outline-secondary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#myModal" type="submit" id="boton3" name="boton3" value="btn3">Crear Assessment</button>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="myModal" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" >
+        <div class="modal-content">
+          <div class="modal-header" style="text-align:center;">
+              <div class="cajaCarga">
+                  <h5 class="modal-title" id="exampleModalLabel">Creando Assessment</h5>
+              </div>
+          </div>
+          <div class="modal-body">
+              <div class="cajaCarga">
+                  <div class="spinner-border text-primary" style="width: 100px; height: 100px;" role="status">
+                      <span class="visually-hidden">Cargando...</span>
+                    </div>
+              </div>
+          </div>
+
         </div>
     </div>
 </div>
@@ -122,6 +132,8 @@
         $('select').selectpicker();
     });
 
+    var myModal = new bootstrap.Modal(document.getElementById('myModal'), options)
+
 </script>
 
 
@@ -129,5 +141,4 @@
 
 
 
-    </div>
 {% endblock %}
