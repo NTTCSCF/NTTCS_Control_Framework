@@ -1,0 +1,184 @@
+Watching for file changes with StatReloader
+[20/Jul/2023 08:07:27] "GET / HTTP/1.1" 200 1515
+[20/Jul/2023 08:07:27] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[20/Jul/2023 08:07:27] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 5547
+[20/Jul/2023 08:07:27] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[20/Jul/2023 08:07:27] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 304 0
+[20/Jul/2023 08:07:35] "POST / HTTP/1.1" 302 0
+[20/Jul/2023 08:07:35] "GET /menu/ HTTP/1.1" 200 9360
+[20/Jul/2023 08:07:35] "GET /staticfiles/css/ass.css HTTP/1.1" 200 6958
+[20/Jul/2023 08:07:35] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 1798
+[20/Jul/2023 08:07:35] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[20/Jul/2023 08:07:35] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 304 0
+[20/Jul/2023 08:09:15] "GET /assessmentselect/ HTTP/1.1" 200 21246
+[20/Jul/2023 08:23:14] "GET / HTTP/1.1" 200 1515
+[20/Jul/2023 08:23:14] "GET /staticfiles/css/main.css HTTP/1.1" 304 0
+[20/Jul/2023 08:23:14] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 5547
+[20/Jul/2023 08:23:14] "GET /staticfiles/css/botones.css HTTP/1.1" 304 0
+Internal Server Error: /MantenimientoAssessmentArchivados/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 1135, in get_context_data
+    s = Assessmentguardados.objects.get(archivado=1)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\db\models\query.py", line 637, in get
+    raise self.model.DoesNotExist(
+homepage.models.Assessmentguardados.DoesNotExist: Assessmentguardados matching query does not exist.
+[20/Jul/2023 08:23:27] "GET /MantenimientoAssessmentArchivados/ HTTP/1.1" 500 89435
+Not Found: /favicon.ico
+[20/Jul/2023 08:23:28] "GET /favicon.ico HTTP/1.1" 404 6513
+[20/Jul/2023 08:32:55] "POST / HTTP/1.1" 200 1515
+[20/Jul/2023 08:33:12] "POST / HTTP/1.1" 200 1515
+[20/Jul/2023 08:34:01] "POST / HTTP/1.1" 302 0
+[20/Jul/2023 08:34:01] "GET /menu/ HTTP/1.1" 200 9360
+[20/Jul/2023 08:34:02] "GET /staticfiles/css/ass.css HTTP/1.1" 200 6958
+[20/Jul/2023 08:34:02] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 1798
+[20/Jul/2023 08:34:02] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[20/Jul/2023 08:34:02] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[20/Jul/2023 08:34:06] "GET /exportaciones/ HTTP/1.1" 200 11412
+[20/Jul/2023 08:34:21] "POST /exportaciones/ HTTP/1.1" 200 2641779
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 572, in post
+    workbook = xlsxwriter.Workbook(filename)
+               ^^^^^^^^^^
+NameError: name 'xlsxwriter' is not defined
+[20/Jul/2023 08:34:36] "POST /exportaciones/ HTTP/1.1" 500 89199
+Not Found: /favicon.ico
+[20/Jul/2023 08:34:37] "GET /favicon.ico HTTP/1.1" 404 6513
+[20/Jul/2023 08:34:39] "GET /exportaciones/ HTTP/1.1" 200 11412
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 572, in post
+    workbook = xlsxwriter.Workbook(filename)
+               ^^^^^^^^^^
+NameError: name 'xlsxwriter' is not defined
+[20/Jul/2023 08:34:57] "POST /exportaciones/ HTTP/1.1" 500 89199
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 572, in post
+    workbook = xlsxwriter.Workbook(filename)
+               ^^^^^^^^^^
+NameError: name 'xlsxwriter' is not defined
+[20/Jul/2023 08:35:06] "POST /exportaciones/ HTTP/1.1" 500 89220
+[20/Jul/2023 08:35:17] "POST /exportaciones/ HTTP/1.1" 200 11412
+[20/Jul/2023 08:48:10] "GET /exportaciones/ HTTP/1.1" 200 11412
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 572, in post
+    workbook = xlsxwriter.Workbook(filename)
+               ^^^^^^^^^^
+NameError: name 'xlsxwriter' is not defined
+[20/Jul/2023 08:48:15] "POST /exportaciones/ HTTP/1.1" 500 89255
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 572, in post
+    workbook = xlsxwriter.Workbook(filename)
+               ^^^^^^^^^^
+NameError: name 'xlsxwriter' is not defined
+[20/Jul/2023 08:51:00] "POST /exportaciones/ HTTP/1.1" 500 89254
+C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 20, 2023 - 08:07:27
+Django version 4.2.2, using settings 'NTTCS_CF_project.settings'
+Starting development server at http://127.0.0.1:23128/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader

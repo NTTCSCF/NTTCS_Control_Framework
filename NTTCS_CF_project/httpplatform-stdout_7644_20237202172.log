@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[20/Jul/2023 04:17:04] "GET / HTTP/1.1" 200 1515
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[20/Jul/2023 04:19:36] "POST /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 6631
+Not Found: /.env
+[20/Jul/2023 04:19:38] "GET /.env HTTP/1.1" 404 6492

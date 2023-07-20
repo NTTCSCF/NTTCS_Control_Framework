@@ -1,0 +1,20 @@
+Watching for file changes with StatReloader
+[19/Jul/2023 15:42:11] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[19/Jul/2023 15:49:01] "GET /.env HTTP/1.1" 404 6492
+Forbidden (CSRF cookie not set.): /
+[19/Jul/2023 15:49:02] "POST / HTTP/1.1" 403 2922
+Not Found: /.env
+[19/Jul/2023 15:49:03] "GET /.env HTTP/1.1" 404 6492
+Forbidden (CSRF cookie not set.): /
+[19/Jul/2023 15:49:05] "POST / HTTP/1.1" 403 2922
+[19/Jul/2023 16:13:37] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[19/Jul/2023 16:13:37] "GET /payment/index.php HTTP/1.1" 404 6529
+[19/Jul/2023 16:36:17] "GET / HTTP/1.1" 200 1515
+[19/Jul/2023 16:36:18] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[19/Jul/2023 16:40:14] "GET /.env HTTP/1.1" 404 6492
+Forbidden (CSRF cookie not set.): /
+[19/Jul/2023 16:40:16] "POST / HTTP/1.1" 403 2922
+[19/Jul/2023 16:43:15] "GET / HTTP/1.1" 200 1515

@@ -14,3 +14,19 @@ Not Found: /.env
 [19/Jul/2023 14:54:41] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
 Not Found: /favicon.ico
 [19/Jul/2023 14:54:41] "GET /favicon.ico HTTP/1.1" 404 6513
+C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+July 19, 2023 - 14:24:40
+Django version 4.2.2, using settings 'NTTCS_CF_project.settings'
+Starting development server at http://127.0.0.1:11497/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+[19/Jul/2023 14:59:05] "GET /menu/ HTTP/1.1" 200 9360
+[19/Jul/2023 14:59:05] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 5547
+[19/Jul/2023 14:59:12] "GET / HTTP/1.1" 200 1515
+[19/Jul/2023 14:59:12] "GET /staticfiles/css/estilos.css HTTP/1.1" 304 0
+[19/Jul/2023 14:59:19] "POST / HTTP/1.1" 302 0
+[19/Jul/2023 14:59:19] "GET /menu/ HTTP/1.1" 200 9360
