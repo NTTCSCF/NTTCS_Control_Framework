@@ -15,7 +15,7 @@ from django.views.generic import TemplateView
 import mysql.connector
 from django.contrib import messages
 import csv
-#import xlsxwriter
+import xlsxwriter
 
 
 # Create your views here.
@@ -476,7 +476,6 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 mycursor.execute(query)
 
             self.conn.commit()
-            self.conn.close()
             c = Assessmentguardados(id_assessment=nombre, marcos=marcos,
                                     archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
             c.save()
@@ -1114,6 +1113,18 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             mycursor = self.conn.cursor()
             mycursor.execute(query)
             self.conn.commit()
+        elif 'eliminarAssessment' in request.POST:
+            query = "DROP TABLE " + request.session.get('seleccion')  # eliminamos la tabla
+            mycursor = self.conn.cursor()
+            mycursor.execute(query)
+            consulta = Assessmentguardados.objects.filter(id_assessment=request.session.get('seleccion'))
+            try:
+                c = Evidencias.objects.filter(assessment=consulta)
+                c.delete()
+            finally:
+                consulta.delete()
+
+            return request('/menu/')
 
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + request.session["seleccion"])
@@ -1150,7 +1161,6 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
         mycursor.execute(
             "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "';")
         conn.commit()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
-        conn.close()
         return redirect('MantenimientoAssessmentArchivados')
 
 
