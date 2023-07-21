@@ -626,9 +626,12 @@ class MantenimientoNivelMadurez(LoginRequiredMixin, TemplateView):
             Description = request.POST.get('Description')  # valor del input de descripcion
             Sublevels = request.POST.get('Sublevels')  # valor del input de sublevels
             Percentage = request.POST.get('Percentage')  # valor del input de percentaje
-            insert = MaturirtyTable(ccmmcod=Ccmmcod, description=Description, sublevels=Sublevels,
-                                    percentage=Percentage)  # creamos un nuevo input en la tabla
-            insert.save()
+            if Ccmmcod != '' and Description != '' and Sublevels != '' and Percentage != '':
+                insert = MaturirtyTable(ccmmcod=Ccmmcod, description=Description, sublevels=Sublevels,
+                                        percentage=Percentage)  # creamos un nuevo input en la tabla
+                insert.save()
+            else:
+                messages.error(request,'ERROR, debe introducir todos los valores para insertar un nivel de madurez')
         elif 'modificar' in request.POST:
             Ccmmcod = request.POST.get('Ccmmcod')  # valor del input de ccmmcod
             Description = request.POST.get('Description')  # valor del input de descripcion
@@ -684,10 +687,13 @@ class MantenimientoDominios(LoginRequiredMixin, TemplateView):
             security_privacy_by_design_s_p_principles = request.POST.get(
                 'security_privacy_by_design_s_p_principles')  # valor del input de security_privacy_by_design_s_p_principles
             principle_intent = request.POST.get('principle_intent')  # valor del input de principle_intent
-            insert = Domains(identifier=identifier, domain=domain,
-                             security_privacy_by_design_s_p_principles=security_privacy_by_design_s_p_principles,
-                             principle_intent=principle_intent, )  # creamos un nuevo input en la tabla
-            insert.save()
+            if identifier != '' and domain != '' and security_privacy_by_design_s_p_principles != '' and principle_intent != '':
+                insert = Domains(identifier=identifier, domain=domain,
+                                 security_privacy_by_design_s_p_principles=security_privacy_by_design_s_p_principles,
+                                 principle_intent=principle_intent, )  # creamos un nuevo input en la tabla
+                insert.save()
+            else:
+                messages.error(request, 'ERROR, debe introducir todos los valores para insertar un dominio')
         elif 'modificar' in request.POST:
             identifier = request.POST.get('identifier')  # valor del input de identifier
             domain = request.POST.get('domain')  # valor del input de domain
@@ -740,11 +746,14 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
             artifact = request.POST.get('artifact')  # valor del input de artifact
             artifact_description = request.POST.get('artifact_description')  # valor del input de artifact_description
             control_mappings = request.POST.get('control_mappings')  # valor del input de control_mappings
-            insert = Evidencerequestcatalog(evidence_request_references=evidence_request_references,
-                                            area_of_focus=area_of_focus, artifact=artifact,
-                                            artifact_description=artifact_description,
-                                            control_mappings=control_mappings)  # creamos un nuevo input en la tabla
-            insert.save()
+            if evidence_request_references != '' and area_of_focus != '' and artifact != '' and artifact_description != '' and control_mappings != '':
+                insert = Evidencerequestcatalog(evidence_request_references=evidence_request_references,
+                                                area_of_focus=area_of_focus, artifact=artifact,
+                                                artifact_description=artifact_description,
+                                                control_mappings=control_mappings)  # creamos un nuevo input en la tabla
+                insert.save()
+            else:
+                messages.error(request, 'ERROR, debe introducir todos los valores para insertar una Evidencia')
         elif 'modificar' in request.POST:
             evidence_request_references = request.POST.get(
                 'evidence_request_references')  # valor del input de evidence_request_references
@@ -793,9 +802,12 @@ class MantenimientoPreguntas(LoginRequiredMixin, TemplateView):
             control_question = request.POST.get('control_question')  # valor del input de control_question
             control_description = request.POST.get('control_description')  # valor del input de control_description
             id = request.POST.get('id')  # valor del input de id
-            insert = Assessment(id=id, control_question=control_question,
-                                control_description=control_description)  # creamos un nuevo input en la tabla
-            insert.save()
+            if control_question != '' and control_description != '' and id != '':
+                insert = Assessment(id=id, control_question=control_question,
+                                    control_description=control_description)  # creamos un nuevo input en la tabla
+                insert.save()
+            else:
+                messages.error(request, 'ERROR, debe introducir todos los valores para insertar una Pregunta')
         elif 'modificar' in request.POST:
             control_question = request.POST.get('control_question')  # valor del input de control_question
             control_description = request.POST.get('control_description')  # valor del input de control_description
@@ -835,10 +847,12 @@ class MantenimientoMarcosExistentes(LoginRequiredMixin, TemplateView):
         if 'insertar' in request.POST:
             marco_id = request.POST.get('marco_id')  # valor del input de marco_id
             nombre_tabla = request.POST.get('nombre_tabla')  # valor del input de nombre_tabla
-
-            insert = AsociacionMarcos(marco_id=marco_id,
-                                      nombre_tabla=nombre_tabla)  # creamos un nuevo input en la tabla
-            insert.save()
+            if marco_id != '' and nombre_tabla != '':
+                insert = AsociacionMarcos(marco_id=marco_id,
+                                          nombre_tabla=nombre_tabla)  # creamos un nuevo input en la tabla
+                insert.save()
+            else:
+                messages.error(request, 'ERROR, debe introducir todos los valores para insertar un marco')
         elif 'modificar' in request.POST:
             marco_id = request.POST.get('marco_id')  # valor del input de marco_id
             nombre_tabla = request.POST.get('nombre_tabla')  # valor del input de nombre_tabla
@@ -895,15 +909,18 @@ class MantenimientoControlesNTTCS(LoginRequiredMixin, TemplateView):
                 'relative_result_by_function')  # valor del input de relative_result_by_function
             relative_result_by_domain = request.POST.get(
                 'relative_result_by_domain')  # valor del input de relative_result_by_domain
-            insert = NttcsCf20231(domain=domain, selected_y_n_field=selected_y_n_field, id=id, control=control,
-                                  control_description=control_description,
-                                  relative_control_weighting=relative_control_weighting,
-                                  function_grouping=function_grouping, assesed_result=assesed_result,
-                                  numeric_result=numeric_result, weighted_numeric_result=weighted_numeric_result,
-                                  assessment_comments=assessment_comments,
-                                  relative_result_by_function=relative_result_by_function,
-                                  relative_result_by_domain=relative_result_by_domain)  # creamos un nuevo input en la tabla
-            insert.save()
+            if domain != '' and selected_y_n_field != '' and control != '' and id != '' and control_description != '' and relative_control_weighting != '' and function_grouping != '' and assesed_result != '' and numeric_result != '' and weighted_numeric_result != '' and assessment_comments != '' and relative_result_by_function != '' and relative_result_by_domain != '':
+                insert = NttcsCf20231(domain=domain, selected_y_n_field=selected_y_n_field, id=id, control=control,
+                                      control_description=control_description,
+                                      relative_control_weighting=relative_control_weighting,
+                                      function_grouping=function_grouping, assesed_result=assesed_result,
+                                      numeric_result=numeric_result, weighted_numeric_result=weighted_numeric_result,
+                                      assessment_comments=assessment_comments,
+                                      relative_result_by_function=relative_result_by_function,
+                                      relative_result_by_domain=relative_result_by_domain)  # creamos un nuevo input en la tabla
+                insert.save()
+            else:
+                messages.error(request, 'ERROR, debe introducir todos los valores para insertar un control')
         elif 'modificar' in request.POST:
             domain = request.POST.get('domain')  # valor del input de domain
             selected_y_n_field = request.POST.get('selected_y_n_field')  # valor del input de selected_y_n_field
@@ -1020,12 +1037,14 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
         elif 'insertar' in request.POST:
             ntt_id = request.POST.get('ntt_id')  # valor del input de ntt_id
             marco = request.POST.get('marco')  # valor del input de marco
-
-            query = "INSERT INTO " + request.session["seleccion"] + " (NTT_ID, " + request.session[
-                "seleccion"] + ") VALUES('" + ntt_id + "', '" + marco + "');"  # creamos un nuevo input en la tabla
-            mycursor = self.conn.cursor()
-            mycursor.execute(query)
-            self.conn.commit()
+            if ntt_id != '' and marco != '':
+                query = "INSERT INTO " + request.session["seleccion"] + " (NTT_ID, " + request.session[
+                    "seleccion"] + ") VALUES('" + ntt_id + "', '" + marco + "');"  # creamos un nuevo input en la tabla
+                mycursor = self.conn.cursor()
+                mycursor.execute(query)
+                self.conn.commit()
+            else:
+                messages.error(request, 'ERROR, debe introducir todos los valores para insertar un marco')
 
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + request.session["seleccion"])
@@ -1114,15 +1133,17 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             respuesta = request.POST.get('respuesta')  # valor del input de respuesta
             valoracion = request.POST.get('valoracion')  # valor del input de respuesta
             evidencia = request.POST.get('evidencia')  # valor del input de evidencia
-
-            query = """INSERT INTO """ + request.session[
-                "seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, 
-                                evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', 
-                                '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia + \
-                    """');"""  # creamos un nuevo input en la tabla
-            mycursor = self.conn.cursor()
-            mycursor.execute(query)
-            self.conn.commit()
+            if id != '' and descripcion != '' and Pregunta != '' and criterio != '' and respuesta != '' and valoracion != '' and evidencia != '':
+                query = """INSERT INTO """ + request.session[
+                    "seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, 
+                                    evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', 
+                                    '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia + \
+                        """');"""  # creamos un nuevo input en la tabla
+                mycursor = self.conn.cursor()
+                mycursor.execute(query)
+                self.conn.commit()
+            else:
+                messages.error(request, 'ERROR, debe introducir todos los valores para insertar un marco')
         elif 'eliminarAssessment' in request.POST:
 
             consulta = Assessmentguardados.objects.get(id_assessment=request.session.get('seleccion'))
