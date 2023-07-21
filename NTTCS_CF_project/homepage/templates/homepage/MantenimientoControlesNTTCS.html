@@ -30,7 +30,7 @@
         <!-- header de la tabla -->
         <thead>
             <tr>
-                <th scope="col">Domain</th>
+                <th scope="col" style="width:100px;">Domain</th>
                 <th scope="col">selected y n field</th>
                 <th scope="col">control</th>
                 <th scope="col">Description</th>
@@ -51,7 +51,7 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
+                    <td><input class="inputTabas" style="width:100px;" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="selected_y_n_field" placeholder="Insert selected_y_n_field" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="control" placeholder="Insert control" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="control_description" placeholder="insert Description" autocomplete="false"></td>
