@@ -737,7 +737,6 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
-
         if 'insertar' in request.POST:
 
             evidence_request_references = request.POST.get(

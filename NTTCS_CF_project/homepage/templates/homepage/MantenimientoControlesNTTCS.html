@@ -30,7 +30,7 @@
         <!-- header de la tabla -->
         <thead>
             <tr>
-                <th scope="col">Domain</th>
+                <th scope="col" style="width:100px;">Domain</th>
                 <th scope="col">selected y n field</th>
                 <th scope="col">control</th>
                 <th scope="col">Description</th>
@@ -51,10 +51,10 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
+                    <td><input class="inputTabas" style="width:100px;" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="selected_y_n_field" placeholder="Insert selected_y_n_field" autocomplete="false" ></td>
-                    <td><input class="inputTabas" type="text" name="control" placeholder="Insert control" autocomplete="false"></td>
-                    <td><input class="inputTabas" type="text" name="control_description" placeholder="insert Description" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" style="width:150px;" name="control" placeholder="Insert control" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" style="width:150px;" name="control_description" placeholder="insert Description" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="relative_control_weighting" placeholder="insert relative_control_weighting" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="function_grouping" placeholder="insert function_grouping" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="assesed_result" placeholder="insert assesed_result" autocomplete="false"></td>
@@ -77,13 +77,13 @@
                     {% csrf_token %}
                     <td><input class="inputTabas" type="text" value="{{ids.domain}}" name="domain" ></td>
                     <td><input class="inputTabas" type="text" value="{{ids.selected_y_n_field}}" name="selected_y_n_field" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.control}}" name="control" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.control_description}}" name="control_description" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.relative_control_weighting}}" name="relative_control_weighting" ></td>
+                    <td><textarea class="inputTabas" style="width:150px;" rows="5" type="text" value="{{ids.control}}" name="control" >{{ids.control}}</textarea></td>
+                    <td><textarea class="inputTabas" style="width:150px;" rows="5" type="text" value="{{ids.control_description}}" name="control_description" >{{ids.control_description}}</textarea></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.relative_control_weighting}}" name="relative_control_weighting"></td>
                     <td><input class="inputTabas" type="text" value="{{ids.function_grouping}}" name="function_grouping" ></td>
                     <td><input class="inputTabas" type="text" value="{{ids.assesed_result}}" name="assesed_result" ></td>
                     <td><input class="inputTabas" type="text" value="{{ids.numeric_result}}" name="numeric_result" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.weighted_numeric_result}}" name="weighted_numeric_result" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.weighted_numeric_result}}" name="weighted_numeric_result"></td>
                     <td><input class="inputTabas" type="text" value="{{ids.assessment_comments}}" name="assessment_comments" ></td>
                     <td><input class="inputTabas" type="text" value="{{ids.relative_result_by_function}}" name="relative_result_by_function" ></td>
                     <td><input class="inputTabas" type="text" value="{{ids.relative_result_by_domain}}" name="relative_result_by_domain" ></td>

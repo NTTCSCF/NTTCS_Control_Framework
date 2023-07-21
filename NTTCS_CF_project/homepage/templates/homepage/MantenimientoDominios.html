@@ -66,10 +66,10 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" value="{{ids.identifier}}" name="identifier" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.domain}}" name="domain" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.security_privacy_by_design_s_p_principles}}" name="security_privacy_by_design_s_p_principles" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.principle_intent}}" name="principle_intent" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.identifier}}" name="identifier" readonly></td>
+                    <td><textarea class="inputTabas" type="text" rows="6" value="{{ids.domain}}" name="domain" >{{ids.domain}}</textarea></td>
+                    <td><textarea class="inputTabas" type="text" rows="6" value="{{ids.security_privacy_by_design_s_p_principles}}" name="security_privacy_by_design_s_p_principles" >{{ids.security_privacy_by_design_s_p_principles}}</textarea></td>
+                    <td><textarea class="inputTabas" type="text" rows="6" value="{{ids.principle_intent}}" name="principle_intent" >{{ids.principle_intent}}</textarea></td>
                     <td class="botonesTabla">
                         <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                             <i class="bi bi-pencil-square"></i>

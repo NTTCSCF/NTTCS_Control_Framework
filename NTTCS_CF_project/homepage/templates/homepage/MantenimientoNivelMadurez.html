@@ -44,7 +44,7 @@
                         <td><input class="inputTabas" type="text" name="Ccmmcod" placeholder="Insert ccmmcod" autocomplete="false" ></td>
                         <td><input class="inputTabas" type="text" name="Description" placeholder="Insert description" autocomplete="false" ></td>
                         <td><input class="inputTabas" type="text" name="Sublevels" placeholder="Insert sublevels" autocomplete="false"></td>
-                        <td><input class="inputTabas" type="text" name="Percentage" placeholder="insert percentage" autocomplete="false"></td>
+                        <td><input class="inputTabas" type="number" name="Percentage" placeholder="insert percentage" autocomplete="false" step=".01"></td>
 
                         <td class="botonesTabla">
                             <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
@@ -59,9 +59,11 @@
                 <tr>
                     <form method="post">
                         {% csrf_token %}
+
                         <td><input class="inputTabas" type="text" value="{{ids.ccmmcod}}" name="Ccmmcod" ></td>
-                        <td><input class="inputTabas" type="text" value="{{ids.description}}" name="Description" ></td>
+                        <td><textarea class="inputTabas" type="text" rows="4" value="{{ids.description}}" name="Description" >{{ids.description}}</textarea></td>
                         <td><input class="inputTabas" type="text" value="{{ids.sublevels}}" name="Sublevels" readonly></td>
+
                         <td><input class="inputTabas" type="text" value="{{ids.percentage}}" name="Percentage" ></td>
                         <td class="botonesTabla">
                             <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
