@@ -59,7 +59,7 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" value="{{ids.evidence_request_references}}" name="evidence_request_references" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.evidence_request_references}}" name="evidence_request_references" readonly></td>
                     <td><input class="inputTabas" type="text" value="{{ids.area_of_focus}}" name="area_of_focus" ></td>
                     <td><input class="inputTabas" type="text" value="{{ids.artifact}}" name="artifact" ></td>
                     <td><input class="inputTabas" type="text" value="{{ids.artifact_description}}" name="artifact_description" ></td>

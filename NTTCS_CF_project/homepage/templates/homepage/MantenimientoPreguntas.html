@@ -29,7 +29,7 @@
         <!-- header de la tabla -->
         <thead>
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col" style="width:130px;">Id</th>
                 <th scope="col">control_description</th>
                 <th scope="col">control_question</th>
                 <th>Acciones</th>
@@ -41,7 +41,7 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" name="id" placeholder="id control" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="id" placeholder="id control" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="control_description" placeholder="Insert control_description" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="control_question" placeholder="Insert control_question" autocomplete="false"></td>
 
@@ -57,9 +57,9 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" value="{{ids.id}}" name="id" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.control_description}}" name="control_description" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.control_question}}" name="control_question" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.id}}" name="id" readonly></td>
+                    <td><textarea class="inputTabas" rows="5" type="text" value="{{ids.control_description}}" name="control_description" >{{ids.control_description}}</textarea></td>
+                    <td><textarea class="inputTabas" rows="5" type="text" value="{{ids.control_question}}" name="control_question" >{{ids.control_question}}</textarea></td>
                     <td class="botonesTabla">
                         <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                             <i class="bi bi-pencil-square"></i>

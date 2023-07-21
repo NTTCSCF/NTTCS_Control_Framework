@@ -56,7 +56,7 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" value="{{ids.marco_id}}" name="marco_id" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.marco_id}}" name="marco_id" readonly></td>
                     <td><input class="inputTabas" type="text" value="{{ids.nombre_tabla}}" name="nombre_tabla" ></td>
                     <td class="botonesTabla">
                          <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
