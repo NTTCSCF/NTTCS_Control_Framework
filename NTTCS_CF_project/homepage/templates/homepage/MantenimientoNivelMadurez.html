@@ -61,7 +61,7 @@
                         {% csrf_token %}
                         <td><input class="inputTabas" type="text" value="{{ids.ccmmcod}}" name="Ccmmcod" ></td>
                         <td><input class="inputTabas" type="text" value="{{ids.description}}" name="Description" ></td>
-                        <td><input class="inputTabas" type="text" value="{{ids.sublevels}}" name="Sublevels" ></td>
+                        <td><input class="inputTabas" type="text" value="{{ids.sublevels}}" name="Sublevels" readonly></td>
                         <td><input class="inputTabas" type="text" value="{{ids.percentage}}" name="Percentage" ></td>
                         <td class="botonesTabla">
                             <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
