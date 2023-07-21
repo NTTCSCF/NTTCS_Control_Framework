@@ -625,7 +625,10 @@ class MantenimientoNivelMadurez(LoginRequiredMixin, TemplateView):
             Ccmmcod = request.POST.get('Ccmmcod')  # valor del input de ccmmcod
             Description = request.POST.get('Description')  # valor del input de descripcion
             Sublevels = request.POST.get('Sublevels')  # valor del input de sublevels
-            Percentage = float(request.POST.get('Percentage').replace(',', '.'))   # valor del input de percentaje
+            if request.POST.get('Percentage') == '':
+                Percentage = request.POST.get('Percentage')  # valor del input de percentaje
+            else:
+                Percentage = float(request.POST.get('Percentage').replace(',', '.'))  # valor del input de percentaje
             if Ccmmcod != '' and Description != '' and Sublevels != '' and Percentage != '':
                 insert = MaturirtyTable(ccmmcod=Ccmmcod, description=Description, sublevels=Sublevels,
                                         percentage=Percentage)  # creamos un nuevo input en la tabla
