@@ -104,9 +104,19 @@
     width:70%;
     height:100%;
     margin:1%;
+
 }
 .cajaCarga{
     width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-content:cente;
+    margin:2%;
+}
+.contenedorBusqueda{
+    width:70%;
     height:100%;
     display:flex;
     flex-direction:row;
@@ -121,7 +131,6 @@
     width:30%;
     height:100%;
     margin:1%;
-    padding:0.8%;
 }
 
 .cajaInputBuscar2 {
