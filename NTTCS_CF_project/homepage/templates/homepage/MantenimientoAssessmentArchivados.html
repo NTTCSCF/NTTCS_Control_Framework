@@ -41,20 +41,27 @@
 
     {% if seleccionado %}
     <!-- Input de buscar -->
-    <div class="rowCajasMantenimiento mb-2">
+    <div class="rowCajasMantenimiento ">
+        <div class="contenedorBusqueda">
+            <form class="cajaBotonEliminarAssessment" method="post" >
+                {% csrf_token %}
+                    <button class="btn btn-success btn-block" title="desarchivar assessment" id="desarchivar" name="desarchivar">
+                        <i class="bi bi-archive"></i> Desarchivar Assessment
+                    </button>
+            </form>
 
-        <form class="cajaInputBuscar2 mr-2" method="post">
-            {% csrf_token %}
-                <input class="form-control" aria-label=".form-control-lg example" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
-        </form>
+            <form class="cajaInputBuscar " method="post">
+                {% csrf_token %}
+                    <input class="form-control" aria-label=".form-control-lg example" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
+            </form>
 
-        <form class="cajaBtnEliminarAssess" method="post" >
-            {% csrf_token %}
-                <button class="btn btn-danger btn-block" title="Eliminar Assessment" id="eliminarAssessment" name="eliminarAssessment">
-                    <i class="bi bi-trash3"></i> Eliminar Assessment
-                </button>
-        </form>
-
+            <form class="cajaBotonEliminarAssessment" method="post" >
+                {% csrf_token %}
+                    <button class="btn btn-danger btn-block" title="Eliminar Assessment" id="eliminarAssessment" name="eliminarAssessment">
+                        <i class="bi bi-trash3"></i> Eliminar Assessment
+                    </button>
+            </form>
+        </div>
     </div>
 
     <!-- TABLA DE CONTENIDO -->

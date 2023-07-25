@@ -1193,7 +1193,11 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             mycursor.execute(query)
 
             return redirect('menu')
-
+        elif 'desarchivar' in request.POST:
+            consulta = Assessmentguardados.objects.get(
+                id_assessment=request.session.get('seleccion'))  # colsulta para la selecionar el assesment
+            consulta.archivado = 0  # ponemos el valor de archivado a 0
+            consulta.save()
         mycursor = self.conn.cursor(buffered=True)
         mycursor.execute("SELECT * FROM " + request.session["seleccion"])
         context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
