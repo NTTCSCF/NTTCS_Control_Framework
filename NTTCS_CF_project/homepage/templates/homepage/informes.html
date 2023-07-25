@@ -4,35 +4,60 @@
 
 {% block contenido %}
 
+
+
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>INFORMES</h1>
+    </div>
+</div>
+
     <!-- Contenedor de la página  -->
-    <div class="rowInformes">
+<div class="rowTitulo">
+    <div class="cajaSeleccionAsssessment">
+        <div class="tarjeta">
 
-        <div class="rowTitulo">
-        <!-- Titulo con el nombre del assessment -->
-            <div class="cajaTitulo">
-                <h1>INFORMES</h1>
-            </div>
-         </div>
-
-        <br>
-
-        <!-- seleccionar assementet  -->
-        <h4>Assesment Existente</h4>
-        <div class="rowGenerarInforme">
-
-            <select class="form-select form-select-md mb-3">
-                <option value="none">None</option>
-            </select>
-
-            <!-- boton de generar informe -->
-            <div class="ex23">
-                <div class="botonesFlexAssessment">
-                    <button class="btn btn-primary" >Generar Informe</button>
+            <!-- Titulo de la pagina del contenido -->
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Informes
                 </div>
             </div>
 
-        </div>
 
+            <!-- seleccionar assementet  -->
+            <form class="textoTarjeta" method="post">
+                {% csrf_token %}
+                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
+                    <div class="margenArriba">
+                        <label> Seleccione un Assessment</label>
+                    </div>
+                </div>
+
+                <div class="cajaTextoSeleccionAssesment">
+                    <div class="cajaSelectorCentrado margenAbajo">
+                        <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"   id="selector1" name="selector1">
+                            <option value="None">--- No Seleccionado ---</option>
+                            {% for ids in assess %}
+                            <option value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- boton de generar informe -->
+                <div class="rowExport">
+                    <div class="">
+                        <button class="btn btn-lg btn-primary" >Generar Informe</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
     </div>
+</div>
+
+
 
 {% endblock %}
