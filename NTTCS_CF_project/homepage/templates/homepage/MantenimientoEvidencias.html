@@ -61,9 +61,9 @@
                     {% csrf_token %}
                     <td><input class="inputTabas" type="text" value="{{ids.evidence_request_references}}" name="evidence_request_references" readonly></td>
                     <td><input class="inputTabas" type="text" value="{{ids.area_of_focus}}" name="area_of_focus" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.artifact}}" name="artifact" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.artifact_description}}" name="artifact_description" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.control_mappings}}" name="control_mappings" ></td>
+                    <td><textarea class="inputTabas" rows="5" type="text" value="{{ids.artifact}}" name="artifact" >{{ids.artifact}}</textarea></td>
+                    <td><textarea class="inputTabas" rows="5" type="text" value="{{ids.artifact_description}}" name="artifact_description" >{{ids.artifact_description}}</textarea></td>
+                    <td><textarea class="inputTabas" rows="5" type="text" value="{{ids.control_mappings}}" name="control_mappings" >{{ids.control_mappings}}</textarea></td>
                     <td class="botonesTabla">
                         <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                             <i class="bi bi-pencil-square"></i>
