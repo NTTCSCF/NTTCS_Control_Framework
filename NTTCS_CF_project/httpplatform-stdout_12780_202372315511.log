@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+[23/Jul/2023 17:05:13] "GET / HTTP/1.1" 200 1515
+Not Found: /wp-login.php
+[23/Jul/2023 17:24:34] "GET /wp-login.php HTTP/1.1" 404 6509
+[23/Jul/2023 17:45:11] "HEAD / HTTP/1.1" 200 0
+[23/Jul/2023 17:45:12] "GET / HTTP/1.1" 200 1515
+[23/Jul/2023 17:45:12] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 7572
+[23/Jul/2023 17:45:12] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[23/Jul/2023 17:45:12] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[23/Jul/2023 17:45:12] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[23/Jul/2023 18:12:33] "GET /admin/config.php HTTP/1.1" 302 0
+[23/Jul/2023 18:12:33] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296

@@ -1,0 +1,5 @@
+Watching for file changes with StatReloader
+Not Found: /client/get_targets
+[23/Jul/2023 18:40:19] "GET /client/get_targets HTTP/1.1" 404 6534
+Not Found: /upl.php
+[23/Jul/2023 18:40:20] "GET /upl.php HTTP/1.1" 404 6501

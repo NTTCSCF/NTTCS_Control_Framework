@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+Not Found: /_profiler/phpinfo
+[23/Jul/2023 13:31:01] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+Not Found: /_profiler/phpinfo
+[23/Jul/2023 13:31:01] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+Not Found: /robots.txt
+[23/Jul/2023 13:32:07] "GET /robots.txt HTTP/1.1" 404 6503
+Not Found: /robots.txt
+[23/Jul/2023 13:32:08] "GET /robots.txt HTTP/1.1" 404 6503
+[23/Jul/2023 13:38:07] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[23/Jul/2023 13:40:15] "GET /favicon.ico HTTP/1.1" 404 6513
+Not Found: /geoserver/web/
+[23/Jul/2023 13:41:13] "GET /geoserver/web/ HTTP/1.1" 404 6522
+[23/Jul/2023 13:59:49] "GET / HTTP/1.1" 200 1515

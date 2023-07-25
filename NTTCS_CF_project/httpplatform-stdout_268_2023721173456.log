@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+Not Found: /wp-login.php
+[21/Jul/2023 19:34:58] "GET /wp-login.php HTTP/1.1" 404 6509
+[21/Jul/2023 19:52:45] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[21/Jul/2023 19:52:45] "GET /payment/index.php HTTP/1.1" 404 6529

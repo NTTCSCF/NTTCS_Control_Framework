@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+[25/Jul/2023 06:41:38] "GET / HTTP/1.1" 200 1515
+Not Found: /aaa9
+[25/Jul/2023 06:52:36] "GET /aaa9 HTTP/1.1" 404 6492
+Not Found: /aab8
+[25/Jul/2023 06:52:48] "GET /aab8 HTTP/1.1" 404 6492
+[25/Jul/2023 06:53:03] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 07:10:43] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[25/Jul/2023 07:22:03] "GET /payment/index.php HTTP/1.1" 404 6529
+[25/Jul/2023 07:22:04] "GET / HTTP/1.1" 200 1515

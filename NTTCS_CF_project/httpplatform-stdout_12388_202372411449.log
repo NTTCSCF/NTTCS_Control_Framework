@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+[24/Jul/2023 13:44:11] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 13:52:06] "GET /admin/ HTTP/1.1" 302 0
+[24/Jul/2023 13:52:07] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4276
+[24/Jul/2023 13:52:07] "GET /staticfiles/admin/css/base.css HTTP/1.1" 304 0
+[24/Jul/2023 13:52:07] "GET /staticfiles/admin/css/dark_mode.css HTTP/1.1" 304 0
+[24/Jul/2023 13:52:07] "GET /staticfiles/admin/js/theme.js HTTP/1.1" 304 0
+[24/Jul/2023 13:52:07] "GET /staticfiles/admin/css/responsive.css HTTP/1.1" 304 0
+[24/Jul/2023 13:52:07] "GET /staticfiles/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+[24/Jul/2023 13:52:07] "GET /staticfiles/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+[24/Jul/2023 13:52:07] "GET /staticfiles/admin/css/login.css HTTP/1.1" 200 958
+[24/Jul/2023 13:52:13] "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4477
+Not Found: /payment/index.php
+[24/Jul/2023 14:12:20] "GET /payment/index.php HTTP/1.1" 404 6529
+[24/Jul/2023 14:12:20] "GET / HTTP/1.1" 200 1515

@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[23/Jul/2023 01:37:03] "GET /.env HTTP/1.1" 404 6492
+Not Found: /wp-content/
+[23/Jul/2023 01:37:03] "GET /wp-content/ HTTP/1.1" 404 6513
+[23/Jul/2023 01:39:00] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[23/Jul/2023 01:42:51] "GET /.env HTTP/1.1" 404 6492
+Not Found: /wp-content/
+[23/Jul/2023 01:42:52] "GET /wp-content/ HTTP/1.1" 404 6513

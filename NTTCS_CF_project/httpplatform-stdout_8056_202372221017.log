@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+Not Found: /ReportServer
+[22/Jul/2023 04:10:18] "GET /ReportServer HTTP/1.1" 404 6516
+Not Found: /portal/redlion
+[22/Jul/2023 04:29:25] "GET /portal/redlion HTTP/1.1" 404 6522
+Not Found: /actuator/health
+[22/Jul/2023 04:32:10] "GET /actuator/health HTTP/1.1" 404 6525
+[22/Jul/2023 05:04:45] "GET / HTTP/1.1" 200 1515
+Not Found: /_profiler/phpinfo
+[22/Jul/2023 05:18:42] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+Not Found: /_profiler/phpinfo
+[22/Jul/2023 05:18:42] "GET /_profiler/phpinfo HTTP/1.1" 404 6531

@@ -1,0 +1,4 @@
+Watching for file changes with StatReloader
+Not Found: /druid/index.html
+[25/Jul/2023 02:21:31] "GET /druid/index.html HTTP/1.1" 404 6528
+[25/Jul/2023 02:38:31] "GET / HTTP/1.1" 200 1515

@@ -1,0 +1,22 @@
+Watching for file changes with StatReloader
+[24/Jul/2023 01:32:33] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 01:38:23] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 01:45:40] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 01:48:35] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[24/Jul/2023 01:48:36] "GET /.env HTTP/1.1" 404 6485
+Forbidden (CSRF cookie not set.): /
+[24/Jul/2023 01:48:36] "POST / HTTP/1.1" 403 2922
+Not Found: /_profiler/phpinfo
+[24/Jul/2023 01:48:37] "GET /_profiler/phpinfo HTTP/1.1" 404 6524
+Not Found: /debug/default/view
+[24/Jul/2023 01:48:37] "GET /debug/default/view?panel=config HTTP/1.1" 404 6540
+Not Found: /config.json
+[24/Jul/2023 01:48:37] "GET /config.json HTTP/1.1" 404 6506
+Not Found: /.git/config
+[24/Jul/2023 01:48:37] "GET /.git/config HTTP/1.1" 404 6506
+Not Found: /ReportServer
+[24/Jul/2023 02:09:07] "GET /ReportServer HTTP/1.1" 404 6516
+[24/Jul/2023 02:23:26] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[24/Jul/2023 02:23:26] "GET /payment/index.php HTTP/1.1" 404 6529

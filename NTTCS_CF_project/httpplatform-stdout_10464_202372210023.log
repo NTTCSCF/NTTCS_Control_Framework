@@ -1,0 +1,313 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[22/Jul/2023 12:00:25] "GET /.env HTTP/1.1" 404 6492
+[22/Jul/2023 12:01:51] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 12:01:51] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 12:01:52] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[22/Jul/2023 12:01:52] "GET /favicon.ico HTTP/1.1" 404 6513
+Not Found: /payment/index.php
+[22/Jul/2023 12:22:55] "GET /payment/index.php HTTP/1.1" 404 6529
+[22/Jul/2023 12:22:55] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 12:28:46] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 12:28:46] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[22/Jul/2023 12:28:46] "GET /staticfiles/css/estilos.css HTTP/1.1" 304 0
+[22/Jul/2023 12:28:46] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[22/Jul/2023 12:28:46] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[22/Jul/2023 12:28:53] "POST / HTTP/1.1" 302 0
+[22/Jul/2023 12:28:53] "GET /menu/ HTTP/1.1" 200 9358
+[22/Jul/2023 12:28:53] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 1798
+[22/Jul/2023 12:28:53] "GET /staticfiles/css/ass.css HTTP/1.1" 200 6971
+[22/Jul/2023 12:28:53] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[22/Jul/2023 12:28:53] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[22/Jul/2023 12:29:05] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 12:29:18] "POST / HTTP/1.1" 302 0
+[22/Jul/2023 12:29:18] "GET /menu/ HTTP/1.1" 200 9358
+[22/Jul/2023 12:29:22] "GET /menu/ HTTP/1.1" 200 9358
+[22/Jul/2023 12:29:33] "GET /assessmentselect/ HTTP/1.1" 200 23929
+[22/Jul/2023 12:29:40] "POST /assessmentselect/ HTTP/1.1" 302 0
+[22/Jul/2023 12:29:40] "GET /assessment/ HTTP/1.1" 200 166797
+[22/Jul/2023 12:30:07] "POST /assessmentselect/ HTTP/1.1" 302 0
+Internal Server Error: /assessment/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 416, in get_rows
+    row = fetch_row()
+          ^^^^^^^^^^^
+_mysql_connector.MySQLInterfaceError: Table definition has changed, please retry transaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 282, in get_context_data
+    mycursor.execute("SELECT * FROM " + assSelect)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 342, in execute
+    self._handle_result(result)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 230, in _handle_result
+    self._handle_resultset()
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 788, in _handle_resultset
+    self._rows = self._cnx.get_rows()[0]
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 445, in get_rows
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1412 (HY000): Table definition has changed, please retry transaction
+[22/Jul/2023 12:30:07] "GET /assessment/ HTTP/1.1" 500 105236
+Not Found: /favicon.ico
+[22/Jul/2023 12:30:07] "GET /favicon.ico HTTP/1.1" 404 6513
+Internal Server Error: /assessment/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 416, in get_rows
+    row = fetch_row()
+          ^^^^^^^^^^^
+_mysql_connector.MySQLInterfaceError: Table definition has changed, please retry transaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 282, in get_context_data
+    mycursor.execute("SELECT * FROM " + assSelect)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 342, in execute
+    self._handle_result(result)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 230, in _handle_result
+    self._handle_resultset()
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 788, in _handle_resultset
+    self._rows = self._cnx.get_rows()[0]
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 445, in get_rows
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1412 (HY000): Table definition has changed, please retry transaction
+[22/Jul/2023 12:30:14] "GET /assessment/ HTTP/1.1" 500 105236
+Internal Server Error: /assessment/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 416, in get_rows
+    row = fetch_row()
+          ^^^^^^^^^^^
+_mysql_connector.MySQLInterfaceError: Table definition has changed, please retry transaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 282, in get_context_data
+    mycursor.execute("SELECT * FROM " + assSelect)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 342, in execute
+    self._handle_result(result)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 230, in _handle_result
+    self._handle_resultset()
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 788, in _handle_resultset
+    self._rows = self._cnx.get_rows()[0]
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 445, in get_rows
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1412 (HY000): Table definition has changed, please retry transaction
+[22/Jul/2023 12:30:16] "GET /assessment/ HTTP/1.1" 500 105236
+Internal Server Error: /assessment/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 416, in get_rows
+    row = fetch_row()
+          ^^^^^^^^^^^
+_mysql_connector.MySQLInterfaceError: Table definition has changed, please retry transaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 282, in get_context_data
+    mycursor.execute("SELECT * FROM " + assSelect)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 342, in execute
+    self._handle_result(result)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 230, in _handle_result
+    self._handle_resultset()
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 788, in _handle_resultset
+    self._rows = self._cnx.get_rows()[0]
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 445, in get_rows
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1412 (HY000): Table definition has changed, please retry transaction
+[22/Jul/2023 12:30:17] "GET /assessment/ HTTP/1.1" 500 105074
+[22/Jul/2023 12:30:23] "GET /assessmentselect/ HTTP/1.1" 200 24023
+[22/Jul/2023 12:30:25] "POST /assessmentselect/ HTTP/1.1" 302 0
+Internal Server Error: /assessment/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 416, in get_rows
+    row = fetch_row()
+          ^^^^^^^^^^^
+_mysql_connector.MySQLInterfaceError: Table definition has changed, please retry transaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 282, in get_context_data
+    mycursor.execute("SELECT * FROM " + assSelect)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 342, in execute
+    self._handle_result(result)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 230, in _handle_result
+    self._handle_resultset()
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 788, in _handle_resultset
+    self._rows = self._cnx.get_rows()[0]
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 445, in get_rows
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1412 (HY000): Table definition has changed, please retry transaction
+[22/Jul/2023 12:30:26] "GET /assessment/ HTTP/1.1" 500 105236
+[22/Jul/2023 12:30:31] "POST /assessmentselect/ HTTP/1.1" 302 0
+[22/Jul/2023 12:30:31] "GET /assessment/ HTTP/1.1" 200 166793
+[22/Jul/2023 12:30:37] "POST /assessment/ HTTP/1.1" 200 172827
+[22/Jul/2023 12:30:41] "POST /assessment/ HTTP/1.1" 200 173417
+[22/Jul/2023 12:30:51] "POST /assessment/ HTTP/1.1" 200 170464
+[22/Jul/2023 12:30:55] "POST /assessment/ HTTP/1.1" 200 171054
+[22/Jul/2023 12:31:00] "GET /exportaciones/ HTTP/1.1" 200 13351
+[22/Jul/2023 12:31:12] "POST /exportaciones/ HTTP/1.1" 200 249289
+[22/Jul/2023 12:31:30] "GET /assessmentselect/ HTTP/1.1" 200 24023
+[22/Jul/2023 12:31:33] "GET /mantenimientoNivelMadurez/ HTTP/1.1" 200 33640
+[22/Jul/2023 12:31:54] "POST /mantenimientoNivelMadurez/ HTTP/1.1" 200 34865
+[22/Jul/2023 12:32:11] "POST /mantenimientoNivelMadurez/ HTTP/1.1" 200 34877
+[22/Jul/2023 12:32:17] "POST /mantenimientoNivelMadurez/ HTTP/1.1" 200 33640
+[22/Jul/2023 12:32:34] "GET /MantenimientoMapeoMarcos/ HTTP/1.1" 200 20654
+[22/Jul/2023 12:32:36] "POST /MantenimientoMapeoMarcos/ HTTP/1.1" 200 524855
+[22/Jul/2023 12:32:40] "GET /usuarios/ HTTP/1.1" 200 15691
+[22/Jul/2023 12:32:44] "POST /usuarios/ HTTP/1.1" 200 19555
+[22/Jul/2023 12:32:57] "GET /perfil/ HTTP/1.1" 200 12539
+[22/Jul/2023 12:33:04] "GET /accounts/logout/ HTTP/1.1" 302 0
+[22/Jul/2023 12:33:04] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 12:33:09] "POST / HTTP/1.1" 302 0
+[22/Jul/2023 12:33:09] "GET /menu/ HTTP/1.1" 200 6944
+[22/Jul/2023 12:33:16] "GET /accounts/logout/ HTTP/1.1" 302 0
+[22/Jul/2023 12:33:16] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 12:33:18] "POST / HTTP/1.1" 302 0
+[22/Jul/2023 12:33:18] "GET /menu/ HTTP/1.1" 200 5852
+[22/Jul/2023 12:33:20] "GET /assessmentselect/ HTTP/1.1" 200 8646
+[22/Jul/2023 12:33:21] "GET /perfil/ HTTP/1.1" 200 9044
+[22/Jul/2023 12:33:22] "GET /assessmentselect/ HTTP/1.1" 200 8646
+[22/Jul/2023 12:33:26] "POST /assessmentselect/ HTTP/1.1" 302 0
+[22/Jul/2023 12:33:26] "GET /assessment/ HTTP/1.1" 200 79364
+[22/Jul/2023 12:33:30] "POST /assessmentselect/ HTTP/1.1" 302 0
+Internal Server Error: /assessment/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 416, in get_rows
+    row = fetch_row()
+          ^^^^^^^^^^^
+_mysql_connector.MySQLInterfaceError: Table definition has changed, please retry transaction
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 226, in get
+    context = self.get_context_data(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 282, in get_context_data
+    mycursor.execute("SELECT * FROM " + assSelect)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 342, in execute
+    self._handle_result(result)
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 230, in _handle_result
+    self._handle_resultset()
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\cursor_cext.py", line 788, in _handle_resultset
+    self._rows = self._cnx.get_rows()[0]
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\mysql\connector\connection_cext.py", line 445, in get_rows
+    raise get_mysql_exception(
+mysql.connector.errors.DatabaseError: 1412 (HY000): Table definition has changed, please retry transaction
+[22/Jul/2023 12:33:31] "GET /assessment/ HTTP/1.1" 500 105247
+[22/Jul/2023 12:43:04] "GET / HTTP/1.1" 200 1515

@@ -1,0 +1,29 @@
+Watching for file changes with StatReloader
+[24/Jul/2023 08:37:06] "GET /accounts/logout/ HTTP/1.1" 302 0
+[24/Jul/2023 08:37:07] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 08:37:07] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[24/Jul/2023 08:37:07] "GET /staticfiles/css/botones.css HTTP/1.1" 304 0
+[24/Jul/2023 08:37:07] "GET /staticfiles/css/estilos.css HTTP/1.1" 304 0
+[24/Jul/2023 08:45:20] "GET / HTTP/1.1" 200 1515
+Not Found: /actuator/health
+[24/Jul/2023 09:06:20] "GET /actuator/health HTTP/1.1" 404 6525
+[24/Jul/2023 09:37:53] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 09:44:48] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 09:45:31] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 09:50:52] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 10:08:50] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[24/Jul/2023 10:08:51] "GET /payment/index.php HTTP/1.1" 404 6529
+Not Found: /_profiler/phpinfo
+[24/Jul/2023 10:27:49] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+Not Found: /_profiler/phpinfo
+[24/Jul/2023 10:27:49] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+[24/Jul/2023 10:40:17] "OPTIONS / HTTP/1.0" 200 0
+Not Found: /.env
+[24/Jul/2023 11:12:13] "GET /.env HTTP/1.1" 404 6485
+[24/Jul/2023 11:27:29] "GET /admin/config.php HTTP/1.1" 302 0
+[24/Jul/2023 11:27:30] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296
+Not Found: /robots.txt
+[24/Jul/2023 11:33:26] "GET /robots.txt HTTP/1.1" 404 6503
+Not Found: /robots.txt
+[24/Jul/2023 11:33:26] "GET /robots.txt HTTP/1.1" 404 6503

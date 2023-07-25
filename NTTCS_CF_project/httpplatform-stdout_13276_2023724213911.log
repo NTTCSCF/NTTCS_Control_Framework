@@ -1,0 +1,25 @@
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+[24/Jul/2023 23:39:13] "GET /favicon.ico HTTP/1.1" 404 6513
+[25/Jul/2023 00:04:14] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 00:09:18] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[25/Jul/2023 00:26:26] "GET /.env HTTP/1.1" 404 6492
+Not Found: /wp-content/
+[25/Jul/2023 00:26:26] "GET /wp-content/ HTTP/1.1" 404 6513
+[25/Jul/2023 00:42:13] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 00:48:54] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 01:01:54] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 01:20:40] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[25/Jul/2023 01:20:40] "GET /payment/index.php HTTP/1.1" 404 6529
+Not Found: /hudson
+[25/Jul/2023 01:27:41] "GET /hudson HTTP/1.1" 404 6498
+[25/Jul/2023 01:30:12] "GET / HTTP/1.1" 200 1515
+Not Found: /_profiler/phpinfo
+[25/Jul/2023 01:32:09] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+Not Found: /_profiler/phpinfo
+[25/Jul/2023 01:32:10] "GET /_profiler/phpinfo HTTP/1.1" 404 6531
+[25/Jul/2023 01:34:11] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 01:37:51] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 01:48:47] "GET / HTTP/1.1" 200 1515

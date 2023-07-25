@@ -1,0 +1,7 @@
+Watching for file changes with StatReloader
+[24/Jul/2023 00:21:59] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 00:25:07] "GET / HTTP/1.1" 200 1515
+Not Found: /client/get_targets
+[24/Jul/2023 00:25:07] "GET /client/get_targets HTTP/1.1" 404 6534
+Not Found: /upl.php
+[24/Jul/2023 00:25:07] "GET /upl.php HTTP/1.1" 404 6501

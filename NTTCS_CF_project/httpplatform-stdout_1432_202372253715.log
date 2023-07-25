@@ -1,0 +1,40 @@
+Watching for file changes with StatReloader
+[22/Jul/2023 07:37:17] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 07:41:51] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[22/Jul/2023 07:41:51] "GET /favicon.ico HTTP/1.1" 404 6513
+Not Found: /1.php
+[22/Jul/2023 07:41:51] "GET /1.php HTTP/1.1" 404 6495
+Not Found: /bundle.js
+[22/Jul/2023 07:41:52] "GET /bundle.js HTTP/1.1" 404 6507
+Not Found: /files/
+[22/Jul/2023 07:41:52] "GET /files/ HTTP/1.1" 404 6498
+[22/Jul/2023 08:00:32] "GET / HTTP/1.0" 200 1515
+[22/Jul/2023 08:01:13] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[22/Jul/2023 08:01:13] "GET /payment/index.php HTTP/1.1" 404 6529
+Not Found: /laravel/.env
+[22/Jul/2023 08:11:56] "GET /laravel/.env HTTP/1.1" 404 6516
+Not Found: /laravel
+[22/Jul/2023 08:11:57] "POST /laravel HTTP/1.1" 404 6502
+Not Found: /.git/config
+[22/Jul/2023 08:31:35] "GET /.git/config HTTP/1.1" 404 6513
+Not Found: /.git/config
+[22/Jul/2023 08:31:36] "GET /.git/config HTTP/1.1" 404 6513
+[22/Jul/2023 08:36:20] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 08:42:40] "GET /admin/.env HTTP/1.1" 302 0
+Internal Server Error: /admin
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 185.166.215.191/admin/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+[22/Jul/2023 08:42:41] "POST /admin HTTP/1.1" 500 65246

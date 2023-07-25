@@ -1,0 +1,9 @@
+Watching for file changes with StatReloader
+Not Found: /hudson
+[22/Jul/2023 03:20:39] "GET /hudson HTTP/1.1" 404 6498
+Not Found: /index.php
+[22/Jul/2023 03:42:53] "GET /index.php HTTP/1.1" 404 6507
+Not Found: /phpmyadmin/index.php
+[22/Jul/2023 03:42:54] "GET /phpmyadmin/index.php HTTP/1.1" 404 6540
+Not Found: /druid/index.html
+[22/Jul/2023 03:43:29] "GET /druid/index.html HTTP/1.1" 404 6528

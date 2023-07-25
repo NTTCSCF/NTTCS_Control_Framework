@@ -1,0 +1,35 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[23/Jul/2023 11:05:52] "GET /.env HTTP/1.1" 404 6492
+[23/Jul/2023 11:11:38] "GET / HTTP/1.1" 200 1515
+[23/Jul/2023 11:11:38] "GET /staticfiles/css/main.css HTTP/1.1" 304 0
+[23/Jul/2023 11:11:38] "GET /staticfiles/css/botones.css HTTP/1.1" 304 0
+[23/Jul/2023 11:11:39] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 7572
+[23/Jul/2023 11:11:39] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[23/Jul/2023 11:11:45] "POST / HTTP/1.1" 302 0
+[23/Jul/2023 11:11:45] "GET /menu/ HTTP/1.1" 200 9358
+[23/Jul/2023 11:11:46] "GET /staticfiles/js/scripts.js HTTP/1.1" 304 0
+[23/Jul/2023 11:11:46] "GET /staticfiles/css/ass.css HTTP/1.1" 200 6971
+[23/Jul/2023 11:11:47] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[23/Jul/2023 11:11:47] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 304 0
+[23/Jul/2023 11:11:58] "GET /MantenimientoDominios/ HTTP/1.1" 200 84319
+[23/Jul/2023 11:12:39] "GET /MantenimientoMarcosExistentes/ HTTP/1.1" 200 81261
+[23/Jul/2023 11:18:24] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[23/Jul/2023 11:18:24] "GET /payment/index.php HTTP/1.1" 404 6529
+Not Found: /wp-content/plugins/ht-mega-for-elementor/assets/css/htbbootstrap.css
+[23/Jul/2023 11:28:38] "GET /wp-content/plugins/ht-mega-for-elementor/assets/css/htbbootstrap.css HTTP/1.1" 404 6677
+Not Found: /.git/config
+[23/Jul/2023 11:39:03] "GET /.git/config HTTP/1.1" 404 6513
+Not Found: /.git/config
+[23/Jul/2023 11:55:48] "GET /.git/config HTTP/1.1" 404 6506
+Not Found: /.git/config
+[23/Jul/2023 11:55:52] "GET /.git/config HTTP/1.1" 404 6506
+Not Found: /.git/config
+[23/Jul/2023 11:55:52] "GET /.git/config HTTP/1.1" 404 6506
+Not Found: /.git/config
+[23/Jul/2023 11:55:52] "GET /.git/config HTTP/1.1" 404 6506
+Not Found: /.git/config
+[23/Jul/2023 11:58:32] "GET /.git/config HTTP/1.1" 404 6506
+Not Found: /.git/config
+[23/Jul/2023 11:58:32] "GET /.git/config HTTP/1.1" 404 6506

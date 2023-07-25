@@ -1,0 +1,5 @@
+Watching for file changes with StatReloader
+[22/Jul/2023 20:35:32] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 20:49:40] "GET / HTTP/1.1" 200 1515
+Not Found: /boaform/admin/formLogin
+[22/Jul/2023 20:50:24] "POST /boaform/admin/formLogin HTTP/1.1" 404 6553

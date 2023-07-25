@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+[21/Jul/2023 18:22:15] "GET / HTTP/1.1" 200 1515
+Not Found: /api/.env
+[21/Jul/2023 18:28:05] "GET /api/.env HTTP/1.1" 404 6504
+Not Found: /api
+[21/Jul/2023 18:28:06] "POST /api HTTP/1.1" 404 6490
+[21/Jul/2023 18:28:14] "GET / HTTP/1.1" 200 1515
+Not Found: /wp-login.php
+[21/Jul/2023 18:46:00] "GET /wp-login.php HTTP/1.1" 404 6514
+[21/Jul/2023 19:04:00] "GET / HTTP/1.1" 200 1515

@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+Not Found: /1.php
+[22/Jul/2023 19:19:07] "GET /1.php HTTP/1.1" 404 6495
+Not Found: /bundle.js
+[22/Jul/2023 19:19:07] "GET /bundle.js HTTP/1.1" 404 6507
+Not Found: /files/
+[22/Jul/2023 19:19:07] "GET /files/ HTTP/1.1" 404 6498
+[22/Jul/2023 19:19:47] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 19:29:31] "GET / HTTP/1.1" 200 1515
+[22/Jul/2023 19:29:32] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[22/Jul/2023 19:29:32] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /robots.txt
+[22/Jul/2023 19:29:33] "GET /robots.txt HTTP/1.1" 404 6510
+Not Found: /sitemap.xml
+[22/Jul/2023 19:29:33] "GET /sitemap.xml HTTP/1.1" 404 6513

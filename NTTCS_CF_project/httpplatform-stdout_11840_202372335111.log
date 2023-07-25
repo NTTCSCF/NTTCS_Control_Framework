@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+Not Found: /auth
+[23/Jul/2023 05:51:12] "GET /auth HTTP/1.1" 404 6492
+Not Found: /favicon.ico
+[23/Jul/2023 05:51:13] "GET /favicon.ico HTTP/1.1" 404 6513
+[23/Jul/2023 05:52:30] "GET / HTTP/1.1" 200 1515
+Not Found: /Iya9
+[23/Jul/2023 06:08:20] "GET /Iya9 HTTP/1.1" 404 6492
+Not Found: /favicon.ico
+[23/Jul/2023 06:08:20] "GET /favicon.ico HTTP/1.1" 404 6513

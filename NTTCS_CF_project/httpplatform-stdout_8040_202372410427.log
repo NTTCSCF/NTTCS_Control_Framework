@@ -1,0 +1,25 @@
+Watching for file changes with StatReloader
+Not Found: /client/get_targets
+[24/Jul/2023 12:04:30] "GET /client/get_targets HTTP/1.1" 404 6534
+Not Found: /upl.php
+[24/Jul/2023 12:04:31] "GET /upl.php HTTP/1.1" 404 6501
+Not Found: /payment/index.php
+[24/Jul/2023 12:10:14] "GET /payment/index.php HTTP/1.1" 404 6529
+[24/Jul/2023 12:10:14] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 12:13:11] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[24/Jul/2023 12:30:03] "GET /robots.txt HTTP/1.1" 404 6503
+Not Found: /ads.txt
+[24/Jul/2023 12:30:13] "GET /ads.txt HTTP/1.1" 404 6494
+Not Found: /app-ads.txt
+[24/Jul/2023 12:30:18] "GET /app-ads.txt HTTP/1.1" 404 6506
+Not Found: /.well-known/assetlinks.json
+[24/Jul/2023 12:30:23] "GET /.well-known/assetlinks.json HTTP/1.1" 404 6554
+Not Found: /.well-known/gpc.json
+[24/Jul/2023 12:30:28] "GET /.well-known/gpc.json HTTP/1.1" 404 6533
+Not Found: /.well-known/nodeinfo
+[24/Jul/2023 12:30:33] "GET /.well-known/nodeinfo HTTP/1.1" 404 6533
+Not Found: /.well-known/trust.txt
+[24/Jul/2023 12:30:38] "GET /.well-known/trust.txt HTTP/1.1" 404 6536
+Not Found: /trust.txt
+[24/Jul/2023 12:30:43] "GET /trust.txt HTTP/1.1" 404 6500

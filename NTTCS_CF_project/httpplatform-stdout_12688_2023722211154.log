@@ -1,0 +1,14 @@
+Watching for file changes with StatReloader
+Not Found: /robots.txt
+[22/Jul/2023 23:11:56] "GET /robots.txt HTTP/1.1" 404 6503
+Not Found: /robots.txt
+[22/Jul/2023 23:11:56] "GET /robots.txt HTTP/1.1" 404 6503
+Not Found: /.env
+[22/Jul/2023 23:21:46] "GET /.env HTTP/1.1" 404 6492
+Not Found: /wp-content/
+[22/Jul/2023 23:21:46] "GET /wp-content/ HTTP/1.1" 404 6513
+[22/Jul/2023 23:23:21] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[22/Jul/2023 23:27:39] "GET /.env HTTP/1.1" 404 6492
+Not Found: /wp-content/
+[22/Jul/2023 23:27:39] "GET /wp-content/ HTTP/1.1" 404 6513

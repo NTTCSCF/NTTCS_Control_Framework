@@ -1,0 +1,22 @@
+Watching for file changes with StatReloader
+[23/Jul/2023 02:46:35] "GET /admin/console/index.html HTTP/1.1" 302 0
+[23/Jul/2023 02:46:35] "GET /admin/login/?next=/admin/console/index.html HTTP/1.1" 200 4312
+Not Found: /favicon.ico
+[23/Jul/2023 02:46:35] "GET /favicon.ico HTTP/1.1" 404 6513
+Not Found: /download/po
+[23/Jul/2023 03:50:03] "GET /download/po HTTP/1.1" 404 6513
+Not Found: /favicon.ico
+[23/Jul/2023 03:50:03] "GET /favicon.ico HTTP/1.1" 404 6513
+[23/Jul/2023 03:55:24] "GET / HTTP/1.1" 200 1515
+[23/Jul/2023 04:06:19] "GET / HTTP/1.1" 200 1515
+[23/Jul/2023 04:06:19] "GET / HTTP/1.1" 200 1515
+[23/Jul/2023 04:06:20] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[23/Jul/2023 04:06:20] "GET /favicon.ico HTTP/1.1" 404 6548
+[23/Jul/2023 04:33:42] "GET / HTTP/1.0" 200 1515
+Not Found: /aN7jD0qO6kT5bK5bQ4eR8fE1xP7hL2vK/mozglue.dll
+[23/Jul/2023 04:42:30] "GET /aN7jD0qO6kT5bK5bQ4eR8fE1xP7hL2vK/mozglue.dll HTTP/1.1" 404 6612
+Not Found: /favicon.ico
+[23/Jul/2023 04:42:31] "GET /favicon.ico HTTP/1.1" 404 6513
+[23/Jul/2023 04:46:31] "GET / HTTP/1.1" 200 1515
+[23/Jul/2023 05:23:12] "GET / HTTP/1.1" 200 1515

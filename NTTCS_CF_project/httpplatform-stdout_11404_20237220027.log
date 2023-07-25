@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+[22/Jul/2023 02:00:29] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[22/Jul/2023 02:00:29] "GET /payment/index.php HTTP/1.1" 404 6529
+[22/Jul/2023 02:44:20] "GET / HTTP/1.1" 200 1515
+Not Found: /client/get_targets
+[22/Jul/2023 02:44:20] "GET /client/get_targets HTTP/1.1" 404 6534
+Not Found: /files/
+[22/Jul/2023 02:44:20] "GET /files/ HTTP/1.1" 404 6498
+Not Found: /manager/text/list
+[22/Jul/2023 02:53:24] "GET /manager/text/list HTTP/1.1" 404 6531

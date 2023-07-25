@@ -1,0 +1,4 @@
+Watching for file changes with StatReloader
+Not Found: /.git/config
+[21/Jul/2023 22:48:59] "GET /.git/config HTTP/1.1" 404 6506
+[21/Jul/2023 23:03:46] "GET / HTTP/1.1" 200 1515

@@ -1,0 +1,24 @@
+Watching for file changes with StatReloader
+Not Found: /favicon.ico
+[25/Jul/2023 08:47:46] "GET /favicon.ico HTTP/1.1" 404 6513
+Not Found: /bundle.js
+[25/Jul/2023 08:48:51] "GET /bundle.js HTTP/1.1" 404 6507
+Not Found: /files/
+[25/Jul/2023 08:48:51] "GET /files/ HTTP/1.1" 404 6498
+Not Found: /manage/account/login
+[25/Jul/2023 08:51:28] "GET /manage/account/login HTTP/1.1" 404 6540
+[25/Jul/2023 08:52:29] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 08:56:47] "GET /admin/index.html HTTP/1.1" 302 0
+[25/Jul/2023 08:58:22] "GET / HTTP/1.1" 200 1515
+Not Found: /index.html
+[25/Jul/2023 09:01:52] "GET /index.html HTTP/1.1" 404 6510
+[25/Jul/2023 09:07:29] "GET / HTTP/1.1" 200 1515
+Not Found: /cgi-bin/login.cgi
+[25/Jul/2023 09:12:19] "GET /cgi-bin/login.cgi HTTP/1.1" 404 6531
+Not Found: /aaa9
+[25/Jul/2023 09:13:23] "GET /aaa9 HTTP/1.1" 404 6492
+Not Found: /aab8
+[25/Jul/2023 09:13:31] "GET /aab8 HTTP/1.1" 404 6492
+[25/Jul/2023 09:13:43] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 09:17:19] "GET / HTTP/1.1" 200 1515
+[25/Jul/2023 09:20:14] "GET / HTTP/1.1" 200 1515

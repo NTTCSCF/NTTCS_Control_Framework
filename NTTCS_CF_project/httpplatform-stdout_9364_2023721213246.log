@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+[21/Jul/2023 23:32:48] "GET / HTTP/1.1" 200 1515
+[21/Jul/2023 23:52:50] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[21/Jul/2023 23:52:50] "GET /payment/index.php HTTP/1.1" 404 6529
+[21/Jul/2023 23:56:21] "GET / HTTP/1.0" 200 1515
+[21/Jul/2023 23:57:18] "GET / HTTP/1.1" 200 1515
+[21/Jul/2023 23:57:18] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[22/Jul/2023 00:04:17] "GET /favicon.ico HTTP/1.1" 404 6513

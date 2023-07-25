@@ -1,0 +1,7 @@
+Watching for file changes with StatReloader
+[24/Jul/2023 18:32:45] "GET / HTTP/1.1" 200 1515
+Not Found: /payment/index.php
+[24/Jul/2023 18:32:45] "GET /payment/index.php HTTP/1.1" 404 6529
+Not Found: /robots.txt
+[24/Jul/2023 18:37:49] "GET /robots.txt HTTP/1.1" 404 6503
+[24/Jul/2023 18:52:44] "GET / HTTP/1.1" 200 1515

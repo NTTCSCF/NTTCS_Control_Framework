@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+Not Found: /web/login
+[24/Jul/2023 17:37:55] "GET /web/login HTTP/1.1" 404 6500
+[24/Jul/2023 17:40:09] "HEAD / HTTP/1.1" 200 0
+[24/Jul/2023 17:40:10] "HEAD / HTTP/1.1" 200 0
+[24/Jul/2023 17:40:10] "GET / HTTP/1.1" 200 1515
+[24/Jul/2023 17:40:10] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[24/Jul/2023 17:40:10] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[24/Jul/2023 17:40:10] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 7572
+[24/Jul/2023 17:40:10] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /wp-login.php
+[24/Jul/2023 17:51:11] "GET /wp-login.php HTTP/1.1" 404 6509
+[24/Jul/2023 17:51:17] "GET / HTTP/1.1" 200 1515
+Not Found: /client/get_targets
+[24/Jul/2023 17:51:17] "GET /client/get_targets HTTP/1.1" 404 6534
+Not Found: /upl.php
+[24/Jul/2023 17:51:17] "GET /upl.php HTTP/1.1" 404 6501
