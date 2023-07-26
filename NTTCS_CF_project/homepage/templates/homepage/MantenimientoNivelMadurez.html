@@ -4,6 +4,29 @@
 
 {% block contenido %}
 
+    <template id="my-template">
+      <swal-title>
+        Estas seguro de guardar cambios?
+      </swal-title>
+      <swal-icon type="warning" color="red"></swal-icon>
+      <swal-button type="confirm">
+        Save As
+      </swal-button>
+      <swal-button type="cancel">
+        Cancel
+      </swal-button>
+      <swal-button type="deny">
+        Close without Saving
+      </swal-button>
+      <swal-param name="allowEscapeKey" value="false" />
+      <swal-param
+        name="customClass"
+        value='{ "popup": "my-popup" }' />
+      <swal-function-param
+        name="didOpen"
+        value="popup => console.log(popup)" />
+    </template>
+
 
 
     <!-- titulo  -->
@@ -66,8 +89,9 @@
 
                         <td><input class="inputTabas" type="text" value="{{ids.percentage}}" name="Percentage" ></td>
                         <td class="botonesTabla">
-                            <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                            <button class="btn btn-warning btn-sm" data-swal-template="#my-template" title="Editar" id="modificar" name="modificar">
                                 <i class="bi bi-pencil-square"></i>
+
                             </button>
                             <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
                                 <i class="bi bi-trash3"></i>
