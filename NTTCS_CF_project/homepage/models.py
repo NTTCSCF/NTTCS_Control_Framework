@@ -83,6 +83,84 @@ class AuthGroup(models.Model):
         db_table = 'auth_group'
 
 
+class MapeoMarcos(models.Model):
+    ntt_id = models.CharField(db_column='NTT_ID', primary_key=True, max_length=255)  # Field name made lowercase.
+    ciscscv8 = models.IntegerField(db_column='CISCSCv8', blank=True, null=True)  # Field name made lowercase.
+    cobit2019 = models.IntegerField(db_column='COBIT2019', blank=True, null=True)  # Field name made lowercase.
+    cosov2017 = models.IntegerField(db_column='COSOv2017', blank=True, null=True)  # Field name made lowercase.
+    csaccmv4 = models.IntegerField(db_column='CSACCMv4', blank=True, null=True)  # Field name made lowercase.
+    csaiotscfv2 = models.IntegerField(db_column='CSAIoTSCFv2', blank=True, null=True)  # Field name made lowercase.
+    enisav2 = models.IntegerField(db_column='ENISAv2', blank=True, null=True)  # Field name made lowercase.
+    iec6244342 = models.IntegerField(db_column='IEC6244342', blank=True, null=True)  # Field name made lowercase.
+    iso22301v2019 = models.IntegerField(db_column='ISO22301v2019', blank=True, null=True)  # Field name made lowercase.
+    iso27001v2013 = models.IntegerField(db_column='ISO27001v2013', blank=True, null=True)  # Field name made lowercase.
+    iso27001v2022 = models.IntegerField(db_column='ISO27001v2022', blank=True, null=True)  # Field name made lowercase.
+    iso27002v2013 = models.IntegerField(db_column='ISO27002v2013', blank=True, null=True)  # Field name made lowercase.
+    iso27002v2022 = models.IntegerField(db_column='ISO27002v2022', blank=True, null=True)  # Field name made lowercase.
+    iso27017v2015 = models.IntegerField(db_column='ISO27017v2015', blank=True, null=True)  # Field name made lowercase.
+    iso27018v2014 = models.IntegerField(db_column='ISO27018v2014', blank=True, null=True)  # Field name made lowercase.
+    iso27701v2019 = models.IntegerField(db_column='ISO27701v2019', blank=True, null=True)  # Field name made lowercase.
+    iso29100v2011 = models.IntegerField(db_column='ISO29100v2011', blank=True, null=True)  # Field name made lowercase.
+    iso31000v2009 = models.IntegerField(db_column='ISO31000v2009', blank=True, null=True)  # Field name made lowercase.
+    iso31010v2009 = models.IntegerField(db_column='ISO31010v2009', blank=True, null=True)  # Field name made lowercase.
+    nistarmfai1001v1 = models.IntegerField(db_column='NISTARMFAI1001v1', blank=True, null=True)  # Field name made lowercase.
+    nistprivacyframeworkv1 = models.IntegerField(db_column='NISTPrivacyFrameworkv1', blank=True, null=True)  # Field name made lowercase.
+    nistssdf = models.IntegerField(db_column='NISTSSDF', blank=True, null=True)  # Field name made lowercase.
+    nist80037rev2 = models.IntegerField(db_column='NIST80037rev2', blank=True, null=True)  # Field name made lowercase.
+    nist80039 = models.IntegerField(db_column='NIST80039', blank=True, null=True)  # Field name made lowercase.
+    nist80053rev4 = models.IntegerField(db_column='NIST80053rev4', blank=True, null=True)  # Field name made lowercase.
+    nist80053rev4low = models.IntegerField(blank=True, null=True)
+    nist80053rev4moderate = models.IntegerField(blank=True, null=True)
+    nist80053rev4high = models.IntegerField(db_column='NIST80053rev4high', blank=True, null=True)  # Field name made lowercase.
+    nist80053rev5 = models.IntegerField(db_column='NIST80053rev5', blank=True, null=True)  # Field name made lowercase.
+    nist80053rev5privacy = models.IntegerField(blank=True, null=True)
+    nist80053rev5low = models.IntegerField(blank=True, null=True)
+    nist80053rev5moderate = models.IntegerField(blank=True, null=True)
+    nist80053rev5high = models.IntegerField(blank=True, null=True)
+    nist80053rev5noc = models.IntegerField(blank=True, null=True)
+    nist80063bpartialmapping = models.IntegerField(blank=True, null=True)
+    nist80082rev2lowimpacticsoverlay = models.IntegerField(db_column='NIST80082rev2LowImpactICSOverlay', blank=True, null=True)  # Field name made lowercase.
+    nist80082rev2moderateimpacticsoverlay = models.IntegerField(db_column='NIST80082rev2ModerateImpactICSOverlay', blank=True, null=True)  # Field name made lowercase.
+    nist80082rev2highimpacticsoverlay = models.IntegerField(db_column='NIST80082rev2HighImpactICSOverlay', blank=True, null=True)  # Field name made lowercase.
+    nist800160 = models.IntegerField(db_column='NIST800160', blank=True, null=True)  # Field name made lowercase.
+    nist800161rev1 = models.IntegerField(db_column='NIST800161rev1', blank=True, null=True)  # Field name made lowercase.
+    nist800161rev1cscrmbaseline = models.IntegerField(db_column='NIST800161rev1CSCRMBaseline', blank=True, null=True)  # Field name made lowercase.
+    nist800161rev1flowdown = models.IntegerField(db_column='NIST800161rev1FlowDown', blank=True, null=True)  # Field name made lowercase.
+    nist800161rev1level1 = models.IntegerField(db_column='NIST800161rev1Level1', blank=True, null=True)  # Field name made lowercase.
+    nist800161rev1level2 = models.IntegerField(db_column='NIST800161rev1Level2', blank=True, null=True)  # Field name made lowercase.
+    nist800161rev1level3 = models.IntegerField(db_column='NIST800161rev1Level3', blank=True, null=True)  # Field name made lowercase.
+    nist800171rev2 = models.IntegerField(db_column='NIST800171rev2', blank=True, null=True)  # Field name made lowercase.
+    nist800171a = models.IntegerField(db_column='NIST800171A', blank=True, null=True)  # Field name made lowercase.
+    nist800172 = models.IntegerField(db_column='NIST800172', blank=True, null=True)  # Field name made lowercase.
+    nist800218v1_1 = models.IntegerField(db_column='NIST800218v1_1', blank=True, null=True)  # Field name made lowercase.
+    nistcsfv1_1 = models.IntegerField(db_column='NISTCSFv1_1', blank=True, null=True)  # Field name made lowercase.
+    owasptop10v2021 = models.IntegerField(db_column='OWASPTop10v2021', blank=True, null=True)  # Field name made lowercase.
+    pcidssv3_2 = models.IntegerField(db_column='PCIDSSv3_2', blank=True, null=True)  # Field name made lowercase.
+    pcidssv4_0 = models.IntegerField(db_column='PCIDSSv4_0', blank=True, null=True)  # Field name made lowercase.
+    usc2m2v2_1 = models.IntegerField(db_column='USC2M2v2_1', blank=True, null=True)  # Field name made lowercase.
+    uscertrmmv1_2 = models.IntegerField(db_column='USCERTRMMv1_2', blank=True, null=True)  # Field name made lowercase.
+    uscmmc2_0level1 = models.IntegerField(db_column='USCMMC2_0Level1', blank=True, null=True)  # Field name made lowercase.
+    uscmmc2_0level2 = models.IntegerField(db_column='USCMMC2_0Level2', blank=True, null=True)  # Field name made lowercase.
+    uscmmc2_0level3 = models.IntegerField(db_column='USCMMC2_0Level3', blank=True, null=True)  # Field name made lowercase.
+    ushipaa = models.IntegerField(db_column='USHIPAA', blank=True, null=True)  # Field name made lowercase.
+    hipaahicpsmallpractice = models.IntegerField(db_column='HIPAAHICPSmallPractice', blank=True, null=True)  # Field name made lowercase.
+    hipaahicpmediumpractice = models.IntegerField(db_column='HIPAAHICPMediumPractice', blank=True, null=True)  # Field name made lowercase.
+    hipaahicplargepractice = models.IntegerField(db_column='HIPAAHICPLargePractice', blank=True, null=True)  # Field name made lowercase.
+    ussox = models.IntegerField(db_column='USSOX', blank=True, null=True)  # Field name made lowercase.
+    emeaeudora = models.IntegerField(db_column='EMEAEUDORA', blank=True, null=True)  # Field name made lowercase.
+    emeaeueprivacydraft = models.IntegerField(db_column='EMEAEUePrivacydraft', blank=True, null=True)  # Field name made lowercase.
+    emeaeugdpr = models.IntegerField(db_column='EMEAEUGDPR', blank=True, null=True)  # Field name made lowercase.
+    emeaeupsd2 = models.IntegerField(db_column='EMEAEUPSD2', blank=True, null=True)  # Field name made lowercase.
+    emeaspain = models.IntegerField(db_column='EMEASpain', blank=True, null=True)  # Field name made lowercase.
+    emeaspainccnstic825 = models.IntegerField(db_column='EMEASpainCCNSTIC825', blank=True, null=True)  # Field name made lowercase.
+    scfbbusinessmergersacquisitions = models.IntegerField(db_column='SCFBBusinessMergersAcquisitions', blank=True, null=True)  # Field name made lowercase.
+    scficyberinsurance = models.IntegerField(db_column='SCFICyberInsurance', blank=True, null=True)  # Field name made lowercase.
+    scfeembeddedtechnology = models.IntegerField(db_column='SCFEEmbeddedTechnology', blank=True, null=True)  # Field name made lowercase.
+    scfrransomwareprotection = models.IntegerField(db_column='SCFRRansomwareProtection', blank=True, null=True)  # Field name made lowercase.
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'mapeo_marcos'
 class AuthGroupPermissions(models.Model):
     id = models.BigAutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
