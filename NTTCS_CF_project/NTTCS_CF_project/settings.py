@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os.path
 from pathlib import Path
-import pymysql
-import mimetypes
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "debug_toolbar",
     'homepage',
     'acounts'
 ]
@@ -56,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'NTTCS_CF_project.urls'
@@ -140,17 +137,3 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-INTERNAL_IPS = [                                               # <-- NEW
-    '127.0.0.1',                                               # <-- NEW
-]                                                              # <-- NEW
-
-def show_toolbar(request):                                     # <-- NEW
-    return True                                                # <-- NEW
-
-DEBUG_TOOLBAR_CONFIG = {                                       # <-- NEW
-    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,                    # <-- NEW
-}                                                              # <-- NEW
-
-if DEBUG:                                                      # <-- NEW
-    import mimetypes                                           # <-- NEW
-    mimetypes.add_type("application/javascript", ".js", True)
