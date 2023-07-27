@@ -1,146 +1,88 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block titulo %} Dominios jose practica {% endblock %}
 
-<link rel="stylesheet" href="{% static '/css/main.css' %}" />
-<link rel="stylesheet" href="{% static '/css/botones.css' %}" />
+{% block contenido %}
 
 
-<head>
-    <meta charset="UTF-8">
-    <title>Practica</title>
-    <link rel="shortcut icon" href="{% static '/images/logo_NTTCS_CF.jpg' %}" />
-</head>
-<body>
-    <!-- Contenedor de la página  -->
-    <div class="box wrapper">
 
-        <!-- Logo NTT Control Framework -->
-        <div class="logoGrande1">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTCS_CF.jpg' %}">
+
+    <!-- titulo  -->
+    <div class="rowTitulo">
+    <!-- Titulo con el nombre de nivel de madurez -->
+        <div class="cajaTitulo">
+            <h1>Mantenimiento Dominios Pruebas</h1>
         </div>
-
-        <!-- titulo  -->
-        <div class="tituloMantenimiento">
-            <div class="flexTitulo">
-                <div class="cajaTexto">
-                    <h1>Mantenimiento</h1>
-                </div>
-            </div>
-        </div>
-
-        <!-- Logo de NTT DATA -->
-        <div class="logoPequeno">
-            <img class="ajustarImg" src="{% static '/images/logo_NTTData.jpg' %}">
-        </div>
-
-         <!-- vista del boton de modificar -->
-        <div class="botonModificar">
-            <form class="tablasModificarFlex" method="post" >
-                {% csrf_token %}
-                <div >
-                    <button class="btnBorde btnTablas"  type="submit">Modificar</button>
-                </div>
-            </form>
-        </div>
-
-         <!-- Seccion de busqueda -->
-        <div class="tablasBusca">
-            <form class="tablasBuscaFlex" method="post" id="busquedaForm">
-                {% csrf_token %}
-                <div >
-                    <input style="width:150%;height:20px;" type="text" id="busqueda" name="busqueda">
-                </div>
-                <div >
-                    <button class="btnBorde btnTablas"  type="submit" value="">Buscar</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Boton eliminar -->
-        <div class="botonEliminar">
-            <div class="tablasEliminarFlex">
-                <div >
-                    <a class="btnBorde btnTablas" href="{% url 'EliminarDominios' %}" >Eliminar</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- tabla de contenido de los controles  -->
-        <div class="tablasTablas">
-            <div class="tabasFlex">
-
-                <div class="cajaTablasTitulo" style="">
-                    <div class="tabasTablaFlexTitulo">
-                        <div class="tb_colprueba">Identifier</div>
-                        <div class="tb_colprueba">Domain</div>
-                        <div class="tb_colprueba">Security & Privacy (S|P) Principles</div>
-                        <div class="tb_colprueba">Principle Intent</div>
-                    </div>
-                </div>
-
-                <div class="cajaTablas">
-
-                    {% if lenConsulta > 1 %}
-
-                    {% for ids in consulta %}
-
-                    <div class="tabasTablaFlex">
-
-                        <div class="tb_colprueba">{{ids.identifier}}</div>
-                        <div class="tb_colprueba">{{ids.domain}}</div>
-                        <div class="tb_colprueba">{{ids.security_privacy_by_design_s_p_principles}}</div>
-                        <div class="tb_colprueba">{{ids.principle_intent}}</div>
-
-                    </div>
-                    {% endfor %}
-
-                    {% else %}
-                    <div class="tabasTablaFlex">
-                        <div class="tb_colprueba">{{consulta.identifier}}</div>
-                        <div class="tb_colprueba">{{consulta.domain}}</div>
-                        <div class="tb_colprueba">{{consulta.security_privacy_by_design_s_p_principles}}</div>
-                        <div class="tb_colprueba">{{consulta.principle_intent}}</div>
-                    </div>
-                    {% endif %}
-
-                </div>
-
-            </div>
-        </div>
-
-        <!-- formulario para insertar datos -->
-        <div class="tablasInsertar">
-            <form class="tablasInsertarFlex" method="post">
-                {% csrf_token %}
-                <div class="cajaInsertar1">
-                    <label for="identifier">identifier</label>
-                    <input style="width:100%;height:20px;" type="text" id="identifier" name="identifier" value="{{seleccion.identifier}}">
-                </div>
-                <div class="cajaInsertar2">
-                    <label for="domain">domain</label>
-                    <input style="width:100%;height:20px;" type="text" id="domain" name="domain" value="{{seleccion.domain}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="security_privacy_by_design_s_p_principles">security_privacy_by_design_s_p_principles</label>
-                    <input style="width:100%;height:20px;" type="text" id="security_privacy_by_design_s_p_principles" name="security_privacy_by_design_s_p_principles" value="{{seleccion.security_privacy_by_design_s_p_principles}}">
-                </div>
-                <div class="cajaInsertar1">
-                    <label for="principle_intent">principle_intent</label>
-                    <input style="width:100%;height:20px;" type="text" id="principle_intent" name="principle_intent" value="{{seleccion.principle_intent}}">
-                </div>
-                <div class="cajaInsertar1 cajaButton" >
-                    <button class="btnBorde btnTablas2"  type="submit">Insertar</button>
-                </div>
-            </form>
-        </div>
-
     </div>
 
+    <div class="rowCajasMantenimiento">
+        <!-- caja para el input de busqueda -->
+        <form class="cajaBuscar" method="post" id="busquedaForm">
+            {% csrf_token %}
+            <div class="cajaInputBuscar input-group">
+                <a href="Ejemplo" class="btn btn-primary"></a>
+                <input type="text" class="form-control" placeholder="Búsqueda ..." id="busqueda" name="busqueda" onkeyup="doSearch()">
+            </div>
+        </form>
+    </div>
+
+    <!-- tabla de contenido de los controles  -->
+    <table class="table table-fixed" id="datatable">
+         <!-- header de la tabla -->
+        <thead>
+            <tr>
+                <th scope="col">Identifier</th>
+                <th scope="col">Domain</th>
+                <th scope="col">Security & Privacy</th>
+                <th scope="col">Principle Intent</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        <!-- creacion de fila para insertar datos -->
+            <tr>
+                <form method="post">
+                    {% csrf_token %}
+                    <td><input type="text" name="identifier"></td>
+                    <td><input type="text" name="domain"></td>
+                    <td><input type="text" name="security"></td>
+                    <td><input type="text" name="principle_intent"></td>
+                    <td>
+                        <button class="btn btn-success btn-sm" name="insertar">
+                            <i class="bi bi-check2-square"></i>
+                        </button>
+                    </td>
+
+                </form>
+            </tr>
+
+            <!-- muestra el contenido de la tabla -->
+            {% for ids in ejemplo_list %}
+            <tr>
+                <form method="post">
+                    {% csrf_token %}
+
+                    <td><input type="text" name="identifier" value="{{ids.identifier}}" readonly></td>
+                    <td><input type="text" name="domain" value="{{ids.domain}}"></td>
+                    <td><input type="text" name="security" value="{{ids.security_privacy_by_design_s_p_principles}}"></td>
+                    <td><input type="text" name="principle_intent" value="{{ids.principle_intent}}"></td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" name="modificar" id="modificar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" name="eliminar" id="eliminar">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+
+                </form>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
 
 
+{% endblock %}
 
-
-</body>
-</html>

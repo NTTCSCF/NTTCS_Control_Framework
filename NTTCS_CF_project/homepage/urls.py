@@ -27,6 +27,7 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     #prueba jose
     path('MantDominios2/', views.MantDominios2.as_view(), name='MantDominios2'),
+    path('MantDominios2/list_dominios', views.MantDominios2.list_dominios, name='list_dominios'),
     path('MantDom3/', views.MantDom3.as_view(), name='MantDom3'),
 
 ]

@@ -40,3 +40,8 @@ function doSearch()
                 lastTR.classList.add("hide");
             }
         }
+
+
+$(document).ready( function () {
+    $('#datos').DataTable();
+} );

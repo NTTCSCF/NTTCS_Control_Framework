@@ -17,6 +17,10 @@ import mysql.connector
 from django.contrib import messages
 import csv
 import xlsxwriter
+#IMPORT PARA DATATABLES
+from django.http.response import JsonResponse
+from django.template import loader
+
 
 
 # Create your views here.
@@ -1236,160 +1240,121 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
         return redirect('MantenimientoAssessmentArchivados')
 
 
+#DATA TABLES
+
 # clase de prueba codigo python
 class MantDominios2(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantDominios2.html"
 
-    conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
-                                   auth_plugin='mysql_native_password')
 
-    # clase para mostrar datos de la tabla
-    def get_context_data(self, **knwargs):
-        context = super(MantDominios2, self).get_context_data(**knwargs)
-        context["consulta"] = Domains.objects.all()
-        # print(Domains.objects.get(identifier="NTT-AAT"))
-        # print(Domains.objects.all())
-        context["lenConsulta"] = len(Domains.objects.all())
-        return context
+    def list_dominios(request):
+        print(request)
+        dominios = list(Domains.objects.values())
+        data = {'dominios' : dominios}
+        return JsonResponse(data)
+
+    # funcion que envia el contexto de la pagina.
 
     def post(self, request, **knwargs):
-
-        # PARA BUSQUEDA EN LA TABLA
-        if request.POST.get('busqueda') != None:
-            busqueda = request.POST.get('busqueda')
-            # consulta2 = Domains.objects.get(identifier=busqueda)
-
-            if busqueda == '':
-                context = super(MantDominios2, self).get_context_data(**knwargs)
-                context["consulta"] = Domains.objects.all()
-                context["lenConsulta"] = len(Domains.objects.all())
-                return render(request, self.template_name, context=context)
-
-
-
-            else:
-                try:
-                    consulta = Domains.objects.get(identifier=busqueda)
-                    context = super(MantDominios2, self).get_context_data(**knwargs)
-                    context.update({'consulta': consulta})
-                    context["lenConsulta"] = 1
-                    request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
-                    return render(request, self.template_name, context=context)
-                except:
-                    context = super(MantDominios2, self).get_context_data(**knwargs)
-                    context["consulta"] = Domains.objects.all()
-                    context["lenConsulta"] = len(Domains.objects.all())
-                    return render(request, self.template_name, context=context)
-
-        # PARA INSERTAR DATOS
-        elif request.POST.get('identifier') is not None:
+        #insertar datos en la tabla
+        if 'insertar' in request.POST:
             identifier = request.POST.get('identifier')
             domain = request.POST.get('domain')
-            security_privacy_by_design_s_p_principles = request.POST.get('security_privacy_by_design_s_p_principles')
+            security = request.POST.get('security')
             principle_intent = request.POST.get('principle_intent')
 
-            # verifica que si existe en la BD, en caso que si, se puede modificar la informacion
-            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
-                consulta = Domains.objects.get(
-                    identifier=identifier)  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
-                consulta.domain = domain
-                consulta.security_privacy_by_design_s_p_principles = security_privacy_by_design_s_p_principles
-                consulta.principle_intent = principle_intent
-                consulta.save()  # fijamos los valores y los guardamos.
+            insert = Domains(identifier=identifier,
+                             domain=domain,
+                             security_privacy_by_design_s_p_principles=security,
+                             principle_intent=principle_intent,
+                             comentario="hola",
+                             comentario2="hola comentario 2")
+            insert.save()
 
-            # guarda un registro nuevo
-            except:  # si el valor no esta en la tabla
-                insert = Domains(identifier=identifier, domain=domain,
-                                 security_privacy_by_design_s_p_principles=security_privacy_by_design_s_p_principles,
-                                 principle_intent=principle_intent, )  # creamos un nuevo input en la tabla
-                insert.save()
+        #modificar datos en la tabla
+        if 'modificar' in request.POST:
+            identifier = request.POST.get('identifier')
+            domain = request.POST.get('domain')
+            security = request.POST.get('security')
+            principle_intent = request.POST.get('principle_intent')
 
-            # volvemos a mostrar todos los datos de la tabla
-            context = super(MantDominios2, self).get_context_data(**knwargs)
-            context["consulta"] = Domains.objects.all()
-            context["lenConsulta"] = len(Domains.objects.all())
-            return render(request, self.template_name,
-                          context=context)  # siempre retornamos el valor con la tabla completa.
+            modify = Domains(identifier=identifier)
+            modify.domain = domain
+            modify.security_privacy_by_design_s_p_principles = security
+            modify.principle_intent = principle_intent
+            modify.comentario = "comentario modificado"
 
-        # boton modificar es para rellenar datos en las cajas de texto con la información
-        else:
-            consulta = Domains.objects.get(identifier=request.session["ultBusqueda"])
-            context = super(MantDominios2, self).get_context_data(**knwargs)
-            context["consulta"] = Domains.objects.all()
-            context["lenConsulta"] = len(Domains.objects.all())
-            context[
-                "seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
-            return render(request, self.template_name, context=context)
+            modify.save()
 
+        #eliminar datos en la tabla
+        if 'eliminar' in request.POST:
+            identifier = request.POST.get('identifier')
+
+            borrar = Domains(identifier=identifier)
+            borrar.delete()
+
+        #una vez realizado una accion como identificar, eliminar o modificar regresa a mostrar todos los datos.
+        context = super(MantDominios2, self).get_context_data(**knwargs)
+        context["infoTabla"] = Domains.objects.all()
+        return render(request, self.template_name, context=context)
+
+
+    #una vez realizado la opcion del if regresa a la pagina inicial.
+
+
+
+
+
+
+"""
+      def get_context_data(self, **knwargs):
+        context = super(MantDominios2, self).get_context_data(**knwargs)
+        context["infoTabla"] = Domains.objects.all()
+        return context
+
+    # funcion post que recoge los summit del formulario de la pagina.
+    def post(self, request, **knwargs):
+        if 'insertar' in request.POST:
+            identificador = request.POST.get('identifier')
+            dominio = request.POST.get('domain')
+            seguridad = request.POST.get('security')
+            principle_intent = request.POST.get('principle_intent')
+
+            insert = Domains(identifier=identificador,
+                             domain=dominio,
+                             security_privacy_by_design_s_p_principles=seguridad,
+                             principle_intent=principle_intent)
+            insert.save()
+
+        elif 'modificar' in request.POST:
+            identificador = request.POST.get('identifier')
+            dominio = request.POST.get('domain')
+            seguridad = request.POST.get('security')
+            principle_intent = request.POST.get('principle_intent')
+
+            consulta = Domains.objects.get(identifier=identificador)
+            consulta.domain = dominio
+            consulta.security_privacy_by_design_s_p_principles = seguridad
+            consulta.principle_intent = principle_intent
+
+            consulta.save()
+
+        elif 'eliminar' in request.POST:
+            identificador = request.POST.get('identifier')
+            consulta = Domains.objects.get(identifier=identificador)
+            consulta.delete()
+
+
+        context = super(MantDominios2, self).get_context_data(**knwargs)
+        context["infoTabla"] = Domains.objects.all()
+        return render(request, self.template_name, context=context) 
+
+
+"""
 
 class MantDom3(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantDom3.html"
-
-
-"""
-            else:  # else que recoge la pulsacion del boton de modificar.
-            consulta = Domains.objects.get(identifier=request.session[
-                "ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
-            context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-            context["consulta"] = Domains.objects.all()
-            context["lenConsulta"] = len(Domains.objects.all())
-            context[
-                "seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
-            return render(request, self.template_name, context=context)
-            """
-
-"""
-    def post(self, request, **knwargs):
-
-        if request.POST.get('busqueda') != None:  # if que recoge la pulsacion del boton de busqueda
-            busqueda = request.POST.get('busqueda')  # guardamos el valor del input de busqueda
-
-            if busqueda == '':  # detectamos si el valor del buscador esta vacio
-                context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-                context["consulta"] = Domains.objects.all()  # pasamos el valor de la tabla completa
-                context["lenConsulta"] = len(Domains.objects.all())
-                return render(request, self.template_name, context=context)
-            else:
-                consulta = Domains.objects.get(identifier=busqueda)  # consultamos el valor buscado en la tabla
-                context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-                context.update({'consulta': consulta})  # pasamos la consulta para que se muestre en la tabla
-                context["lenConsulta"] = 1  # pasamos la longitud de la consulta.
-                request.session["ultBusqueda"] = busqueda  # fijamos el valor de la ultima busqueda.
-                return render(request, self.template_name, context=context)
-
-        elif request.POST.get('identifier') is not None:  # if que recoge la pulsacion del boton de insertar.
-            identifier = request.POST.get('identifier')  # valor del input de identifier
-            domain = request.POST.get('domain')  # valor del input de domain
-            security_privacy_by_design_s_p_principles = request.POST.get('security_privacy_by_design_s_p_principles')  # valor del input de security_privacy_by_design_s_p_principles
-            principle_intent = request.POST.get('principle_intent')  # valor del input de principle_intent
-
-            try:  # con este try comprobamos si lo que queremos insertar esta en la tabla.
-                consulta = Domains.objects.get(identifier=identifier)  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
-                consulta.domain = domain
-                consulta.security_privacy_by_design_s_p_principles = security_privacy_by_design_s_p_principles
-                consulta.principle_intent = principle_intent
-                consulta.save()  # fijamos los valores y los guardamos.
-
-            except:  # si el valor no esta en la tabla
-                insert = Domains(identifier=identifier, domain=domain,
-                                 security_privacy_by_design_s_p_principles=security_privacy_by_design_s_p_principles,
-                                 principle_intent=principle_intent, )  # creamos un nuevo input en la tabla
-                insert.save()
-
-            context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-            context["consulta"] = Domains.objects.all()
-            context["lenConsulta"] = len(Domains.objects.all())
-            return render(request, self.template_name, context=context)  # siempre retornamos el valor con la tabla completa.
-
-        else:  # else que recoge la pulsacion del boton de modificar.
-            consulta = Domains.objects.get(identifier=request.session["ultBusqueda"])  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
-            context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-            context["consulta"] = Domains.objects.all()
-            context["lenConsulta"] = len(Domains.objects.all())
-            context["seleccion"] = consulta  # pasamos la consulta para que se rellenen los input con el valor de la ultima seleccion.
-            return render(request, self.template_name, context=context)
-            """
