@@ -11,7 +11,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from datetime import datetime
 from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
-    NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias
+    NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos
 from django.views.generic import TemplateView
 import mysql.connector
 from django.contrib import messages
@@ -452,13 +452,15 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 marc = []
                 mycursor = self.conn.cursor(buffered=True)
                 for i in select2:  # recorremos el segundo selector
+                    consulta = AsociacionMarcos.objects.get(marco_id=i).nombre_tabla
+                    print(consulta)
+                    c = MapeoMarcos.objects.extra(
+                        where=[consulta + "='1'"])  # query para seleccionar la tabla del marco seleccionado
+                    for fila in c:
+                        if fila.ntt_id not in marc:
+                                marc += [fila.ntt_id]  # recorremos la tabla del marco cogiendo los controles de ntt
+                                # que no este repetidos
 
-                    mycursor.execute("SELECT * FROM " + AsociacionMarcos.objects.get(
-                        marco_id=i).nombre_tabla)  # query para seleccionar la tabla del marco seleccionado
-                    for fila in mycursor:
-                        if fila[0] not in marc:
-                            marc += [fila[
-                                         0]]  # recorremos la tabla del marco cogiendo los controles de ntt que no este repetidos
 
                 for marco in marc:
                     marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
