@@ -56,7 +56,6 @@
             <tr>
                 <th scope="col">NTT DATA ID</th>
                 <th scope="col">Marco referencia</th>
-                <th scope="col">ID</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -68,7 +67,6 @@
                     {% csrf_token %}
                     <td><input class="inputTabas" type="text"  name="ntt_id" placeholder="inserte control Ntt" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text"  name="marco" placeholder="inserte marco referencia" autocomplete="false" ></td>
-                    <td><input class="inputTabas" type="text"  name="id" disabled ></td>
                     <td class="botonesTabla">
                         <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
                             <i class="bi bi-check2-square"></i>
@@ -81,9 +79,8 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" value="{{ids.0}}" name="ntt_id" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.0}}" name="ntt_id" readonly></td>
                     <td><input class="inputTabas" type="text" value="{{ids.1}}" name="marco" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.2}}" name="id" readonly ></td>
                     <td class="botonesTabla">
                         <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                             <i class="bi bi-pencil-square"></i>
