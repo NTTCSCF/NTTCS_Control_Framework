@@ -27,10 +27,11 @@
     </div>
 
     <!-- tabla de contenido de los controles  -->
-    <table class="table table-fixed" id="datatable">
+    <table class="table table-fixed" id="datatable_dominios">
          <!-- header de la tabla -->
         <thead>
             <tr>
+                <th scope="col">No</th>
                 <th scope="col">Identifier</th>
                 <th scope="col">Domain</th>
                 <th scope="col">Security & Privacy</th>
@@ -38,11 +39,12 @@
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
-        <tbody>
-        <!-- creacion de fila para insertar datos -->
+        <tbody id="tableDominios">
+        <!-- creacion de fila para insertar datos
             <tr>
                 <form method="post">
                     {% csrf_token %}
+                    <td>#</td>
                     <td><input type="text" name="identifier"></td>
                     <td><input type="text" name="domain"></td>
                     <td><input type="text" name="security"></td>
@@ -56,7 +58,7 @@
                 </form>
             </tr>
 
-            <!-- muestra el contenido de la tabla -->
+            <!-- muestra el contenido de la tabla
             {% for ids in ejemplo_list %}
             <tr>
                 <form method="post">
@@ -79,7 +81,7 @@
             </tr>
 
             {% endfor %}
-
+            -->
         </tbody>
     </table>
 

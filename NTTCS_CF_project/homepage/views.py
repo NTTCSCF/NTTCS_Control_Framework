@@ -918,6 +918,12 @@ class MantenimientoControlesNTTCS(LoginRequiredMixin, TemplateView):
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoControlesNTTCS.html"
 
+    def list_controlesnttcs(request):
+        print(request)
+        controles_nttcs = list(NttcsCf20231.objects.values())
+        data = {'controles_nttcs': controles_nttcs}
+        return JsonResponse(data)
+
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
