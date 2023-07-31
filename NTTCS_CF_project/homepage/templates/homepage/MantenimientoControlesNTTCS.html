@@ -26,7 +26,7 @@
     </div>
 
     <!-- TABLA DE CONTENIDO -->
-    <table class="table table-fixed" id="datos">
+    <table class="table table-fixed" id="datatable_controlesnttcs">
         <!-- header de la tabla -->
         <thead>
             <tr>
@@ -46,8 +46,8 @@
             </tr>
         </thead>
         <!-- cuerpo de la tabla -->
-        <tbody>
-        <!-- creacion de fila para insertar datos -->
+        <tbody id="tableControlesNttcs">
+        <!-- creacion de fila para insertar datos
             <tr>
                 <form method="post">
                     {% csrf_token %}
@@ -70,7 +70,7 @@
                     </td>
                 </form>
             </tr>
-            <!-- muestra el contenido de la tabla -->
+            <!-- muestra el contenido de la tabla
             {% for ids in consulta %}
             <tr>
                 <form method="post">
@@ -98,7 +98,7 @@
                 </form>
             </tr>
             {% endfor %}
-
+            -->
         </tbody>
     </table>
 

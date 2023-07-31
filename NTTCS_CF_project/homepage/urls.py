@@ -21,12 +21,14 @@ urlpatterns = [
     path('MantenimientoPreguntas/', views.MantenimientoPreguntas.as_view(), name='MantenimientoPreguntas'),
     path('MantenimientoMarcosExistentes/', views.MantenimientoMarcosExistentes.as_view(), name='MantenimientoMarcosExistentes'),
     path('MantenimientoControlesNTTCS/', views.MantenimientoControlesNTTCS.as_view(), name='MantenimientoControlesNTTCS'),
+    path('MantenimientoControlesNTTCS/list_controlesnttcs', views.MantenimientoControlesNTTCS.list_controlesnttcs, name='list_controlesnttcs'),
     path('MantenimientoMapeoMarcos/', views.MantenimientoMapeoMarcos.as_view(), name='MantenimientoMapeoMarcos'),
 
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
     path('logout', views.logout, name='logout'),
     #prueba jose
     path('MantDominios2/', views.MantDominios2.as_view(), name='MantDominios2'),
+    path('MantDominios2/list_dominios', views.MantDominios2.list_dominios, name='list_dominios'),
     path('MantDom3/', views.MantDom3.as_view(), name='MantDom3'),
 
 ]
