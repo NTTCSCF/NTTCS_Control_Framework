@@ -42,10 +42,40 @@ function doSearch()
 
 
 
-//PARA DATA TABLES DOMINIOS
+//PARA DATA TABLES NTTCS
+$(document).ready(function(){
+    $('#tabla_controlesnttcs').DataTable({
+        "language": {
+            "url":  "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        }
 
+    });
+});
+
+//CARGAR TABLA DINAMICA DE PRODUCTOS
+$.ajax({
+    url: "../views.py",
+    success:function(respuesta){
+        console.log("respuesta", respuesta);
+    }
+});
+
+
+
+//DATATABLES PRACTICAS EN DOMINIOS2
+
+$(document).ready(function(){
+    $('#tabla_dominios2').DataTable({
+        "language": {
+            "url":  "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        }
+
+    });
+});
+
+//new DataTable('#tabla_dominios2');
 //  CONTROLES NTTCS
-
+/*
 let dataTable;
 let dataTableIsInitialized = false;
 
@@ -72,6 +102,7 @@ const initDataTable = async () => {
 };
 
 //controls list
+/*
 const listControlesNttcs = async () => {
 
     try {
@@ -150,16 +181,17 @@ window.addEventListener("load", async () => {
 });
 
 
-
-
 // INICIALIZACION DEL DATATABLE
 //window.addEventListener("load", async () => {
    // await initDataTable();
 //});
 */
-
+/*
+*/
+/*
 new DataTable('#datatable_dominios', {
     paging: false,
     scrollCollapse: true,
     scrollY: '200px'
 });
+*/

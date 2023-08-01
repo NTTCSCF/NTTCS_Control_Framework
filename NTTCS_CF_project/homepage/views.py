@@ -917,11 +917,7 @@ class MantenimientoControlesNTTCS(LoginRequiredMixin, TemplateView):
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoControlesNTTCS.html"
 
-    def list_controlesnttcs(request):
-        print(request)
-        controles_nttcs = list(NttcsCf20231.objects.values())
-        data = {'controles_nttcs': controles_nttcs}
-        return JsonResponse(data)
+
 
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
@@ -1251,12 +1247,11 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantDominios2.html"
 
-    def list_dominios(request):
-        print(request)
-        dominios = list(Domains.objects.values())
-        data = {'dominios': dominios}
-        return JsonResponse(data)
+    def get_context_data(self, **knwargs):
+        context = super(MantDominios2, self).get_context_data(**knwargs)
+        context["dominios"] = Domains.objects.all()
 
+        return context
 
 
     # funcion que envia el contexto de la pagina.
@@ -1308,7 +1303,12 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
 
     #una vez realizado la opcion del if regresa a la pagina inicial.
 
-
+class tablaDominios(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+    template_name = "homepage/MantDominios2.html"
+    def mostrarTabla(self):
+        print ("hola")
 
 
 
