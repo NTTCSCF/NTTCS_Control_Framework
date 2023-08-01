@@ -870,8 +870,6 @@ class MantenimientoControlesNTTCS(LoginRequiredMixin, TemplateView):
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoControlesNTTCS.html"
 
-
-
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
 
@@ -1317,8 +1315,3 @@ class tablaDominios(LoginRequiredMixin, TemplateView):
 
 """
 
-
-class MantDom3(LoginRequiredMixin, TemplateView):
-    login_url = ""
-    redirect_field_name = "redirect_to"
-    template_name = "homepage/MantDom3.html"

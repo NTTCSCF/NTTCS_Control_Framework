@@ -48,7 +48,20 @@ $(document).ready(function(){
         "language": {
             "url":  "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         }
-
+        "serverSide": true,
+        "processing": true,
+        "ajax": function(data,callback,settings){
+            $.get('/homepage/', {
+            }, function(res){
+                console.log(res);
+                callback({
+                    recordsTotal:"",
+                    recordsFiltered:"",
+                    data:""
+                });
+            },
+            );
+        }
     });
 });
 
@@ -69,6 +82,6 @@ $(document).ready(function(){
             "url":  "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
         }
 
-                
+
     });
 });

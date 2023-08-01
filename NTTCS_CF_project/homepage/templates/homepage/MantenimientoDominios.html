@@ -48,7 +48,7 @@
             <!-- creacion de fila para insertar datos -->
             <tr>
                 <form method="post">
-                    <py-script>{% csrf_token %}</py-script>
+                    {% csrf_token %}
                     <td><input class="inputTabas" type="text" name="identifier" placeholder="Insert identifier" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="security_privacy_by_design_s_p_principles" placeholder="Insert security & privacy" autocomplete="false"></td>
@@ -65,7 +65,7 @@
             {% for ids in consulta %}
             <tr>
                 <form method="post">
-                    <py-script>{% csrf_token %}</py-script>
+                    {% csrf_token %}
                     <td><input class="inputTabas" type="text" value="{{ids.identifier}}" name="identifier" readonly></td>
                     <td><textarea class="inputTabas" type="text" rows="6" value="{{ids.domain}}" name="domain" >{{ids.domain}}</textarea></td>
                     <td><textarea class="inputTabas" type="text" rows="6" value="{{ids.security_privacy_by_design_s_p_principles}}" name="security_privacy_by_design_s_p_principles" >{{ids.security_privacy_by_design_s_p_principles}}</textarea></td>
