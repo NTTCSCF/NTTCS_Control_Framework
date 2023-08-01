@@ -40,8 +40,6 @@ function doSearch()
             }
         }
 
-
-
 //PARA DATA TABLES NTTCS
 $(document).ready(function(){
     $('#tabla_controlesnttcs').DataTable({
@@ -50,7 +48,8 @@ $(document).ready(function(){
         }
         "serverSide": true,
         "processing": true,
-        "ajax": function(data,callback,settings){
+        "ajax": function(data,callback
+        ,settings){
             $.get('/homepage/', {
             }, function(res){
                 console.log(res);
@@ -65,15 +64,13 @@ $(document).ready(function(){
     });
 });
 
-//CARGAR TABLA DINAMICA DE PRODUCTOS
-$.ajax({
-    url: "../views.py",
-    success:function(respuesta){
-        console.log("respuesta", respuesta);
-    }
-});
 
 
+function listarControles() {
+    $.ajax({
+        url: "/MantenimientoControlesNTTCS/"
+    })
+}
 
 //DATATABLES PRACTICAS EN DOMINIOS2
 $(document).ready(function(){
