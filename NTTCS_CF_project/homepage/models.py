@@ -72,6 +72,20 @@ class Assessmentguardados(models.Model):
         managed = False
         db_table = 'assessmentguardados'
 
+class AssessmentCreados(models.Model):
+    assessment = models.ForeignKey('Assessmentguardados', models.DO_NOTHING, db_column='assessment')
+    control_id = models.CharField(max_length=100)
+    control_name = models.TextField()
+    descripcion = models.TextField()
+    pregunta = models.TextField()
+    criteriovaloracion = models.TextField(db_column='criterioValoracion', blank=True, null=True)  # Field name made lowercase.
+    respuesta = models.TextField(blank=True, null=True)
+    valoracion = models.TextField(blank=True, null=True)
+    evidencia = models.TextField(blank=True, null=True)
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'assessment_creados'
 
 class AuthGroup(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
