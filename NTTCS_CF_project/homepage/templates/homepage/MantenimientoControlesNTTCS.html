@@ -47,7 +47,7 @@
         </thead>
         <!-- cuerpo de la tabla -->
         <tbody id="tableControlesNttcs">
-        <!-- creacion de fila para insertar datos
+        <!-- creacion de fila para insertar datos -->
             <tr>
                 <form method="post">
                     {% csrf_token %}
@@ -70,7 +70,7 @@
                     </td>
                 </form>
             </tr>
-            <!-- muestra el contenido de la tabla
+            <!-- muestra el contenido de la tabla -->
             {% for ids in consulta %}
             <tr>
                 <form method="post">
@@ -98,7 +98,7 @@
                 </form>
             </tr>
             {% endfor %}
-            -->
+
         </tbody>
     </table>
 

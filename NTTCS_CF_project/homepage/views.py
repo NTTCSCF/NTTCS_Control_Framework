@@ -1251,16 +1251,18 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantDominios2.html"
 
-
     def list_dominios(request):
         print(request)
         dominios = list(Domains.objects.values())
-        data = {'dominios' : dominios}
+        data = {'dominios': dominios}
         return JsonResponse(data)
+
+
 
     # funcion que envia el contexto de la pagina.
 
     def post(self, request, **knwargs):
+
         #insertar datos en la tabla
         if 'insertar' in request.POST:
             identifier = request.POST.get('identifier')

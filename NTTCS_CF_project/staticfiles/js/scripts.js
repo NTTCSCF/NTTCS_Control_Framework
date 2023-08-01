@@ -49,26 +49,29 @@ function doSearch()
 let dataTable;
 let dataTableIsInitialized = false;
 
+
+//columna de opciones
 const dataTableOptions = {
     columnsDefs: [
-        { orderable: false},
+        { orderable: true},
         { searchable: true},
     ],
     pageLength: 100,
     destroy: true
 };
 
+//inicializacion del datatable
 const initDataTable = async () => {
     if (dataTableIsInitialized) {
         dataTable.destroy();
     }
-    await listControlesNttcs();
+    await listDominios();
 
     dataTable = $("#datatable_controlesnttcs").dataTable(dataTableOptions);
     dataTableIsInitialized = true;
 };
 
-
+//controls list
 const listControlesNttcs = async () => {
 
     try {
@@ -76,14 +79,38 @@ const listControlesNttcs = async () => {
         const data = await response.json();
 
 
-        let content = ``;
-        let content2 = ``;
-        data.controles_nttcs.forEach((controles_nttcs,index) => {
+        let content = `
+            <tr>
+                <form method="post">
 
+                    <input type="hidden" value="´{% csrf_token %}"
+                    <td><input class="inputTabas" style="width:100px;" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="selected_y_n_field" placeholder="Insert selected_y_n_field" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" style="width:150px;" name="control" placeholder="Insert control" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" style="width:150px;" name="control_description" placeholder="insert Description" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="relative_control_weighting" placeholder="insert relative_control_weighting" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="function_grouping" placeholder="insert function_grouping" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="assesed_result" placeholder="insert assesed_result" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="numeric_result" placeholder="insert numeric_result" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="weighted_numeric_result" placeholder="insert weighted_numeric_result" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="assessment_comments" placeholder="insert assessment_comments" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="relative_result_by_function" placeholder="insert relative_result_by_function" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="relative_result_by_domain" placeholder="insert relative_result_by_domain" autocomplete="false"></td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                            <i class="bi bi-check2-square"></i>
+                        </button>
+                    </td>
+                </form>
+            </tr>
+        `;
+
+        data.controles_nttcs.forEach((controles_nttcs,index) => {
 
             content += `
                  <tr>
                     <form method="post">
+                        <py-script>{% csrf_token %}</py-script>
                         <td><input type="text" class="inputTabas" value="${controles_nttcs.domain}"></td>
                         <td><input type="text" class="inputTabas" value="${controles_nttcs.selected_y_n_field}"></td>
                         <td><input class="inputTabas" style="width:150px;" rows="5" type="text" value="${controles_nttcs.control}"></td>
@@ -94,8 +121,8 @@ const listControlesNttcs = async () => {
                         <td><input type="text" class="inputTabas" value="${controles_nttcs.numeric_result}"></td>
                         <td><input type="text" class="inputTabas" value="${controles_nttcs.weighted_numeric_result}"></td>
                         <td><input type="text" class="inputTabas" value="${controles_nttcs.assessment_comments}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.relative_result_by_function}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.relative_result_by_domain}"></td>
+                        <td><input type="text" class="inputTabas" value="${controles_nttcs.relative_result_by_function.toFixed(2)}"></td>
+                        <td><input type="text" class="inputTabas" value="${controles_nttcs.relative_result_by_domain.toFixed(2)}"></td>
                         <td class="botonesTabla">
                             <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                                 <i class="bi bi-pencil-square"></i>
@@ -129,3 +156,10 @@ window.addEventListener("load", async () => {
 //window.addEventListener("load", async () => {
    // await initDataTable();
 //});
+*/
+
+new DataTable('#datatable_dominios', {
+    paging: false,
+    scrollCollapse: true,
+    scrollY: '200px'
+});
