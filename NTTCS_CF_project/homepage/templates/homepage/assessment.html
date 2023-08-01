@@ -22,10 +22,10 @@
                 <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector" name="selector">
                     <option selected value="noSel">--- No Seleccionado ---</option>
                     {% for ids in assess %}
-                    {% if ids.0 == idControl %}
-                    <option selected value="{{ids.0}}">{{ids.0}}</option>
+                    {% if ids.control_id == control.control_id %}
+                    <option selected value="{{ids.control_id}}">{{ids.control_id}}</option>
                     {% else %}
-                    <option value="{{ids.0}}">{{ids.0}}</option>
+                    <option value="{{ids.control_id}}">{{ids.control_id}}</option>
                     {% endif %}
 
                     {% endfor %}
@@ -45,7 +45,7 @@
             </div>
             <div class="textoTarjeta">
                 <div class="cuadrotexto">
-                    {{nControl}}
+                    {{control.control_name}}
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
             </div>
             <div class="textoTarjeta">
                 <div class="cuadrotexto">
-                    {{descripcion}}
+                    {{control.descripcion}}
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
             </div>
             <div class="textoTarjeta">
                 <div class="cuadrotexto">
-                    {{pregunta}}
+                    {{control.pregunta}}
                 </div>
             </div>
         </div>
@@ -91,8 +91,11 @@
     <div class="rowCajas">
         <!-- Captura de la respuesta escrita -->
         <div class="cajaEditorTexto">
-            <textarea style="height:100%;" id="editor" name="respuesta">{{respuesta}}</textarea>
-
+            {% if control.respuesta == None %}
+            <textarea style="height:100%;" id="editor" name="respuesta"></textarea>
+            {% else %}
+            <textarea style="height:100%;" id="editor" name="respuesta">{{control.respuesta}}</textarea>
+            {% endif %}
             <!-- Script para el uso del editor de texto -->
             <script type="text/javascript">
 
@@ -121,7 +124,7 @@
             <div class="cajasSelectorValoracion">
                 <select  class="selectpicker " data-width="100%" data-size="10"   data-live-search="true" id="valmad" name="valmad" >
                     {% for ids in valMad %}
-                    {% if ids.sublevels == valoracion %}
+                    {% if ids.sublevels == control.valoracion %}
                     <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
                     {% else %}
                     <option   value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
@@ -143,7 +146,7 @@
                 </div>
                 <div class="textoTarjetaGrande">
                     <div class="cuadrotextoGrande">
-                        {% for i in criterio %}
+                        {% for i in criteriovaloracion %}
                         <p> {{i}}</p>
                         {% endfor %}
                     </div>
