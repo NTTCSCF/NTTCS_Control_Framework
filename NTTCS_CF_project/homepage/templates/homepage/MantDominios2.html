@@ -27,11 +27,10 @@
     </div>
 
     <!-- tabla de contenido de los controles  -->
-    <table class="table table-fixed" id="datatable_dominios">
+    <table class="table table-fixed" id="tabla_dominios2">
          <!-- header de la tabla -->
         <thead>
             <tr>
-                <th scope="col">No</th>
                 <th scope="col">Identifier</th>
                 <th scope="col">Domain</th>
                 <th scope="col">Security & Privacy</th>
@@ -40,26 +39,25 @@
             </tr>
         </thead>
         <tbody id="tableDominios">
-        <!-- creacion de fila para insertar datos
+        <!-- creacion de fila para insertar datos -->
             <tr>
-                <form method="post">
+
                     {% csrf_token %}
-                    <td>#</td>
                     <td><input type="text" name="identifier"></td>
                     <td><input type="text" name="domain"></td>
                     <td><input type="text" name="security"></td>
                     <td><input type="text" name="principle_intent"></td>
                     <td>
                         <button class="btn btn-success btn-sm" name="insertar">
-                            <i class="bi bi-check2-square"></i>
+                                <i class="bi bi-check2-square"></i>
                         </button>
                     </td>
 
-                </form>
+
             </tr>
 
-            <!-- muestra el contenido de la tabla
-            {% for ids in ejemplo_list %}
+            <!-- muestra el contenido de la tabla -->
+            {% for ids in dominios %}
             <tr>
                 <form method="post">
                     {% csrf_token %}
@@ -69,19 +67,25 @@
                     <td><input type="text" name="security" value="{{ids.security_privacy_by_design_s_p_principles}}"></td>
                     <td><input type="text" name="principle_intent" value="{{ids.principle_intent}}"></td>
                     <td>
-                        <button class="btn btn-warning btn-sm" name="modificar" id="modificar">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <button class="btn btn-danger btn-sm" name="eliminar" id="eliminar">
-                            <i class="bi bi-trash3"></i>
-                        </button>
+                        <a href="/editar/">
+                            <button class="btn btn-warning btn-sm" name="modificar" id="modificar">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </a>
+
+                        <a href="/eliminar/">
+                            <button class="btn btn-danger btn-sm" name="eliminar" id="eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </a>
+
                     </td>
 
                 </form>
             </tr>
 
             {% endfor %}
-            -->
+
         </tbody>
     </table>
 

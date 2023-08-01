@@ -14,9 +14,9 @@
         </div>
     </div>
 
-    <!-- input de buscar  -->
+    <!-- input de buscar
     <div class="rowCajasMantenimiento">
-        <!-- caja buscar -->
+        <!-- caja buscar
         <form class="cajaBuscar" method="post" id="busquedaForm">
             {% csrf_token %}
             <div class="cajaInputBuscar input-group">
@@ -24,9 +24,10 @@
             </div>
         </form>
     </div>
+    -->
 
     <!-- TABLA DE CONTENIDO -->
-    <table class="table table-fixed" id="datatable_controlesnttcs">
+    <table class="table table-fixed table-responsive" id="tabla_controlesnttcs">
         <!-- header de la tabla -->
         <thead>
             <tr>
@@ -48,7 +49,9 @@
         </thead>
         <!-- cuerpo de la tabla -->
         <tbody id="tableControlesNttcs">
-        <!-- creacion de fila para insertar datos-->
+
+        <!-- creacion de fila para insertar datos -->
+
             <tr>
                 <form method="post">
                     {% csrf_token %}
@@ -72,7 +75,9 @@
                     </td>
                 </form>
             </tr>
+
             <!-- muestra el contenido de la tabla-->
+
             {% for ids in consulta %}
             <tr>
                 <form method="post">
@@ -103,8 +108,6 @@
             {% endfor %}
         </tbody>
     </table>
-
-
 
 
 
