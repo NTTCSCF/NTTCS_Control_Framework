@@ -324,9 +324,7 @@ class assessment(LoginRequiredMixin, TemplateView):
 
             if controlId != 'noSel':
                 if idEvidencia != '' and descripcionEvidencia != '':  # recogemos la pulsacion de guardar la evidencia
-                    if not Evidencias.objects.filter(evidencia_id=idEvidencia, control_id=controlId,
-                                                     assessment=Assessmentguardados.objects.get(
-                                                         id_assessment=assSelect)).exists():
+                    if not Evidencias.objects.filter(evidencia_id=idEvidencia).exists():
 
                         ev = Evidencias(evidencia_id=idEvidencia, comentario=descripcionEvidencia, links=linkEvidencia,
                                         control_id=controlId,
@@ -375,7 +373,7 @@ class assessment(LoginRequiredMixin, TemplateView):
             consulta.save()
             return redirect('menu')  # volvemos al menu
 
-        
+
 
 
 # Clase para la pagina de AssessmentSelect
