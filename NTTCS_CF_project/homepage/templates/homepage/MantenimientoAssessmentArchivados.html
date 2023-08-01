@@ -70,6 +70,7 @@
         <thead>
             <tr>
                 <th scope="col">id</th>
+                <th scope="col">nombre</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Pregunta</th>
                 <th scope="col">Criterio de valoracion</th>
@@ -86,6 +87,7 @@
                 <form method="post">
                     {% csrf_token %}
                     <td><input class="inputTabas" type="text"  name="id" placeholder="inserte id" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text"  name="controlName" placeholder="inserte nombre control" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text"  name="descripcion" placeholder="inserte Descripción" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text"  name="pregunta" placeholder="inserte Pregunta" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text"  name="criterio" placeholder="inserte Criterio" autocomplete="false" ></td>
@@ -105,13 +107,14 @@
             <tr>
                 <form method="post">
                     {% csrf_token %}
-                    <td><input class="inputTabas" type="text" value="{{ids.0}}" name="id" readonly ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.1}}" name="descripcion" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.2}}" name="pregunta" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.3}}" name="criterio" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.4}}" name="respuesta" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.5}}" name="valoracion" ></td>
-                    <td><input class="inputTabas" type="text" value="{{ids.6}}" name="evidencia" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.control_id}}" name="id" readonly ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.control_name}}" name="nombre" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.descripcion}}" name="descripcion" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.pregunta}}" name="pregunta" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.criteriovaloracion}}" name="criterio" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.respuesta}}" name="respuesta" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.valoracion}}" name="valoracion" ></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.evidencia}}" name="evidencia" ></td>
                     <td class="botonesTabla">
                         <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
                             <i class="bi bi-pencil-square"></i>
