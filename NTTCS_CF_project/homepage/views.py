@@ -347,7 +347,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                         context = super(assessment, self).get_context_data(**knwargs)
                         request, context = self.contextTotal(request, controlId, assSelect, context)
                         messages.error(request,
-                                       'EVIDENCIA INCORRECTA: La evidencia introducida ya existe para este control y assessment')  # Se crea mensage de error
+                                       'EVIDENCIA INCORRECTA: La evidencia introducida ya existe')  # Se crea mensage de error
                         return render(request, self.template_name, context=context)
                 else:
                     context = super(assessment, self).get_context_data(**knwargs)
@@ -1052,37 +1052,22 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoAssessmentArchivados.html"
-    conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
-                                   auth_plugin='mysql_native_password')
-
+    
     # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
         if 'selector' in request.POST:  # if que recoge la pulsacion del boton de seleccion
             selector = request.POST.get('selector')  # guardamos el valor del selecctor de marcos
             if selector == 'None':
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-                s = Assessmentguardados.objects.filter(archivado=1)
-                try:
-                    len(s)
-                    p = s
-                except:
-                    p = [s]
-                context["assess"] = p
+                context["assess"] = Assessmentguardados.objects.filter(archivado=1)
                 context["seleccionado"] = False
                 return render(request, self.template_name, context=context)
             else:
-                mycursor = self.conn.cursor(buffered=True)
-                mycursor.execute("SELECT * FROM " + selector)  # realizamos la consulta para obtener los contrloles
-                # del marco seleccionado
+                assGuardado = Assessmentguardados.objects.get(id_assessment=selector)
+                  # realizamos la consulta para obtener los contrloles del marco seleccionado
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-                s = Assessmentguardados.objects.filter(archivado=1)
-                try:
-                    len(s)
-                    p = s
-                except:
-                    p = [s]
-                context["assess"] = p
-                context["consulta"] = mycursor  # fijamos la tabla a el valor seleccionado
+                context["assess"] = Assessmentguardados.objects.filter(archivado=1)
+                context["consulta"] = AssessmentCreados.objects.filter(assessment=assGuardado)  # fijamos la tabla a el valor seleccionado
                 context["seleccionado"] = True
                 context['marcoSeleccionado'] = selector
                 request.session["seleccion"] = selector
@@ -1090,35 +1075,32 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
 
         elif 'modificar' in request.POST:
             id = request.POST.get('id')  # valor del input de id
+            nombre = request.POST.get('nombre')  # valor del input de nombre
             descripcion = request.POST.get('descripcion')  # valor del input de descripcion
             Pregunta = request.POST.get('pregunta')  # valor del input de Pregunta
             criterio = request.POST.get('criterio')  # valor del input de criterio
             respuesta = request.POST.get('respuesta')  # valor del input de respuesta
             valoracion = request.POST.get('valoracion')  # valor del input de respuesta
             evidencia = request.POST.get('evidencia')  # valor del input de evidencia
-
-            query = """UPDATE """ + request.session["seleccion"] + """ SET descripcion='""" + descripcion + """', 
-                                        pregunta='""" + Pregunta + """', criterioValoracion='""" + criterio + """', 
-                                        respuesta='""" + \
-                    respuesta + """', valoracion='""" + valoracion + """', 
-                                                evidencia='""" + evidencia + """' WHERE ID='""" + id + """';"""  # si
-            # esta en la tabla seleccionamos el ojeto en la tabla
-            mycursor = self.conn.cursor()
-            mycursor.execute(query)
-            self.conn.commit()
+            c = AssessmentCreados.objects.filter(assessment=request.session.get('seleccion'), control_id=id)
+            c.control_name = nombre
+            c.descripcion = descripcion
+            c.pregunta = Pregunta
+            c.criterio = criterio
+            c.respuesta = respuesta
+            c.valoracion = valoracion
+            c.evidencia = evidencia
+            c.save()
 
 
         elif 'eliminar' in request.POST:
             id = request.POST.get('id')  # valor del input de id
-
-            mycursor = self.conn.cursor(buffered=True)
-            mycursor.execute(
-                "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + id + "';")
-            self.conn.commit()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
-
+            c = AssessmentCreados.objects.filter(assessment=request.session.get('seleccion'), control_id=id)
+            c.delete() # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         elif 'insertar' in request.POST:
             id = request.POST.get('id')  # valor del input de id
+            nombre = request.POST.get('nombre')  # valor del input de nombre
             descripcion = request.POST.get('descripcion')  # valor del input de descripcion
             Pregunta = request.POST.get('pregunta')  # valor del input de Pregunta
             criterio = request.POST.get('criterio')  # valor del input de criterio
@@ -1126,76 +1108,43 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             valoracion = request.POST.get('valoracion')  # valor del input de respuesta
             evidencia = request.POST.get('evidencia')  # valor del input de evidencia
             if id != '' and descripcion != '' and Pregunta != '' and criterio != '' and respuesta != '' and valoracion != '' and evidencia != '':
-                try:
-                    query = """INSERT INTO """ + request.session[
-                        "seleccion"] + """(ID, descripcion, pregunta, criterioValoracion, respuesta, valoracion, 
-                                        evidencia) VALUES('""" + id + """', '""" + descripcion + """', '""" + Pregunta + """', 
-                                        '""" + criterio + """', '""" + respuesta + """', '""" + valoracion + """', '""" + evidencia + \
-                            """');"""  # creamos un nuevo input en la tabla
-                    mycursor = self.conn.cursor()
-                    mycursor.execute(query)
-                    self.conn.commit()
-                except:
+                if not AssessmentCreados.objects.filter(assessment=request.session.get('seleccion'), control_id=id):
+                    a = AssessmentCreados(assessment=request.session.get('seleccion'), control_id=id,
+                                          control_name=nombre,
+                                          descripcion=descripcion, pregunta=Pregunta,
+                                          criteriovaloracion=criterio, evidencia=evidencia, respuesta=respuesta, valoracion=valoracion)
+                    a.save()
+                else:
                     messages.error(request, 'ERROR,el valor de id ya existe')
             else:
                 messages.error(request, 'ERROR, debe introducir todos los valores para insertar un marco')
+
         elif 'eliminarAssessment' in request.POST:
-
             consulta = Assessmentguardados.objects.get(id_assessment=request.session.get('seleccion'))
-            ev = Evidencias.objects.all()
-
-            for i in ev:
-                if i.assessment.id_assessment == consulta.id_assessment:
-                    i.delete()
-
             consulta.delete()
-
-            query = "DROP TABLE " + request.session.get('seleccion')  # eliminamos la tabla
-            mycursor = self.conn.cursor()
-            mycursor.execute(query)
-
             return redirect('menu')
+
         elif 'desarchivar' in request.POST:
             consulta = Assessmentguardados.objects.get(
                 id_assessment=request.session.get('seleccion'))  # colsulta para la selecionar el assesment
             consulta.archivado = 0  # ponemos el valor de archivado a 0
             consulta.save()
-        mycursor = self.conn.cursor(buffered=True)
-        mycursor.execute("SELECT * FROM " + request.session["seleccion"])
+        assGuardado = Assessmentguardados.objects.get(id_assessment=request.session.get('seleccion'))
+        # realizamos la consulta para obtener los contrloles del marco seleccionado
         context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-        s = Assessmentguardados.objects.filter(archivado=1)
-        try:
-            len(s)
-            p = s
-        except:
-            p = [s]
-        context["assess"] = p
-        context["consulta"] = mycursor
+        context["assess"] = Assessmentguardados.objects.filter(archivado=1)
+        context["consulta"] = AssessmentCreados.objects.filter(
+            assessment=assGuardado)  # fijamos la tabla a el valor seleccionado
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-        s = Assessmentguardados.objects.filter(archivado=1)
-        try:
-            len(s)
-            p = s
-        except:
-            p = [s]
-        context["assess"] = p
-
+        context["assess"] = Assessmentguardados.objects.filter(archivado=1)
         return context
 
-    # Funcion utilizada para eliminar el valor seleccionado de la tabla
-    def EliminarAssessment(request):
-        conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
-                                       auth_plugin='mysql_native_password')
-        mycursor = conn.cursor(buffered=True)
-        mycursor.execute(
-            "DELETE FROM " + request.session["seleccion"] + " WHERE ID='" + request.session["ultBusqueda"] + "';")
-        conn.commit()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
-        return redirect('MantenimientoAssessmentArchivados')
+
 
 
 # DATA TABLES
