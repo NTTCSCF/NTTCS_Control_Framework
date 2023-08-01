@@ -33,6 +33,7 @@
                 <th scope="col" style="width:100px;">Domain</th>
                 <th scope="col">selected y n field</th>
                 <th scope="col">control</th>
+                <th scope="col">ID</th>
                 <th scope="col">Description</th>
                 <th scope="col">relative control weighting</th>
                 <th scope="col">function grouping</th>
@@ -47,13 +48,14 @@
         </thead>
         <!-- cuerpo de la tabla -->
         <tbody id="tableControlesNttcs">
-        <!-- creacion de fila para insertar datos
+        <!-- creacion de fila para insertar datos-->
             <tr>
                 <form method="post">
                     {% csrf_token %}
                     <td><input class="inputTabas" style="width:100px;" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="selected_y_n_field" placeholder="Insert selected_y_n_field" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" style="width:150px;" name="control" placeholder="Insert control" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="id" placeholder="Insert id" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" style="width:150px;" name="control_description" placeholder="insert Description" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="relative_control_weighting" placeholder="insert relative_control_weighting" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="function_grouping" placeholder="insert function_grouping" autocomplete="false"></td>
@@ -64,13 +66,13 @@
                     <td><input class="inputTabas" type="text" name="relative_result_by_function" placeholder="insert relative_result_by_function" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="relative_result_by_domain" placeholder="insert relative_result_by_domain" autocomplete="false"></td>
                     <td class="botonesTabla">
-                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar" >
                             <i class="bi bi-check2-square"></i>
                         </button>
                     </td>
                 </form>
             </tr>
-            <!-- muestra el contenido de la tabla
+            <!-- muestra el contenido de la tabla-->
             {% for ids in consulta %}
             <tr>
                 <form method="post">
@@ -78,6 +80,7 @@
                     <td><input class="inputTabas" type="text" value="{{ids.domain}}" name="domain" ></td>
                     <td><input class="inputTabas" type="text" value="{{ids.selected_y_n_field}}" name="selected_y_n_field" ></td>
                     <td><textarea class="inputTabas" style="width:150px;" rows="5" type="text" value="{{ids.control}}" name="control" >{{ids.control}}</textarea></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.id}}" name="id" ></td>
                     <td><textarea class="inputTabas" style="width:150px;" rows="5" type="text" value="{{ids.control_description}}" name="control_description" >{{ids.control_description}}</textarea></td>
                     <td><input class="inputTabas" type="text" value="{{ids.relative_control_weighting}}" name="relative_control_weighting"></td>
                     <td><input class="inputTabas" type="text" value="{{ids.function_grouping}}" name="function_grouping" ></td>
@@ -98,7 +101,6 @@
                 </form>
             </tr>
             {% endfor %}
-            -->
         </tbody>
     </table>
 
