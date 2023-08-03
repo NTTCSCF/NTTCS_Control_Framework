@@ -1,7 +1,5 @@
-function doSearch()
-
-        {
-            const tableReg = document.getElementById('datos');
+function doSearch(){
+            const tableReg = document.getElementById('data');
             const searchText = document.getElementById('busqueda').value.toLowerCase();
             let total = 0;
 
@@ -40,48 +38,79 @@ function doSearch()
             }
         }
 
+$('#busqueda').keyup(function(e){
+     consulta = $("#busqueda").val();
+     $.ajax({
+         data: {'busca': consulta},
+         url: '/listadoControles/',
+         type: 'get',
+         success : function(data) {
+                 console.log(data[0].nombre);
+     },
+     error : function(message) {
+             console.log(message);
+          }
+     });
+});
 
+//PARA DATA TABLES NTTCS
+/**
+ $(document).ready(function () {
+    //listadoControles();
+    $('#tabla_controlesnttcs'). DataTable({
+        "serverSide":true,
+        "processing":true,
+        "ajax":function(data, callback, settings) {
+            $.get('/listadoControles/',{
+                limite: data.length,
+                inicio: data.start
+                }, function(res) {
+                console.log(res)
+                callback({
+                    recordsTotal: res.length,
+                    recordsFiltered: res.length,
+                    data: res.object
+                    });
+                },
+            );
+        },
 
-//PARA DATA TABLES DOMINIOS
+        columns:[
+            { data: "domain" },
+            { data: "selected_y_n_field" },
+            { data: "control" },
+            { data: "id" },
+            { data: "control_description" },
+            { data: "relative_control_weighting" },
+            { data: "function_grouping" },
+            { data: "assesed_result" },
+            { data: "numeric_result" },
+            { data: "weighted_numeric_result" },
+            { data: "assessment_comments" },
+            { data: "relative_result_by_function" },
+            { data: "relative_result_by_domain" }
+            ]
+    });
+});**/
 
-//  CONTROLES NTTCS
-
-let dataTable;
-let dataTableIsInitialized = false;
-
-const dataTableOptions = {
-    columnsDefs: [
-        { orderable: false},
-        { searchable: true},
-    ],
-    pageLength: 100,
-    destroy: true
-};
-
-const initDataTable = async () => {
-    if (dataTableIsInitialized) {
-        dataTable.destroy();
-    }
-    //await listControlesNttcs();
-
-    dataTable = $("#datatable_controlesnttcs").dataTable(dataTableOptions);
-    dataTableIsInitialized = true;
-};
-
-
-const listControlesNttcs = async () => {
-
-    try {
-        const response=await fetch('http://127.0.0.1:6060/MantenimientoControlesNTTCS/list_controlesnttcs');
-        const data = await response.json();
-        const csrftoken = getCookie('csrftoken');
-
-        let content = `<tr>
+function listadoControles() {
+    console.log("hola");
+    $.ajax({
+        url: "/listadoControles/",
+        type: "get",
+        dataType: "json",
+        success: function (response) {
+            if ($.fn.DataTable.isDataTable('#tabla_controlesnttcs')) {
+                $('#tabla_controlesnttcs'). DataTable().destroy();
+            }
+            $('#tabla_controlesnttcs tbody').html("");
+            let inputs = `<tr>
                 <form method="post">
-                    <input id="csrfmiddlewaretoken" type="hidden" value="${ csrftoken }" ></input>
+                    {% csrf_token %}
                     <td><input class="inputTabas" style="width:100px;" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="selected_y_n_field" placeholder="Insert selected_y_n_field" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" style="width:150px;" name="control" placeholder="Insert control" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="id" placeholder="Insert id" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" style="width:150px;" name="control_description" placeholder="insert Description" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="relative_control_weighting" placeholder="insert relative_control_weighting" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="function_grouping" placeholder="insert function_grouping" autocomplete="false"></td>
@@ -92,72 +121,70 @@ const listControlesNttcs = async () => {
                     <td><input class="inputTabas" type="text" name="relative_result_by_function" placeholder="insert relative_result_by_function" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="relative_result_by_domain" placeholder="insert relative_result_by_domain" autocomplete="false"></td>
                     <td class="botonesTabla">
-                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar" >
                             <i class="bi bi-check2-square"></i>
                         </button>
                     </td>
                 </form>
             </tr>`;
-        let content2 = ``;
-        data.controles_nttcs.forEach((controles_nttcs,index) => {
-
-
-            content += `
-                 <tr>
-                    <form method="post">
-                        <input id="token" type="hidden" value="${ csrftoken }" ></input>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.domain}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.selected_y_n_field}"></td>
-                        <td><input class="inputTabas" style="width:150px;" rows="5" type="text" value="${controles_nttcs.control}"></td>
-                        <td><input type="text" class="inputTabas" style="width:150px;" rows="5" value="${controles_nttcs.control_description}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.relative_control_weighting}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.function_grouping}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.assesed_result}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.numeric_result}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.weighted_numeric_result}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.assessment_comments}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.relative_result_by_function}"></td>
-                        <td><input type="text" class="inputTabas" value="${controles_nttcs.relative_result_by_domain}"></td>
-                        <td class="botonesTabla">
-                            <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar" type="submit">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
-                                <i class="bi bi-trash3"></i>
-                            </button>
-                        </td>
-                    </form>
-                 </tr>
-            `;
-
-        });
-
-        tableControlesNttcs.innerHTML = content;
-
-    } catch (ex) {
-        alert(ex);
-    }
-};
-
-// INICIALIZACION DEL DATATABLE
-window.addEventListener("load", async () => {
-    await initDataTable();
-});
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+            $('#tabla_controlesnttcs tbody').append(inputs);
+            for (let i = 0; i < response.length; i++) {
+                let fila = `<tr>
+                <form method="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" value="` + response[i]["domain"] + `" name="domain" ></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["selected_y_n_field"] + `" name="selected_y_n_field" ></td>
+                    <td><textarea class="inputTabas" style="width:150px;" rows="5" type="text" value="` + response[i]["control"] + `" name="control" >` + response[i]["control"] + `</textarea></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["id"] + `" name="id" ></td>
+                    <td><textarea class="inputTabas" style="width:150px;" rows="5" type="text" value="` + response[i]["control_description"] + `" name="control_description" >` + response[i]["control_description"] + `</textarea></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["relative_control_weighting"] + `" name="relative_control_weighting"></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["function_grouping"] + `" name="function_grouping" ></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["assesed_result"] + `" name="assesed_result" ></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["numeric_result"] + `" name="numeric_result" ></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["weighted_numeric_result"] + `" name="weighted_numeric_result"></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["assessment_comments"] + `" name="assessment_comments" ></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["relative_result_by_function"] + `" name="relative_result_by_function" ></td>
+                    <td><input class="inputTabas" type="text" value="` + response[i]["relative_result_by_domain"] + `" name="relative_result_by_domain" ></td>
+                    <td class="botonesTabla">
+                        <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </td>
+                </form>
+            </tr>`;
+                $('#tabla_controlesnttcs tbody').append(fila);
             }
+            $('#tabla_controlesnttcs'). DataTable({
+                "Language": {
+                    "decimal": "",
+                    "empty Table": "No hay información",
+                    "info": "Mostrando _START_ a_END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "LengthMenu": "Mostrar _MENU_ Entradas",
+                    "LoadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "Last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    },
+                },
+            });
+            console.log("salida")
         }
-    }
-    return cookieValue;
+
+    });
+
 }
 
+//DATATABLES PRACTICAS EN DOMINIOS2
 

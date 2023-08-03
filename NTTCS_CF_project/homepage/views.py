@@ -1,5 +1,5 @@
 import mimetypes
-from time import sleep
+from time import sleep, time
 from typing import Dict, Any
 
 from django.contrib.auth import authenticate, login
@@ -7,12 +7,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
+
+import json
+
+from django.core.paginator import Paginator
 from django.shortcuts import render, HttpResponse, redirect
 from datetime import datetime
 from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
 import csv
@@ -616,16 +620,22 @@ class MantenimientoNivelMadurez(LoginRequiredMixin, TemplateView):
             consulta = MaturirtyTable.objects.get(sublevels=Sublevels)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(MaturirtyTable.objects.all(), 50)
         context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
-        context["consulta"] = MaturirtyTable.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(MaturirtyTable.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(MaturirtyTable.objects.all(), 50)
         context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
-        context["consulta"] = MaturirtyTable.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(MaturirtyTable.objects.all())
         return context
 
@@ -683,16 +693,22 @@ class MantenimientoDominios(LoginRequiredMixin, TemplateView):
             consulta = Domains.objects.get(identifier=identifier)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(Domains.objects.all(), 50)
         context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-        context["consulta"] = Domains.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(Domains.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(Domains.objects.all(), 50)
         context = super(MantenimientoDominios, self).get_context_data(**knwargs)
-        context["consulta"] = Domains.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(Domains.objects.all())
         return context
 
@@ -749,16 +765,22 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
             consulta = Evidencerequestcatalog.objects.get(evidence_request_references=evidence_request_references)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(Evidencerequestcatalog.objects.all(), 50)
         context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-        context["consulta"] = Evidencerequestcatalog.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(Evidencerequestcatalog.objects.all(), 50)
         context = super(MantenimientoEvidencias, self).get_context_data(**knwargs)
-        context["consulta"] = Evidencerequestcatalog.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
         return context
 
@@ -801,16 +823,22 @@ class MantenimientoPreguntas(LoginRequiredMixin, TemplateView):
             consulta = Assessment.objects.get(id=id)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(Assessment.objects.all(), 50)
         context = super(MantenimientoPreguntas, self).get_context_data(**knwargs)
-        context["consulta"] = Assessment.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(Assessment.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(Assessment.objects.all(), 50)
         context = super(MantenimientoPreguntas, self).get_context_data(**knwargs)
-        context["consulta"] = Assessment.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(Assessment.objects.all())
         return context
 
@@ -848,20 +876,51 @@ class MantenimientoMarcosExistentes(LoginRequiredMixin, TemplateView):
             consulta = AsociacionMarcos.objects.get(marco_id=marco_id)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(AsociacionMarcos.objects.all(), 50)
         context = super(MantenimientoMarcosExistentes, self).get_context_data(**knwargs)
-        context["consulta"] = AsociacionMarcos.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(AsociacionMarcos.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(AsociacionMarcos.objects.all(), 50)
         context = super(MantenimientoMarcosExistentes, self).get_context_data(**knwargs)
-        context["consulta"] = AsociacionMarcos.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(AsociacionMarcos.objects.all())
         return context
 
     # Funcion utilizada para eliminar el valor seleccionado de la tabla
+
+class listadoControles(LoginRequiredMixin, ListView):
+
+    model = NttcsCf20231
+
+    def get_queryset(self):
+        return self.model.objects.all().values()
+
+    def get(self, request, *args, **kwargs):
+        inicio = int(request.GET.get('inicio'))
+        fin = int(request.GET.get('limite'))
+        tiempo_inicial = time()
+        data = self.get_queryset()
+        list_data = []
+        for indice, valor in enumerate(data[inicio: inicio+fin]):
+            list_data.append(valor)
+        tiempo_final = time() - tiempo_inicial
+        print(f'Tiempo de Ejecución: {tiempo_final}')
+
+        data = {
+            'length': data.count(),
+            'object': list_data
+        }
+
+        return HttpResponse(json.dumps(data), 'application/json')
 
 
 # Clase para la pagina de MantenimientoControlesNTTCS
@@ -869,12 +928,6 @@ class MantenimientoControlesNTTCS(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoControlesNTTCS.html"
-
-    def list_controlesnttcs(request):
-        print(request)
-        controles_nttcs = list(NttcsCf20231.objects.values())
-        data = {'controles_nttcs': controles_nttcs}
-        return JsonResponse(data)
 
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
@@ -950,16 +1003,23 @@ class MantenimientoControlesNTTCS(LoginRequiredMixin, TemplateView):
             consulta = NttcsCf20231.objects.get(id=id)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(NttcsCf20231.objects.all(), 50)
         context = super(MantenimientoControlesNTTCS, self).get_context_data(**knwargs)
-        context["consulta"] = NttcsCf20231.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(NttcsCf20231.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(NttcsCf20231.objects.all(), 50)
         context = super(MantenimientoControlesNTTCS, self).get_context_data(**knwargs)
-        context["consulta"] = NttcsCf20231.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
         context["lenConsulta"] = len(NttcsCf20231.objects.all())
         return context
 
@@ -974,11 +1034,23 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
-        context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
-        context["assess"] = AsociacionMarcos.objects.all()
+        if self.request.GET.get('page'):
+            consulta = MapeoMarcos.objects.all().values_list('ntt_id', AsociacionMarcos.objects.get(
+                marco_id=self.request.session["seleccion"]).nombre_tabla.lower())
+            page = self.request.GET.get('page', 1)
+            paginator = Paginator(consulta, 50)
+            context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
+            context["assess"] = AsociacionMarcos.objects.all()
+            context["entity"] = paginator.page(page)
+            context["paginator"] = paginator  # fijamos la tabla a el valor seleccionado
+            context["seleccionado"] = True
+            context['marcoSeleccionado'] = self.request.session["seleccion"]
+        else:
+            context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
+            context["assess"] = AsociacionMarcos.objects.all()
 
-        context["lenConsulta"] = 1
-        context["seleccionado"] = False
+            context["lenConsulta"] = 1
+            context["seleccionado"] = False
         return context
 
     # funcion que envia el contexto de la pagina.
@@ -996,9 +1068,12 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
 
                 consulta = MapeoMarcos.objects.all().values_list('ntt_id', AsociacionMarcos.objects.get(
                     marco_id=selector).nombre_tabla.lower())
+                page = request.GET.get('page', 1)
+                paginator = Paginator(consulta, 50)
                 context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
                 context["assess"] = AsociacionMarcos.objects.all()
-                context["consulta"] = consulta  # fijamos la tabla a el valor seleccionado
+                context["entity"] = paginator.page(page)
+                context["paginator"] = paginator  # fijamos la tabla a el valor seleccionado
                 context["lenConsulta"] = 5
                 context["seleccionado"] = True
                 context['marcoSeleccionado'] = selector
@@ -1035,12 +1110,20 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
                     messages.error(request, 'ERROR,el valor de id ya existe')
             else:
                 messages.error(request, 'ERROR, debe introducir todos los valores para insertar un marco')
-
+        elif 'ant' in request.POST:
+            if request.session['inicio'] > 0:
+                request.session['inicio'] = request.session['inicio']-100
+        elif 'sig' in request.POST:
+            if request.session['inicio'] < AsociacionMarcos.objects.all().count():
+                request.session['inicio'] = request.session['inicio']+100
         consulta = MapeoMarcos.objects.all().values_list('ntt_id', AsociacionMarcos.objects.get(
             marco_id=request.session["seleccion"]).nombre_tabla.lower())
+        page = request.GET.get('page', 1)
+        paginator = Paginator(consulta, 50)
         context = super(MantenimientoMapeoMarcos, self).get_context_data(**knwargs)
-        context["consulta"] = consulta  # fijamos la tabla a el valor seleccionado
         context["assess"] = AsociacionMarcos.objects.all()
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator  # fijamos la tabla a el valor seleccionado
         context["seleccionado"] = True
         context['marcoSeleccionado'] = request.session["seleccion"]
         return render(request, self.template_name,
@@ -1065,12 +1148,16 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             else:
                 assGuardado = Assessmentguardados.objects.get(id_assessment=selector)
                   # realizamos la consulta para obtener los contrloles del marco seleccionado
+                page = self.request.GET.get('page', 1)
+                paginator = Paginator(AssessmentCreados.objects.filter(assessment=assGuardado), 50)
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
                 context["assess"] = Assessmentguardados.objects.filter(archivado=1)
-                context["consulta"] = AssessmentCreados.objects.filter(assessment=assGuardado)  # fijamos la tabla a el valor seleccionado
+                context["entity"] = paginator.page(page)
+                context["paginator"] = paginator  # fijamos la tabla a el valor seleccionado
                 context["seleccionado"] = True
                 context['marcoSeleccionado'] = selector
                 request.session["seleccion"] = selector
+                request.session["seleccionado"] = True
                 return render(request, self.template_name, context=context)
 
         elif 'modificar' in request.POST:
@@ -1129,19 +1216,34 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
                 id_assessment=request.session.get('seleccion'))  # colsulta para la selecionar el assesment
             consulta.archivado = 0  # ponemos el valor de archivado a 0
             consulta.save()
-        assGuardado = Assessmentguardados.objects.get(id_assessment=request.session.get('seleccion'))
+
+        assGuardado = Assessmentguardados.objects.get(id_assessment=request.session["seleccion"])
         # realizamos la consulta para obtener los contrloles del marco seleccionado
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(AssessmentCreados.objects.filter(assessment=assGuardado), 50)
         context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
         context["assess"] = Assessmentguardados.objects.filter(archivado=1)
-        context["consulta"] = AssessmentCreados.objects.filter(
-            assessment=assGuardado)  # fijamos la tabla a el valor seleccionado
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator  # fijamos la tabla a el valor seleccionado
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
-        context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
-        context["assess"] = Assessmentguardados.objects.filter(archivado=1)
+        if self.request.GET.get('page'):
+            assGuardado = Assessmentguardados.objects.get(id_assessment= self.request.session["seleccion"])
+            # realizamos la consulta para obtener los contrloles del marco seleccionado
+            page = self.request.GET.get('page', 1)
+            paginator = Paginator(AssessmentCreados.objects.filter(assessment=assGuardado), 50)
+            context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
+            context["assess"] = Assessmentguardados.objects.filter(archivado=1)
+            context["entity"] = paginator.page(page)
+            context["paginator"] = paginator  # fijamos la tabla a el valor seleccionado
+            context["seleccionado"] = True
+            context['marcoSeleccionado'] = self.request.session["seleccion"]
+        else:
+            context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
+            context["assess"] = Assessmentguardados.objects.filter(archivado=1)
         return context
 
 
@@ -1155,16 +1257,21 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantDominios2.html"
 
-    def list_dominios(request):
-        print(request)
-        dominios = list(Domains.objects.values())
-        data = {'dominios': dominios}
-        return JsonResponse(data)
+
+    def get_context_data(self, **knwargs):
+        context = super(MantDominios2, self).get_context_data(**knwargs)
+        context["dominios"] = Domains.objects.all()
+
+        return context
+
+
 
     # funcion que envia el contexto de la pagina.
 
     def post(self, request, **knwargs):
+
         # insertar datos en la tabla
+
         if 'insertar' in request.POST:
             identifier = request.POST.get('identifier')
             domain = request.POST.get('domain')
@@ -1206,7 +1313,17 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
         context["infoTabla"] = Domains.objects.all()
         return render(request, self.template_name, context=context)
 
-    # una vez realizado la opcion del if regresa a la pagina inicial.
+
+
+class tablaDominios(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+    template_name = "homepage/MantDominios2.html"
+    def mostrarTabla(self):
+        print ("hola")
+
+
+
 
 
 """
@@ -1255,8 +1372,3 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
 
 """
 
-
-class MantDom3(LoginRequiredMixin, TemplateView):
-    login_url = ""
-    redirect_field_name = "redirect_to"
-    template_name = "homepage/MantDom3.html"
