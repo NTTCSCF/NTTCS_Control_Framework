@@ -29,7 +29,7 @@
 
     <!-- INSERTAR DATOS -->
     <!-- tabla de contenido -->
-    <table class="table table-fixed" id="datos">
+    <table class="table table-fixed" id="data">
         <!-- header de la tabla -->
         <thead>
             <form action="post">
@@ -62,7 +62,7 @@
             </tr>
 
             <!-- muestra el contenido de la tabla -->
-            {% for ids in consulta %}
+            {% for ids in entity %}
             <tr>
                 <form method="post">
                     {% csrf_token %}
@@ -85,7 +85,11 @@
 
         </tbody>
     </table>
+    <div class="rowTitulo">
 
+        {% include 'homepage/paginator.html' %}
+
+    </div>
 
 {% endblock %}
 

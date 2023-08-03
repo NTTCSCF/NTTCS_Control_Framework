@@ -23,7 +23,7 @@ urlpatterns = [
     path('MantenimientoControlesNTTCS/', views.MantenimientoControlesNTTCS.as_view(), name='MantenimientoControlesNTTCS'),
 
     path('MantenimientoMapeoMarcos/', views.MantenimientoMapeoMarcos.as_view(), name='MantenimientoMapeoMarcos'),
-
+    path('listadoControles/', views.listadoControles.as_view(), name='listadoControles'),
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
     path('logout', views.logout, name='logout'),
     #prueba jose
