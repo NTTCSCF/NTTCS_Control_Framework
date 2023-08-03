@@ -481,34 +481,33 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
         excel = request.POST.get('excel')
         csvinput = request.POST.get('csv')
         word = request.POST.get('word')
-        mycursor = self.conn.cursor(buffered=True)
-        mycursor.execute("SELECT * FROM " + selector)  # consulta de la seleccion del assesment
-
+        ass = Assessmentguardados.objects.get(id_assessment=selector)
+        consulta = AssessmentCreados.objects.filter(assessment=ass)
         valores = []
-        for fila in mycursor:  # Rellenamos tanto las casillas de respuesta y valoracion
-
-            if fila[6] != None and fila[6] != '':
-                evidenciasParaBuscar = fila[6].split('\n')
+        for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
+            if fila.evidencia != None and fila.evidencia != '':
+                evidenciasParaBuscar = fila.evidencia.split('\n')
                 evidencias = ''
+
                 for i in evidenciasParaBuscar:
-                    try:
-                        c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
-                        evidencias += c.evidence_request_references + ', ' + c.artifact_description + '\n'
-                    except:
-                        c = Evidencias.objects.get(evidencia_id=i)
-                        evidencias += c.evidencia_id + ', ' + c.comentario + ', ' + c.links + '\n'
+                    if i != '':
+                        try:
+                            c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                            evidencias += c.evidence_request_references + ', ' + c.artifact_description + '\n'
+                        except:
+                            c = Evidencias.objects.get(evidencia_id=i)
+                            evidencias += c.evidencia_id + ', ' + c.comentario + ', ' + c.links + '\n'
             else:
                 evidencias = ''
 
-            consulta = Assessment.objects.get(id=fila[0])
             valores += {
-                'idControl': fila[0],
-                'nControl': consulta.control,
-                'descripcion': fila[1],
-                'pregunta': fila[2],
-                'respuesta': fila[4],
-                'valoracion': fila[5],
-                'criterio': fila[3],
+                'idControl': fila.control_id,
+                'nControl': fila.control_name,
+                'descripcion': fila.descripcion,
+                'pregunta': fila.pregunta,
+                'respuesta': fila.respuesta,
+                'valoracion': fila.valoracion,
+                'criterio': fila.criteriovaloracion,
                 'evidencias': evidencias
             },
 
