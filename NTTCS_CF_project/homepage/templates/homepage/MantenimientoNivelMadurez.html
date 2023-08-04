@@ -23,7 +23,7 @@
     </div>
 
         <!-- tabla de contenido de los controles  -->
-        <table class="table table-fixed" id="data">
+        <table class="table table-fixed table-hover" id="data">
              <!-- header de la tabla -->
             <thead>
                 <tr>
@@ -44,10 +44,12 @@
                         <td><input class="inputTabas" type="text" name="Sublevels" placeholder="Insert sublevels" autocomplete="false"></td>
                         <td><input class="inputTabas" type="number" name="Percentage" placeholder="insert percentage" autocomplete="false" step=".01"></td>
 
-                        <td class="botonesTabla">
-                            <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
-                                <i class="bi bi-check2-square"></i>
-                            </button>
+                        <td >
+                            <div class="botonesTabla">
+                                <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                                    <i class="bi bi-check2-square"></i>
+                                </button>
+                            </div>
                         </td>
                     </form>
                 </tr>
@@ -59,18 +61,20 @@
                         {% csrf_token %}
 
                         <td><input class="inputTabas" type="text" value="{{ids.ccmmcod}}" name="Ccmmcod" ></td>
-                        <td><textarea class="inputTabas" type="text" rows="4" value="{{ids.description}}" name="Description" >{{ids.description}}</textarea></td>
+                        <td><textarea class="inputTabas" rows="3" name="Description" >{{ids.description}}</textarea></td>
                         <td><input class="inputTabas" type="text" value="{{ids.sublevels}}" name="Sublevels" readonly></td>
 
                         <td><input class="inputTabas" type="text" value="{{ids.percentage}}" name="Percentage" ></td>
-                        <td class="botonesTabla">
-                            <button class="btn btn-warning btn-sm" data-swal-template="#my-template" title="Editar" id="modificar" name="modificar">
-                                <i class="bi bi-pencil-square"></i>
+                        <td >
+                            <div class="botonesTabla">
+                                <button class="btn btn-warning btn-sm" data-swal-template="#my-template" title="Editar" id="modificar" name="modificar">
+                                    <i class="bi bi-pencil-square"></i>
 
-                            </button>
-                            <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
-                                <i class="bi bi-trash3"></i>
-                            </button>
+                                </button>
+                                <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </div>
                         </td>
                     </form>
                 </tr>

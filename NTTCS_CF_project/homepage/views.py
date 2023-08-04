@@ -481,75 +481,76 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
         excel = request.POST.get('excel')
         csvinput = request.POST.get('csv')
         word = request.POST.get('word')
-        ass = Assessmentguardados.objects.get(id_assessment=selector)
-        consulta = AssessmentCreados.objects.filter(assessment=ass)
-        valores = []
-        for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
-            if fila.evidencia != None and fila.evidencia != '':
-                evidenciasParaBuscar = fila.evidencia.split('\n')
-                evidencias = ''
+        if selector != 'None':
+            ass = Assessmentguardados.objects.get(id_assessment=selector)
+            consulta = AssessmentCreados.objects.filter(assessment=ass)
+            valores = []
+            for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
+                if fila.evidencia != None and fila.evidencia != '':
+                    evidenciasParaBuscar = fila.evidencia.split('\n')
+                    evidencias = ''
 
-                for i in evidenciasParaBuscar:
-                    if i != '':
-                        try:
-                            c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
-                            evidencias += c.evidence_request_references + ', ' + c.artifact_description + '\n'
-                        except:
-                            c = Evidencias.objects.get(evidencia_id=i)
-                            evidencias += c.evidencia_id + ', ' + c.comentario + ', ' + c.links + '\n'
-            else:
-                evidencias = ''
+                    for i in evidenciasParaBuscar:
+                        if i != '':
+                            try:
+                                c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                                evidencias += c.evidence_request_references + ', ' + c.artifact_description + '\n'
+                            except:
+                                c = Evidencias.objects.get(evidencia_id=i)
+                                evidencias += c.evidencia_id + ', ' + c.comentario + ', ' + c.links + '\n'
+                else:
+                    evidencias = ''
 
-            valores += {
-                'idControl': fila.control_id,
-                'nControl': fila.control_name,
-                'descripcion': fila.descripcion,
-                'pregunta': fila.pregunta,
-                'respuesta': fila.respuesta,
-                'valoracion': fila.valoracion,
-                'criterio': fila.criteriovaloracion,
-                'evidencias': evidencias
-            },
+                valores += {
+                    'idControl': fila.control_id,
+                    'nControl': fila.control_name,
+                    'descripcion': fila.descripcion,
+                    'pregunta': fila.pregunta,
+                    'respuesta': fila.respuesta,
+                    'valoracion': fila.valoracion,
+                    'criterio': fila.criteriovaloracion,
+                    'evidencias': evidencias
+                },
 
-        titulos = ["idControl", "nControl", "descripcion", "pregunta", "respuesta", "valoracion", "criterio",
-                   "evidencias"]
-        now = datetime.now()
-        filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
-            now.year) + '_' + str(now.hour) + '_' + str(now.minute)
-        if 'csv' == csvinput:
-            filename += '.csv'
-            with open(filename, mode='w', encoding="cp437", errors="replace") as file:
-                writer = csv.DictWriter(file, delimiter=',', fieldnames=titulos)
-                writer.writeheader()
+            titulos = ["idControl", "nControl", "descripcion", "pregunta", "respuesta", "valoracion", "criterio",
+                       "evidencias"]
+            now = datetime.now()
+            filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
+                now.year) + '_' + str(now.hour) + '_' + str(now.minute)
+            if 'csv' == csvinput:
+                filename += '.csv'
+                with open(filename, mode='w', encoding="cp437", errors="replace") as file:
+                    writer = csv.DictWriter(file, delimiter=',', fieldnames=titulos)
+                    writer.writeheader()
 
-                for valor in valores:
-                    writer.writerow(valor)
+                    for valor in valores:
+                        writer.writerow(valor)
 
-            path = open(filename, 'r')
-            mime_type, _ = mimetypes.guess_type(filename)
-            response = HttpResponse(path, content_type=mime_type)
-            response['Content-Disposition'] = f"attachment; filename={filename}"
-            return response
-
-        if 'excel' == excel:
-            filename += '.xlsx'
-            workbook = xlsxwriter.Workbook(filename)
-            workbook.encoding = "utf-8"
-            worksheet = workbook.add_worksheet()
-
-            for row, _dict in enumerate(valores):
-                for col, key in enumerate(titulos):
-                    worksheet.write(row, col, _dict[key])
-            workbook.close()
-
-            with open(filename, "rb") as file:
-                response = HttpResponse(file.read(),
-                                        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                path = open(filename, 'r')
+                mime_type, _ = mimetypes.guess_type(filename)
+                response = HttpResponse(path, content_type=mime_type)
                 response['Content-Disposition'] = f"attachment; filename={filename}"
-            return response
+                return response
 
-        if 'word' == word:
-            pass
+            if 'excel' == excel:
+                filename += '.xlsx'
+                workbook = xlsxwriter.Workbook(filename)
+                workbook.encoding = "utf-8"
+                worksheet = workbook.add_worksheet()
+
+                for row, _dict in enumerate(valores):
+                    for col, key in enumerate(titulos):
+                        worksheet.write(row, col, _dict[key])
+                workbook.close()
+
+                with open(filename, "rb") as file:
+                    response = HttpResponse(file.read(),
+                                            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                    response['Content-Disposition'] = f"attachment; filename={filename}"
+                return response
+
+            if 'word' == word:
+                pass
         context = super(Exportaciones, self).get_context_data(**knwargs)
         context["assess"] = Assessmentguardados.objects.all()
         return render(request, self.template_name, context=context)
