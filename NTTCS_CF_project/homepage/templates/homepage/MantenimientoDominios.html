@@ -29,7 +29,7 @@
 
     <!-- INSERTAR DATOS -->
     <!-- tabla de contenido -->
-    <table class="table table-fixed" id="data">
+    <table class="table table-fixed table-hover" id="data">
         <!-- header de la tabla -->
         <thead>
             <form action="post">
@@ -53,10 +53,12 @@
                     <td><input class="inputTabas" type="text" name="domain" placeholder="Insert domain" autocomplete="false" ></td>
                     <td><input class="inputTabas" type="text" name="security_privacy_by_design_s_p_principles" placeholder="Insert security & privacy" autocomplete="false"></td>
                     <td><input class="inputTabas" type="text" name="principle_intent" placeholder="insert principle_intent" autocomplete="false"></td>
-                    <td class="botonesTabla">
-                        <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
-                            <i class="bi bi-check2-square"></i>
-                        </button>
+                    <td >
+                        <div class="botonesTabla">
+                            <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                                <i class="bi bi-check2-square"></i>
+                            </button>
+                        </div>
                     </td>
                 </form>
             </tr>
@@ -67,16 +69,18 @@
                 <form method="post">
                     {% csrf_token %}
                     <td><input class="inputTabas" type="text" value="{{ids.identifier}}" name="identifier" readonly></td>
-                    <td><textarea class="inputTabas" type="text" rows="6" value="{{ids.domain}}" name="domain" >{{ids.domain}}</textarea></td>
-                    <td><textarea class="inputTabas" type="text" rows="6" value="{{ids.security_privacy_by_design_s_p_principles}}" name="security_privacy_by_design_s_p_principles" >{{ids.security_privacy_by_design_s_p_principles}}</textarea></td>
-                    <td><textarea class="inputTabas" type="text" rows="6" value="{{ids.principle_intent}}" name="principle_intent" >{{ids.principle_intent}}</textarea></td>
-                    <td class="botonesTabla">
-                        <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
-                            <i class="bi bi-trash3"></i>
-                        </button>
+                    <td><textarea class="inputTabas" rows="6" name="domain" >{{ids.domain}}</textarea></td>
+                    <td><textarea class="inputTabas" rows="6" name="security_privacy_by_design_s_p_principles" >{{ids.security_privacy_by_design_s_p_principles}}</textarea></td>
+                    <td><textarea class="inputTabas" rows="6" name="principle_intent" >{{ids.principle_intent}}</textarea></td>
+                    <td >
+                        <div class="botonesTabla">
+                            <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </div>
                     </td>
                 </form>
 
