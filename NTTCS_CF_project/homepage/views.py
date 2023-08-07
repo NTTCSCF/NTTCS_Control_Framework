@@ -486,7 +486,7 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
             consulta = AssessmentCreados.objects.filter(assessment=ass)
             valores = []
             for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
-                if fila.evidencia != None and fila.evidencia != '':
+                if fila.evidencia is not None and fila.evidencia != '':
                     evidenciasParaBuscar = fila.evidencia.split('\n')
                     evidencias = ''
 
