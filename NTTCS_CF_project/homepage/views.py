@@ -15,7 +15,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from datetime import datetime
 from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
-    NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados
+    NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados,AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas
 from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
@@ -251,24 +251,11 @@ class assessment(LoginRequiredMixin, TemplateView):
         request.session["controlSelect"] = select
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
         context["control"] = control
-        if control.evidencia != None and control.evidencia != '':
-            evidenciasParaBuscar = control.evidencia.split('\n')
-            evidencias = []
-            for i in evidenciasParaBuscar:
-                if i != '':
-                    if Evidencerequestcatalog.objects.filter(evidence_request_references=i).exists() == True:
-                        c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
-                        evidencias += [
-                            '<p>' + c.evidence_request_references + ', ' + c.artifact_description + '</p>']
-                    else:
-                        c = Evidencias.objects.get(evidencia_id=i)
-                        evidencias += [
-                            '<p>' + c.evidencia_id + ', ' + c.comentario + ', <a href="' + c.links + '">' + c.links + '</a>' + '</p>']
-        else:
-            evidencias = ['']
 
         context["criteriovaloracion"] = control.criteriovaloracion.split('\n')
-        context["evidencias"] = evidencias
+        context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
+        context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
+        context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
         return request, context
 
     # funcion que envia el contexto de la pagina.
@@ -279,6 +266,7 @@ class assessment(LoginRequiredMixin, TemplateView):
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         context["valMad"] = MaturirtyTable.objects.all()
+        context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
         self.request.session["controlSelect"] = 'noSel'
         return context
 
@@ -290,6 +278,7 @@ class assessment(LoginRequiredMixin, TemplateView):
         boton2 = request.POST.get('boton2')  # valor del boton 2
         boton3 = request.POST.get('boton3')  # valor del boton 3
         boton4 = request.POST.get('boton4')  # valor del boton 4
+        boton5 = request.POST.get('boton5')  # valor del boton 4
 
         if 'selector' in request.POST:  # se recoge la pulsacion del select
             if select == 'noSel':
@@ -299,6 +288,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
                 context["valMad"] = MaturirtyTable.objects.all()
                 request.session["controlSelect"] = select
+                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 return render(request, self.template_name, context=context)
             else:
                 context = super(assessment, self).get_context_data(**knwargs)
@@ -311,6 +301,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                 control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=request.session["controlSelect"])
                 control.respuesta = str(request.POST.get('respuesta'))
                 control.valoracion = request.POST.get('valmad')
+                control.valoracionobjetivo = request.POST.get('valmadob')
                 control.save()
 
             else:
@@ -339,11 +330,10 @@ class assessment(LoginRequiredMixin, TemplateView):
                                                                 control_id=request.session["controlSelect"])
                         control.respuesta = str(request.POST.get('respuesta'))
                         control.valoracion = request.POST.get('valmad')
+                        control.valoracionobjetivo = request.POST.get('valmadob')
 
-                        evidencia = control.evidencia
-                        evidencia += '\n' + idEvidencia
-                        control.evidencia = evidencia
-                        control.save()
+                        evidencia = AsociacionEvidenciasCreadas(id_evidencia=ev,id_assessment=control)
+                        evidencia.save()
                         context = super(assessment, self).get_context_data(**knwargs)
                         request, context = self.contextTotal(request, controlId, assSelect, context)
                         return render(request, self.template_name, context=context)
@@ -367,8 +357,37 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
                 context["valMad"] = MaturirtyTable.objects.all()
+                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 return render(request, self.template_name, context=context)
 
+        elif boton5 == 'btn5':  # if encargado de rellenar las evidencias
+            if request.session["controlSelect"] != 'noSel':
+                selectorEvidencia = request.POST.get('selectorEvidencia')  # valor de el selector de control
+                if selectorEvidencia != 'noSel':
+                    assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                    control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                            control_id=request.session["controlSelect"])
+                    evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=selectorEvidencia)
+                    eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia,assessment=control)
+                    eviGenerica.save()
+                    context = super(assessment, self).get_context_data(**knwargs)
+                    request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
+                    return render(request, self.template_name, context=context)
+                else:
+                    context = super(assessment, self).get_context_data(**knwargs)
+                    request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
+                    messages.error(request, 'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
+                    return render(request, self.template_name, context=context)
+            else:
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                context = super(assessment, self).get_context_data(**knwargs)
+                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                context["NombreAss"] = assSelect
+                context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+                context["valMad"] = MaturirtyTable.objects.all()
+                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                return render(request, self.template_name, context=context)
         else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
 
             consulta = Assessmentguardados.objects.get(
@@ -425,17 +444,11 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
                     consulta = Assessment.objects.get(id=marco)
                     criterioVal = consulta.campo9 + '\n' + consulta.campo10 + '\n' + consulta.campo11 + '\n' + consulta.campo12 + '\n' + consulta.campo13 + '\n' + consulta.campo14
-                    if consulta.evidence_request_references is not None:
-                        evidencia = consulta.evidence_request_references
-                    else:
-                        evidencia = ''
 
                     a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco), control_name=consulta.control,
                                           descripcion=consulta.control_description, pregunta=consulta.control_question,
-                                          criteriovaloracion=criterioVal, evidencia=evidencia)
+                                          criteriovaloracion=criterioVal)
                     a.save()
-
-                    # sleep(0.01)
 
                 assessmentNuevo.marcos = marcos
                 assessmentNuevo.save()
@@ -485,21 +498,15 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
             ass = Assessmentguardados.objects.get(id_assessment=selector)
             consulta = AssessmentCreados.objects.filter(assessment=ass)
             valores = []
-            for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
-                if fila.evidencia is not None and fila.evidencia != '':
-                    evidenciasParaBuscar = fila.evidencia.split('\n')
-                    evidencias = ''
 
-                    for i in evidenciasParaBuscar:
-                        if i != '':
-                            try:
-                                c = Evidencerequestcatalog.objects.get(evidence_request_references=i)
-                                evidencias += c.evidence_request_references + ', ' + c.artifact_description + '\n'
-                            except:
-                                c = Evidencias.objects.get(evidencia_id=i)
-                                evidencias += c.evidencia_id + ', ' + c.comentario + ', ' + c.links + '\n'
-                else:
-                    evidencias = ''
+            for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
+                evgen = AsociacionEvidenciasGenericas.objects.filter(assessment=fila)
+                evcre = AsociacionEvidenciasCreadas.objects.filter(id_assessment=fila)
+                evidencias = ''
+                for i in evgen:
+                    evidencias += i.evidencia.evidence_request_references+'\n'
+                for i in evcre:
+                    evidencias += i.id_evidencia.evidencia_id+'\n'
 
                 valores += {
                     'idControl': fila.control_id,
@@ -508,11 +515,12 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                     'pregunta': fila.pregunta,
                     'respuesta': fila.respuesta,
                     'valoracion': fila.valoracion,
+                    'valoracionObjetivo': fila.valoracionobjetivo,
                     'criterio': fila.criteriovaloracion,
                     'evidencias': evidencias
                 },
 
-            titulos = ["idControl", "nControl", "descripcion", "pregunta", "respuesta", "valoracion", "criterio",
+            titulos = ["idControl", "nControl", "descripcion", "pregunta", "respuesta", "valoracion", "valoracionObjetivo", "criterio",
                        "evidencias"]
             now = datetime.now()
             filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
@@ -1168,15 +1176,15 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             criterio = request.POST.get('criterio')  # valor del input de criterio
             respuesta = request.POST.get('respuesta')  # valor del input de respuesta
             valoracion = request.POST.get('valoracion')  # valor del input de respuesta
-            evidencia = request.POST.get('evidencia')  # valor del input de evidencia
-            c = AssessmentCreados.objects.filter(assessment=request.session.get('seleccion'), control_id=id)
+            valoracionobjetivo = request.POST.get('valoracionobjetivo')  # valor del input de evidencia
+            c = AssessmentCreados.objects.get(assessment=request.session.get('seleccion'), control_id=id)
             c.control_name = nombre
             c.descripcion = descripcion
             c.pregunta = Pregunta
             c.criterio = criterio
             c.respuesta = respuesta
             c.valoracion = valoracion
-            c.evidencia = evidencia
+            c.valoracionobjetivo = valoracionobjetivo
             c.save()
 
 
@@ -1193,13 +1201,13 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
             criterio = request.POST.get('criterio')  # valor del input de criterio
             respuesta = request.POST.get('respuesta')  # valor del input de respuesta
             valoracion = request.POST.get('valoracion')  # valor del input de respuesta
-            evidencia = request.POST.get('evidencia')  # valor del input de evidencia
-            if id != '' and descripcion != '' and Pregunta != '' and criterio != '' and respuesta != '' and valoracion != '' and evidencia != '':
+            valoracionobjetivo = request.POST.get('valoracionobjetivo')  # valor del input de evidencia
+            if id != '' and descripcion != '' and Pregunta != '' and criterio != '' and respuesta != '' and valoracion != '' and valoracionobjetivo != '':
                 if not AssessmentCreados.objects.filter(assessment=request.session.get('seleccion'), control_id=id):
                     a = AssessmentCreados(assessment=request.session.get('seleccion'), control_id=id,
                                           control_name=nombre,
                                           descripcion=descripcion, pregunta=Pregunta,
-                                          criteriovaloracion=criterio, evidencia=evidencia, respuesta=respuesta, valoracion=valoracion)
+                                          criteriovaloracion=criterio, valoracionobjetivo=valoracionobjetivo, respuesta=respuesta, valoracion=valoracion)
                     a.save()
                 else:
                     messages.error(request, 'ERROR,el valor de id ya existe')
@@ -1315,60 +1323,4 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
 
 
 
-class tablaDominios(LoginRequiredMixin, TemplateView):
-    login_url = ""
-    redirect_field_name = "redirect_to"
-    template_name = "homepage/MantDominios2.html"
-    def mostrarTabla(self):
-        print ("hola")
-
-
-
-
-
-"""
-      def get_context_data(self, **knwargs):
-        context = super(MantDominios2, self).get_context_data(**knwargs)
-        context["infoTabla"] = Domains.objects.all()
-        return context
-
-    # funcion post que recoge los summit del formulario de la pagina.
-    def post(self, request, **knwargs):
-        if 'insertar' in request.POST:
-            identificador = request.POST.get('identifier')
-            dominio = request.POST.get('domain')
-            seguridad = request.POST.get('security')
-            principle_intent = request.POST.get('principle_intent')
-
-            insert = Domains(identifier=identificador,
-                             domain=dominio,
-                             security_privacy_by_design_s_p_principles=seguridad,
-                             principle_intent=principle_intent)
-            insert.save()
-
-        elif 'modificar' in request.POST:
-            identificador = request.POST.get('identifier')
-            dominio = request.POST.get('domain')
-            seguridad = request.POST.get('security')
-            principle_intent = request.POST.get('principle_intent')
-
-            consulta = Domains.objects.get(identifier=identificador)
-            consulta.domain = dominio
-            consulta.security_privacy_by_design_s_p_principles = seguridad
-            consulta.principle_intent = principle_intent
-
-            consulta.save()
-
-        elif 'eliminar' in request.POST:
-            identificador = request.POST.get('identifier')
-            consulta = Domains.objects.get(identifier=identificador)
-            consulta.delete()
-
-
-        context = super(MantDominios2, self).get_context_data(**knwargs)
-        context["infoTabla"] = Domains.objects.all()
-        return render(request, self.template_name, context=context) 
-
-
-"""
 
