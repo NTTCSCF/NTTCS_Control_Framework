@@ -81,11 +81,27 @@ class AssessmentCreados(models.Model):
     criteriovaloracion = models.TextField(db_column='criterioValoracion', blank=True, null=True)  # Field name made lowercase.
     respuesta = models.TextField(blank=True, null=True)
     valoracion = models.TextField(blank=True, null=True)
-    evidencia = models.TextField(blank=True, null=True)
+    valoracionobjetivo = models.TextField(db_column='valoracionObjetivo', blank=True, null=True)  # Field name made lowercase.
     objects = models.Manager()
     class Meta:
         managed = False
         db_table = 'assessment_creados'
+
+class AsociacionEvidenciasGenericas(models.Model):
+    evidencia = models.ForeignKey('Evidencerequestcatalog', models.DO_NOTHING)
+    assessment = models.ForeignKey('AssessmentCreados', models.DO_NOTHING)
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'asociacion_evidencias_genericas'
+
+class AsociacionEvidenciasCreadas(models.Model):
+    id_evidencia = models.ForeignKey('Evidencias', models.DO_NOTHING, db_column='Id_evidencia')  # Field name made lowercase.
+    id_assessment = models.ForeignKey('AssessmentCreados', models.DO_NOTHING, db_column='id_assessment')
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'asociacion_evidencias_creadas'
 
 class AuthGroup(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.

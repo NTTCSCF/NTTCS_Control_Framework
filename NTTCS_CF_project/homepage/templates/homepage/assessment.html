@@ -123,8 +123,30 @@
             </div>
             <div class="cajasSelectorValoracion">
                 <select  class="selectpicker " data-width="100%" data-size="10"   data-live-search="true" id="valmad" name="valmad" >
+                    <option selected value="noSel">--- No Seleccionado ---</option>
                     {% for ids in valMad %}
                     {% if ids.sublevels == control.valoracion %}
+                    <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                    {% else %}
+                    <option   value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="rowCajas">
+        <!-- Caja de seleccion para ingresar la valoracion de madurez -->
+        <div class="contenedorSelector">
+            <div class="cajasTextoSelectorValoracion">
+                <label style="font-size: 1.4vw;">Valoración de madurez Objetivo</label>
+            </div>
+            <div class="cajasSelectorValoracion">
+                <select  class="selectpicker " data-width="100%" data-size="10"   data-live-search="true" id="valmadob" name="valmadob" >
+                    <option selected value="noSel">--- No Seleccionado ---</option>
+                    {% for ids in valMad %}
+                    {% if ids.sublevels == control.valoracionobjetivo %}
                     <option selected  value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
                     {% else %}
                     <option   value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
@@ -154,6 +176,11 @@
             </div>
         </div>
 
+
+    </div>
+
+
+    <div class="rowCajas">
         <!-- Tarjeta de pregunta para el control -->
         <div class="cajaPreguntaDescripcion">
             <div class="tarjeta">
@@ -165,14 +192,45 @@
                 <div class="textoTarjetaGrande">
                     <div class="cuadrotextoGrande">
                         {% for i in evidencias %}
-                        {{i | safe }}
+                        <p>{{i.evidencia.evidence_request_references}}, {{i.evidencia.artifact}}, {{i.evidencia.artifact_description}} </p>
+                        {% endfor %}
+                        {% for i in evidencias2 %}
+                        <p>{{i.id_evidencia.evidencia_id}}, {{i.id_evidencia.comentario}}, <a href="{{i.id_evidencia.links}}">{{i.id_evidencia.links}}</a> </p>
                         {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        {% if perms.acounts.puede_crear_assesment %}
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Selección de envidencia Generica
+                    </div>
 
+                </div>
+                <div class="textoTarjeta">
+                    <div class="cuadroInputs">
+                        <div style="width:60%;" class="form-floating formEvidencia">
+                             <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true" id="selectorEvidencia" name="selectorEvidencia">
+                                <option selected value="noSel">--- No Seleccionado ---</option>
+                                {% for ids in evidenciasGenerricas %}
+                                <option value="{{ids.evidence_request_references}}">{{ids.evidence_request_references}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cuadroInputs">
+                        <div style="">
+                            <button style="font-size:1.3vw;" class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton5" name="boton5" value="btn5">seleccionar Evidencia</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
     {% if perms.acounts.puede_crear_assesment %}
     <div class="rowCajas">
         <div class="cajaPreguntaDescripcion">
