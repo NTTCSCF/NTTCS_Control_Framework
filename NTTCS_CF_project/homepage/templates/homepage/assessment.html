@@ -265,6 +265,135 @@
             </div>
         </div>
     </div>
+
+    <div class="rowCajas">
+
+
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Asignar iniciativa existente
+                    </div>
+                </div>
+                <div class="textoTarjeta">
+
+                    <div class="cuadroInputs">
+                        <div style="width:80%;" class="form-floating formEvidencia">
+                             <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true" id="selectEviasig" name="selectEviasig">
+                                <option selected value="noSel">Seleccione la evidencia</option>
+                                {% for i in evidencias %}
+                                <option value="{{i.evidencia.evidence_request_references}}">{{i.evidencia.evidence_request_references}}</option>
+                                {% endfor %}
+                                {% for i in evidencias2 %}
+                                <option value="{{i.id_evidencia.evidencia_id}}">{{i.id_evidencia.evidencia_id}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cuadroInputs">
+                        <div style="width:80%;" class="form-floating formEvidencia">
+                             <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true" id="selectIniAsig" name="selectIniAsig">
+                                <option selected value="noSel">Seleccione la iniciativa</option>
+                                {% for i in iniciativas %}
+                                <option value="{{i.nombre}}">{{i.nombre}}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="cuadroInputs">
+                        <div style="">
+                            <button style="font-size:1.3vw;" class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton7" name="boton7" value="btn7">Asignar Iniciativa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Iniciativas
+                    </div>
+                </div>
+                <div class="textoTarjetaGrande">
+                    <div class="cuadrotextoGrande">
+                        {% for i in evidencias %}
+                        {% if i.iniciativa %}
+                        <p>{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
+                        {% endif %}
+                        {% endfor %}
+                        {% for i in evidencias2 %}
+                        {% if i.iniciativa %}
+                        <p>{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
+                        {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Crear Iniciativa
+                    </div>
+                </div>
+                <div class="textoTarjeta">
+
+                    <div class="cuadroInputs">
+                        <div style="width:60%;" class="form-floating formEvidencia">
+                             <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true" id="selectorEvidenciaIniciativa" name="selectorEvidenciaIniciativa">
+                                <option selected value="noSel">Seleccione la evidencia</option>
+                                {% for i in evidencias %}
+                                <option value="{{i.evidencia.evidence_request_references}}">{{i.evidencia.evidence_request_references}}</option>
+                                {% endfor %}
+                                {% for i in evidencias2 %}
+                                <option value="{{i.id_evidencia.evidencia_id}}">{{i.id_evidencia.evidencia_id}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cuadroInputs">
+                        <div style="width:50%;" class="form-floating formEvidencia">
+                            <input type="text" class="form-control" id="nombreIniciativa" name="nombreIniciativa">
+                            <label style="font-size:0.8vw;" for="nombreIniciativa">Nombre de la iniciativa</label>
+                        </div>
+                    </div>
+                    <div class="cuadroInputs">
+                        <div style="width:90%;" class="form-floating formEvidencia">
+                            <input type="text" class="form-control" id="DescripcionIniciativa" name="DescripcionIniciativa">
+                            <label style="font-size:0.8vw;" for="DescripcionIniciativa">Descripcion de la iniciativa</label>
+                        </div>
+                    </div>
+                    <div class="cuadroInputs">
+                        <div style="width:65%;" class="form-floating formEvidencia">
+                            <select  class="form-select" data-width="100%" aria-label="Default select example" data-live-search="true" id="SelectorIniciativa" name="SelectorIniciativa">
+                                <option selected value="noSel">--- No Seleccionado ---</option>
+                                {% for ids in tiposIniciativas %}
+                                <option value="{{ids.tipo}}">{{ids.tipo}}</option>
+                                {% endfor %}
+                            </select>
+                            <label style="font-size:0.8vw;" for="SelectorIniciativa">Seleccione el tipo de iniciativa</label>
+                        </div>
+                    </div>
+                    <div class="cuadroInputs">
+                        <div style="">
+                            <button style="font-size:1.3vw;" class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton6" name="boton6" value="btn6">Crear Iniciativa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="rowCajas">
         <div class="cajaMitad">
 

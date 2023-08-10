@@ -15,7 +15,8 @@ from django.shortcuts import render, HttpResponse, redirect
 from datetime import datetime
 from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
-    NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados,AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas
+    NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
+    AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas
 from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
@@ -243,19 +244,18 @@ class assessment(LoginRequiredMixin, TemplateView):
     def contextTotal(self, request, select, assSelect, context):
 
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
-
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
-
         request.session["controlSelect"] = select
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
         context["control"] = control
-
         context["criteriovaloracion"] = control.criteriovaloracion.split('\n')
         context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
         context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
         context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+        context["tiposIniciativas"] = TiposIniciativas.objects.all()
+        context["iniciativas"] = Iniciativas.objects.all()
         return request, context
 
     # funcion que envia el contexto de la pagina.
@@ -267,6 +267,8 @@ class assessment(LoginRequiredMixin, TemplateView):
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         context["valMad"] = MaturirtyTable.objects.all()
         context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+        context["tiposIniciativas"] = TiposIniciativas.objects.all()
+        context["iniciativas"] = Iniciativas.objects.all()
         self.request.session["controlSelect"] = 'noSel'
         return context
 
@@ -278,7 +280,9 @@ class assessment(LoginRequiredMixin, TemplateView):
         boton2 = request.POST.get('boton2')  # valor del boton 2
         boton3 = request.POST.get('boton3')  # valor del boton 3
         boton4 = request.POST.get('boton4')  # valor del boton 4
-        boton5 = request.POST.get('boton5')  # valor del boton 4
+        boton5 = request.POST.get('boton5')  # valor del boton 5
+        boton6 = request.POST.get('boton6')  # valor del boton 6
+        boton7 = request.POST.get('boton7')  # valor del boton 7
 
         if 'selector' in request.POST:  # se recoge la pulsacion del select
             if select == 'noSel':
@@ -289,6 +293,8 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["valMad"] = MaturirtyTable.objects.all()
                 request.session["controlSelect"] = select
                 context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
             else:
                 context = super(assessment, self).get_context_data(**knwargs)
@@ -312,7 +318,7 @@ class assessment(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context=context)
         elif boton4 == 'btn4':  # if encargado de rellenar las evidencias
 
-            idEvidencia = request.POST.get('idEvidencia')  # valor del idEvidencia
+            idEvidencia = request.POST.get('idEvidencia') + '-C'  # valor del idEvidencia
             descripcionEvidencia = request.POST.get('DescripcionEvidencia')  # valor del DescripcionEvidencia
             linkEvidencia = request.POST.get('linkEvidencia')  # valor del linkEvidencia
             controlId = request.session["controlSelect"]
@@ -358,6 +364,8 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
                 context["valMad"] = MaturirtyTable.objects.all()
                 context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
 
         elif boton5 == 'btn5':  # if encargado de rellenar las evidencias
@@ -387,7 +395,143 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
                 context["valMad"] = MaturirtyTable.objects.all()
                 context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
+        elif boton6 == 'btn6':  # if encargado de rellenar las evidencias
+            selectorEvidencia = request.POST.get('selectorEvidenciaIniciativa')
+            nombreIniciativa = request.POST.get('nombreIniciativa')
+            DescripcionIniciativa = request.POST.get('DescripcionIniciativa')
+            SelectorIniciativa = request.POST.get('SelectorIniciativa')
+            if request.session["controlSelect"] != 'noSel':
+                if selectorEvidencia != 'noSel':
+                    if not Iniciativas.objects.filter(nombre=nombreIniciativa).exists():
+                        if Evidencerequestcatalog.objects.filter(evidence_request_references=selectorEvidencia).exists():
+                            evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=selectorEvidencia)
+                            assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                            control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                                    control_id=request.session["controlSelect"])
+                            asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia, assessment=control)
+
+                            tipoIniciativa = TiposIniciativas.objects.get(tipo=SelectorIniciativa)
+                            iniciativa = Iniciativas(nombre=nombreIniciativa, descripcion=DescripcionIniciativa, tipo=tipoIniciativa)
+                            iniciativa.save()
+
+                            asociacion.iniciativa = iniciativa
+                            asociacion.save()
+                            context = super(assessment, self).get_context_data(**knwargs)
+                            request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
+                                                                 context)
+                            return render(request, self.template_name, context=context)
+                        else:
+                            evidencia = Evidencias.objects.get(evidencia_id=selectorEvidencia)
+                            assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                            control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                                    control_id=request.session["controlSelect"])
+                            asociacion = AsociacionEvidenciasCreadas.objects.get(id_evidencia=evidencia, id_assessment=control)
+
+                            tipoIniciativa = TiposIniciativas.objects.get(tipo=SelectorIniciativa)
+                            iniciativa = Iniciativas(nombre=nombreIniciativa, descripcion=DescripcionIniciativa,
+                                                     tipo=tipoIniciativa)
+                            iniciativa.save()
+
+                            asociacion.iniciativa = iniciativa
+                            asociacion.save()
+                            context = super(assessment, self).get_context_data(**knwargs)
+                            request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
+                                                                 context)
+                            return render(request, self.template_name, context=context)
+                    else:
+                        context = super(assessment, self).get_context_data(**knwargs)
+                        request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
+                                                             context)
+                        messages.error(request,
+                                       'INICIATIVA INCORRECTA: El nombre introducido ya esta en uso')  # Se crea mensage de error
+                        return render(request, self.template_name, context=context)
+                else:
+                    context = super(assessment, self).get_context_data(**knwargs)
+                    request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
+                    messages.error(request,
+                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
+                    return render(request, self.template_name, context=context)
+            else:
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                context = super(assessment, self).get_context_data(**knwargs)
+                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                context["NombreAss"] = assSelect
+                context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+                context["valMad"] = MaturirtyTable.objects.all()
+                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                context["iniciativas"] = Iniciativas.objects.all()
+                return render(request, self.template_name, context=context)
+        elif boton7 == 'btn7':  # if encargado de rellenar las evidencias
+            selectEviasig = request.POST.get('selectEviasig')
+            selectIniAsig = request.POST.get('selectIniAsig')
+            if request.session["controlSelect"] != 'noSel':
+                if selectEviasig != 'noSel':
+                    if selectIniAsig != 'noSel':
+                        if Evidencerequestcatalog.objects.filter(
+                                evidence_request_references=selectEviasig).exists():
+
+                            evidencia = Evidencerequestcatalog.objects.get(
+                                evidence_request_references=selectEviasig)
+                            assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                            control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                                    control_id=request.session["controlSelect"])
+                            asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia,
+                                                                                   assessment=control)
+
+                            iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
+                            asociacion.iniciativa = iniciativa
+                            asociacion.save()
+                            context = super(assessment, self).get_context_data(**knwargs)
+                            request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
+                                                                 context)
+                            return render(request, self.template_name, context=context)
+                        else:
+                            evidencia = Evidencias.objects.get(evidencia_id=selectEviasig)
+                            assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                            control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                                    control_id=request.session["controlSelect"])
+                            asociacion = AsociacionEvidenciasCreadas.objects.get(id_evidencia=evidencia,
+                                                                                 id_assessment=control)
+
+                            iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
+                            asociacion.iniciativa = iniciativa
+                            asociacion.save()
+                            context = super(assessment, self).get_context_data(**knwargs)
+                            request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
+                                                                 context)
+                            return render(request, self.template_name, context=context)
+                    else:
+                        context = super(assessment, self).get_context_data(**knwargs)
+                        request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
+                                                             context)
+                        messages.error(request,
+                                       'INICIATIVA INCORRECTA: Necesita seleccionar una iniciativa')  # Se crea mensage de error
+                        return render(request, self.template_name, context=context)
+                else:
+                    context = super(assessment, self).get_context_data(**knwargs)
+                    request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
+                                                         context)
+                    messages.error(request,
+                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
+                    return render(request, self.template_name, context=context)
+            else:
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                context = super(assessment, self).get_context_data(**knwargs)
+                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                context["NombreAss"] = assSelect
+                context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+                context["valMad"] = MaturirtyTable.objects.all()
+                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                context["iniciativas"] = Iniciativas.objects.all()
+                return render(request, self.template_name, context=context)
+
         else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
 
             consulta = Assessmentguardados.objects.get(
