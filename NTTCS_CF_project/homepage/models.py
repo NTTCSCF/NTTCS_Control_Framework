@@ -90,6 +90,7 @@ class AssessmentCreados(models.Model):
 class AsociacionEvidenciasGenericas(models.Model):
     evidencia = models.ForeignKey('Evidencerequestcatalog', models.DO_NOTHING)
     assessment = models.ForeignKey('AssessmentCreados', models.DO_NOTHING)
+    iniciativa = models.ForeignKey('Iniciativas', models.DO_NOTHING, db_column='iniciativa', blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
@@ -98,10 +99,27 @@ class AsociacionEvidenciasGenericas(models.Model):
 class AsociacionEvidenciasCreadas(models.Model):
     id_evidencia = models.ForeignKey('Evidencias', models.DO_NOTHING, db_column='Id_evidencia')  # Field name made lowercase.
     id_assessment = models.ForeignKey('AssessmentCreados', models.DO_NOTHING, db_column='id_assessment')
+    iniciativa = models.ForeignKey('Iniciativas', models.DO_NOTHING, db_column='iniciativa', blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
         db_table = 'asociacion_evidencias_creadas'
+
+class TiposIniciativas(models.Model):
+    tipo = models.TextField()
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'tipos_iniciativas'
+
+class Iniciativas(models.Model):
+    nombre = models.CharField(db_column='Nombre', max_length=100)  # Field name made lowercase.
+    descripcion = models.TextField(db_column='Descripcion')  # Field name made lowercase.
+    tipo = models.ForeignKey('TiposIniciativas', models.DO_NOTHING, db_column='tipo')
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'iniciativas'
 
 class AuthGroup(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
