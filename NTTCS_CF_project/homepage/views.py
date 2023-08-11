@@ -256,6 +256,22 @@ class assessment(LoginRequiredMixin, TemplateView):
         context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
         context["iniciativas"] = Iniciativas.objects.all()
+        evidenciasRecomendadas = Assessment.objects.get(id=select).evidence_request_references
+        if evidenciasRecomendadas == '':
+            context["recomendacion"] = False
+        else:
+
+            evidenciasRecomendadas = evidenciasRecomendadas.split('\n')
+            r = ''
+            for i in evidenciasRecomendadas:
+                evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                if not AsociacionEvidenciasGenericas.objects.filter(evidencia=evidencia, assessment=control):
+                    r += i + ', '
+            if r != '':
+                context["recomendacion"] = True
+                context["eviRecomendada"] = r[:len(r)-2]
+            else:
+                context["recomendacion"] = False
         return request, context
 
     # funcion que envia el contexto de la pagina.
@@ -283,6 +299,7 @@ class assessment(LoginRequiredMixin, TemplateView):
         boton5 = request.POST.get('boton5')  # valor del boton 5
         boton6 = request.POST.get('boton6')  # valor del boton 6
         boton7 = request.POST.get('boton7')  # valor del boton 7
+        boton8 = request.POST.get('boton8')  # valor del boton 7
 
         if 'selector' in request.POST:  # se recoge la pulsacion del select
             if select == 'noSel':
@@ -531,7 +548,19 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
-
+        elif boton8 == 'btn8':  # if encargado de rellenar las evidencias
+            evidenciasRecomendadas = Assessment.objects.get(id=request.session["controlSelect"]).evidence_request_references.split('\n')
+            for i in evidenciasRecomendadas:
+                evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                        control_id=request.session["controlSelect"])
+                if not AsociacionEvidenciasGenericas.objects.filter(evidencia=evidencia, assessment=control):
+                    eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia, assessment=control)
+                    eviGenerica.save()
+            context = super(assessment, self).get_context_data(**knwargs)
+            request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
+            return render(request, self.template_name, context=context)
         else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
 
             consulta = Assessmentguardados.objects.get(
