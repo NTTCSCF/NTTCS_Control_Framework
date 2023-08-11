@@ -175,8 +175,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
 
@@ -211,6 +209,16 @@
 
                 </div>
                 <div class="textoTarjeta">
+                    {% if recomendacion %}
+                    <div class="cuadroInputs">
+                        <div class="textoRecomendacionEvidencia">
+                            Para este control se recomiendan las evidencias {{ eviRecomendada }}
+                        </div>
+                        <div class="btnRecomendacionEvidencia">
+                            <button style="font-size:1.3vw;" class="btn btn-outline-secondary btn-sm btn-block" type="submit" id="boton8" name="boton8" value="btn8">Añadir</button>
+                        </div>
+                    </div>
+                    {% endif %}
                     <div class="cuadroInputs">
                         <div style="width:60%;" class="form-floating formEvidencia">
                              <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true" id="selectorEvidencia" name="selectorEvidencia">
