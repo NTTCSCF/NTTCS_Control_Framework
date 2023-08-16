@@ -16,7 +16,8 @@ from datetime import datetime
 from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
-    AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas
+    AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas,\
+    AssessmentEs
 from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
@@ -591,6 +592,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         nombre = request.POST.get('in')  # Valor del input de nombre
         select = request.POST.get('selector1')  # valor de selector de assesment guardado
         select2 = request.POST.getlist('selector2')  # valor de selector de marcos para la creacion del assesment
+        idioma = request.POST.getlist('idioma')  # valor de selector de marcos para la creacion del assesment
 
         if 'selector1' in request.POST:
             request.session["assessmentGuardado"] = select
@@ -615,7 +617,10 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
 
                 for marco in marc:
                     marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
-                    consulta = Assessment.objects.get(id=marco)
+                    if idioma == 'en':
+                        consulta = Assessment.objects.get(id=marco)
+                    else:
+                        consulta = AssessmentEs.objects.get(id=marco)
                     criterioVal = consulta.campo9 + '\n' + consulta.campo10 + '\n' + consulta.campo11 + '\n' + consulta.campo12 + '\n' + consulta.campo13 + '\n' + consulta.campo14
 
                     a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco), control_name=consulta.control,
