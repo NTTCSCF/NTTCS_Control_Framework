@@ -17,7 +17,7 @@ from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
     AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas,\
-    AssessmentEs
+    AssessmentEs, MaturirtyTableEs
 from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
@@ -247,7 +247,10 @@ class assessment(LoginRequiredMixin, TemplateView):
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
-        context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+        if assGuardado.idioma == 'en':
+            context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+        else:
+            context["valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
         request.session["controlSelect"] = select
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
         context["control"] = control
@@ -282,7 +285,11 @@ class assessment(LoginRequiredMixin, TemplateView):
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
-        context["valMad"] = MaturirtyTable.objects.all()
+        if assGuardado.idioma == 'en':
+            context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+        else:
+            context[
+                "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
         context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
         context["iniciativas"] = Iniciativas.objects.all()
@@ -308,7 +315,12 @@ class assessment(LoginRequiredMixin, TemplateView):
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
-                context["valMad"] = MaturirtyTable.objects.all()
+                if assGuardado.idioma == 'en':
+                    context[
+                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                else:
+                    context[
+                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
                 request.session["controlSelect"] = select
                 context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
@@ -380,7 +392,12 @@ class assessment(LoginRequiredMixin, TemplateView):
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
-                context["valMad"] = MaturirtyTable.objects.all()
+                if assGuardado.idioma == 'en':
+                    context[
+                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                else:
+                    context[
+                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
                 context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
@@ -411,7 +428,12 @@ class assessment(LoginRequiredMixin, TemplateView):
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
-                context["valMad"] = MaturirtyTable.objects.all()
+                if assGuardado.idioma == 'en':
+                    context[
+                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                else:
+                    context[
+                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
                 context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
@@ -479,7 +501,12 @@ class assessment(LoginRequiredMixin, TemplateView):
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
-                context["valMad"] = MaturirtyTable.objects.all()
+                if assGuardado.idioma == 'en':
+                    context[
+                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                else:
+                    context[
+                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
                 context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
@@ -544,7 +571,13 @@ class assessment(LoginRequiredMixin, TemplateView):
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
-                context["valMad"] = MaturirtyTable.objects.all()
+
+                if assGuardado.idioma == 'en':
+                    context[
+                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                else:
+                    context[
+                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
                 context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
@@ -601,7 +634,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         elif nombre != '' and select2 != None:
             if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
                 assessmentNuevo = Assessmentguardados(id_assessment=nombre,
-                                        archivado=0)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
+                                        archivado=0, idioma=idioma)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
                 assessmentNuevo.save()
 
                 marcos = ''
