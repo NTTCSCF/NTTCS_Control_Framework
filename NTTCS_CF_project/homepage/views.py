@@ -257,7 +257,7 @@ class assessment(LoginRequiredMixin, TemplateView):
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
         context["iniciativas"] = Iniciativas.objects.all()
         evidenciasRecomendadas = Assessment.objects.get(id=select).evidence_request_references
-        if evidenciasRecomendadas == '':
+        if evidenciasRecomendadas == '' or evidenciasRecomendadas is None:
             context["recomendacion"] = False
         else:
 
