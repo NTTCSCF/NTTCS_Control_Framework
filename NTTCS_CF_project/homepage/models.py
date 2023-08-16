@@ -87,14 +87,13 @@ class AssessmentEs(models.Model):
         db_table = 'assessment_es'
 
 class Assessmentguardados(models.Model):
-    id_assessment = models.CharField(db_column='ID_assessment', primary_key=True,
-                                     max_length=100)  # Field name made lowercase.
+    id_assessment = models.CharField(db_column='ID_assessment', primary_key=True, max_length=100)  # Field name made lowercase.
     marcos = models.TextField(blank=True, null=True)
     archivado = models.IntegerField(blank=True, null=True)
     comentario2 = models.TextField(blank=True, null=True)
     comentario = models.TextField(blank=True, null=True)
+    idioma = models.CharField(max_length=100, blank=True, null=True)
     objects = models.Manager()
-
     class Meta:
         managed = False
         db_table = 'assessmentguardados'
@@ -429,7 +428,18 @@ class MaturirtyTable(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'maturirty table'
+        db_table = 'maturirty_table'
+
+class MaturirtyTableEs(models.Model):
+    ccmmcod = models.CharField(db_column='CCMMCOD', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    description = models.TextField(db_column='DESCRIPTION', blank=True, null=True)  # Field name made lowercase.
+    sublevels = models.CharField(db_column='SUBLEVELS', primary_key=True, max_length=255)  # Field name made lowercase.
+    percentage = models.FloatField(db_column='PERCENTAGE', blank=True, null=True)  # Field name made lowercase.
+    objects = models.Manager()
+
+    class Meta:
+        managed = False
+        db_table = 'maturirty_table_es'
 
 
 class NttcsCf20231(models.Model):
