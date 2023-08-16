@@ -59,6 +59,33 @@ class Assessment(models.Model):
         db_table = 'assessment'
 
 
+class AssessmentEs(models.Model):
+    dominio = models.TextField(db_column='Dominio', blank=True, null=True)  # Field name made lowercase.
+    seleccionado_y_n_field = models.CharField(db_column='Seleccionado? (Y/N)', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters. Field renamed because it ended with '_'.
+    control = models.CharField(db_column='Control', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    id = models.CharField(db_column='ID', primary_key=True, max_length=255)  # Field name made lowercase.
+    control_description = models.TextField(db_column='Descripción de Control', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    métodos_para_cumplir_con_el_control = models.TextField(db_column='Métodos para cumplir con el control', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    referencias_de_solicitud_de_pruebas = models.TextField(db_column='Referencias de solicitud de pruebas', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    control_question = models.TextField(db_column='Pregunta de control', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    campo9 = models.TextField(db_column='Campo9', blank=True, null=True)  # Field name made lowercase.
+    campo10 = models.TextField(db_column='Campo10', blank=True, null=True)  # Field name made lowercase.
+    campo11 = models.TextField(db_column='Campo11', blank=True, null=True)  # Field name made lowercase.
+    campo12 = models.TextField(db_column='Campo12', blank=True, null=True)  # Field name made lowercase.
+    campo13 = models.TextField(db_column='Campo13', blank=True, null=True)  # Field name made lowercase.
+    campo14 = models.TextField(db_column='Campo14', blank=True, null=True)  # Field name made lowercase.
+    evaluación_pregunta_evidencias_comentarios = models.TextField(db_column='Evaluación Pregunta/Evidencias Comentarios', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    resultado_evaluado = models.TextField(db_column='Resultado evaluado', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    owner_de_control = models.TextField(db_column='Owner de Control', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    campo18 = models.TextField(db_column='Campo18', blank=True, null=True)  # Field name made lowercase.
+    comentario_control_corporativo_común = models.TextField(db_column='Comentario control corporativo común', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    comentarios_de_evaluación_del_control = models.TextField(db_column='Comentarios de evaluación del control', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    evidencia_solicitada = models.TextField(db_column='Evidencia Solicitada', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'assessment_es'
+
 class Assessmentguardados(models.Model):
     id_assessment = models.CharField(db_column='ID_assessment', primary_key=True,
                                      max_length=100)  # Field name made lowercase.
