@@ -1,0 +1,3 @@
+Watching for file changes with StatReloader
+Not Found: /wp-login.php
+[14/Aug/2023 00:15:07] "GET /wp-login.php HTTP/1.1" 404 6548

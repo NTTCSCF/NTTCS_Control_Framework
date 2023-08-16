@@ -1,0 +1,40 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[15/Aug/2023 15:18:05] "GET /.env HTTP/1.1" 404 6508
+Not Found: /core/.env
+[15/Aug/2023 15:18:05] "GET /core/.env HTTP/1.1" 404 6523
+Not Found: /app/.env
+[15/Aug/2023 15:18:05] "GET /app/.env HTTP/1.1" 404 6520
+Not Found: /api/.env
+[15/Aug/2023 15:18:05] "GET /api/.env HTTP/1.1" 404 6520
+Not Found: /prod/.env
+[15/Aug/2023 15:18:05] "GET /prod/.env HTTP/1.1" 404 6523
+Not Found: /kyc/.env
+[15/Aug/2023 15:18:05] "GET /kyc/.env HTTP/1.1" 404 6520
+Not Found: /OTApp/.env
+[15/Aug/2023 15:18:05] "GET /OTApp/.env HTTP/1.1" 404 6526
+Not Found: /application/.env
+[15/Aug/2023 15:18:05] "GET /application/.env HTTP/1.1" 404 6544
+Not Found: /laravel/.env
+[15/Aug/2023 15:18:05] "GET /laravel/.env HTTP/1.1" 404 6532
+Not Found: /@Core/.env
+[15/Aug/2023 15:18:06] "GET /@Core/.env HTTP/1.1" 404 6526
+[15/Aug/2023 15:18:06] "GET /admin/.env HTTP/1.1" 302 0
+Not Found: /blog/.env
+[15/Aug/2023 15:18:06] "GET /blog/.env HTTP/1.1" 404 6523
+Forbidden (CSRF cookie not set.): /
+[15/Aug/2023 15:18:06] "POST / HTTP/1.1" 403 2922
+Not Found: /phpinfo.php
+[15/Aug/2023 15:18:06] "GET /phpinfo.php HTTP/1.1" 404 6529
+Not Found: /_profiler/phpinfo
+[15/Aug/2023 15:18:06] "GET /_profiler/phpinfo HTTP/1.1" 404 6547
+Not Found: /info
+[15/Aug/2023 15:18:06] "GET /info HTTP/1.1" 404 6508
+Not Found: /phpinfo
+[15/Aug/2023 15:18:06] "GET /phpinfo HTTP/1.1" 404 6517
+Not Found: /test.php
+[15/Aug/2023 15:18:06] "GET /test.php HTTP/1.1" 404 6520
+Not Found: /i.php
+[15/Aug/2023 15:18:06] "GET /i.php HTTP/1.1" 404 6511
+Not Found: /_ignition/health-check
+[15/Aug/2023 15:18:06] "POST /_ignition/health-check HTTP/1.1" 404 6563

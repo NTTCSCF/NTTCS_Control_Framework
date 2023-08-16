@@ -1,0 +1,8 @@
+Watching for file changes with StatReloader
+Not Found: /robots.txt
+[12/Aug/2023 08:29:46] "GET /robots.txt HTTP/1.1" 404 6519
+Not Found: /humans.txt
+[12/Aug/2023 08:29:46] "GET /humans.txt HTTP/1.1" 404 6519
+Not Found: /ads.txt
+[12/Aug/2023 08:29:46] "GET /ads.txt HTTP/1.1" 404 6510
+[12/Aug/2023 08:29:46] "GET / HTTP/1.1" 200 1515

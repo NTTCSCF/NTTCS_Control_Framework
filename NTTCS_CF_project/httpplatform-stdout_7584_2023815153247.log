@@ -1,0 +1,9 @@
+Watching for file changes with StatReloader
+[15/Aug/2023 17:32:49] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 17:34:28] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 17:34:28] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 17:34:28] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[15/Aug/2023 17:34:29] "GET /favicon.ico HTTP/1.1" 404 6529
+Not Found: /robots.txt
+[15/Aug/2023 17:46:52] "GET /robots.txt HTTP/1.1" 404 6519

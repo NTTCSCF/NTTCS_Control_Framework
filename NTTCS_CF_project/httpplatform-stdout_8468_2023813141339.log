@@ -1,0 +1,5 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 16:13:41] "GET / HTTP/1.1" 200 1515
+Not Found: /AA.BB
+[13/Aug/2023 16:23:38] "GET /AA.BB?aa.bb HTTP/1.1" 404 6513
+[13/Aug/2023 16:38:11] "GET / HTTP/1.1" 200 1515

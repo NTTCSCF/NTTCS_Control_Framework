@@ -1,0 +1,70 @@
+Watching for file changes with StatReloader
+[16/Aug/2023 08:45:06] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 08:45:06] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[16/Aug/2023 08:45:06] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[16/Aug/2023 08:45:06] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[16/Aug/2023 08:45:06] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[16/Aug/2023 08:48:08] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 08:53:52] "GET / HTTP/1.0" 200 1515
+[16/Aug/2023 08:53:56] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 08:53:56] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /robots.txt
+[16/Aug/2023 08:55:15] "GET /robots.txt HTTP/1.1" 404 6519
+[16/Aug/2023 09:01:24] "GET /informes/ HTTP/1.1" 200 9702
+[16/Aug/2023 09:01:24] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+Method Not Allowed (POST): /informes/
+Method Not Allowed: /informes/
+[16/Aug/2023 09:01:29] "POST /informes/ HTTP/1.1" 405 0
+[16/Aug/2023 09:02:05] "POST /assessment/ HTTP/1.1" 200 102100
+[16/Aug/2023 09:03:14] "GET /menu/ HTTP/1.1" 200 7785
+[16/Aug/2023 09:03:18] "GET /assessmentselect/ HTTP/1.1" 200 21134
+[16/Aug/2023 09:03:27] "GET /assessmentselect/ HTTP/1.1" 200 21134
+[16/Aug/2023 09:03:29] "GET /informes/ HTTP/1.1" 200 9702
+Method Not Allowed (POST): /informes/
+Method Not Allowed: /informes/
+[16/Aug/2023 09:03:35] "POST /informes/ HTTP/1.1" 405 0
+[16/Aug/2023 09:15:08] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+Not Found: /.env
+[16/Aug/2023 09:22:05] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[16/Aug/2023 09:22:05] "POST / HTTP/1.1" 403 2922
+[16/Aug/2023 09:26:49] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 09:37:26] "GET /informes/ HTTP/1.1" 200 12116
+[16/Aug/2023 09:37:26] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+Method Not Allowed (POST): /informes/
+Method Not Allowed: /informes/
+[16/Aug/2023 09:37:33] "POST /informes/ HTTP/1.1" 405 0
+[16/Aug/2023 09:44:27] "GET /assessmentselect/ HTTP/1.1" 200 23548
+[16/Aug/2023 09:44:32] "POST /assessmentselect/ HTTP/1.1" 302 0
+[16/Aug/2023 09:44:33] "GET /assessment/ HTTP/1.1" 200 200045
+Internal Server Error: /assessment/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 318, in post
+    request, context = self.contextTotal(request, select, assSelect, context)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 264, in contextTotal
+    evidenciasRecomendadas = evidenciasRecomendadas.split('\n')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'split'
+[16/Aug/2023 09:44:38] "POST /assessment/ HTTP/1.1" 500 93914
+Not Found: /favicon.ico
+[16/Aug/2023 09:44:39] "GET /favicon.ico HTTP/1.1" 404 6529
+[16/Aug/2023 09:45:46] "POST /assessment/ HTTP/1.1" 200 211989
+[16/Aug/2023 09:46:06] "POST /assessment/ HTTP/1.1" 200 212566
+[16/Aug/2023 09:46:06] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[16/Aug/2023 09:46:17] "POST /assessment/ HTTP/1.1" 200 213428

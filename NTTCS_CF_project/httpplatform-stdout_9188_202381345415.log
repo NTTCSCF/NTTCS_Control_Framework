@@ -1,0 +1,4 @@
+Watching for file changes with StatReloader
+Not Found: /boaform/admin/formLogin
+[13/Aug/2023 06:54:17] "GET /boaform/admin/formLogin?username=user&psd=user HTTP/1.0" 404 6592
+[13/Aug/2023 07:12:10] "GET / HTTP/1.1" 200 1515

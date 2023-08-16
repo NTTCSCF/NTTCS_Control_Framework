@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[15/Aug/2023 20:41:39] "GET /.env HTTP/1.1" 404 6508
+Not Found: /app_dev.php/_profiler/open
+[15/Aug/2023 20:41:40] "GET /app_dev.php/_profiler/open?file=app/config/parameters.yml HTTP/1.1" 404 6605
+Not Found: /app/config/parameters.yml
+[15/Aug/2023 20:41:40] "GET /app/config/parameters.yml HTTP/1.1" 404 6571
+Forbidden (CSRF cookie not set.): /
+[15/Aug/2023 20:41:40] "POST / HTTP/1.1" 403 2922
+Not Found: /_profiler/phpinfo
+[15/Aug/2023 20:41:40] "GET /_profiler/phpinfo HTTP/1.1" 404 6547
+Not Found: /_ignition/health-check
+[15/Aug/2023 20:41:40] "GET /_ignition/health-check HTTP/1.1" 404 6562
+[15/Aug/2023 20:51:38] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 20:58:14] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[15/Aug/2023 21:03:22] "GET /robots.txt HTTP/1.1" 404 6519

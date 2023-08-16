@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+[12/Aug/2023 22:51:28] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 23:24:16] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 23:30:25] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[12/Aug/2023 23:30:43] "GET /favicon.ico HTTP/1.1" 404 6522
+[12/Aug/2023 23:30:44] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 23:31:37] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[12/Aug/2023 23:33:37] "GET /favicon.ico HTTP/1.1" 404 6522
+[12/Aug/2023 23:33:38] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 23:41:37] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[12/Aug/2023 23:42:06] "GET /favicon.ico HTTP/1.1" 404 6522
+[12/Aug/2023 23:42:07] "GET / HTTP/1.1" 200 1515

@@ -1,0 +1,27 @@
+Watching for file changes with StatReloader
+Not Found: /backend/.env
+[11/Aug/2023 21:52:38] "GET /backend/.env HTTP/1.1" 404 6532
+Not Found: /backend
+[11/Aug/2023 21:52:38] "POST /backend HTTP/1.1" 404 6518
+Not Found: /.git/config
+[11/Aug/2023 22:12:00] "GET /.git/config HTTP/1.1" 404 6529
+Not Found: /.git/config
+[11/Aug/2023 22:12:01] "GET /.git/config HTTP/1.1" 404 6529
+Not Found: /portal/redlion
+[11/Aug/2023 22:30:08] "GET /portal/redlion HTTP/1.1" 404 6538
+[11/Aug/2023 22:41:57] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[11/Aug/2023 22:42:18] "GET /favicon.ico HTTP/1.1" 404 6522
+[11/Aug/2023 22:42:20] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 22:46:36] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[11/Aug/2023 22:55:30] "GET /favicon.ico HTTP/1.1" 404 6522
+[11/Aug/2023 23:05:37] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 23:19:28] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 23:33:32] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 23:34:16] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 23:34:23] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 23:34:23] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 23:34:23] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 23:34:23] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 23:34:26] "GET / HTTP/1.1" 200 1515

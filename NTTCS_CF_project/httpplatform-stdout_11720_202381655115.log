@@ -1,0 +1,70 @@
+Watching for file changes with StatReloader
+[16/Aug/2023 07:51:17] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 07:51:17] "GET /staticfiles/css/main.css HTTP/1.1" 304 0
+[16/Aug/2023 07:51:17] "GET /staticfiles/css/estilos.css HTTP/1.1" 304 0
+[16/Aug/2023 07:51:17] "GET /staticfiles/css/botones.css HTTP/1.1" 304 0
+[16/Aug/2023 07:51:27] "POST / HTTP/1.1" 302 0
+[16/Aug/2023 07:51:28] "GET /menu/ HTTP/1.1" 200 10199
+[16/Aug/2023 07:51:28] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[16/Aug/2023 07:51:28] "GET /staticfiles/js/scripts.js HTTP/1.1" 304 0
+[16/Aug/2023 07:51:29] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 304 0
+C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py:1200: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'homepage.models.NttcsCf20231'> QuerySet.
+  paginator = Paginator(NttcsCf20231.objects.all(), 50)
+[16/Aug/2023 07:51:37] "GET /MantenimientoControlesNTTCS/ HTTP/1.1" 200 149131
+[16/Aug/2023 07:51:44] "GET /MantenimientoControlesNTTCS/?page=4 HTTP/1.1" 200 146383
+[16/Aug/2023 08:06:34] "GET /menu/ HTTP/1.1" 200 10199
+[16/Aug/2023 08:07:31] "GET / HTTP/1.0" 200 1515
+[16/Aug/2023 08:11:25] "GET /menu/ HTTP/1.1" 200 10199
+[16/Aug/2023 08:11:30] "GET /menu/ HTTP/1.1" 200 10199
+[16/Aug/2023 08:11:30] "GET /staticfiles/css/ass.css HTTP/1.1" 200 7196
+[16/Aug/2023 08:11:30] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[16/Aug/2023 08:11:30] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 10354
+[16/Aug/2023 08:11:31] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[16/Aug/2023 08:11:31] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[16/Aug/2023 08:11:31] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[16/Aug/2023 08:11:31] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[16/Aug/2023 08:11:34] "GET /assessmentselect/ HTTP/1.1" 200 23456
+[16/Aug/2023 08:11:34] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[16/Aug/2023 08:11:42] "POST /assessmentselect/ HTTP/1.1" 302 0
+[16/Aug/2023 08:11:42] "GET /assessment/ HTTP/1.1" 200 98124
+[16/Aug/2023 08:11:42] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[16/Aug/2023 08:13:59] "GET /assessmentselect/ HTTP/1.1" 200 23456
+[16/Aug/2023 08:16:16] "GET /assessmentselect/ HTTP/1.1" 200 23456
+[16/Aug/2023 08:16:16] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[16/Aug/2023 08:16:18] "GET /informes/ HTTP/1.1" 200 12024
+[16/Aug/2023 08:16:20] "GET /exportaciones/ HTTP/1.1" 200 12933
+[16/Aug/2023 08:16:35] "POST /exportaciones/ HTTP/1.1" 200 104046
+Not Found: /favicon.ico
+[16/Aug/2023 08:16:36] "GET /favicon.ico HTTP/1.1" 404 6529
+[16/Aug/2023 08:17:35] "GET /menu/ HTTP/1.1" 200 10199
+[16/Aug/2023 08:17:35] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[16/Aug/2023 08:17:37] "GET /assessmentselect/ HTTP/1.1" 200 23456
+[16/Aug/2023 08:17:44] "GET /usuarios/ HTTP/1.1" 200 16991
+[16/Aug/2023 08:27:22] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 08:27:22] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[16/Aug/2023 08:27:22] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[16/Aug/2023 08:27:22] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[16/Aug/2023 08:27:22] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[16/Aug/2023 08:30:09] "POST / HTTP/1.1" 302 0
+[16/Aug/2023 08:30:09] "GET /menu/ HTTP/1.1" 200 7785
+[16/Aug/2023 08:30:09] "GET /staticfiles/css/ass.css HTTP/1.1" 200 7196
+[16/Aug/2023 08:30:09] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 10354
+[16/Aug/2023 08:30:09] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[16/Aug/2023 08:30:09] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[16/Aug/2023 08:30:20] "GET /menu/ HTTP/1.1" 200 7785
+[16/Aug/2023 08:30:28] "GET /assessmentselect/ HTTP/1.1" 200 21042
+[16/Aug/2023 08:31:02] "POST /assessmentselect/ HTTP/1.1" 302 0
+[16/Aug/2023 08:31:02] "GET /assessment/ HTTP/1.1" 200 91312
+Not Found: /favicon.ico
+[16/Aug/2023 08:31:59] "GET /favicon.ico HTTP/1.1" 404 6529
+[16/Aug/2023 08:32:02] "POST /assessment/ HTTP/1.1" 200 102215
+Not Found: /manage/account/login
+[16/Aug/2023 08:33:06] "GET /manage/account/login HTTP/1.1" 404 6556
+[16/Aug/2023 08:34:29] "GET /admin/index.html HTTP/1.1" 302 0
+Not Found: /index.html
+[16/Aug/2023 08:35:55] "GET /index.html HTTP/1.1" 404 6526
+Not Found: /cgi-bin/login.cgi
+[16/Aug/2023 08:38:49] "GET /cgi-bin/login.cgi HTTP/1.1" 404 6547
+[16/Aug/2023 08:39:34] "HEAD / HTTP/1.1" 200 0
+[16/Aug/2023 08:39:35] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 08:40:06] "GET / HTTP/1.1" 200 1515

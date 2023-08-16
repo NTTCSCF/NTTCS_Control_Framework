@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 22:28:35] "GET /?act=cl&ofid=9999999&uid=1&vid=1&lid=1&cid=1&pid=1_mt HTTP/1.1" 200 1515
+Not Found: /wp-login.php
+[13/Aug/2023 22:47:14] "GET /wp-login.php HTTP/1.1" 404 6544
+[13/Aug/2023 23:01:31] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[13/Aug/2023 23:02:09] "GET /favicon.ico HTTP/1.1" 404 6522
+[13/Aug/2023 23:02:11] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 23:14:08] "GET /admin/config.php HTTP/1.1" 302 0
+[13/Aug/2023 23:14:08] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296

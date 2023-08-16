@@ -1,0 +1,724 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 10:01:26] "GET /?pp=env HTTP/1.1" 200 1515
+Not Found: /.aws/credentials
+[13/Aug/2023 10:01:27] "GET /.aws/credentials HTTP/1.1" 404 6542
+Not Found: /.env
+[13/Aug/2023 10:01:28] "GET /.env HTTP/1.1" 404 6506
+Not Found: /.env~
+[13/Aug/2023 10:01:28] "GET /.env~ HTTP/1.1" 404 6509
+Not Found: /.env.backup
+[13/Aug/2023 10:01:29] "GET /.env.backup HTTP/1.1" 404 6527
+Not Found: /.env.bak
+[13/Aug/2023 10:01:29] "GET /.env.bak HTTP/1.1" 404 6518
+Not Found: /.env.dev
+[13/Aug/2023 10:01:29] "GET /.env.dev HTTP/1.1" 404 6518
+Not Found: /.env.development.local
+[13/Aug/2023 10:01:30] "GET /.env.development.local HTTP/1.1" 404 6560
+Not Found: /.env.dev.local
+[13/Aug/2023 10:01:30] "GET /.env.dev.local HTTP/1.1" 404 6536
+Not Found: /.env.docker.dev
+[13/Aug/2023 10:01:31] "GET /.env.docker.dev HTTP/1.1" 404 6539
+Not Found: /.env.live
+[13/Aug/2023 10:01:31] "GET /.env.live HTTP/1.1" 404 6521
+Not Found: /.env.local
+[13/Aug/2023 10:01:32] "GET /.env.local HTTP/1.1" 404 6524
+Not Found: /.env.php
+[13/Aug/2023 10:01:32] "GET /.env.php HTTP/1.1" 404 6518
+Not Found: /.env.prod
+[13/Aug/2023 10:01:33] "GET /.env.prod HTTP/1.1" 404 6521
+Not Found: /1board/.env
+[13/Aug/2023 10:01:33] "GET /1board/.env HTTP/1.1" 404 6527
+Not Found: /info.php
+[13/Aug/2023 10:01:34] "GET /info.php HTTP/1.1" 404 6518
+Not Found: /inf.php
+[13/Aug/2023 10:01:34] "GET /inf.php HTTP/1.1" 404 6515
+Not Found: /ingfo.php
+[13/Aug/2023 10:01:35] "GET /ingfo.php HTTP/1.1" 404 6521
+Not Found: /in.php
+[13/Aug/2023 10:01:35] "GET /in.php HTTP/1.1" 404 6512
+Not Found: /inpo.php
+[13/Aug/2023 10:01:36] "GET /inpo.php HTTP/1.1" 404 6518
+Not Found: /install/.env
+[13/Aug/2023 10:01:36] "GET /install/.env HTTP/1.1" 404 6530
+Not Found: /i.php
+[13/Aug/2023 10:01:36] "GET /i.php HTTP/1.1" 404 6509
+Not Found: /admincontrol/sys_phpinfo.php
+[13/Aug/2023 10:01:37] "GET /admincontrol/sys_phpinfo.php HTTP/1.1" 404 6578
+[13/Aug/2023 10:01:37] "GET /admin/.env HTTP/1.1" 302 0
+[13/Aug/2023 10:01:38] "GET /admin/login/?next=/admin/.env HTTP/1.1" 200 4284
+[13/Aug/2023 10:01:39] "GET /admin/phpinfo.php HTTP/1.1" 302 0
+[13/Aug/2023 10:01:39] "GET /admin/login/?next=/admin/phpinfo.php HTTP/1.1" 200 4298
+Not Found: /admin_phpinfo.php
+[13/Aug/2023 10:01:40] "GET /admin_phpinfo.php HTTP/1.1" 404 6545
+[13/Aug/2023 10:01:41] "GET /admin/server_info.php HTTP/1.1" 302 0
+[13/Aug/2023 10:01:41] "GET /admin/login/?next=/admin/server_info.php HTTP/1.1" 200 4306
+[13/Aug/2023 10:01:43] "GET /admin/sys_phpinfo.php HTTP/1.1" 302 0
+[13/Aug/2023 10:01:43] "GET /admin/login/?next=/admin/sys_phpinfo.php HTTP/1.1" 200 4306
+Not Found: /api1/.env
+[13/Aug/2023 10:01:45] "GET /api1/.env HTTP/1.1" 404 6521
+Not Found: /api2/.env
+[13/Aug/2023 10:01:46] "GET /api2/.env HTTP/1.1" 404 6521
+Not Found: /api3/.env
+[13/Aug/2023 10:01:46] "GET /api3/.env HTTP/1.1" 404 6521
+Not Found: /api4/.env
+[13/Aug/2023 10:01:46] "GET /api4/.env HTTP/1.1" 404 6521
+Not Found: /api5/.env
+[13/Aug/2023 10:01:47] "GET /api5/.env HTTP/1.1" 404 6521
+Not Found: /api/aws/index.js
+[13/Aug/2023 10:01:47] "GET /api/aws/index.js HTTP/1.1" 404 6542
+Not Found: /api/config.env
+[13/Aug/2023 10:01:48] "GET /api/config.env HTTP/1.1" 404 6536
+Not Found: /api/.env
+[13/Aug/2023 10:01:48] "GET /api/.env HTTP/1.1" 404 6518
+Not Found: /api/shared/.env
+[13/Aug/2023 10:01:48] "GET /api/shared/.env HTTP/1.1" 404 6539
+Not Found: /api/src/.env
+[13/Aug/2023 10:01:49] "GET /api/src/.env HTTP/1.1" 404 6530
+Not Found: /app/config/db.config.js
+[13/Aug/2023 10:01:49] "GET /app/config/db.config.js HTTP/1.1" 404 6563
+Not Found: /app/config/dev/.env
+[13/Aug/2023 10:01:50] "GET /app/config/dev/.env HTTP/1.1" 404 6551
+Not Found: /app/config/.env
+[13/Aug/2023 10:01:50] "GET /app/config/.env HTTP/1.1" 404 6539
+Not Found: /app_dir/.env
+[13/Aug/2023 10:01:51] "GET /app_dir/.env HTTP/1.1" 404 6530
+Not Found: /app/.env
+[13/Aug/2023 10:01:51] "GET /app/.env HTTP/1.1" 404 6518
+Not Found: /app.js
+[13/Aug/2023 10:01:52] "GET /app.js HTTP/1.1" 404 6512
+Not Found: /application/.env
+[13/Aug/2023 10:01:52] "GET /application/.env HTTP/1.1" 404 6542
+Not Found: /apps/.env
+[13/Aug/2023 10:01:52] "GET /apps/.env HTTP/1.1" 404 6521
+Not Found: /audio/.env
+[13/Aug/2023 10:01:53] "GET /audio/.env HTTP/1.1" 404 6524
+Not Found: /aws_config.csv
+[13/Aug/2023 10:01:53] "GET /aws_config.csv HTTP/1.1" 404 6536
+Not Found: /awsConfig.csv
+[13/Aug/2023 10:01:53] "GET /awsConfig.csv HTTP/1.1" 404 6533
+Not Found: /awsconfig.js
+[13/Aug/2023 10:01:54] "GET /awsconfig.js HTTP/1.1" 404 6530
+Not Found: /aws-config.json
+[13/Aug/2023 10:01:54] "GET /aws-config.json HTTP/1.1" 404 6539
+Not Found: /aws_config.json
+[13/Aug/2023 10:01:55] "GET /aws_config.json HTTP/1.1" 404 6539
+Not Found: /awsSettings.js
+[13/Aug/2023 10:01:55] "GET /awsSettings.js HTTP/1.1" 404 6536
+Not Found: /awstats/.env
+[13/Aug/2023 10:01:56] "GET /awstats/.env HTTP/1.1" 404 6530
+Not Found: /aws.yml
+[13/Aug/2023 10:01:56] "GET /aws.yml HTTP/1.1" 404 6515
+Not Found: /backend/.env
+[13/Aug/2023 10:01:57] "GET /backend/.env HTTP/1.1" 404 6530
+Not Found: /back/.env
+[13/Aug/2023 10:01:57] "GET /back/.env HTTP/1.1" 404 6521
+Not Found: /backup/.env
+[13/Aug/2023 10:01:57] "GET /backup/.env HTTP/1.1" 404 6527
+Not Found: /bank/.env
+[13/Aug/2023 10:01:58] "GET /bank/.env HTTP/1.1" 404 6521
+Not Found: /bitbucket-pipelines.yml
+[13/Aug/2023 10:01:58] "GET /bitbucket-pipelines.yml HTTP/1.1" 404 6563
+Not Found: /blob/.env
+[13/Aug/2023 10:01:59] "GET /blob/.env HTTP/1.1" 404 6521
+Not Found: /blog/.env
+[13/Aug/2023 10:01:59] "GET /blog/.env HTTP/1.1" 404 6521
+Not Found: /blue/.env
+[13/Aug/2023 10:01:59] "GET /blue/.env HTTP/1.1" 404 6521
+Not Found: /bootstrap/.env
+[13/Aug/2023 10:02:00] "GET /bootstrap/.env HTTP/1.1" 404 6536
+Not Found: /bots/.env
+[13/Aug/2023 10:02:00] "GET /bots/.env HTTP/1.1" 404 6521
+Not Found: /careers/.env
+[13/Aug/2023 10:02:01] "GET /careers/.env HTTP/1.1" 404 6530
+Not Found: /cdw-backend/.env
+[13/Aug/2023 10:02:01] "GET /cdw-backend/.env HTTP/1.1" 404 6542
+Not Found: /cgi-bin/.env
+[13/Aug/2023 10:02:03] "GET /cgi-bin/.env HTTP/1.1" 404 6530
+Not Found: /cms/.env
+[13/Aug/2023 10:02:03] "GET /cms/.env HTTP/1.1" 404 6518
+Not Found: /community/.env
+[13/Aug/2023 10:02:04] "GET /community/.env HTTP/1.1" 404 6536
+Not Found: /config/aws.yml
+[13/Aug/2023 10:02:05] "GET /config/aws.yml HTTP/1.1" 404 6536
+Not Found: /config/config.js
+[13/Aug/2023 10:02:05] "GET /config/config.js HTTP/1.1" 404 6542
+Not Found: /config/constant.js
+[13/Aug/2023 10:02:06] "GET /config/constant.js HTTP/1.1" 404 6548
+Not Found: /config.env
+[13/Aug/2023 10:02:06] "GET /config.env HTTP/1.1" 404 6524
+Not Found: /config/.env
+[13/Aug/2023 10:02:07] "GET /config/.env HTTP/1.1" 404 6527
+Not Found: /config.js
+[13/Aug/2023 10:02:07] "GET /config.js HTTP/1.1" 404 6521
+Not Found: /config/main.json
+[13/Aug/2023 10:02:08] "GET /config/main.json HTTP/1.1" 404 6542
+Not Found: /config/plugins.js
+[13/Aug/2023 10:02:08] "GET /config/plugins.js HTTP/1.1" 404 6545
+Not Found: /config/probuildKeys.js
+[13/Aug/2023 10:02:09] "GET /config/probuildKeys.js HTTP/1.1" 404 6560
+Not Found: /consulation/.env
+[13/Aug/2023 10:02:10] "GET /consulation/.env HTTP/1.1" 404 6542
+Not Found: /contact/.env
+[13/Aug/2023 10:02:10] "GET /contact/.env HTTP/1.1" 404 6530
+Not Found: /content/.env
+[13/Aug/2023 10:02:10] "GET /content/.env HTTP/1.1" 404 6530
+Not Found: /core/.env
+[13/Aug/2023 10:02:11] "GET /core/.env HTTP/1.1" 404 6521
+Not Found: /credentials.csv
+[13/Aug/2023 10:02:11] "GET /credentials.csv HTTP/1.1" 404 6539
+Not Found: /credentials.txt
+[13/Aug/2023 10:02:12] "GET /credentials.txt HTTP/1.1" 404 6539
+Not Found: /crm/.env
+[13/Aug/2023 10:02:12] "GET /crm/.env HTTP/1.1" 404 6518
+Not Found: /database/.env
+[13/Aug/2023 10:02:13] "GET /database/.env HTTP/1.1" 404 6533
+Not Found: /data/.env
+[13/Aug/2023 10:02:13] "GET /data/.env HTTP/1.1" 404 6521
+Not Found: /db/sqlconnection.js
+[13/Aug/2023 10:02:14] "GET /db/sqlconnection.js HTTP/1.1" 404 6551
+Not Found: /default/.env
+[13/Aug/2023 10:02:14] "GET /default/.env HTTP/1.1" 404 6530
+Not Found: /delivery/.env
+[13/Aug/2023 10:02:15] "GET /delivery/.env HTTP/1.1" 404 6533
+Not Found: /demo/.env
+[13/Aug/2023 10:02:15] "GET /demo/.env HTTP/1.1" 404 6521
+Not Found: /development/.env
+[13/Aug/2023 10:02:15] "GET /development/.env HTTP/1.1" 404 6542
+Not Found: /dev/.env
+[13/Aug/2023 10:02:16] "GET /dev/.env HTTP/1.1" 404 6518
+Not Found: /dist/.env
+[13/Aug/2023 10:02:16] "GET /dist/.env HTTP/1.1" 404 6521
+Not Found: /docker-compose.base.yml
+[13/Aug/2023 10:02:17] "GET /docker-compose.base.yml HTTP/1.1" 404 6563
+Not Found: /docker-compose.yml
+[13/Aug/2023 10:02:17] "GET /docker-compose.yml HTTP/1.1" 404 6548
+Not Found: /docs/.env
+[13/Aug/2023 10:02:18] "GET /docs/.env HTTP/1.1" 404 6521
+Not Found: /download/.env
+[13/Aug/2023 10:02:18] "GET /download/.env HTTP/1.1" 404 6533
+Not Found: /downloads/.env
+[13/Aug/2023 10:02:19] "GET /downloads/.env HTTP/1.1" 404 6536
+Not Found: /drupal/.env
+[13/Aug/2023 10:02:19] "GET /drupal/.env HTTP/1.1" 404 6527
+Not Found: /ec/.env
+[13/Aug/2023 10:02:19] "GET /ec/.env HTTP/1.1" 404 6515
+Not Found: /emails/ses.js
+[13/Aug/2023 10:02:20] "GET /emails/ses.js HTTP/1.1" 404 6533
+Not Found: /emr/.env
+[13/Aug/2023 10:02:20] "GET /emr/.env HTTP/1.1" 404 6518
+Not Found: /error/.env
+[13/Aug/2023 10:02:21] "GET /error/.env HTTP/1.1" 404 6524
+Not Found: /errors/.env
+[13/Aug/2023 10:02:21] "GET /errors/.env HTTP/1.1" 404 6527
+Not Found: /esurat/.env
+[13/Aug/2023 10:02:22] "GET /esurat/.env HTTP/1.1" 404 6527
+Not Found: /ets/.env
+[13/Aug/2023 10:02:22] "GET /ets/.env HTTP/1.1" 404 6518
+Not Found: /exapi/.env
+[13/Aug/2023 10:02:22] "GET /exapi/.env HTTP/1.1" 404 6524
+Not Found: /experts-api/.env
+[13/Aug/2023 10:02:23] "GET /experts-api/.env HTTP/1.1" 404 6542
+Not Found: /export/.env
+[13/Aug/2023 10:02:23] "GET /export/.env HTTP/1.1" 404 6527
+Not Found: /extlib/.env
+[13/Aug/2023 10:02:24] "GET /extlib/.env HTTP/1.1" 404 6527
+Not Found: /fastlane/.env
+[13/Aug/2023 10:02:24] "GET /fastlane/.env HTTP/1.1" 404 6533
+Not Found: /favicons/.env
+[13/Aug/2023 10:02:24] "GET /favicons/.env HTTP/1.1" 404 6533
+Not Found: /files/.env
+[13/Aug/2023 10:02:25] "GET /files/.env HTTP/1.1" 404 6524
+Not Found: /fileserver/.env
+[13/Aug/2023 10:02:25] "GET /fileserver/.env HTTP/1.1" 404 6539
+Not Found: /films/.env
+[13/Aug/2023 10:02:26] "GET /films/.env HTTP/1.1" 404 6524
+Not Found: /fm/.env
+[13/Aug/2023 10:02:26] "GET /fm/.env HTTP/1.1" 404 6515
+Not Found: /font-icons/.env
+[13/Aug/2023 10:02:27] "GET /font-icons/.env HTTP/1.1" 404 6539
+Not Found: /fonts/.env
+[13/Aug/2023 10:02:27] "GET /fonts/.env HTTP/1.1" 404 6524
+Not Found: /fo.php
+[13/Aug/2023 10:02:27] "GET /fo.php HTTP/1.1" 404 6512
+Not Found: /ftp/.env
+[13/Aug/2023 10:02:28] "GET /ftp/.env HTTP/1.1" 404 6518
+Not Found: /ftpmaster/.env
+[13/Aug/2023 10:02:28] "GET /ftpmaster/.env HTTP/1.1" 404 6536
+Not Found: /game/.env
+[13/Aug/2023 10:02:29] "GET /game/.env HTTP/1.1" 404 6521
+Not Found: /git/.env
+[13/Aug/2023 10:02:29] "GET /git/.env HTTP/1.1" 404 6518
+Not Found: /.gitlab-ci.yml
+[13/Aug/2023 10:02:30] "GET /.gitlab-ci.yml HTTP/1.1" 404 6536
+Not Found: /globals/.env
+[13/Aug/2023 10:02:30] "GET /globals/.env HTTP/1.1" 404 6530
+Not Found: /gst/.env
+[13/Aug/2023 10:02:31] "GET /gst/.env HTTP/1.1" 404 6518
+Not Found: /helpdesk/.env
+[13/Aug/2023 10:02:31] "GET /helpdesk/.env HTTP/1.1" 404 6533
+Not Found: /help/.env
+[13/Aug/2023 10:02:32] "GET /help/.env HTTP/1.1" 404 6521
+Not Found: /hgs-static/.env
+[13/Aug/2023 10:02:32] "GET /hgs-static/.env HTTP/1.1" 404 6539
+Not Found: /home/.env
+[13/Aug/2023 10:02:32] "GET /home/.env HTTP/1.1" 404 6521
+Not Found: /horde/.env
+[13/Aug/2023 10:02:33] "GET /horde/.env HTTP/1.1" 404 6524
+Not Found: /housingbook/.env
+[13/Aug/2023 10:02:33] "GET /housingbook/.env HTTP/1.1" 404 6542
+Not Found: /htaccess/.env
+[13/Aug/2023 10:02:34] "GET /htaccess/.env HTTP/1.1" 404 6533
+Not Found: /htdocs/.env
+[13/Aug/2023 10:02:34] "GET /htdocs/.env HTTP/1.1" 404 6527
+Not Found: /html2pdf-master/.env
+[13/Aug/2023 10:02:35] "GET /html2pdf-master/.env HTTP/1.1" 404 6554
+Not Found: /html/.env
+[13/Aug/2023 10:02:35] "GET /html/.env HTTP/1.1" 404 6521
+Not Found: /httpboot/.env
+[13/Aug/2023 10:02:36] "GET /httpboot/.env HTTP/1.1" 404 6533
+Not Found: /http/.env
+[13/Aug/2023 10:02:36] "GET /http/.env HTTP/1.1" 404 6521
+Not Found: /ibfv1/.env
+[13/Aug/2023 10:02:36] "GET /ibfv1/.env HTTP/1.1" 404 6524
+Not Found: /icon/.env
+[13/Aug/2023 10:02:37] "GET /icon/.env HTTP/1.1" 404 6521
+Not Found: /icons/.env
+[13/Aug/2023 10:02:37] "GET /icons/.env HTTP/1.1" 404 6524
+Not Found: /id/.env
+[13/Aug/2023 10:02:38] "GET /id/.env HTTP/1.1" 404 6515
+Not Found: /ifrc-laravel/.env
+[13/Aug/2023 10:02:38] "GET /ifrc-laravel/.env HTTP/1.1" 404 6545
+Not Found: /ih2/.env
+[13/Aug/2023 10:02:38] "GET /ih2/.env HTTP/1.1" 404 6518
+Not Found: /ii.php
+[13/Aug/2023 10:02:39] "GET /ii.php HTTP/1.1" 404 6512
+Not Found: /ikiwiki/.env
+[13/Aug/2023 10:02:39] "GET /ikiwiki/.env HTTP/1.1" 404 6530
+Not Found: /image_data/.env
+[13/Aug/2023 10:02:40] "GET /image_data/.env HTTP/1.1" 404 6539
+Not Found: /images/.env
+[13/Aug/2023 10:02:40] "GET /images/.env HTTP/1.1" 404 6527
+Not Found: /img/.env
+[13/Aug/2023 10:02:41] "GET /img/.env HTTP/1.1" 404 6518
+Not Found: /_inc/.env
+[13/Aug/2023 10:02:41] "GET /_inc/.env HTTP/1.1" 404 6521
+Not Found: /iscent/.env
+[13/Aug/2023 10:02:42] "GET /iscent/.env HTTP/1.1" 404 6527
+Not Found: /items/.env
+[13/Aug/2023 10:02:42] "GET /items/.env HTTP/1.1" 404 6524
+Not Found: /javascript/.env
+[13/Aug/2023 10:02:42] "GET /javascript/.env HTTP/1.1" 404 6539
+Not Found: /jenkins/.env
+[13/Aug/2023 10:02:43] "GET /jenkins/.env HTTP/1.1" 404 6530
+Not Found: /jistadx/.env
+[13/Aug/2023 10:02:43] "GET /jistadx/.env HTTP/1.1" 404 6530
+Not Found: /jistadx-x/.env
+[13/Aug/2023 10:02:44] "GET /jistadx-x/.env HTTP/1.1" 404 6536
+Not Found: /jobs/.env
+[13/Aug/2023 10:02:44] "GET /jobs/.env HTTP/1.1" 404 6521
+Not Found: /js/.env
+[13/Aug/2023 10:02:44] "GET /js/.env HTTP/1.1" 404 6515
+Not Found: /js-plugin/.env
+[13/Aug/2023 10:02:45] "GET /js-plugin/.env HTTP/1.1" 404 6536
+Not Found: /krisda/.env
+[13/Aug/2023 10:02:45] "GET /krisda/.env HTTP/1.1" 404 6527
+Not Found: /ktkszsz/.env
+[13/Aug/2023 10:02:46] "GET /ktkszsz/.env HTTP/1.1" 404 6530
+Not Found: /lab/.env
+[13/Aug/2023 10:02:46] "GET /lab/.env HTTP/1.1" 404 6518
+Not Found: /larabus/.env
+[13/Aug/2023 10:02:47] "GET /larabus/.env HTTP/1.1" 404 6530
+Not Found: /Lara/.env
+[13/Aug/2023 10:02:47] "GET /Lara/.env HTTP/1.1" 404 6521
+Not Found: /laravelao/.env
+[13/Aug/2023 10:02:47] "GET /laravelao/.env HTTP/1.1" 404 6536
+Not Found: /laravel_api/.env
+[13/Aug/2023 10:02:48] "GET /laravel_api/.env HTTP/1.1" 404 6542
+Not Found: /laravel/.env
+[13/Aug/2023 10:02:48] "GET /laravel/.env HTTP/1.1" 404 6530
+Not Found: /laravel-sites/.env
+[13/Aug/2023 10:02:49] "GET /laravel-sites/.env HTTP/1.1" 404 6548
+Not Found: /laravel_web/.env
+[13/Aug/2023 10:02:49] "GET /laravel_web/.env HTTP/1.1" 404 6542
+Not Found: /latest/.env
+[13/Aug/2023 10:02:49] "GET /latest/.env HTTP/1.1" 404 6527
+Not Found: /layout/.env
+[13/Aug/2023 10:02:50] "GET /layout/.env HTTP/1.1" 404 6527
+Not Found: /leafer-app/.env
+[13/Aug/2023 10:02:50] "GET /leafer-app/.env HTTP/1.1" 404 6539
+Not Found: /ledger_sync/.env
+[13/Aug/2023 10:02:51] "GET /ledger_sync/.env HTTP/1.1" 404 6542
+Not Found: /legal/.env
+[13/Aug/2023 10:02:51] "GET /legal/.env HTTP/1.1" 404 6524
+Not Found: /letsencrypt/.env
+[13/Aug/2023 10:02:52] "GET /letsencrypt/.env HTTP/1.1" 404 6542
+Not Found: /lib/.env
+[13/Aug/2023 10:02:52] "GET /lib/.env HTTP/1.1" 404 6518
+Not Found: /lib/index.js
+[13/Aug/2023 10:02:52] "GET /lib/index.js HTTP/1.1" 404 6530
+Not Found: /libraries/.env
+[13/Aug/2023 10:02:53] "GET /libraries/.env HTTP/1.1" 404 6536
+Not Found: /libs/.env
+[13/Aug/2023 10:02:53] "GET /libs/.env HTTP/1.1" 404 6521
+Not Found: /libweb/.env
+[13/Aug/2023 10:02:53] "GET /libweb/.env HTTP/1.1" 404 6527
+Not Found: /linux/.env
+[13/Aug/2023 10:02:54] "GET /linux/.env HTTP/1.1" 404 6524
+Not Found: /live/.env
+[13/Aug/2023 10:02:54] "GET /live/.env HTTP/1.1" 404 6521
+Not Found: /local/.env
+[13/Aug/2023 10:02:55] "GET /local/.env HTTP/1.1" 404 6524
+Not Found: /localhost/.env
+[13/Aug/2023 10:02:55] "GET /localhost/.env HTTP/1.1" 404 6536
+Not Found: /locally/.env
+[13/Aug/2023 10:02:55] "GET /locally/.env HTTP/1.1" 404 6530
+Not Found: /log/.env
+[13/Aug/2023 10:02:56] "GET /log/.env HTTP/1.1" 404 6518
+Not Found: /logging/.env
+[13/Aug/2023 10:02:56] "GET /logging/.env HTTP/1.1" 404 6530
+Not Found: /login/.env
+[13/Aug/2023 10:02:57] "GET /login/.env HTTP/1.1" 404 6524
+Not Found: /logistics/.env
+[13/Aug/2023 10:02:57] "GET /logistics/.env HTTP/1.1" 404 6536
+Not Found: /mail/.env
+[13/Aug/2023 10:02:58] "GET /mail/.env HTTP/1.1" 404 6521
+Not Found: /main/.env
+[13/Aug/2023 10:02:58] "GET /main/.env HTTP/1.1" 404 6521
+Not Found: /media/.env
+[13/Aug/2023 10:02:58] "GET /media/.env HTTP/1.1" 404 6524
+Not Found: /messages/.env
+[13/Aug/2023 10:02:59] "GET /messages/.env HTTP/1.1" 404 6533
+Not Found: /misc/.env
+[13/Aug/2023 10:02:59] "GET /misc/.env HTTP/1.1" 404 6521
+Not Found: /modules/.env
+[13/Aug/2023 10:03:00] "GET /modules/.env HTTP/1.1" 404 6530
+Not Found: /music/.env
+[13/Aug/2023 10:03:00] "GET /music/.env HTTP/1.1" 404 6524
+Not Found: /myadmin/.env
+[13/Aug/2023 10:03:01] "GET /myadmin/.env HTTP/1.1" 404 6530
+Not Found: /my/.env
+[13/Aug/2023 10:03:01] "GET /my/.env HTTP/1.1" 404 6515
+Not Found: /name/.env
+[13/Aug/2023 10:03:02] "GET /name/.env HTTP/1.1" 404 6521
+Not Found: /ncufresh15/.env
+[13/Aug/2023 10:03:02] "GET /ncufresh15/.env HTTP/1.1" 404 6539
+Not Found: /new/.env
+[13/Aug/2023 10:03:03] "GET /new/.env HTTP/1.1" 404 6518
+Not Found: /newsite/.env
+[13/Aug/2023 10:03:03] "GET /newsite/.env HTTP/1.1" 404 6530
+Not Found: /nginx/.env
+[13/Aug/2023 10:03:03] "GET /nginx/.env HTTP/1.1" 404 6524
+Not Found: /nginx-server/.env
+[13/Aug/2023 10:03:04] "GET /nginx-server/.env HTTP/1.1" 404 6545
+Not Found: /node_modules/.env
+[13/Aug/2023 10:03:04] "GET /node_modules/.env HTTP/1.1" 404 6545
+Not Found: /notweb/.env
+[13/Aug/2023 10:03:05] "GET /notweb/.env HTTP/1.1" 404 6527
+Not Found: /oauth/.env
+[13/Aug/2023 10:03:05] "GET /oauth/.env HTTP/1.1" 404 6524
+Not Found: /odata/.env
+[13/Aug/2023 10:03:06] "GET /odata/.env HTTP/1.1" 404 6524
+Not Found: /old/.env
+[13/Aug/2023 10:03:06] "GET /old/.env HTTP/1.1" 404 6518
+Not Found: /option/.env
+[13/Aug/2023 10:03:06] "GET /option/.env HTTP/1.1" 404 6527
+Not Found: /orion/.env
+[13/Aug/2023 10:03:07] "GET /orion/.env HTTP/1.1" 404 6524
+Not Found: /outputs/.env
+[13/Aug/2023 10:03:07] "GET /outputs/.env HTTP/1.1" 404 6530
+Not Found: /owncloud/.env
+[13/Aug/2023 10:03:08] "GET /owncloud/.env HTTP/1.1" 404 6533
+Not Found: /p4/.env
+[13/Aug/2023 10:03:08] "GET /p4/.env HTTP/1.1" 404 6515
+Not Found: /packed/.env
+[13/Aug/2023 10:03:09] "GET /packed/.env HTTP/1.1" 404 6527
+Not Found: /page-editor/.env
+[13/Aug/2023 10:03:09] "GET /page-editor/.env HTTP/1.1" 404 6542
+Not Found: /panel/.env
+[13/Aug/2023 10:03:10] "GET /panel/.env HTTP/1.1" 404 6524
+Not Found: /passtastic/.env
+[13/Aug/2023 10:03:10] "GET /passtastic/.env HTTP/1.1" 404 6539
+Not Found: /patchwork/.env
+[13/Aug/2023 10:03:11] "GET /patchwork/.env HTTP/1.1" 404 6536
+Not Found: /path/.env
+[13/Aug/2023 10:03:11] "GET /path/.env HTTP/1.1" 404 6521
+Not Found: /payment/.env
+[13/Aug/2023 10:03:12] "GET /payment/.env HTTP/1.1" 404 6530
+Not Found: /payments/.env
+[13/Aug/2023 10:03:12] "GET /payments/.env HTTP/1.1" 404 6533
+Not Found: /pcc/.env
+[13/Aug/2023 10:03:13] "GET /pcc/.env HTTP/1.1" 404 6518
+Not Found: /p/.env
+[13/Aug/2023 10:03:13] "GET /p/.env HTTP/1.1" 404 6512
+Not Found: /pesquisa/.env
+[13/Aug/2023 10:03:13] "GET /pesquisa/.env HTTP/1.1" 404 6533
+Not Found: /pgnim/.env
+[13/Aug/2023 10:03:14] "GET /pgnim/.env HTTP/1.1" 404 6524
+Not Found: /phpexcel/.env
+[13/Aug/2023 10:03:14] "GET /phpexcel/.env HTTP/1.1" 404 6533
+Not Found: /phpinfo
+[13/Aug/2023 10:03:15] "GET /phpinfo HTTP/1.1" 404 6515
+[13/Aug/2023 10:03:15] "GET /?phpinfo=1 HTTP/1.1" 200 1515
+Not Found: /phpinfo/.env
+[13/Aug/2023 10:03:19] "GET /phpinfo/.env HTTP/1.1" 404 6530
+Not Found: /phpinfo.php
+[13/Aug/2023 10:03:19] "GET /phpinfo.php HTTP/1.1" 404 6527
+Not Found: /PHPInfo.php
+[13/Aug/2023 10:03:20] "GET /PHPInfo.php HTTP/1.1" 404 6527
+Not Found: /phpinfo.php
+[13/Aug/2023 10:03:20] "GET /phpinfo.php?q=info HTTP/1.1" 404 6534
+Not Found: /phpmailer/.env
+[13/Aug/2023 10:03:21] "GET /phpmailer/.env HTTP/1.1" 404 6536
+Not Found: /php.php
+[13/Aug/2023 10:03:21] "GET /php.php HTTP/1.1" 404 6515
+Not Found: /phpunit/.env
+[13/Aug/2023 10:03:22] "GET /phpunit/.env HTTP/1.1" 404 6530
+Not Found: /pictures/.env
+[13/Aug/2023 10:03:22] "GET /pictures/.env HTTP/1.1" 404 6533
+Not Found: /platform/.env
+[13/Aug/2023 10:03:22] "GET /platform/.env HTTP/1.1" 404 6533
+Not Found: /pms/.env
+[13/Aug/2023 10:03:23] "GET /pms/.env HTTP/1.1" 404 6518
+Not Found: /portal/.env
+[13/Aug/2023 10:03:23] "GET /portal/.env HTTP/1.1" 404 6527
+Not Found: /portfolio/.env
+[13/Aug/2023 10:03:24] "GET /portfolio/.env HTTP/1.1" 404 6536
+Not Found: /ppid/.env
+[13/Aug/2023 10:03:24] "GET /ppid/.env HTTP/1.1" 404 6521
+Not Found: /ppinfo.php
+[13/Aug/2023 10:03:24] "GET /ppinfo.php HTTP/1.1" 404 6524
+Not Found: /pp.php
+[13/Aug/2023 10:03:25] "GET /pp.php HTTP/1.1" 404 6512
+Not Found: /prisma/.env
+[13/Aug/2023 10:03:25] "GET /prisma/.env HTTP/1.1" 404 6527
+Not Found: /private/.env
+[13/Aug/2023 10:03:26] "GET /private/.env HTTP/1.1" 404 6530
+Not Found: /processor/.env
+[13/Aug/2023 10:03:26] "GET /processor/.env HTTP/1.1" 404 6536
+Not Found: /prod/.env
+[13/Aug/2023 10:03:26] "GET /prod/.env HTTP/1.1" 404 6521
+Not Found: /production/.env
+[13/Aug/2023 10:03:27] "GET /production/.env HTTP/1.1" 404 6539
+Not Found: /pro/.env
+[13/Aug/2023 10:03:27] "GET /pro/.env HTTP/1.1" 404 6518
+Not Found: /_profiler/phpinfo
+[13/Aug/2023 10:03:27] "GET /_profiler/phpinfo HTTP/1.1" 404 6545
+Not Found: /pub/.env
+[13/Aug/2023 10:03:28] "GET /pub/.env HTTP/1.1" 404 6518
+Not Found: /public/.env
+[13/Aug/2023 10:03:28] "GET /public/.env HTTP/1.1" 404 6527
+Not Found: /public_html/.env
+[13/Aug/2023 10:03:29] "GET /public_html/.env HTTP/1.1" 404 6542
+Not Found: /public/phpinfo.php
+[13/Aug/2023 10:03:29] "GET /public/phpinfo.php HTTP/1.1" 404 6548
+Not Found: /public_root/.env
+[13/Aug/2023 10:03:29] "GET /public_root/.env HTTP/1.1" 404 6542
+[13/Aug/2023 10:03:30] "GET /?q=info HTTP/1.1" 200 1515
+Not Found: /registration/.env
+[13/Aug/2023 10:03:31] "GET /registration/.env HTTP/1.1" 404 6545
+Not Found: /release/.env
+[13/Aug/2023 10:03:31] "GET /release/.env HTTP/1.1" 404 6530
+Not Found: /releases/.env
+[13/Aug/2023 10:03:32] "GET /releases/.env HTTP/1.1" 404 6533
+Not Found: /repo/.env
+[13/Aug/2023 10:03:32] "GET /repo/.env HTTP/1.1" 404 6521
+Not Found: /reports/.env
+[13/Aug/2023 10:03:33] "GET /reports/.env HTTP/1.1" 404 6530
+Not Found: /repos/.env
+[13/Aug/2023 10:03:33] "GET /repos/.env HTTP/1.1" 404 6524
+Not Found: /repository/.env
+[13/Aug/2023 10:03:34] "GET /repository/.env HTTP/1.1" 404 6539
+Not Found: /resources/.env
+[13/Aug/2023 10:03:34] "GET /resources/.env HTTP/1.1" 404 6536
+Not Found: /resourcesync/.env
+[13/Aug/2023 10:03:35] "GET /resourcesync/.env HTTP/1.1" 404 6545
+Not Found: /restapi/.env
+[13/Aug/2023 10:03:35] "GET /restapi/.env HTTP/1.1" 404 6530
+Not Found: /rest/.env
+[13/Aug/2023 10:03:35] "GET /rest/.env HTTP/1.1" 404 6521
+Not Found: /results/.env
+[13/Aug/2023 10:03:36] "GET /results/.env HTTP/1.1" 404 6530
+Not Found: /robots/.env
+[13/Aug/2023 10:03:36] "GET /robots/.env HTTP/1.1" 404 6527
+Not Found: /root/.env
+[13/Aug/2023 10:03:37] "GET /root/.env HTTP/1.1" 404 6521
+Not Found: /roundcube/.env
+[13/Aug/2023 10:03:37] "GET /roundcube/.env HTTP/1.1" 404 6536
+Not Found: /routes/.env
+[13/Aug/2023 10:03:38] "GET /routes/.env HTTP/1.1" 404 6527
+Not Found: /run/.env
+[13/Aug/2023 10:03:38] "GET /run/.env HTTP/1.1" 404 6518
+Not Found: /runtime/.env
+[13/Aug/2023 10:03:38] "GET /runtime/.env HTTP/1.1" 404 6530
+Not Found: /s3config.js
+[13/Aug/2023 10:03:39] "GET /s3config.js HTTP/1.1" 404 6527
+Not Found: /s3config.json
+[13/Aug/2023 10:03:39] "GET /s3config.json HTTP/1.1" 404 6533
+Not Found: /s3_credentials.csv
+[13/Aug/2023 10:03:39] "GET /s3_credentials.csv HTTP/1.1" 404 6548
+Not Found: /sandbox/.env
+[13/Aug/2023 10:03:40] "GET /sandbox/.env HTTP/1.1" 404 6530
+Not Found: /school/.env
+[13/Aug/2023 10:03:40] "GET /school/.env HTTP/1.1" 404 6527
+Not Found: /script/.env
+[13/Aug/2023 10:03:41] "GET /script/.env HTTP/1.1" 404 6527
+Not Found: /scripts/.env
+[13/Aug/2023 10:03:41] "GET /scripts/.env HTTP/1.1" 404 6530
+Not Found: /see/.env
+[13/Aug/2023 10:03:42] "GET /see/.env HTTP/1.1" 404 6518
+Not Found: /server/config.example.js
+[13/Aug/2023 10:03:42] "GET /server/config.example.js HTTP/1.1" 404 6566
+Not Found: /server/config.js
+[13/Aug/2023 10:03:43] "GET /server/config.js HTTP/1.1" 404 6542
+Not Found: /server/config/plugins.js
+[13/Aug/2023 10:03:43] "GET /server/config/plugins.js HTTP/1.1" 404 6566
+Not Found: /server/.env
+[13/Aug/2023 10:03:44] "GET /server/.env HTTP/1.1" 404 6527
+Not Found: /server/index.js
+[13/Aug/2023 10:03:44] "GET /server/index.js HTTP/1.1" 404 6539
+Not Found: /server_info.php
+[13/Aug/2023 10:03:45] "GET /server_info.php HTTP/1.1" 404 6539
+Not Found: /server/src/email.js
+[13/Aug/2023 10:03:45] "GET /server/src/email.js HTTP/1.1" 404 6551
+Not Found: /sessions/.env
+[13/Aug/2023 10:03:45] "GET /sessions/.env HTTP/1.1" 404 6533
+Not Found: /shared/.env
+[13/Aug/2023 10:03:46] "GET /shared/.env HTTP/1.1" 404 6527
+Not Found: /shibboleth/.env
+[13/Aug/2023 10:03:46] "GET /shibboleth/.env HTTP/1.1" 404 6539
+Not Found: /shop/.env
+[13/Aug/2023 10:03:46] "GET /shop/.env HTTP/1.1" 404 6521
+Not Found: /shopify/.env
+[13/Aug/2023 10:03:47] "GET /shopify/.env HTTP/1.1" 404 6530
+Not Found: /sirim/.env
+[13/Aug/2023 10:03:48] "GET /sirim/.env HTTP/1.1" 404 6524
+Not Found: /site/.env
+[13/Aug/2023 10:03:48] "GET /site/.env HTTP/1.1" 404 6521
+Not Found: /sitemaps/.env
+[13/Aug/2023 10:03:48] "GET /sitemaps/.env HTTP/1.1" 404 6533
+Not Found: /sites/.env
+[13/Aug/2023 10:03:49] "GET /sites/.env HTTP/1.1" 404 6524
+Not Found: /sitestatic/.env
+[13/Aug/2023 10:03:49] "GET /sitestatic/.env HTTP/1.1" 404 6539
+Not Found: /src/.env
+[13/Aug/2023 10:03:50] "GET /src/.env HTTP/1.1" 404 6518
+Not Found: /src/PHPInfo.php
+[13/Aug/2023 10:03:50] "GET /src/PHPInfo.php HTTP/1.1" 404 6539
+Not Found: /stag/.env
+[13/Aug/2023 10:03:50] "GET /stag/.env HTTP/1.1" 404 6521
+Not Found: /staging/.env
+[13/Aug/2023 10:03:51] "GET /staging/.env HTTP/1.1" 404 6530
+Not Found: /static/.env
+[13/Aug/2023 10:03:51] "GET /static/.env HTTP/1.1" 404 6527
+[13/Aug/2023 10:03:52] "GET /staticfiles/.env HTTP/1.1" 404 1780
+Not Found: /static-html/.env
+[13/Aug/2023 10:03:52] "GET /static-html/.env HTTP/1.1" 404 6542
+Not Found: /static_prod/.env
+[13/Aug/2023 10:03:53] "GET /static_prod/.env HTTP/1.1" 404 6542
+Not Found: /static_user/.env
+[13/Aug/2023 10:03:53] "GET /static_user/.env HTTP/1.1" 404 6542
+Not Found: /stats/.env
+[13/Aug/2023 10:03:54] "GET /stats/.env HTTP/1.1" 404 6524
+Not Found: /stockapi/.env
+[13/Aug/2023 10:03:54] "GET /stockapi/.env HTTP/1.1" 404 6533
+Not Found: /storage/.env
+[13/Aug/2023 10:03:54] "GET /storage/.env HTTP/1.1" 404 6530
+Not Found: /store/.env
+[13/Aug/2023 10:03:55] "GET /store/.env HTTP/1.1" 404 6524
+Not Found: /stripe/.env
+[13/Aug/2023 10:03:55] "GET /stripe/.env HTTP/1.1" 404 6527
+Not Found: /stripe-php/.env
+[13/Aug/2023 10:03:56] "GET /stripe-php/.env HTTP/1.1" 404 6539
+Not Found: /style/.env
+[13/Aug/2023 10:03:56] "GET /style/.env HTTP/1.1" 404 6524
+Not Found: /styles/.env
+[13/Aug/2023 10:03:57] "GET /styles/.env HTTP/1.1" 404 6527
+Not Found: /stylesheets/.env
+[13/Aug/2023 10:03:57] "GET /stylesheets/.env HTTP/1.1" 404 6542
+Not Found: /subdomains/.env
+[13/Aug/2023 10:03:58] "GET /subdomains/.env HTTP/1.1" 404 6539
+Not Found: /supermind/.env
+[13/Aug/2023 10:03:58] "GET /supermind/.env HTTP/1.1" 404 6536
+Not Found: /support/.env
+[13/Aug/2023 10:03:59] "GET /support/.env HTTP/1.1" 404 6530
+Not Found: /symfony/.env
+[13/Aug/2023 10:03:59] "GET /symfony/.env HTTP/1.1" 404 6530
+Not Found: /sys_phpinfo.php
+[13/Aug/2023 10:04:00] "GET /sys_phpinfo.php HTTP/1.1" 404 6539
+Not Found: /system-config/.env
+[13/Aug/2023 10:04:00] "GET /system-config/.env HTTP/1.1" 404 6548
+Not Found: /system/.env
+[13/Aug/2023 10:04:00] "GET /system/.env HTTP/1.1" 404 6527
+Not Found: /target/.env
+[13/Aug/2023 10:04:01] "GET /target/.env HTTP/1.1" 404 6527
+Not Found: /task_api/.env
+[13/Aug/2023 10:04:01] "GET /task_api/.env HTTP/1.1" 404 6533
+Not Found: /template/.env
+[13/Aug/2023 10:04:02] "GET /template/.env HTTP/1.1" 404 6533
+Not Found: /templates/.env
+[13/Aug/2023 10:04:02] "GET /templates/.env HTTP/1.1" 404 6536
+Not Found: /test1/.env
+[13/Aug/2023 10:04:03] "GET /test1/.env HTTP/1.1" 404 6524
+Not Found: /test/.env
+[13/Aug/2023 10:04:03] "GET /test/.env HTTP/1.1" 404 6521
+Not Found: /test.php
+[13/Aug/2023 10:04:04] "GET /test.php HTTP/1.1" 404 6518
+Not Found: /tests/.env
+[13/Aug/2023 10:04:05] "GET /tests/.env HTTP/1.1" 404 6524
+Not Found: /theme/.env
+[13/Aug/2023 10:04:05] "GET /theme/.env HTTP/1.1" 404 6524
+Not Found: /thumb/.env
+[13/Aug/2023 10:04:06] "GET /thumb/.env HTTP/1.1" 404 6524
+Not Found: /thumbs/.env
+[13/Aug/2023 10:04:07] "GET /thumbs/.env HTTP/1.1" 404 6527
+Not Found: /tmp/.env
+[13/Aug/2023 10:04:07] "GET /tmp/.env HTTP/1.1" 404 6518
+Not Found: /tool/phpinfo.php
+[13/Aug/2023 10:04:08] "GET /tool/phpinfo.php HTTP/1.1" 404 6542
+Not Found: /tools/.env
+[13/Aug/2023 10:04:08] "GET /tools/.env HTTP/1.1" 404 6524
+Not Found: /tps/.env
+[13/Aug/2023 10:04:09] "GET /tps/.env HTTP/1.1" 404 6518
+Not Found: /tvm/.env
+[13/Aug/2023 10:04:09] "GET /tvm/.env HTTP/1.1" 404 6518
+Not Found: /ubuntu/.env
+[13/Aug/2023 10:04:10] "GET /ubuntu/.env HTTP/1.1" 404 6527
+Not Found: /upfiles/.env
+[13/Aug/2023 10:04:10] "GET /upfiles/.env HTTP/1.1" 404 6530
+Not Found: /upload/.env
+[13/Aug/2023 10:04:11] "GET /upload/.env HTTP/1.1" 404 6527
+Not Found: /uploads/.env
+[13/Aug/2023 10:04:11] "GET /uploads/.env HTTP/1.1" 404 6530
+Not Found: /User_info/.env
+[13/Aug/2023 10:04:12] "GET /User_info/.env HTTP/1.1" 404 6536
+Not Found: /v1/.env
+[13/Aug/2023 10:04:12] "GET /v1/.env HTTP/1.1" 404 6515
+Not Found: /v2/.env
+[13/Aug/2023 10:04:13] "GET /v2/.env HTTP/1.1" 404 6515
+Not Found: /var/backup/.env
+[13/Aug/2023 10:04:13] "GET /var/backup/.env HTTP/1.1" 404 6539
+Not Found: /vendor/.env
+[13/Aug/2023 10:04:14] "GET /vendor/.env HTTP/1.1" 404 6527
+Not Found: /videos/.env
+[13/Aug/2023 10:04:14] "GET /videos/.env HTTP/1.1" 404 6527
+Not Found: /web/.env
+[13/Aug/2023 10:04:15] "GET /web/.env HTTP/1.1" 404 6518
+Not Found: /web-files/.env
+[13/Aug/2023 10:04:15] "GET /web-files/.env HTTP/1.1" 404 6536
+Not Found: /webserver/config/config.js
+[13/Aug/2023 10:04:16] "GET /webserver/config/config.js HTTP/1.1" 404 6572
+Not Found: /WebServer/config/config.js
+[13/Aug/2023 10:04:16] "GET /WebServer/config/config.js HTTP/1.1" 404 6572
+Not Found: /webservice/.env
+[13/Aug/2023 10:04:17] "GET /webservice/.env HTTP/1.1" 404 6539
+Not Found: /website/.env
+[13/Aug/2023 10:04:17] "GET /website/.env HTTP/1.1" 404 6530
+Not Found: /workspace/.env
+[13/Aug/2023 10:04:18] "GET /workspace/.env HTTP/1.1" 404 6536
+Not Found: /wp/.env
+[13/Aug/2023 10:04:18] "GET /wp/.env HTTP/1.1" 404 6515
+Not Found: /www/.env
+[13/Aug/2023 10:04:19] "GET /www/.env HTTP/1.1" 404 6518
+Forbidden (CSRF cookie not set.): /
+[13/Aug/2023 10:04:19] "POST / HTTP/1.1" 403 2922
+[13/Aug/2023 10:04:20] "GET / HTTP/1.1" 200 1515

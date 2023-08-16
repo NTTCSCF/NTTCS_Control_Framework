@@ -1,0 +1,15 @@
+Watching for file changes with StatReloader
+[15/Aug/2023 00:05:59] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[15/Aug/2023 00:19:24] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[15/Aug/2023 00:19:24] "POST / HTTP/1.1" 403 2922
+Not Found: /.env
+[15/Aug/2023 00:19:24] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[15/Aug/2023 00:19:24] "POST / HTTP/1.1" 403 2922
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[15/Aug/2023 00:19:25] "GET /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 6646
+[15/Aug/2023 00:19:37] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 00:25:36] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 00:47:50] "GET / HTTP/1.1" 200 1515

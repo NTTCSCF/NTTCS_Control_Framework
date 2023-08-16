@@ -1,0 +1,45 @@
+Watching for file changes with StatReloader
+[12/Aug/2023 01:53:36] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[12/Aug/2023 02:07:47] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[12/Aug/2023 02:07:47] "POST / HTTP/1.1" 403 2922
+[12/Aug/2023 03:06:52] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 03:06:53] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 03:06:53] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[12/Aug/2023 03:06:54] "GET /favicon.ico HTTP/1.1" 404 6529
+Not Found: /.env
+[12/Aug/2023 03:12:39] "GET /.env HTTP/1.1" 404 6501
+Not Found: /.git/config
+[12/Aug/2023 03:20:07] "GET /.git/config HTTP/1.1" 404 6529
+[12/Aug/2023 03:27:57] "GET /admin/.env HTTP/1.1" 302 0
+Internal Server Error: /admin
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\middleware\common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\middleware\common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 185.166.215.191/admin/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+[12/Aug/2023 03:28:00] "POST /admin HTTP/1.1" 500 65248
+Not Found: /privacy
+[12/Aug/2023 03:55:20] "GET /privacy HTTP/1.1" 404 6510
+[12/Aug/2023 04:05:29] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 04:05:29] "GET / HTTP/1.1" 200 1515
+Not Found: /contact
+[12/Aug/2023 04:05:29] "GET /contact HTTP/1.1" 404 6510
+[12/Aug/2023 04:12:55] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 04:26:53] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[12/Aug/2023 04:28:40] "GET /favicon.ico HTTP/1.1" 404 6529
+Not Found: /boaform/admin/formLogin
+[12/Aug/2023 04:29:00] "GET /boaform/admin/formLogin?username=user&psd=user HTTP/1.0" 404 6592
+Not Found: /geoserver/web/
+[12/Aug/2023 04:29:18] "GET /geoserver/web/ HTTP/1.1" 404 6538

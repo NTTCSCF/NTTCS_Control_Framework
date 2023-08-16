@@ -1,0 +1,27 @@
+Watching for file changes with StatReloader
+Not Found: /aaa9
+[11/Aug/2023 16:39:06] "GET /aaa9 HTTP/1.1" 404 6508
+Not Found: /aab8
+[11/Aug/2023 16:39:28] "GET /aab8 HTTP/1.1" 404 6508
+[11/Aug/2023 16:39:39] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[11/Aug/2023 16:43:11] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[11/Aug/2023 16:43:11] "POST / HTTP/1.1" 403 2922
+Not Found: /.env
+[11/Aug/2023 16:58:53] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[11/Aug/2023 16:58:53] "POST / HTTP/1.1" 403 2922
+Not Found: /.env
+[11/Aug/2023 16:58:54] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[11/Aug/2023 16:58:54] "POST / HTTP/1.1" 403 2922
+Not Found: /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php
+[11/Aug/2023 16:59:29] "GET /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php HTTP/1.1" 404 6646
+[11/Aug/2023 17:00:07] "GET / HTTP/1.0" 200 1515
+Not Found: /api/.env
+[11/Aug/2023 17:17:14] "GET /api/.env HTTP/1.1" 404 6520
+Not Found: /api
+[11/Aug/2023 17:17:15] "POST /api HTTP/1.1" 404 6506
+Not Found: /manager/text/list
+[11/Aug/2023 17:17:48] "GET /manager/text/list HTTP/1.1" 404 6547

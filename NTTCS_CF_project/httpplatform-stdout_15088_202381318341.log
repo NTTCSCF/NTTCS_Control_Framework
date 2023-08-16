@@ -1,0 +1,9 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 20:34:03] "HEAD / HTTP/1.1" 200 0
+[13/Aug/2023 20:34:04] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 20:34:06] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 20:34:06] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[13/Aug/2023 20:34:06] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[13/Aug/2023 20:34:06] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[13/Aug/2023 20:34:06] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[13/Aug/2023 20:50:50] "GET / HTTP/1.1" 200 1515

@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+[15/Aug/2023 23:58:43] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 23:58:44] "GET /staticfiles/css/estilos.css HTTP/1.1" 304 0
+[16/Aug/2023 00:01:59] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 00:12:17] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[16/Aug/2023 00:13:31] "GET /robots.txt HTTP/1.1" 404 6519
+[16/Aug/2023 00:19:34] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 00:20:24] "GET /admin/config.php HTTP/1.1" 302 0
+[16/Aug/2023 00:20:24] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296
+[16/Aug/2023 00:24:04] "GET / HTTP/1.1" 200 1515
+[16/Aug/2023 00:42:16] "GET / HTTP/1.1" 200 1515

@@ -1,0 +1,9 @@
+Watching for file changes with StatReloader
+[14/Aug/2023 09:39:47] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 09:42:09] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 09:44:20] "GET / HTTP/1.0" 200 1515
+Not Found: /.env
+[14/Aug/2023 09:56:13] "GET /.env HTTP/1.1" 404 6508
+Not Found: /wp-content/
+[14/Aug/2023 09:56:13] "GET /wp-content/ HTTP/1.1" 404 6529
+[14/Aug/2023 09:57:26] "GET / HTTP/1.1" 200 1515

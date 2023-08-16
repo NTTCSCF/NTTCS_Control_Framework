@@ -1,0 +1,20 @@
+Watching for file changes with StatReloader
+[11/Aug/2023 14:06:32] "GET /menu/ HTTP/1.1" 200 10199
+[11/Aug/2023 14:06:32] "GET /assessmentselect/ HTTP/1.1" 200 23456
+[11/Aug/2023 14:06:32] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[11/Aug/2023 14:06:34] "GET /usuarios/ HTTP/1.1" 200 16991
+[11/Aug/2023 14:06:41] "POST /usuarios/ HTTP/1.1" 200 20905
+[11/Aug/2023 14:06:48] "GET /usuarios/ HTTP/1.1" 200 16991
+[11/Aug/2023 14:17:09] "GET /menu/ HTTP/1.1" 200 10199
+[11/Aug/2023 14:17:11] "GET /usuarios/ HTTP/1.1" 200 16991
+Not Found: /.env
+[11/Aug/2023 14:25:50] "GET /.env HTTP/1.1" 404 6508
+Not Found: /wp-content/
+[11/Aug/2023 14:25:51] "GET /wp-content/ HTTP/1.1" 404 6529
+Not Found: /druid/index.html
+[11/Aug/2023 14:26:16] "GET /druid/index.html HTTP/1.1" 404 6544
+[11/Aug/2023 14:32:10] "GET / HTTP/1.1" 200 1515
+Not Found: /.git/config
+[11/Aug/2023 14:40:59] "GET /.git/config HTTP/1.1" 404 6529
+Not Found: /.git/config
+[11/Aug/2023 14:40:59] "GET /.git/config HTTP/1.1" 404 6529

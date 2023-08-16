@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+[16/Aug/2023 05:41:06] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[16/Aug/2023 05:41:07] "GET /robots.txt HTTP/1.1" 404 6526
+Not Found: /sitemap.xml
+[16/Aug/2023 05:41:10] "GET /sitemap.xml HTTP/1.1" 404 6529
+Not Found: /.well-known/security.txt
+[16/Aug/2023 05:41:11] "GET /.well-known/security.txt HTTP/1.1" 404 6568
+[16/Aug/2023 05:41:14] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /0bef
+[16/Aug/2023 05:58:45] "GET /0bef HTTP/1.0" 404 6508
+[16/Aug/2023 06:11:05] "GET / HTTP/1.1" 200 1515

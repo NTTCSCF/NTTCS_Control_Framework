@@ -1,0 +1,4 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[11/Aug/2023 20:48:12] "GET /.env HTTP/1.1" 404 6508
+[11/Aug/2023 20:54:18] "GET / HTTP/1.1" 200 1515

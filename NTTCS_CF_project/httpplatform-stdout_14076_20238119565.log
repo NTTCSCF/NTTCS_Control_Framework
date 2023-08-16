@@ -1,0 +1,28 @@
+Watching for file changes with StatReloader
+[11/Aug/2023 11:56:07] "GET / HTTP/1.1" 200 1515
+C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+August 11, 2023 - 11:56:07
+Django version 4.2.2, using settings 'NTTCS_CF_project.settings'
+Starting development server at http://127.0.0.1:16457/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
+[11/Aug/2023 12:19:04] "POST /assessment/ HTTP/1.1" 200 100088
+[11/Aug/2023 12:19:04] "GET /staticfiles/css/ass.css HTTP/1.1" 200 7219
+[11/Aug/2023 12:19:04] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[11/Aug/2023 12:19:04] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 10354
+[11/Aug/2023 12:19:06] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[11/Aug/2023 12:19:06] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[11/Aug/2023 12:19:08] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[11/Aug/2023 12:19:16] "POST /assessment/ HTTP/1.1" 200 101752
+[11/Aug/2023 12:19:17] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[11/Aug/2023 12:25:35] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 12:32:51] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 12:53:05] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 13:04:37] "GET /assessmentselect/ HTTP/1.1" 200 23456
+[11/Aug/2023 13:04:37] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[11/Aug/2023 13:04:47] "GET / HTTP/1.0" 200 1515
+[11/Aug/2023 13:10:05] "GET / HTTP/1.1" 200 1515

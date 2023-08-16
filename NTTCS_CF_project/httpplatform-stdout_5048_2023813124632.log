@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 14:46:34] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 14:48:43] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 15:07:50] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 15:09:37] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 15:28:42] "GET / HTTP/1.1" 200 1515

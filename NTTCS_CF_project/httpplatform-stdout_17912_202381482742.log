@@ -1,0 +1,38 @@
+Watching for file changes with StatReloader
+[14/Aug/2023 10:27:44] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 10:28:20] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /robots.txt
+[14/Aug/2023 10:28:35] "GET /robots.txt HTTP/1.1" 404 6526
+Not Found: /sitemap.xml
+[14/Aug/2023 10:28:36] "GET /sitemap.xml HTTP/1.1" 404 6529
+[14/Aug/2023 10:39:09] "OPTIONS / HTTP/1.0" 200 0
+[14/Aug/2023 10:58:19] "GET / HTTP/1.0" 200 1515
+[14/Aug/2023 10:58:19] "OPTIONS / HTTP/1.0" 200 0
+Not Found: /sdk
+[14/Aug/2023 10:58:29] "POST /sdk HTTP/1.1" 404 6506
+[14/Aug/2023 10:58:29] "GET / HTTP/1.0" 200 1515
+Not Found: /nmaplowercheck1692003509
+[14/Aug/2023 10:58:29] "GET /nmaplowercheck1692003509 HTTP/1.1" 404 6568
+[14/Aug/2023 10:58:29] "HEAD / HTTP/1.1" 200 0
+[14/Aug/2023 10:58:29] "GET / HTTP/1.1" 200 1515
+Not Found: /evox/about
+[14/Aug/2023 10:58:29] "GET /evox/about HTTP/1.1" 404 6526
+Not Found: /HNAP1
+[14/Aug/2023 10:58:30] "GET /HNAP1 HTTP/1.1" 404 6511
+[14/Aug/2023 10:58:46] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 10:58:46] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[14/Aug/2023 10:58:46] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[14/Aug/2023 10:58:46] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[14/Aug/2023 10:58:46] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[14/Aug/2023 10:58:47] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 10:58:47] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[14/Aug/2023 10:58:47] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[14/Aug/2023 10:58:47] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[14/Aug/2023 10:58:47] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[14/Aug/2023 11:01:46] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 11:21:23] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 11:21:23] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 11:40:22] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 11:58:18] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 12:17:18] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 12:29:50] "GET / HTTP/1.1" 200 1515

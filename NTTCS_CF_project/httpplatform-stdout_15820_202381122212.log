@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+[12/Aug/2023 00:21:04] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[12/Aug/2023 00:24:21] "GET /robots.txt HTTP/1.1" 404 6519
+Not Found: /robots.txt
+[12/Aug/2023 00:24:22] "GET /robots.txt HTTP/1.1" 404 6519
+[12/Aug/2023 00:37:23] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[12/Aug/2023 00:47:37] "GET /robots.txt HTTP/1.1" 404 6519
+[12/Aug/2023 00:58:35] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 01:19:40] "GET / HTTP/1.0" 200 1515
+[12/Aug/2023 01:29:25] "GET / HTTP/1.1" 200 1515

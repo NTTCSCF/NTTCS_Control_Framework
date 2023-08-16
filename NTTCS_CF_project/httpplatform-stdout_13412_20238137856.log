@@ -1,0 +1,13 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 09:08:58] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[13/Aug/2023 09:12:36] "GET /robots.txt HTTP/1.1" 404 6519
+[13/Aug/2023 09:12:37] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 09:12:39] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[13/Aug/2023 09:12:39] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[13/Aug/2023 09:12:40] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[13/Aug/2023 09:16:31] "GET / HTTP/1.0" 200 1515
+Not Found: /.env
+[13/Aug/2023 09:35:35] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[13/Aug/2023 09:35:35] "POST / HTTP/1.1" 403 2922

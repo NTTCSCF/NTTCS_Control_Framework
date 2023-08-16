@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+Not Found: /.env
+[14/Aug/2023 02:52:27] "GET /.env HTTP/1.1" 404 6508
+Not Found: /wp-content/
+[14/Aug/2023 02:52:27] "GET /wp-content/ HTTP/1.1" 404 6529
+Not Found: /.env
+[14/Aug/2023 03:04:49] "GET /.env HTTP/1.1" 404 6508
+Not Found: /wp-content/
+[14/Aug/2023 03:04:49] "GET /wp-content/ HTTP/1.1" 404 6529
+Not Found: /cgi-bin/luci
+[14/Aug/2023 03:06:38] "GET /cgi-bin/luci HTTP/1.1" 404 6532

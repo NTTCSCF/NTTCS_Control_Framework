@@ -1,0 +1,19 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 12:29:05] "GET / HTTP/1.1" 200 1515
+Not Found: /client/get_targets
+[13/Aug/2023 12:29:05] "GET /client/get_targets HTTP/1.1" 404 6550
+Not Found: /upl.php
+[13/Aug/2023 12:29:05] "GET /upl.php HTTP/1.1" 404 6517
+Not Found: /geoip/
+[13/Aug/2023 12:29:06] "GET /geoip/ HTTP/1.1" 404 6514
+[13/Aug/2023 12:29:06] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[13/Aug/2023 12:29:06] "GET /favicon.ico HTTP/1.1" 404 6529
+Not Found: /1.php
+[13/Aug/2023 12:29:06] "GET /1.php HTTP/1.1" 404 6511
+Not Found: /bundle.js
+[13/Aug/2023 12:29:07] "GET /bundle.js HTTP/1.1" 404 6523
+Not Found: /files/
+[13/Aug/2023 12:29:07] "GET /files/ HTTP/1.1" 404 6514
+Not Found: /systembc/password.php
+[13/Aug/2023 12:29:07] "GET /systembc/password.php HTTP/1.1" 404 6559

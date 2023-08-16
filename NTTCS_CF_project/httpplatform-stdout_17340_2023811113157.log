@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[11/Aug/2023 13:31:59] "POST /assessmentselect/ HTTP/1.1" 302 0
+[11/Aug/2023 13:31:59] "GET /assessment/ HTTP/1.1" 200 200046
+[11/Aug/2023 13:31:59] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[11/Aug/2023 13:32:07] "POST /assessment/ HTTP/1.1" 200 210949
+[11/Aug/2023 13:32:18] "POST /assessment/ HTTP/1.1" 200 210834

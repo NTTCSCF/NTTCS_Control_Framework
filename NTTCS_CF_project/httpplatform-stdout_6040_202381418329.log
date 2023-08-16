@@ -1,0 +1,30 @@
+Watching for file changes with StatReloader
+[14/Aug/2023 20:32:11] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 20:51:08] "HEAD / HTTP/1.1" 200 0
+[14/Aug/2023 20:51:09] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 20:51:09] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 20:51:10] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[14/Aug/2023 20:51:10] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[14/Aug/2023 20:51:10] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[14/Aug/2023 20:51:10] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /robots.txt
+[14/Aug/2023 21:06:10] "GET /robots.txt HTTP/1.1" 404 6519
+Not Found: /robots.txt
+[14/Aug/2023 21:06:11] "GET /robots.txt HTTP/1.1" 404 6519
+[14/Aug/2023 21:06:37] "GET / HTTP/1.1" 200 1515
+Not Found: /wp-login.php
+[14/Aug/2023 21:07:52] "GET /wp-login.php HTTP/1.1" 404 6530
+[14/Aug/2023 21:13:17] "HEAD / HTTP/1.1" 200 0
+Not Found: /style.php
+[14/Aug/2023 21:31:46] "GET /style.php?sig=rename HTTP/1.1" 404 6527
+[14/Aug/2023 21:34:09] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[14/Aug/2023 21:34:36] "GET /favicon.ico HTTP/1.1" 404 6522
+[14/Aug/2023 21:34:38] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 21:38:56] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[14/Aug/2023 21:39:28] "GET /favicon.ico HTTP/1.1" 404 6522
+[14/Aug/2023 21:39:30] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 22:00:49] "GET / HTTP/1.1" 200 1515
+Not Found: /wp-login.php
+[14/Aug/2023 22:05:42] "GET /wp-login.php HTTP/1.1" 404 6525

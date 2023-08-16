@@ -1,0 +1,10 @@
+Watching for file changes with StatReloader
+Not Found: /aaa9
+[11/Aug/2023 17:39:00] "GET /aaa9 HTTP/1.1" 404 6508
+Not Found: /aab8
+[11/Aug/2023 17:39:23] "GET /aab8 HTTP/1.1" 404 6508
+[11/Aug/2023 17:39:36] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[11/Aug/2023 17:40:12] "GET /.env HTTP/1.1" 404 6508
+Not Found: /wp-content/
+[11/Aug/2023 17:40:12] "GET /wp-content/ HTTP/1.1" 404 6529

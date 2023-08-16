@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[12/Aug/2023 19:16:58] "GET / HTTP/1.1" 200 1515
+[12/Aug/2023 19:16:59] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[12/Aug/2023 19:22:04] "GET / HTTP/1.1" 200 1515
+Not Found: /.git/config
+[12/Aug/2023 19:35:53] "GET /.git/config HTTP/1.1" 404 6529

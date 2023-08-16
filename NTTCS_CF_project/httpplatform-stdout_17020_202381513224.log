@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+[15/Aug/2023 03:32:26] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 03:32:29] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 03:32:29] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[15/Aug/2023 03:32:30] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /sitemap.xml
+Not Found: /robots.txt
+[15/Aug/2023 03:32:30] "GET /sitemap.xml HTTP/1.1" 404 6529
+[15/Aug/2023 03:32:30] "GET /robots.txt HTTP/1.1" 404 6526
+Not Found: /.env
+[15/Aug/2023 04:04:20] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[15/Aug/2023 04:04:20] "POST / HTTP/1.1" 403 2922
+Not Found: /.env
+[15/Aug/2023 04:04:20] "GET /.env HTTP/1.1" 404 6508
+Forbidden (CSRF cookie not set.): /
+[15/Aug/2023 04:04:20] "POST / HTTP/1.1" 403 2922

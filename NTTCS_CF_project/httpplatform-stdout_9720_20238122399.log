@@ -1,0 +1,4 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 01:09:11] "GET / HTTP/1.0" 200 1515
+Not Found: /cgi-bin/luci
+[13/Aug/2023 01:11:01] "GET /cgi-bin/luci HTTP/1.1" 404 6532

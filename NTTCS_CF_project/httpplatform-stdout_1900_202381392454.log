@@ -1,0 +1,24 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 11:24:56] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[13/Aug/2023 11:39:13] "GET /robots.txt HTTP/1.1" 404 6519
+Not Found: /robots.txt
+[13/Aug/2023 11:39:14] "GET /robots.txt HTTP/1.1" 404 6519
+[13/Aug/2023 11:47:43] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 11:55:55] "GET / HTTP/1.1" 200 1515
+Not Found: /.env
+[13/Aug/2023 12:02:17] "GET /.env HTTP/1.1" 404 6508
+Not Found: /_profiler/phpinfo
+[13/Aug/2023 12:02:17] "GET /_profiler/phpinfo HTTP/1.1" 404 6547
+Not Found: /public/.env
+[13/Aug/2023 12:02:17] "GET /public/.env HTTP/1.1" 404 6529
+Not Found: /phpinfo
+[13/Aug/2023 12:02:17] "GET /phpinfo HTTP/1.1" 404 6517
+Not Found: /phpinfo.php
+[13/Aug/2023 12:02:17] "GET /phpinfo.php HTTP/1.1" 404 6529
+Not Found: /info.php
+[13/Aug/2023 12:02:17] "GET /info.php HTTP/1.1" 404 6520
+Not Found: /php.php
+[13/Aug/2023 12:02:17] "GET /php.php HTTP/1.1" 404 6517
+Not Found: /test.php
+[13/Aug/2023 12:02:17] "GET /test.php HTTP/1.1" 404 6520

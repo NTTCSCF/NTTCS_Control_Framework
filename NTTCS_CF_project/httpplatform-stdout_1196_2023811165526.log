@@ -1,0 +1,17 @@
+Watching for file changes with StatReloader
+Not Found: /robots.txt
+[11/Aug/2023 18:55:28] "GET /robots.txt HTTP/1.1" 404 6519
+[11/Aug/2023 18:55:28] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 18:55:30] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+Not Found: /favicon.ico
+[11/Aug/2023 18:55:30] "GET /favicon.ico HTTP/1.1" 404 6522
+[11/Aug/2023 19:05:00] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 19:18:47] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 19:25:26] "GET /admin/config.php HTTP/1.1" 302 0
+[11/Aug/2023 19:25:27] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296
+[11/Aug/2023 19:27:54] "HEAD / HTTP/1.1" 200 0
+[11/Aug/2023 19:27:55] "GET / HTTP/1.1" 200 1515
+[11/Aug/2023 19:27:55] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[11/Aug/2023 19:27:55] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[11/Aug/2023 19:27:55] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[11/Aug/2023 19:27:55] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664

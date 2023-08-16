@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[14/Aug/2023 00:44:59] "GET / HTTP/1.1" 200 1515
+Not Found: /wp-login.php
+[14/Aug/2023 01:08:01] "GET /wp-login.php HTTP/1.1" 404 6530
+[14/Aug/2023 01:25:55] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 01:50:41] "GET / HTTP/1.1" 200 1515

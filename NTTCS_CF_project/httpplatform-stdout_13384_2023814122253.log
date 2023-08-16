@@ -1,0 +1,19 @@
+Watching for file changes with StatReloader
+[14/Aug/2023 14:22:55] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 14:23:12] "GET / HTTP/1.1" 200 1515
+Not Found: /druid/index.html
+[14/Aug/2023 14:43:47] "GET /druid/index.html HTTP/1.1" 404 6544
+[14/Aug/2023 14:45:42] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[14/Aug/2023 14:45:48] "GET /robots.txt HTTP/1.1" 404 6526
+Not Found: /sitemap.xml
+[14/Aug/2023 14:45:48] "GET /sitemap.xml HTTP/1.1" 404 6529
+Not Found: /.well-known/security.txt
+[14/Aug/2023 14:45:48] "GET /.well-known/security.txt HTTP/1.1" 404 6568
+[14/Aug/2023 15:00:40] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 15:00:40] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[14/Aug/2023 15:09:57] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 15:12:25] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 15:27:50] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 15:27:50] "GET / HTTP/1.1" 200 1515
+[14/Aug/2023 15:29:09] "GET / HTTP/1.1" 200 1515

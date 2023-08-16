@@ -1,0 +1,9 @@
+Watching for file changes with StatReloader
+Not Found: /AA.BB
+[13/Aug/2023 01:32:10] "GET /AA.BB?aa.bb HTTP/1.1" 404 6513
+[13/Aug/2023 01:36:50] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 01:56:03] "GET / HTTP/1.1" 200 1515
+Not Found: /index.php
+[13/Aug/2023 02:15:46] "GET /index.php HTTP/1.1" 404 6523
+Not Found: /phpmyadmin/index.php
+[13/Aug/2023 02:15:46] "GET /phpmyadmin/index.php HTTP/1.1" 404 6556

@@ -1,0 +1,42 @@
+Watching for file changes with StatReloader
+[13/Aug/2023 13:26:58] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 13:34:57] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 14:10:54] "GET / HTTP/1.1" 200 1515
+[13/Aug/2023 14:10:54] "GET / HTTP/1.1" 200 1515
+Not Found: /wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:54] "GET /wp-includes/wlwmanifest.xml HTTP/1.1" 404 6570
+Not Found: /xmlrpc.php
+[13/Aug/2023 14:10:54] "GET /xmlrpc.php?rsd HTTP/1.1" 404 6523
+[13/Aug/2023 14:10:55] "GET / HTTP/1.1" 200 1515
+Not Found: /blog/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:55] "GET /blog/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6585
+Not Found: /web/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:55] "GET /web/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6582
+Not Found: /wordpress/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:55] "GET /wordpress/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6600
+Not Found: /website/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:55] "GET /website/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6594
+Not Found: /wp/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:55] "GET /wp/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6579
+Not Found: /news/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:56] "GET /news/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6585
+Not Found: /2018/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:56] "GET /2018/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6585
+Not Found: /2019/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:56] "GET /2019/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6585
+Not Found: /shop/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:56] "GET /shop/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6585
+Not Found: /wp1/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:56] "GET /wp1/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6582
+Not Found: /test/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:57] "GET /test/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6585
+Not Found: /media/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:57] "GET /media/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6588
+Not Found: /wp2/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:57] "GET /wp2/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6582
+Not Found: /site/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:57] "GET /site/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6585
+Not Found: /cms/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:57] "GET /cms/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6582
+Not Found: /sito/wp-includes/wlwmanifest.xml
+[13/Aug/2023 14:10:57] "GET /sito/wp-includes/wlwmanifest.xml HTTP/1.1" 404 6585
