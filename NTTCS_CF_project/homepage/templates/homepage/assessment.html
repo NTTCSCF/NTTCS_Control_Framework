@@ -23,11 +23,18 @@
                     <option selected value="noSel">--- No Seleccionado ---</option>
                     {% for ids in assess %}
                     {% if ids.control_id == control.control_id %}
-                    <option selected value="{{ids.control_id}}">{{ids.control_id}}</option>
+                    {% if ids.respuesta == None %}
+                    <option selected value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='rowSelect' title='{{ids.control_name}}'> <div class='selectorCajaDentroTexto'>{{ids.control_id}}</div> <div class='selectorCajaDentroCheck'></div></div> "></option>
                     {% else %}
-                    <option value="{{ids.control_id}}">{{ids.control_id}}</option>
+                    <option selected value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='rowSelect' title='{{ids.control_name}}'> <div class='selectorCajaDentroTexto'>{{ids.control_id}}</div> <div class='selectorCajaDentroCheck'><i class='bi bi-check2-circle'></i></div></div> "></option>
                     {% endif %}
-
+                    {% else %}
+                    {% if ids.respuesta == None %}
+                    <option value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='rowSelect' title='{{ids.control_name}}'> <div class='selectorCajaDentroTexto'>{{ids.control_id}}</div> <div class='selectorCajaDentroCheck'></div></div> "></option>
+                    {% else %}
+                    <option value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='rowSelect' title='{{ids.control_name}}'> <div class='selectorCajaDentroTexto'>{{ids.control_id}}</div> <div class='selectorCajaDentroCheck'><i class='bi bi-check2-circle'></i></div></div> "></option>
+                    {% endif %}
+                    {% endif %}
                     {% endfor %}
                 </select>
             </div>
@@ -110,6 +117,7 @@
                         });
                     });
                 });
+
 
             </script>
         </div>
@@ -457,6 +465,7 @@
            return false;
        }
     }
+
 </script>
 
 {% endblock %}
