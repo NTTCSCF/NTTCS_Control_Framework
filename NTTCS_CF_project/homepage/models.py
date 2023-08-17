@@ -114,9 +114,10 @@ class AssessmentCreados(models.Model):
         db_table = 'assessment_creados'
 
 class AsociacionEvidenciasGenericas(models.Model):
-    evidencia = models.ForeignKey('Evidencerequestcatalog', models.DO_NOTHING)
+    evidencia = models.ForeignKey('Evidencerequestcatalog', models.DO_NOTHING, blank=True, null=True)
     assessment = models.ForeignKey('AssessmentCreados', models.DO_NOTHING)
     iniciativa = models.ForeignKey('Iniciativas', models.DO_NOTHING, db_column='iniciativa', blank=True, null=True)
+    evidencia_id_es = models.ForeignKey('EvidencerequestcatalogEs', models.DO_NOTHING, db_column='evidencia_id_es', blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
@@ -390,6 +391,19 @@ class Evidencerequestcatalog(models.Model):
     class Meta:
         managed = False
         db_table = 'evidencerequestcatalog'
+
+class EvidencerequestcatalogEs(models.Model):
+    evidence_request_references = models.CharField(db_column='Evidence Request References', primary_key=True, max_length=255)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    area_of_focus = models.CharField(db_column='Area of Focus', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    artifact = models.CharField(db_column='Artifact', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    artifact_description = models.TextField(db_column='Artifact Description', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    control_mappings = models.CharField(db_column='Control Mappings', max_length=255, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    comentario2 = models.TextField(blank=True, null=True)
+    comentario = models.TextField(blank=True, null=True)
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'evidencerequestcatalog_es'
 
 
 class Evidencias(models.Model):

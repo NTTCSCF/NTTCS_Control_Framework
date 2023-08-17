@@ -190,7 +190,11 @@
                 <div class="textoTarjetaGrande">
                     <div class="cuadrotextoGrande">
                         {% for i in evidencias %}
+                        {% if assessment.idioma == "en" %}
                         <p>{{i.evidencia.evidence_request_references}}, {{i.evidencia.artifact}}, {{i.evidencia.artifact_description}} </p>
+                        {% else %}
+                        <p>{{i.evidencia_id_es.evidence_request_references}}, {{i.evidencia_id_es.artifact}}, {{i.evidencia_id_es.artifact_description}} </p>
+                        {% endif %}
                         {% endfor %}
                         {% for i in evidencias2 %}
                         <p>{{i.id_evidencia.evidencia_id}}, {{i.id_evidencia.comentario}}, <a href="{{i.id_evidencia.links}}">{{i.id_evidencia.links}}</a> </p>
@@ -290,7 +294,11 @@
                              <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true" id="selectorEvidenciaIniciativa" name="selectorEvidenciaIniciativa">
                                 <option selected value="noSel">Seleccione la evidencia</option>
                                 {% for i in evidencias %}
+                                 {% if assessment == 'en' %}
                                 <option value="{{i.evidencia.evidence_request_references}}">{{i.evidencia.evidence_request_references}}</option>
+                                 {% else %}
+                                 <option value="{{i.evidencia_id_es.evidence_request_references}}">{{i.evidencia_id_es.evidence_request_references}}</option>
+                                 {% endif %}
                                 {% endfor %}
                                 {% for i in evidencias2 %}
                                 <option value="{{i.id_evidencia.evidencia_id}}">{{i.id_evidencia.evidencia_id}}</option>
@@ -374,7 +382,11 @@
                              <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true" id="selectEviasig" name="selectEviasig">
                                 <option selected value="noSel">Seleccione la evidencia</option>
                                 {% for i in evidencias %}
+                                {% if assessment == 'en' %}
                                 <option value="{{i.evidencia.evidence_request_references}}">{{i.evidencia.evidence_request_references}}</option>
+                                 {% else %}
+                                 <option value="{{i.evidencia_id_es.evidence_request_references}}">{{i.evidencia_id_es.evidence_request_references}}</option>
+                                 {% endif %}
                                 {% endfor %}
                                 {% for i in evidencias2 %}
                                 <option value="{{i.id_evidencia.evidencia_id}}">{{i.id_evidencia.evidencia_id}}</option>
