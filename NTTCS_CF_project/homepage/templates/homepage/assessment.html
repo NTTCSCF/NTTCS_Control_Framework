@@ -41,9 +41,11 @@
     </form>
 </div>
 
-<div class="rowCajas">
+
+
+<div class="rowCajas" >
     <!-- Tarjeta del nombre del control -->
-    <div class="cajaNombreControl">
+    <div class="cajaNombreControl" data-toggle="tooltip" data-bs-placement="top" title="Aqui se muestra el nombre del control seleccionado">
         <div class="tarjeta">
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
@@ -58,8 +60,9 @@
         </div>
     </div>
 
+
     <!-- Tarjeta de descripcion del control -->
-    <div class="cajaPreguntaDescripcion">
+    <div class="cajaPreguntaDescripcion" data-toggle="tooltip" data-bs-placement="top" title="Se muestra una descripción del control para tener mas información sobre este">
         <div class="tarjeta">
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
@@ -76,7 +79,7 @@
     </div>
 
     <!-- Tarjeta de pregunta para el control -->
-    <div class="cajaPreguntaDescripcion">
+    <div class="cajaPreguntaDescripcion" data-toggle="tooltip" data-bs-placement="top" title="Se muestra la pregunta la cual se ha de contestar en el apartado de entrada de texto que se encuentra justo debajo.">
         <div class="tarjeta">
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
@@ -111,6 +114,7 @@
                         const editor = Jodit.make('#editor', {
                             "spellcheck": true,
                             "language": "es",
+                            placeholder:"Escriba aqui la respuesta para la pregunta de este control...",
                             height: "400",
                             allowResizeX: false,
                             allowResizeY: false
