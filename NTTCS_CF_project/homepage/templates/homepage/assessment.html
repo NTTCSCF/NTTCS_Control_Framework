@@ -45,11 +45,15 @@
 
 <div class="rowCajas" >
     <!-- Tarjeta del nombre del control -->
-    <div class="cajaNombreControl" data-toggle="tooltip" data-bs-placement="top" title="Aqui se muestra el nombre del control seleccionado">
+    <div class="cajaNombreControl" >
         <div class="tarjeta">
             <div class="tituloTarjeta">
+                <div class="cuadroayuda"></div>
                 <div class="cuadrotexto">
                     Nombre del control
+                </div>
+                <div class="cuadroayuda" data-toggle="tooltip" data-bs-placement="top" title="Aqui se muestra el nombre del control seleccionado">
+                    <i class="bi bi-info-circle"></i>
                 </div>
             </div>
             <div class="textoTarjeta">
@@ -62,11 +66,15 @@
 
 
     <!-- Tarjeta de descripcion del control -->
-    <div class="cajaPreguntaDescripcion" data-toggle="tooltip" data-bs-placement="top" title="Se muestra una descripción del control para tener mas información sobre este">
+    <div class="cajaPreguntaDescripcion" >
         <div class="tarjeta">
             <div class="tituloTarjeta">
+                <div class="cuadroayuda"></div>
                 <div class="cuadrotexto">
                     Descripción del control
+                </div>
+                <div class="cuadroayuda" data-toggle="tooltip" data-bs-placement="top" title="Se muestra una descripción del control para tener mas información sobre este">
+                    <i class="bi bi-info-circle"></i>
                 </div>
 
             </div>
@@ -79,11 +87,15 @@
     </div>
 
     <!-- Tarjeta de pregunta para el control -->
-    <div class="cajaPreguntaDescripcion" data-toggle="tooltip" data-bs-placement="top" title="Se muestra la pregunta la cual se ha de contestar en el apartado de entrada de texto que se encuentra justo debajo.">
+    <div class="cajaPreguntaDescripcion">
         <div class="tarjeta">
             <div class="tituloTarjeta">
+                <div class="cuadroayuda"></div>
                 <div class="cuadrotexto">
                     Pregunta para el control
+                </div>
+                <div class="cuadroayuda" data-toggle="tooltip" data-bs-placement="top" title="Se muestra la pregunta la cual se ha de contestar en el apartado de entrada de texto que se encuentra justo debajo.">
+                    <i class="bi bi-info-circle"></i>
                 </div>
             </div>
             <div class="textoTarjeta">
@@ -350,36 +362,6 @@
             </div>
         </div>
 
-
-
-        <div class="cajaPreguntaDescripcion">
-            <div class="tarjeta">
-                <div class="tituloTarjeta">
-                    <div class="cuadrotexto">
-                        Iniciativas
-                    </div>
-                </div>
-                <div class="textoTarjetaGrande">
-                    <div class="cuadrotextoGrande">
-                        {% for i in evidencias %}
-                        {% if i.iniciativa %}
-                        <p>{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
-                        {% endif %}
-                        {% endfor %}
-                        {% for i in evidencias2 %}
-                        {% if i.iniciativa %}
-                        <p>{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
-                        {% endif %}
-                        {% endfor %}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="rowCajas">
         <div class="cajaPreguntaDescripcion">
             <div class="tarjeta">
                 <div class="tituloTarjeta">
@@ -422,6 +404,35 @@
                         <div style="">
                             <button style="font-size:1.3vw;" class="btn btn-outline-secondary btn-lg btn-block" type="submit" id="boton7" name="boton7" value="btn7">Asignar Iniciativa</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="rowCajas">
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Iniciativas
+                    </div>
+                </div>
+                <div class="textoTarjetaGrande">
+                    <div class="cuadrotextoGrande">
+                        {% for i in evidencias %}
+                        {% if i.iniciativa %}
+                        <p>{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
+                        {% endif %}
+                        {% endfor %}
+                        {% for i in evidencias2 %}
+                        {% if i.iniciativa %}
+                        <p>{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
+                        {% endif %}
+                        {% endfor %}
+
                     </div>
                 </div>
             </div>
