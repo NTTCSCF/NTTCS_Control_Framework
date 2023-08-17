@@ -17,7 +17,7 @@ from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
     AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas,\
-    AssessmentEs, MaturirtyTableEs
+    AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs
 from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
@@ -246,6 +246,7 @@ class assessment(LoginRequiredMixin, TemplateView):
 
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
         context["NombreAss"] = assSelect
+        context["assessment"] = assGuardado
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         if assGuardado.idioma == 'en':
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
@@ -268,9 +269,14 @@ class assessment(LoginRequiredMixin, TemplateView):
             evidenciasRecomendadas = evidenciasRecomendadas.split('\n')
             r = ''
             for i in evidenciasRecomendadas:
-                evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=i)
-                if not AsociacionEvidenciasGenericas.objects.filter(evidencia=evidencia, assessment=control):
-                    r += i + ', '
+                if assGuardado.idioma == 'en':
+                    evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                    if not AsociacionEvidenciasGenericas.objects.filter(evidencia=evidencia, assessment=control):
+                        r += i + ', '
+                else:
+                    evidencia = EvidencerequestcatalogEs.objects.get(evidence_request_references=i)
+                    if not AsociacionEvidenciasGenericas.objects.filter(evidencia_id_es=evidencia, assessment=control):
+                        r += i + ', '
             if r != '':
                 context["recomendacion"] = True
                 context["eviRecomendada"] = r[:len(r)-2]
@@ -368,7 +374,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                         control.valoracion = request.POST.get('valmad')
                         control.valoracionobjetivo = request.POST.get('valmadob')
 
-                        evidencia = AsociacionEvidenciasCreadas(id_evidencia=ev,id_assessment=control)
+                        evidencia = AsociacionEvidenciasCreadas(id_evidencia=ev, id_assessment=control)
                         evidencia.save()
                         context = super(assessment, self).get_context_data(**knwargs)
                         request, context = self.contextTotal(request, controlId, assSelect, context)
@@ -410,9 +416,14 @@ class assessment(LoginRequiredMixin, TemplateView):
                     assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                     control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                             control_id=request.session["controlSelect"])
-                    evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=selectorEvidencia)
-                    eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia,assessment=control)
-                    eviGenerica.save()
+                    if assGuardado.idioma == 'en':
+                        evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=selectorEvidencia)
+                        eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia,assessment=control)
+                        eviGenerica.save()
+                    else:
+                        evidencia = EvidencerequestcatalogEs.objects.get(evidence_request_references=selectorEvidencia)
+                        eviGenerica = AsociacionEvidenciasGenericas(evidencia_id_es=evidencia, assessment=control)
+                        eviGenerica.save()
                     context = super(assessment, self).get_context_data(**knwargs)
                     request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
                     return render(request, self.template_name, context=context)
@@ -447,11 +458,19 @@ class assessment(LoginRequiredMixin, TemplateView):
                 if selectorEvidencia != 'noSel':
                     if not Iniciativas.objects.filter(nombre=nombreIniciativa).exists():
                         if Evidencerequestcatalog.objects.filter(evidence_request_references=selectorEvidencia).exists():
-                            evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=selectorEvidencia)
+
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                     control_id=request.session["controlSelect"])
-                            asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia, assessment=control)
+                            if assGuardado.idioma == 'en':
+                                evidencia = Evidencerequestcatalog.objects.get(
+                                    evidence_request_references=selectorEvidencia)
+                                asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia, assessment=control)
+                            else:
+                                evidencia = EvidencerequestcatalogEs.objects.get(
+                                    evidence_request_references=selectorEvidencia)
+
+                                asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia, assessment=control)
 
                             tipoIniciativa = TiposIniciativas.objects.get(tipo=SelectorIniciativa)
                             iniciativa = Iniciativas(nombre=nombreIniciativa, descripcion=DescripcionIniciativa, tipo=tipoIniciativa)
@@ -520,13 +539,22 @@ class assessment(LoginRequiredMixin, TemplateView):
                         if Evidencerequestcatalog.objects.filter(
                                 evidence_request_references=selectEviasig).exists():
 
-                            evidencia = Evidencerequestcatalog.objects.get(
-                                evidence_request_references=selectEviasig)
+
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                     control_id=request.session["controlSelect"])
-                            asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia,
-                                                                                   assessment=control)
+
+                            if assGuardado.idioma == 'en':
+                                evidencia = Evidencerequestcatalog.objects.get(
+                                    evidence_request_references=selectEviasig)
+                                asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia,
+                                                                                       assessment=control)
+                            else:
+                                evidencia = Evidencerequestcatalog.objects.get(
+                                    evidence_request_references=selectEviasig)
+                                asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia,
+                                                                                       assessment=control)
+
 
                             iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
                             asociacion.iniciativa = iniciativa
@@ -575,23 +603,35 @@ class assessment(LoginRequiredMixin, TemplateView):
                 if assGuardado.idioma == 'en':
                     context[
                         "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
                     context[
                         "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
-                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                    context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
+
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
         elif boton8 == 'btn8':  # if encargado de rellenar las evidencias
             evidenciasRecomendadas = Assessment.objects.get(id=request.session["controlSelect"]).evidence_request_references.split('\n')
+            assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
             for i in evidenciasRecomendadas:
-                evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=i)
-                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                 control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                         control_id=request.session["controlSelect"])
-                if not AsociacionEvidenciasGenericas.objects.filter(evidencia=evidencia, assessment=control):
-                    eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia, assessment=control)
-                    eviGenerica.save()
+                if assGuardado.idioma == 'en':
+                    evidencia = Evidencerequestcatalog.objects.get(
+                        evidence_request_references=i)
+                    if not AsociacionEvidenciasGenericas.objects.filter(evidencia=evidencia, assessment=control):
+                        eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia, assessment=control)
+                        eviGenerica.save()
+                else:
+                    evidencia = EvidencerequestcatalogEs.objects.get(
+                        evidence_request_references=i)
+                    if not AsociacionEvidenciasGenericas.objects.filter(evidencia_id_es=evidencia, assessment=control):
+                        eviGenerica = AsociacionEvidenciasGenericas(evidencia_id_es=evidencia, assessment=control)
+                        eviGenerica.save()
+
             context = super(assessment, self).get_context_data(**knwargs)
             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
             return render(request, self.template_name, context=context)
