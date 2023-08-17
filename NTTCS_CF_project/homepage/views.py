@@ -255,7 +255,13 @@ class assessment(LoginRequiredMixin, TemplateView):
         request.session["controlSelect"] = select
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
         context["control"] = control
-        context["criteriovaloracion"] = control.criteriovaloracion.split('\n')
+        context["criteriovaloracioncontexto"] = ['CCMM L0 \n No realizado',
+                                                 'CCMM L1 \n Realizado de manera informal',
+                                                 'CCMM L2 \n Planificado y rastreado',
+                                                 'CCMM L3 \n Bien definido',
+                                                 'CCMM L4 \n Controlado Cuantitativamente',
+                                                 'CCMM L5 \n Mejorando Continuamente']
+        context["criteriovaloracion"] = control.criteriovaloracion.split('[-33--33-]')
         context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
         context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
         context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
@@ -694,7 +700,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                         consulta = Assessment.objects.get(id=marco)
                     else:
                         consulta = AssessmentEs.objects.get(id=marco)
-                    criterioVal = consulta.campo9 + '\n' + consulta.campo10 + '\n' + consulta.campo11 + '\n' + consulta.campo12 + '\n' + consulta.campo13 + '\n' + consulta.campo14
+                    criterioVal = consulta.campo9 + '[-33--33-]' + consulta.campo10 + '[-33--33-]' + consulta.campo11 + '[-33--33-]' + consulta.campo12 + '[-33--33-]' + consulta.campo13 + '[-33--33-]' + consulta.campo14
 
                     a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco), control_name=consulta.control,
                                           descripcion=consulta.control_description, pregunta=consulta.control_question,
