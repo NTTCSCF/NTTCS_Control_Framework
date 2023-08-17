@@ -112,31 +112,42 @@
     {% csrf_token %}
     <div class="rowCajas">
         <!-- Captura de la respuesta escrita -->
-        <div class="cajaEditorTexto">
-            {% if control.respuesta == None %}
-            <textarea style="height:100%;" id="editor" name="respuesta"></textarea>
-            {% else %}
-            <textarea style="height:100%;" id="editor" name="respuesta">{{control.respuesta}}</textarea>
-            {% endif %}
-            <!-- Script para el uso del editor de texto -->
-            <script type="text/javascript">
+        <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Respuesta
+                    </div>
+                </div>
+                <div class="textoTarjetaGrande2">
+                    <div class="cajaEditorTexto">
+                        {% if control.respuesta == None %}
+                        <textarea style="height:100%;" id="editor" name="respuesta"></textarea>
+                        {% else %}
+                        <textarea style="height:100%;" id="editor" name="respuesta">{{control.respuesta}}</textarea>
+                        {% endif %}
+                        <!-- Script para el uso del editor de texto -->
+                        <script type="text/javascript">
 
-                $(function() {
-                    $('textarea').each(function () {
-                        const editor = Jodit.make('#editor', {
-                            "spellcheck": true,
-                            "language": "es",
-                            placeholder:"Escriba aqui la respuesta para la pregunta de este control...",
-                            height: "400",
-                            allowResizeX: false,
-                            allowResizeY: false
-                        });
-                    });
-                });
+                            $(function() {
+                                $('textarea').each(function () {
+                                    const editor = Jodit.make('#editor', {
+                                        "spellcheck": true,
+                                        "language": "es",
+                                        placeholder:"Escriba aqui la respuesta para la pregunta de este control...",
+                                        height: "400",
+                                        allowResizeX: false,
+                                        allowResizeY: false
+                                    });
+                                });
+                            });
 
 
-            </script>
-        </div>
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+
 
     </div>
     <div class="rowCajas">
@@ -192,9 +203,37 @@
                 </div>
                 <div class="textoTarjetaGrande">
                     <div class="cuadrotextoGrande">
-                        {% for i in criteriovaloracion %}
-                        <p> {{i}}</p>
-                        {% endfor %}
+                        
+                        <h4>
+                            {{criteriovaloracioncontexto.0}}
+                        </h4>
+                        <p> {{criteriovaloracion.0}}</p>
+
+                        <h4>
+                            {{criteriovaloracioncontexto.1}}
+                        </h4>
+                        <p> {{criteriovaloracion.1}}</p>
+
+                        <h4>
+                            {{criteriovaloracioncontexto.2}}
+                        </h4>
+                        <p> {{criteriovaloracion.2}}</p>
+
+                        <h4>
+                            {{criteriovaloracioncontexto.3}}
+                        </h4>
+                        <p> {{criteriovaloracion.3}}</p>
+
+                        <h4>
+                            {{criteriovaloracioncontexto.4}}
+                        </h4>
+                        <p> {{criteriovaloracion.4}}</p>
+
+                        <h4>
+                            {{criteriovaloracioncontexto.5}}
+                        </h4>
+                        <p> {{criteriovaloracion.5}}</p>
+
                     </div>
                 </div>
             </div>
