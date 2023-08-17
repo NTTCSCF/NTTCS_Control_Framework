@@ -53,7 +53,9 @@ $('#busqueda').keyup(function(e){
      });
 });
 
-
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
 //PARA DATA TABLES NTTCS
 /**
  $(document).ready(function () {
