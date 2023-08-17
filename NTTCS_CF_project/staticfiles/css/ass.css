@@ -258,11 +258,18 @@
     align-items: center;
 }
 .cuadrotexto{
-    width:wrap-content;
+    width:80%;
     height:wrap-content;
     text-align:center;
     margin:2%;
 
+
+}
+.cuadroayuda{
+    width:10%;
+    height:wrap-content;
+    text-align:right;
+    margin:2%;
 
 }
 
