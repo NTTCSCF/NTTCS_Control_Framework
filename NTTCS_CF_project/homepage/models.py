@@ -170,6 +170,14 @@ class AsociacionUsuariosProyecto(models.Model):
         managed = False
         db_table = 'asociacion_usuarios_proyecto'
 
+class AsociacionProyectoAssessment(models.Model):
+    assessment = models.ForeignKey('Assessmentguardados', models.DO_NOTHING, db_column='assessment')
+    proyecto = models.ForeignKey('Proyecto', models.DO_NOTHING, db_column='proyecto')
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'asociacion_proyecto_assessment'
+
 class Cliente(models.Model):
     codigo = models.CharField(primary_key=True, max_length=100)
     nombre = models.CharField(max_length=100, blank=True, null=True)

@@ -17,7 +17,8 @@ from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
     AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas, \
-    AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs, Cliente, Proyecto, AsociacionUsuariosProyecto
+    AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs, Cliente, Proyecto, AsociacionUsuariosProyecto, \
+    AsociacionProyectoAssessment
 
 from django.views.generic import TemplateView, ListView
 import mysql.connector
@@ -668,16 +669,14 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(assessmentselect, self).get_context_data(**knwargs)
-
         context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
-        context["assess"] = Assessmentguardados.objects.filter(archivado=0)
         context["marcos"] = AsociacionMarcos.objects.all()
         return context
 
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
         nombre = request.POST.get('in')  # Valor del input de nombre
-        select = request.POST.get('selectorProyecto')  # valor de selector de proyecto
+        selectorProyecto = request.POST.get('selectorProyecto')  # valor de selector de proyecto
         select2 = request.POST.getlist('selector2')  # valor de selector de marcos para la creacion del assesment
         idioma = request.POST.getlist('idioma')  # valor de selector de marcos para la creacion del assesment
 
@@ -685,9 +684,14 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         btnArchivar = request.POST.get('btnArchivar')  # valor de selector de marcos para la creacion del assesment
 
         if 'selectorProyecto' in request.POST:
-            request.session["assessmentGuardado"] = select
-            return redirect("assessment")
-
+            context = super(assessmentselect, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSeleccionado"] = True
+            request.session["proyectoSeleccionado"] = selectorProyecto
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=selectorProyecto))
+            context["marcos"] = AsociacionMarcos.objects.all()
+            return render(request, self.template_name, context=context)
         elif 'btnEditar' in request.POST:
             print(btnEditar)
             request.session["assessmentGuardado"] = btnEditar
@@ -698,7 +702,9 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             ass.save()
             context = super(assessmentselect, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
-            context["assess"] = Assessmentguardados.objects.filter(archivado=0)
+            context["proyectoSeleccionado"] = True
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
@@ -738,24 +744,36 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 assessmentNuevo.marcos = marcos
                 assessmentNuevo.save()
 
+                proyecto = Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado'))
+                asociacion = AsociacionProyectoAssessment(assessment=assessmentNuevo, proyecto=proyecto)
+                asociacion.save()
                 request.session["assessmentGuardado"] = nombre
                 return redirect("assessment")
             else:
                 messages.error(request, 'El Assessment ya exsiste.')
-                context = super().get_context_data(**knwargs)
-                context["assess"] = Assessmentguardados.objects.filter(archivado=0)
+                context = super(assessmentselect, self).get_context_data(**knwargs)
+                context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+                context["proyectoSeleccionado"] = True
+                context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                    proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
                 context["marcos"] = AsociacionMarcos.objects.all()
                 return render(request, self.template_name, context=context)
         elif nombre == '' and select2 is not None:  # if donde se recoge si se ha introducido valores de marcos paro no de nombre para el assessment
 
             messages.error(request, 'Necesitas introducir un nombre para el Assessment')  # Se crea mensage de error
-            context = super().get_context_data(**knwargs)
-            context["assess"] = Assessmentguardados.objects.filter(archivado=0)
+            context = super(assessmentselect, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSeleccionado"] = True
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
         else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
-            context = super().get_context_data(**knwargs)
-            context["assess"] = Assessmentguardados.objects.filter(archivado=0)
+            context = super(assessmentselect, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSeleccionado"] = True
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
