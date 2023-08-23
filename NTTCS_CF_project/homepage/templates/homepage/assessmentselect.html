@@ -34,8 +34,12 @@
                                 name="selectorProyecto">
                             <option value="None">--- No Seleccionado ---</option>
                             {% for ids in proyectos %}
+                            {% if ids.proyecto.codigo == proyectoSelec %}
+                            <option selected value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
+                            {% else %}
                             <option value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
                             </option>
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>
