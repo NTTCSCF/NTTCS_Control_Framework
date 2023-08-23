@@ -8,7 +8,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
 class AsociacionMarcos(models.Model):
     marco_id = models.CharField(primary_key=True, max_length=255)
     nombre_tabla = models.CharField(max_length=255, blank=True, null=True)
@@ -93,6 +92,9 @@ class Assessmentguardados(models.Model):
     comentario2 = models.TextField(blank=True, null=True)
     comentario = models.TextField(blank=True, null=True)
     idioma = models.CharField(max_length=100, blank=True, null=True)
+    fecha_creacion = models.DateField(blank=True, null=True)
+    fecha_ultima_modificacion = models.DateField(blank=True, null=True)
+    fecha_cierre = models.DateField(blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
@@ -147,6 +149,37 @@ class Iniciativas(models.Model):
     class Meta:
         managed = False
         db_table = 'iniciativas'
+
+class Proyecto(models.Model):
+    codigo = models.CharField(primary_key=True, max_length=100)
+    nombre = models.CharField(db_column='Nombre', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    cliente = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='cliente', blank=True, null=True)
+    fecha_creacion = models.DateField(blank=True, null=True)
+    fecha_cierre = models.DateField(blank=True, null=True)
+    descripcion = models.TextField(db_column='Descripcion', blank=True, null=True)  # Field name made lowercase.
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'proyecto'
+
+class AsociacionUsuariosProyecto(models.Model):
+    usuario = models.ForeignKey('acounts.User', models.DO_NOTHING, db_column='usuario')
+    proyecto = models.ForeignKey('Proyecto', models.DO_NOTHING, db_column='proyecto')
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'asociacion_usuarios_proyecto'
+
+class Cliente(models.Model):
+    codigo = models.CharField(primary_key=True, max_length=100)
+    nombre = models.CharField(max_length=100, blank=True, null=True)
+    logo = models.ImageField(upload_to="images/", null=True, blank=True)
+    alcance = models.TextField(blank=True, null=True)
+    direccion = models.TextField(blank=True, null=True)
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'cliente'
 
 class AuthGroup(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.

@@ -16,8 +16,9 @@ from datetime import datetime
 from acounts.models import User
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
-    AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas,\
-    AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs
+    AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas, \
+    AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs, Cliente, Proyecto, AsociacionUsuariosProyecto
+
 from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
@@ -251,7 +252,8 @@ class assessment(LoginRequiredMixin, TemplateView):
         if assGuardado.idioma == 'en':
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
         else:
-            context["valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+            context[
+                "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
         request.session["controlSelect"] = select
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
         context["control"] = control
@@ -285,7 +287,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                         r += i + ', '
             if r != '':
                 context["recomendacion"] = True
-                context["eviRecomendada"] = r[:len(r)-2]
+                context["eviRecomendada"] = r[:len(r) - 2]
             else:
                 context["recomendacion"] = False
         return request, context
@@ -346,7 +348,8 @@ class assessment(LoginRequiredMixin, TemplateView):
         elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
             if request.session["controlSelect"] != 'noSel':
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
-                control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=request.session["controlSelect"])
+                control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                        control_id=request.session["controlSelect"])
                 control.respuesta = str(request.POST.get('respuesta'))
                 control.valoracion = request.POST.get('valmad')
                 control.valoracionobjetivo = request.POST.get('valmadob')
@@ -424,7 +427,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                                                             control_id=request.session["controlSelect"])
                     if assGuardado.idioma == 'en':
                         evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=selectorEvidencia)
-                        eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia,assessment=control)
+                        eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia, assessment=control)
                         eviGenerica.save()
                     else:
                         evidencia = EvidencerequestcatalogEs.objects.get(evidence_request_references=selectorEvidencia)
@@ -436,7 +439,8 @@ class assessment(LoginRequiredMixin, TemplateView):
                 else:
                     context = super(assessment, self).get_context_data(**knwargs)
                     request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
-                    messages.error(request, 'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
+                    messages.error(request,
+                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
                     return render(request, self.template_name, context=context)
             else:
                 messages.error(request,
@@ -463,7 +467,8 @@ class assessment(LoginRequiredMixin, TemplateView):
             if request.session["controlSelect"] != 'noSel':
                 if selectorEvidencia != 'noSel':
                     if not Iniciativas.objects.filter(nombre=nombreIniciativa).exists():
-                        if Evidencerequestcatalog.objects.filter(evidence_request_references=selectorEvidencia).exists():
+                        if Evidencerequestcatalog.objects.filter(
+                                evidence_request_references=selectorEvidencia).exists():
 
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
@@ -471,15 +476,18 @@ class assessment(LoginRequiredMixin, TemplateView):
                             if assGuardado.idioma == 'en':
                                 evidencia = Evidencerequestcatalog.objects.get(
                                     evidence_request_references=selectorEvidencia)
-                                asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia, assessment=control)
+                                asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia,
+                                                                                       assessment=control)
                             else:
                                 evidencia = EvidencerequestcatalogEs.objects.get(
                                     evidence_request_references=selectorEvidencia)
 
-                                asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia, assessment=control)
+                                asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia,
+                                                                                       assessment=control)
 
                             tipoIniciativa = TiposIniciativas.objects.get(tipo=SelectorIniciativa)
-                            iniciativa = Iniciativas(nombre=nombreIniciativa, descripcion=DescripcionIniciativa, tipo=tipoIniciativa)
+                            iniciativa = Iniciativas(nombre=nombreIniciativa, descripcion=DescripcionIniciativa,
+                                                     tipo=tipoIniciativa)
                             iniciativa.save()
 
                             asociacion.iniciativa = iniciativa
@@ -493,7 +501,8 @@ class assessment(LoginRequiredMixin, TemplateView):
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                     control_id=request.session["controlSelect"])
-                            asociacion = AsociacionEvidenciasCreadas.objects.get(id_evidencia=evidencia, id_assessment=control)
+                            asociacion = AsociacionEvidenciasCreadas.objects.get(id_evidencia=evidencia,
+                                                                                 id_assessment=control)
 
                             tipoIniciativa = TiposIniciativas.objects.get(tipo=SelectorIniciativa)
                             iniciativa = Iniciativas(nombre=nombreIniciativa, descripcion=DescripcionIniciativa,
@@ -545,7 +554,6 @@ class assessment(LoginRequiredMixin, TemplateView):
                         if Evidencerequestcatalog.objects.filter(
                                 evidence_request_references=selectEviasig).exists():
 
-
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                     control_id=request.session["controlSelect"])
@@ -560,7 +568,6 @@ class assessment(LoginRequiredMixin, TemplateView):
                                     evidence_request_references=selectEviasig)
                                 asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia,
                                                                                        assessment=control)
-
 
                             iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
                             asociacion.iniciativa = iniciativa
@@ -619,7 +626,8 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
         elif boton8 == 'btn8':  # if encargado de rellenar las evidencias
-            evidenciasRecomendadas = Assessment.objects.get(id=request.session["controlSelect"]).evidence_request_references.split('\n')
+            evidenciasRecomendadas = Assessment.objects.get(
+                id=request.session["controlSelect"]).evidence_request_references.split('\n')
             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
 
             for i in evidenciasRecomendadas:
@@ -650,8 +658,6 @@ class assessment(LoginRequiredMixin, TemplateView):
             return redirect('menu')  # volvemos al menu
 
 
-
-
 # Clase para la pagina de AssessmentSelect
 
 class assessmentselect(LoginRequiredMixin, TemplateView):
@@ -662,6 +668,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         context = super(assessmentselect, self).get_context_data(**knwargs)
+
+        context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         context["assess"] = Assessmentguardados.objects.filter(archivado=0)
         context["marcos"] = AsociacionMarcos.objects.all()
         return context
@@ -669,18 +677,37 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
         nombre = request.POST.get('in')  # Valor del input de nombre
-        select = request.POST.get('selector1')  # valor de selector de assesment guardado
+        select = request.POST.get('selectorProyecto')  # valor de selector de proyecto
         select2 = request.POST.getlist('selector2')  # valor de selector de marcos para la creacion del assesment
         idioma = request.POST.getlist('idioma')  # valor de selector de marcos para la creacion del assesment
 
-        if 'selector1' in request.POST:
+        btnEditar = request.POST.get('btnEditar')  # valor de selector de marcos para la creacion del assesment
+        btnArchivar = request.POST.get('btnArchivar')  # valor de selector de marcos para la creacion del assesment
+
+        if 'selectorProyecto' in request.POST:
             request.session["assessmentGuardado"] = select
             return redirect("assessment")
 
-        elif nombre != '' and select2 != None:
+        elif 'btnEditar' in request.POST:
+            print(btnEditar)
+            request.session["assessmentGuardado"] = btnEditar
+            return redirect("assessment")
+        elif 'btnArchivar' in request.POST:
+            ass = Assessmentguardados.objects.get(id_assessment=btnArchivar)
+            ass.archivado = 1
+            ass.save()
+            context = super(assessmentselect, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["assess"] = Assessmentguardados.objects.filter(archivado=0)
+            context["marcos"] = AsociacionMarcos.objects.all()
+            return render(request, self.template_name, context=context)
+
+        elif 'in' in request.POST and nombre != '' and select2 != None:
+
             if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
                 assessmentNuevo = Assessmentguardados(id_assessment=nombre,
-                                        archivado=0, idioma=idioma)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
+                                                      archivado=0,
+                                                      idioma=idioma)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
                 assessmentNuevo.save()
 
                 marcos = ''
@@ -702,7 +729,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                         consulta = AssessmentEs.objects.get(id=marco)
                     criterioVal = consulta.campo9 + '[-33--33-]' + consulta.campo10 + '[-33--33-]' + consulta.campo11 + '[-33--33-]' + consulta.campo12 + '[-33--33-]' + consulta.campo13 + '[-33--33-]' + consulta.campo14
 
-                    a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco), control_name=consulta.control,
+                    a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco),
+                                          control_name=consulta.control,
                                           descripcion=consulta.control_description, pregunta=consulta.control_question,
                                           criteriovaloracion=criterioVal)
                     a.save()
@@ -761,9 +789,9 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                 evcre = AsociacionEvidenciasCreadas.objects.filter(id_assessment=fila)
                 evidencias = ''
                 for i in evgen:
-                    evidencias += i.evidencia.evidence_request_references+'\n'
+                    evidencias += i.evidencia.evidence_request_references + '\n'
                 for i in evcre:
-                    evidencias += i.id_evidencia.evidencia_id+'\n'
+                    evidencias += i.id_evidencia.evidencia_id + '\n'
 
                 valores += {
                     'idControl': fila.control_id,
@@ -777,7 +805,8 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                     'evidencias': evidencias
                 },
 
-            titulos = ["idControl", "nControl", "descripcion", "pregunta", "respuesta", "valoracion", "valoracionObjetivo", "criterio",
+            titulos = ["idControl", "nControl", "descripcion", "pregunta", "respuesta", "valoracion",
+                       "valoracionObjetivo", "criterio",
                        "evidencias"]
             now = datetime.now()
             filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
@@ -1162,8 +1191,8 @@ class MantenimientoMarcosExistentes(LoginRequiredMixin, TemplateView):
 
     # Funcion utilizada para eliminar el valor seleccionado de la tabla
 
-class listadoControles(LoginRequiredMixin, ListView):
 
+class listadoControles(LoginRequiredMixin, ListView):
     model = NttcsCf20231
 
     def get_queryset(self):
@@ -1175,7 +1204,7 @@ class listadoControles(LoginRequiredMixin, ListView):
         tiempo_inicial = time()
         data = self.get_queryset()
         list_data = []
-        for indice, valor in enumerate(data[inicio: inicio+fin]):
+        for indice, valor in enumerate(data[inicio: inicio + fin]):
             list_data.append(valor)
         tiempo_final = time() - tiempo_inicial
         print(f'Tiempo de Ejecución: {tiempo_final}')
@@ -1377,10 +1406,10 @@ class MantenimientoMapeoMarcos(LoginRequiredMixin, TemplateView):
                 messages.error(request, 'ERROR, debe introducir todos los valores para insertar un marco')
         elif 'ant' in request.POST:
             if request.session['inicio'] > 0:
-                request.session['inicio'] = request.session['inicio']-100
+                request.session['inicio'] = request.session['inicio'] - 100
         elif 'sig' in request.POST:
             if request.session['inicio'] < AsociacionMarcos.objects.all().count():
-                request.session['inicio'] = request.session['inicio']+100
+                request.session['inicio'] = request.session['inicio'] + 100
         consulta = MapeoMarcos.objects.all().values_list('ntt_id', AsociacionMarcos.objects.get(
             marco_id=request.session["seleccion"]).nombre_tabla.lower())
         page = request.GET.get('page', 1)
@@ -1400,7 +1429,7 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoAssessmentArchivados.html"
-    
+
     # funcion que envia el contexto de la pagina.
     def post(self, request, **knwargs):
         if 'selector' in request.POST:  # if que recoge la pulsacion del boton de seleccion
@@ -1412,7 +1441,7 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
                 return render(request, self.template_name, context=context)
             else:
                 assGuardado = Assessmentguardados.objects.get(id_assessment=selector)
-                  # realizamos la consulta para obtener los contrloles del marco seleccionado
+                # realizamos la consulta para obtener los contrloles del marco seleccionado
                 page = self.request.GET.get('page', 1)
                 paginator = Paginator(AssessmentCreados.objects.filter(assessment=assGuardado), 50)
                 context = super(MantenimientoAssessmentArchivados, self).get_context_data(**knwargs)
@@ -1448,7 +1477,7 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
         elif 'eliminar' in request.POST:
             id = request.POST.get('id')  # valor del input de id
             c = AssessmentCreados.objects.filter(assessment=request.session.get('seleccion'), control_id=id)
-            c.delete() # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
+            c.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         elif 'insertar' in request.POST:
             id = request.POST.get('id')  # valor del input de id
@@ -1464,7 +1493,8 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
                     a = AssessmentCreados(assessment=request.session.get('seleccion'), control_id=id,
                                           control_name=nombre,
                                           descripcion=descripcion, pregunta=Pregunta,
-                                          criteriovaloracion=criterio, valoracionobjetivo=valoracionobjetivo, respuesta=respuesta, valoracion=valoracion)
+                                          criteriovaloracion=criterio, valoracionobjetivo=valoracionobjetivo,
+                                          respuesta=respuesta, valoracion=valoracion)
                     a.save()
                 else:
                     messages.error(request, 'ERROR,el valor de id ya existe')
@@ -1496,7 +1526,7 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
         if self.request.GET.get('page'):
-            assGuardado = Assessmentguardados.objects.get(id_assessment= self.request.session["seleccion"])
+            assGuardado = Assessmentguardados.objects.get(id_assessment=self.request.session["seleccion"])
             # realizamos la consulta para obtener los contrloles del marco seleccionado
             page = self.request.GET.get('page', 1)
             paginator = Paginator(AssessmentCreados.objects.filter(assessment=assGuardado), 50)
@@ -1512,6 +1542,78 @@ class MantenimientoAssessmentArchivados(LoginRequiredMixin, TemplateView):
         return context
 
 
+class proyectosClientes(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+    template_name = "homepage/proyectosClientes.html"
+
+    def get_context_data(self, **knwargs):
+        context = super(proyectosClientes, self).get_context_data(**knwargs)
+        context["clientes"] = Cliente.objects.all()
+        context["proyectos"] = Proyecto.objects.all()
+        context["usuarios"] = User.objects.all()
+
+        return context
+
+    def post(self, request, **knwargs):
+
+        if 'selectorCliente' in request.POST:
+            context = super(proyectosClientes, self).get_context_data(**knwargs)
+            context["clientes"] = Cliente.objects.all()
+            context["usuarios"] = User.objects.all()
+            context["clienteSeleccionado"] = True
+            context["proyectos"] = Proyecto.objects.all()
+            context["cliente"] = Cliente.objects.get(codigo=request.POST.get('selectorCliente'))
+            return render(request, self.template_name,
+                          context=context)  # siempre retornamos el valor con la tabla completa.
+
+        elif 'logo' in request.POST:
+            cliente_nuevo = Cliente(codigo=request.POST["codigo"],
+                                    nombre=request.POST["nombre"],
+                                    logo=request.FILES['logo']
+                                    )
+            cliente_nuevo.save()
+
+        elif 'selectorProyecto' in request.POST:
+            context = super(proyectosClientes, self).get_context_data(**knwargs)
+            context["clientes"] = Cliente.objects.all()
+            context["usuarios"] = User.objects.all()
+            context["proyectoSeleccionado"] = True
+            context["proyectos"] = Proyecto.objects.all()
+            context["usuariosProyecto"] = AsociacionUsuariosProyecto.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.POST.get('selectorProyecto')))
+            context["proyecto"] = Proyecto.objects.get(codigo=request.POST.get('selectorProyecto'))
+            return render(request, self.template_name,
+                          context=context)  # siempre retornamos el valor con la tabla completa.
+        elif 'codigoProyecto' in request.POST:
+            print('entra')
+            codigo = request.POST.get('codigoProyecto')
+            nombre = request.POST.get('nombreProyecto')
+            descripcion = request.POST.get('descripcionProyecto')
+            cliente = Cliente.objects.get(codigo=request.POST.get('selectorClienteProyecto'))
+            usuarios = request.POST.getlist('selectorUsuarios')
+
+            proyecto = Proyecto(codigo=codigo, nombre=nombre, descripcion=descripcion, cliente=cliente,
+                                fecha_creacion=datetime.now())
+            proyecto.save()
+            for i in usuarios:
+                user = User.objects.get(username=i)
+                asosciacion = AsociacionUsuariosProyecto(usuario=user, proyecto=proyecto)
+                asosciacion.save()
+
+            context = super(proyectosClientes, self).get_context_data(**knwargs)
+            context["clientes"] = Cliente.objects.all()
+            context["usuarios"] = User.objects.all()
+            context["proyectos"] = Proyecto.objects.all()
+            return render(request, self.template_name,
+                          context=context)
+        print('no entra')
+        context = super(proyectosClientes, self).get_context_data(**knwargs)
+        context["clientes"] = Cliente.objects.all()
+        context["usuarios"] = User.objects.all()
+        context["proyectos"] = Proyecto.objects.all()
+        return render(request, self.template_name,
+                      context=context)  # siempre retornamos el valor con la tabla completa.
 
 
 # DATA TABLES
@@ -1522,14 +1624,11 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantDominios2.html"
 
-
     def get_context_data(self, **knwargs):
         context = super(MantDominios2, self).get_context_data(**knwargs)
         context["dominios"] = Domains.objects.all()
 
         return context
-
-
 
     # funcion que envia el contexto de la pagina.
 
@@ -1577,7 +1676,3 @@ class MantDominios2(LoginRequiredMixin, TemplateView):
         context = super(MantDominios2, self).get_context_data(**knwargs)
         context["infoTabla"] = Domains.objects.all()
         return render(request, self.template_name, context=context)
-
-
-
-

@@ -141,6 +141,21 @@
     align-content:center;
 }
 
+.inputMostrarDatos{
+    width:100%;
+    height:100%;
+    margin:1%;
+    border:0;
+    background:0;
+    text-align:center;
+}
+
+.cardModificada{
+    width:100%;
+    height:100%;
+    margin:1%;
+}
+
 .cajaForm{
     width:100%;
     height:100%;

@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block titulo %} Seleccion assessment {% endblock %}
+
+{% block contenido %}
+{% load static %}
+
+
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>Gestion de Proyectos y Clientes</h1>
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Sección Cliente
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Visualizacion de clientes</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+                            <h5 class="card-title">Seleccione el cliente que quiera visualizar</h5>
+                            <select class="selectpicker" data-width="100%" data-live-search="true" id="selectorCliente"
+                                    name="selectorCliente" onchange="this.form.submit()">
+                                <option selected disabled value="noSel">Seleccione Cliente</option>
+                                {% for i in clientes %}
+                                <option value="{{i.codigo}}">{{i.codigo}}, {{i.nombre}}</option>
+                                {% endfor %}
+
+                            </select>
+
+                            <br>
+                            <br>
+
+                            <div class="card-text text-center">
+                                {% if clienteSeleccionado %}
+                                <div class="card card-body">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="/media/{{cliente.logo }}" class="img-fluid rounded-start">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{cliente.nombre}}</h5>
+                                                <p class="card-text">{{cliente.codigo}}</p>
+                                                <!--<p class="card-text"><small class="text-body-secondary">Last updated
+                                                    3 mins ago</small></p>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Creación de clientes</h5>
+                        <form class="card-body" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <h5 class="card-title text-center">Rellene los datos del cliente</h5>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">codigo del cliente</span>
+                                <input type="text" class="form-control" placeholder="Codigo" aria-label="Codigo"
+                                       aria-describedby="basic-addon1" name="codigo">
+                                <span class="input-group-text" id="basic-addon2">Nombre del cliente</span>
+                                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                       aria-describedby="basic-addon2" name="nombre">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="logo">Logo del cliente</label>
+                                <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
+                            </div>
+                            <div class="card-text text-center">
+                                <p class="d-inline-flex gap-1">
+                                    <button type="submit" class="btn btn-secondary">Añadir cliente</button>
+                                </p>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% if perms.acounts.puede_crear_assesment %}
+<div class="rowTitulo">
+    <div class="cajaTitulo fontGrande">
+        ó
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Sección Proyectos
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Visualizacion de Proyectos</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+                            <h5 class="card-title">Seleccione el Proyecto que quiera visualizar</h5>
+                            <select class="selectpicker" data-width="100%" data-live-search="true" id="selectorProyecto"
+                                    name="selectorProyecto" onchange="this.form.submit()">
+                                <option selected disabled value="noSel">Seleccione Proyecto</option>
+                                {% for i in proyectos %}
+                                <option value="{{i.codigo}}">{{i.codigo}}, {{i.nombre}}</option>
+                                {% endfor %}
+
+                            </select>
+
+                            <br>
+                            <br>
+
+                            <div class="card-text ">
+                                {% if proyectoSeleccionado %}
+                                <div class="card card-body ">
+                                    <div class="row g-0 text-center">
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{proyecto.nombre}}</h5>
+                                            <p class="card-text">{{proyecto.codigo}}</p>
+                                            <p class="card-text"><small class="text-body-secondary">{{proyecto.descripcion}}</small>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                    <h5 class="card-title">Cliente</h5>
+                                    <div class="card card-body ">
+                                        <div class="row g-0 text-center">
+
+                                            <div class="col-md-4">
+                                                <img src="/media/{{proyecto.cliente.logo }}"
+                                                     class="img-fluid rounded-start"
+                                                     alt="/media/{{proyecto.cliente.logo }}">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{proyecto.cliente.nombre}}</h5>
+                                                    <p class="card-text">{{proyecto.cliente.codigo}}</p>
+                                                    <!--<p class="card-text"><small class="text-body-secondary">Last updated
+                                                        3 mins ago</small></p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h5 class="card-title">Usuarios</h5>
+                                    <div class="card card-body ">
+                                        <div class="row g-0 text-center">
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    {% for i in usuariosProyecto %}
+                                                    <p class="card-text">{{i.usuario.username}}</p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Creación de Proyectos</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+                            <h5 class="card-title text-center">Rellene los datos del Proyecto</h5>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon3">Codigo del Proyecto</span>
+                                <input type="text" class="form-control" placeholder="Codigo" aria-label="Codigo"
+                                       aria-describedby="basic-addon3" id="codigoProyecto" name="codigoProyecto">
+                                <span class="input-group-text" id="basic-addon4">Nombre del Proyecto</span>
+                                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                       aria-describedby="basic-addon4" name="nombreProyecto">
+                            </div>
+                            <div class="input-group mb-3 ">
+                                <span class="input-group-text">Descripción del proyecto</span>
+                                <textarea class="form-control" aria-label="Descripción del proyecto"
+                                          rows="8" name="descripcionProyecto"></textarea>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="selectorClienteProyecto">Seleccione Cliente</label>
+                                <select class="form-select" id="selectorClienteProyecto" name="selectorClienteProyecto">
+                                    <option selected disabled value="noSel">Seleccione Cliente</option>
+                                    {% for i in clientes %}
+                                    <option value="{{i.codigo}}">{{i.codigo}}, {{i.nombre}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="selectorUsuarios">Seleccione Usuarios</label>
+                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                        data-actions-box="true" id="selectorUsuarios" name="selectorUsuarios">
+                                    {% for ids in usuarios %}
+                                    {% if ids.username != 'admin' %}
+                                    <option value="{{ids.username}}">{{ids.username}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+
+                            <div class="card-text text-center">
+                                <p class="d-inline-flex gap-1">
+                                    <button type="submit" class="btn btn-secondary">Crear Proyecto</button>
+                                </p>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
+
+
+{% endblock %}
