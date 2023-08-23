@@ -8,7 +8,7 @@
 <div class="rowTitulo">
     <!-- Titulo con el nombre del assessment -->
     <div class="cajaTitulo">
-        <h1>Seleccion de Assessment</h1>
+        <h1>Selección de Assessment</h1>
     </div>
 </div>
 
@@ -17,22 +17,25 @@
         <div class="tarjeta">
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
-                    Assessment Existente
+                    Selección de proyecto
                 </div>
             </div>
             <form class="textoTarjeta" method="post">
                 {% csrf_token %}
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                     <div class="margenArriba">
-                        <label> Seleccione un Assessment</label>
+                        <label> Seleccione un Proyecto</label>
                     </div>
                 </div>
                 <div class="cajaTextoSeleccionAssesment">
                     <div class="cajaSelectorCentrado margenAbajo">
-                        <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"  onchange="this.form.submit()"  id="selector1" name="selector1">
+                        <select class="selectpicker" data-width="100%" aria-label="Default select example"
+                                data-live-search="true" onchange="this.form.submit()" id="selectorProyecto"
+                                name="selectorProyecto">
                             <option value="None">--- No Seleccionado ---</option>
-                            {% for ids in assess %}
-                            <option value="{{ids.id_assessment}}">{{ids.id_assessment}}</option>
+                            {% for ids in proyectos %}
+                            <option value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
+                            </option>
                             {% endfor %}
                         </select>
                     </div>
@@ -41,117 +44,156 @@
         </div>
     </div>
 </div>
-{% if perms.acounts.puede_crear_assesment %}
-<div class="rowTitulo">
-    <div class="cajaTitulo fontGrande">
-        ó
-    </div>
-</div>
 
 <div class="rowTitulo">
-    <div class="cajaSeleccionAsssessment">
+    <div class="cajaPreguntaDescripcion">
         <div class="tarjeta">
+
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
-                    Crear un assesment
+                    Sección Assessment
                 </div>
             </div>
-            <form class="textoTarjeta" method="post">
-                {% csrf_token %}
+            <div class="textoTarjeta">
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Administración de assessments</h5>
+                        <div class="card-body">
 
-                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
-                    <div class="margenArriba">
-                        <label> Introduzca el Nombre del Assessment</label>
+                            <div class="card-text">
+                                <h5 class="card-title text-center">assessments del proyecto: </h5>
+                                {% for i in assess %}
+
+                                <div class="card card-body mb-3">
+                                    <div class="row justify-content-between align-items-center">
+
+                                        <div class="col-7">
+                                            <h4 class="card-title text-center">{{i.id_assessment}} </h4>
+                                        </div>
+                                        <div class="col-4 row ">
+                                            <form class="col" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-info" name="btnEditar"
+                                                        value="{{i.id_assessment}}"><i class="bi bi-pen"></i>
+                                                    Editar
+                                                </button>
+                                            </form>
+                                            <form class="col " method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger" name="btnArchivar"
+                                                        value="{{i.id_assessment}}"><i
+                                                        class="bi bi-archive"></i> Archivar
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
                     </div>
-                </div>
-                <div class="cajaTextoSeleccionAssesment">
-                    <div class="cajaSelectorCentrado margenAbajo">
-                        <input style="height:100%; width:100%; border-radius:5px;" type="text" name="in" id="in">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Creación de Assessment</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+                            <h5 class="card-title text-center">Rellene los datos del Assessment</h5>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Nombre del Assessment</span>
+                                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                       aria-describedby="basic-addon1" name="in">
+
+                                <label class="input-group-text" for="idioma">Idioma</label>
+                                <select class="form-select" id="idioma" name="idioma">
+                                    <option value="es">Español</option>
+                                    <option value="en">Ingles</option>
+                                </select>
+
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="selector2">Marcos a incluir en el
+                                    assessment</label>
+                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                        id="selector2"
+                                        name="selector2" data-actions-box="true">
+                                    {% for ids in marcos %}
+                                    <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="card-text text-center">
+                                <p class="d-inline-flex gap-1">
+                                    <button style="font-size:1.2vw;" class="btn btn-outline-secondary btn-lg btn-block"
+                                            data-bs-toggle="modal" data-bs-target="#myModal" type="submit" id="boton3"
+                                            name="boton3"
+                                            value="btn3">Crear Assessment
+                                    </button>
+                                </p>
+
+
+                            </div>
+
+                        </form>
+
                     </div>
+
+
                 </div>
-                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
-                    <div class="margenArriba">
-                        <label> Seleccione los controles</label>
-                    </div>
-                </div>
-                <div class="cajaTextoSeleccionAssesment">
-                    <div class="cajaSelectorCentrado margenAbajo">
-                        <select multiple class="selectpicker" data-live-search="true" data-width="100%" id="selector2" name="selector2" data-actions-box="true" >
-                            {% for ids in marcos %}
-                            <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-                <div class="cajaTextoSeleccionAssesment contenidoAbajo">
-                    <div class="margenArriba">
-                        <label> Seleccione En Idioma</label>
-                    </div>
-                </div>
-                <div class="cajaTextoSeleccionAssesment">
-                    <div class="cajaSelectorCentrado margenAbajo">
-                        <select class="selectpicker"  data-width="100%" id="idioma" name="idioma"  >
-                            <option value="es">Español</option>
-                            <option value="en">Ingles</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="cajaBotonSeleccionAssesment">
-                    <div class="cajaBotonSeleccion ">
-                        <button style="font-size:1.2vw;" class="btn btn-outline-secondary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#myModal" type="submit" id="boton3" name="boton3" value="btn3">Crear Assessment</button>
-                    </div>
-                </div>
-            </form>
+
+
+            </div>
         </div>
     </div>
 </div>
-<div class="modal fade " id="myModal" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered" >
+
+
+<div class="modal fade " id="myModal" data-bs-backdrop="static" data-bs-keyboard="false"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
-          <div class="modal-header" style="text-align:center;">
-              <div class="cajaCarga">
-                  <h5 class="modal-title" id="exampleModalLabel">Creando Assessment</h5>
-              </div>
-          </div>
-          <div class="modal-body">
-              <div class="cajaCarga">
-                  <div class="spinner-border text-primary" style="width: 100px; height: 100px;" role="status">
-                      <span class="visually-hidden">Cargando...</span>
+            <div class="modal-header" style="text-align:center;">
+                <div class="cajaCarga">
+                    <h5 class="modal-title" id="exampleModalLabel">Creando Assessment</h5>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="cajaCarga">
+                    <div class="spinner-border text-primary" style="width: 100px; height: 100px;" role="status">
+                        <span class="visually-hidden">Cargando...</span>
                     </div>
-              </div>
-          </div>
+                </div>
+            </div>
 
         </div>
     </div>
 </div>
-{% endif %}
+
 
 {% if messages %}
-    {% for message in messages %}
-        {% if message.tags %}
-            <script type="text/javascript">
-                setTimeout(() => {
-                    window.alert("{{ message }}")
-                }, 100);
-            </script>
-        {% endif %}
+{% for message in messages %}
+{% if message.tags %}
+<script type="text/javascript">
+    setTimeout(() => {
+        window.alert("{{ message }}")
+    }, 100);
+</script>
+{% endif %}
 
-    {% endfor %}
+{% endfor %}
 {% endif %}
 
 <script type="text/javascript">
 
-    $(function() {
-        $('select').selectpicker();
-    });
 
     var myModal = new bootstrap.Modal(document.getElementById('myModal'), options)
 
 </script>
-
-
-
-
 
 
 {% endblock %}
