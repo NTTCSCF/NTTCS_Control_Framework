@@ -686,6 +686,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         if 'selectorProyecto' in request.POST:
             context = super(assessmentselect, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSelec"] = selectorProyecto
             context["proyectoSeleccionado"] = True
             request.session["proyectoSeleccionado"] = selectorProyecto
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
@@ -703,6 +704,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             context = super(assessmentselect, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
             context["proyectoSeleccionado"] = True
+            context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
             context["marcos"] = AsociacionMarcos.objects.all()
@@ -753,6 +755,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 messages.error(request, 'El Assessment ya exsiste.')
                 context = super(assessmentselect, self).get_context_data(**knwargs)
                 context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+                context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
                 context["proyectoSeleccionado"] = True
                 context["assess"] = AsociacionProyectoAssessment.objects.filter(
                     proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
@@ -763,6 +766,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             messages.error(request, 'Necesitas introducir un nombre para el Assessment')  # Se crea mensage de error
             context = super(assessmentselect, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["proyectoSeleccionado"] = True
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
@@ -771,6 +775,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
             context = super(assessmentselect, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["proyectoSeleccionado"] = True
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
