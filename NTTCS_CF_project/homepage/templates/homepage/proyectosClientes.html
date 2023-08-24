@@ -104,7 +104,7 @@
         </div>
     </div>
 </div>
-{% if perms.acounts.puede_crear_assesment %}
+
 <div class="rowTitulo">
     <div class="cajaTitulo fontGrande">
         ó
@@ -173,13 +173,20 @@
                                     </div>
                                     <h5 class="card-title">Usuarios</h5>
                                     <div class="card card-body ">
-                                        <div class="row g-0 text-center">
-                                            <div class="col-md-8">
+                                        <div class="row g-0 text-center align-items-center">
+                                            <div class="col">
                                                 <div class="card-body">
                                                     {% for i in usuariosProyecto %}
-                                                    <p class="card-text">{{i.usuario.username}}</p>
+                                                    <p class="card-text">{{i}}</p>
                                                     {% endfor %}
                                                 </div>
+
+                                            </div>
+                                            <div class="col">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#myModal">
+                                                    Editar usuarios
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -253,8 +260,47 @@
     </div>
 </div>
 
+<div class="modal fade  " id="myModal" data-bs-keyboard="false"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form class="modal-dialog modal-lg  modal-dialog-centered" method="post">
+        {% csrf_token %}
+        <div class="modal-content" >
 
-{% endif %}
+            <div class="modal-header" style="text-align:center;">
+                <div class="cajaCarga">
+                    <h5 class="modal-title" id="exampleModalLabel">Creando Assessment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="selectorUsuarios">Seleccione Usuarios</label>
+                        <select multiple class="form-select selectpicker" data-live-search="true"
+                                data-actions-box="true" id="selectorUsuarios2" name="selectorUsuarios2">
+                            {% for ids in usuarios %}
+                            {% if ids.username != 'admin' %}
+                            {% if ids.username in usuariosProyecto %}
+                            <option selected value="{{ids.username}}">{{ids.username}}</option>
+                            {% else %}
+                            <option value="{{ids.username}}">{{ids.username}}</option>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </form>
+</div>
 
 
 {% endblock %}

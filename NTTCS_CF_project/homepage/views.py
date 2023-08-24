@@ -1603,8 +1603,13 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
             context["usuarios"] = User.objects.all()
             context["proyectoSeleccionado"] = True
             context["proyectos"] = Proyecto.objects.all()
-            context["usuariosProyecto"] = AsociacionUsuariosProyecto.objects.filter(
+            a = AsociacionUsuariosProyecto.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.POST.get('selectorProyecto')))
+            p = []
+            for i in a:
+                p += [i.usuario.username]
+            context["usuariosProyecto"] = p
+            request.session['selectorProyecto'] = request.POST.get('selectorProyecto')
             context["proyecto"] = Proyecto.objects.get(codigo=request.POST.get('selectorProyecto'))
             return render(request, self.template_name,
                           context=context)  # siempre retornamos el valor con la tabla completa.
@@ -1628,8 +1633,37 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
             context["clientes"] = Cliente.objects.all()
             context["usuarios"] = User.objects.all()
             context["proyectos"] = Proyecto.objects.all()
+
             return render(request, self.template_name,
                           context=context)
+        elif 'selectorUsuarios2' in request.POST:
+            usuarios = request.POST.getlist('selectorUsuarios2')
+            proyecto = Proyecto.objects.get(codigo=request.session.get('selectorProyecto'))
+            aso = AsociacionUsuariosProyecto.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.session.get('selectorProyecto')))
+            aso.delete()
+
+            for i in usuarios:
+                user = User.objects.get(username=i)
+                asosciacion = AsociacionUsuariosProyecto(usuario=user, proyecto=proyecto)
+                asosciacion.save()
+
+            context = super(proyectosClientes, self).get_context_data(**knwargs)
+            context["clientes"] = Cliente.objects.all()
+            context["usuarios"] = User.objects.all()
+            context["proyectoSeleccionado"] = True
+            context["proyectos"] = Proyecto.objects.all()
+            a = AsociacionUsuariosProyecto.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.session.get('selectorProyecto')))
+            p = []
+            for i in a:
+                p += [i.usuario.username]
+            context["usuariosProyecto"] = p
+
+            context["proyecto"] = Proyecto.objects.get(codigo=request.session.get('selectorProyecto'))
+            return render(request, self.template_name,
+                          context=context)  # siempre retornamos el valor con la tabla completa.
+
         print('no entra')
         context = super(proyectosClientes, self).get_context_data(**knwargs)
         context["clientes"] = Cliente.objects.all()
