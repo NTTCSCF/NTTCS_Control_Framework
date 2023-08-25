@@ -441,6 +441,13 @@ class assessment(LoginRequiredMixin, TemplateView):
                         evidencia = EvidencerequestcatalogEs.objects.get(evidence_request_references=selectorEvidencia)
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia_id_es=evidencia, assessment=control)
                         eviGenerica.save()
+                    assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                    control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                            control_id=request.session["controlSelect"])
+                    control.respuesta = str(request.POST.get('respuesta'))
+                    control.valoracion = request.POST.get('valmad')
+                    control.valoracionobjetivo = request.POST.get('valmadob')
+                    control.save()
                     context = super(assessment, self).get_context_data(**knwargs)
                     request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
                     return render(request, self.template_name, context=context)
@@ -501,6 +508,11 @@ class assessment(LoginRequiredMixin, TemplateView):
 
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
+
+                            control.respuesta = str(request.POST.get('respuesta'))
+                            control.valoracion = request.POST.get('valmad')
+                            control.valoracionobjetivo = request.POST.get('valmadob')
+                            control.save()
                             context = super(assessment, self).get_context_data(**knwargs)
                             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
                                                                  context)
@@ -582,6 +594,11 @@ class assessment(LoginRequiredMixin, TemplateView):
                             iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
+
+                            control.respuesta = str(request.POST.get('respuesta'))
+                            control.valoracion = request.POST.get('valmad')
+                            control.valoracionobjetivo = request.POST.get('valmadob')
+                            control.save()
                             context = super(assessment, self).get_context_data(**knwargs)
                             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
                                                                  context)
@@ -656,16 +673,16 @@ class assessment(LoginRequiredMixin, TemplateView):
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia_id_es=evidencia, assessment=control)
                         eviGenerica.save()
 
+            control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                    control_id=request.session["controlSelect"])
+            control.respuesta = str(request.POST.get('respuesta'))
+            control.valoracion = request.POST.get('valmad')
+            control.valoracionobjetivo = request.POST.get('valmadob')
+            control.save()
             context = super(assessment, self).get_context_data(**knwargs)
             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
             return render(request, self.template_name, context=context)
-        else:  # se recoge la pulsacion del boton de archivar tras la confirmacion
 
-            consulta = Assessmentguardados.objects.get(
-                id_assessment=assSelect)  # colsulta para la selecionar el assesment
-            consulta.archivado = 1  # ponemos el valor de archivado a 1
-            consulta.save()
-            return redirect('menu')  # volvemos al menu
 
 
 # Clase para la pagina de AssessmentSelect
@@ -699,11 +716,10 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             context["proyectoSeleccionado"] = True
             request.session["proyectoSeleccionado"] = selectorProyecto
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                proyecto=Proyecto.objects.get(codigo=selectorProyecto))
+                proyecto=Proyecto.objects.get(codigo=selectorProyecto), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
         elif 'btnEditar' in request.POST:
-            print(btnEditar)
             request.session["assessmentGuardado"] = btnEditar
             return redirect("assessment")
         elif 'btnArchivar' in request.POST:
@@ -715,7 +731,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             context["proyectoSeleccionado"] = True
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
+                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
@@ -758,8 +774,14 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 proyecto = Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado'))
                 asociacion = AsociacionProyectoAssessment(assessment=assessmentNuevo, proyecto=proyecto)
                 asociacion.save()
-                request.session["assessmentGuardado"] = nombre
-                return redirect("assessment")
+                context = super(assessmentselect, self).get_context_data(**knwargs)
+                context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+                context["proyectoSeleccionado"] = True
+                context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
+                context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                    proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
+                context["marcos"] = AsociacionMarcos.objects.all()
+                return render(request, self.template_name, context=context)
             else:
                 messages.error(request, 'El Assessment ya exsiste.')
                 context = super(assessmentselect, self).get_context_data(**knwargs)
@@ -767,7 +789,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
                 context["proyectoSeleccionado"] = True
                 context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                    proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
+                    proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
                 context["marcos"] = AsociacionMarcos.objects.all()
                 return render(request, self.template_name, context=context)
         elif nombre == '' and select2 is not None:  # if donde se recoge si se ha introducido valores de marcos paro no de nombre para el assessment
@@ -778,16 +800,17 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["proyectoSeleccionado"] = True
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
+                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
         else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
+            print('No entra')
             context = super(assessmentselect, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["proyectoSeleccionado"] = True
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')))
+                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
