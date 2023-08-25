@@ -252,9 +252,11 @@ class assessment(LoginRequiredMixin, TemplateView):
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         if assGuardado.idioma == 'en':
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+            context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
         else:
             context[
                 "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+            context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
         request.session["controlSelect"] = select
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
         context["control"] = control
@@ -267,7 +269,7 @@ class assessment(LoginRequiredMixin, TemplateView):
         context["criteriovaloracion"] = control.criteriovaloracion.split('[-33--33-]')
         context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
         context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
-        context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
         context["iniciativas"] = Iniciativas.objects.all()
         evidenciasRecomendadas = Assessment.objects.get(id=select).evidence_request_references
@@ -302,10 +304,12 @@ class assessment(LoginRequiredMixin, TemplateView):
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         if assGuardado.idioma == 'en':
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+            context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
         else:
             context[
                 "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
-        context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+            context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
+
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
         context["iniciativas"] = Iniciativas.objects.all()
         self.request.session["controlSelect"] = 'noSel'
@@ -333,11 +337,13 @@ class assessment(LoginRequiredMixin, TemplateView):
                 if assGuardado.idioma == 'en':
                     context[
                         "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
                     context[
                         "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
                 request.session["controlSelect"] = select
-                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
@@ -411,10 +417,11 @@ class assessment(LoginRequiredMixin, TemplateView):
                 if assGuardado.idioma == 'en':
                     context[
                         "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
                     context[
                         "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
-                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                    context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
@@ -453,10 +460,11 @@ class assessment(LoginRequiredMixin, TemplateView):
                 if assGuardado.idioma == 'en':
                     context[
                         "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
                     context[
                         "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
-                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                    context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
@@ -539,10 +547,11 @@ class assessment(LoginRequiredMixin, TemplateView):
                 if assGuardado.idioma == 'en':
                     context[
                         "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
                     context[
                         "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
-                context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+                    context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
@@ -1590,7 +1599,7 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name,
                           context=context)  # siempre retornamos el valor con la tabla completa.
 
-        elif 'logo' in request.POST:
+        elif 'codigo' in request.POST:
             cliente_nuevo = Cliente(codigo=request.POST["codigo"],
                                     nombre=request.POST["nombre"],
                                     logo=request.FILES['logo']

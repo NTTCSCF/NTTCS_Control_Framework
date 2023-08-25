@@ -24,15 +24,15 @@
                     {% for ids in assess %}
                     {% if ids.control_id == control.control_id %}
                     {% if ids.respuesta == None %}
-                    <option selected value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='rowSelect' title='{{ids.control_name}}'> <div class='selectorCajaDentroTexto'>{{ids.control_id}}</div> <div class='selectorCajaDentroCheck'></div></div> "></option>
+                    <option class="container " selected value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
                     {% else %}
-                    <option selected value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='rowSelect' title='{{ids.control_name}}'> <div class='selectorCajaDentroTexto'>{{ids.control_id}}</div> <div class='selectorCajaDentroCheck'><i class='bi bi-check2-circle'></i></div></div> "></option>
+                    <option class="container " selected value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'><i class='bi bi-check2-circle'></i></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div>"></option>
                     {% endif %}
                     {% else %}
                     {% if ids.respuesta == None %}
-                    <option value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='rowSelect' title='{{ids.control_name}}'> <div class='selectorCajaDentroTexto'>{{ids.control_id}}</div> <div class='selectorCajaDentroCheck'></div></div> "></option>
+                    <option class="container " value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
                     {% else %}
-                    <option value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='rowSelect' title='{{ids.control_name}}'> <div class='selectorCajaDentroTexto'>{{ids.control_id}}</div> <div class='selectorCajaDentroCheck'><i class='bi bi-check2-circle'></i></div></div> "></option>
+                    <option class="container " value="{{ids.control_id}}" title="{{ids.control_id}}" data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'><i class='bi bi-check2-circle'></i></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
                     {% endif %}
                     {% endif %}
                     {% endfor %}
@@ -306,7 +306,7 @@
                              <select  class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true" id="selectorEvidencia" name="selectorEvidencia">
                                 <option selected value="noSel">--- No Seleccionado ---</option>
                                 {% for ids in evidenciasGenerricas %}
-                                <option value="{{ids.evidence_request_references}}">{{ids.evidence_request_references}}</option>
+                                <option value="{{ids.evidence_request_references}}">{{ids.evidence_request_references}}, {{ids.artifact}}</option>
                                 {% endfor %}
                             </select>
                         </div>
