@@ -18,6 +18,7 @@ urlpatterns = [
     path('mantenimientoNivelMadurez/', views.MantenimientoNivelMadurez.as_view(), name='mantenimientoNivelMadurez'),
     path('MantenimientoDominios/', views.MantenimientoDominios.as_view(), name='MantenimientoDominios'),
     path('MantenimientoEvidencias/', views.MantenimientoEvidencias.as_view(), name='MantenimientoEvidencias'),
+    path('MantenimientoEvidenciasEs/', views.MantenimientoEvidenciasEs.as_view(), name='MantenimientoEvidenciasEs'),
     path('MantenimientoPreguntas/', views.MantenimientoPreguntas.as_view(), name='MantenimientoPreguntas'),
     path('MantenimientoPreguntasEs/', views.MantenimientoPreguntasEs.as_view(), name='MantenimientoPreguntasEs'),
     path('MantenimientoMarcosExistentes/', views.MantenimientoMarcosExistentes.as_view(), name='MantenimientoMarcosExistentes'),

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block titulo %} Mantenimiento evidencias {% endblock %}
+
+{% block contenido %}
+
+    <!-- titulo -->
+    <div class="rowTitulo">
+    <!-- Titulo con el nombre de evidencias -->
+        <div class="cajaTitulo">
+            <h1>Mantenimiento Evidencias</h1>
+        </div>
+    </div>
+
+    <!-- Caja de buscar -->
+    <div class="rowCajasMantenimiento">
+        <form class="cajaBuscar" method="post" id="busquedaForm">
+            {% csrf_token %}
+            <div class="cajaInputBuscar input-group">
+                <input class="form-control" type="text" id="busqueda" name="busqueda" placeholder="Buscar ..." onkeyup="doSearch()">
+            </div>
+        </form>
+    </div>
+
+
+    <!-- tabla de contenido -->
+    <table class="table table-fixed table-hover" id="data">
+        <!-- header de la tabla -->
+        <thead>
+            <tr>
+                <th scope="col">Evidence Request References</th>
+                <th scope="col">Area of Focus</th>
+                <th scope="col">Artifact</th>
+                <th scope="col">Artifact Description</th>
+                <th scope="col">Control Mappings</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <!-- cuerpo de la tabla -->
+        <tbody>
+            <!-- creacion de fila para insertar datos -->
+            <tr>
+                <form method="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" name="evidence_request_references" placeholder="Insert Evidence Request" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="area_of_focus" placeholder="Insert Aera of focus" autocomplete="false" ></td>
+                    <td><input class="inputTabas" type="text" name="artifact" placeholder="Insert artifact" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="artifact_description" placeholder="insert artifact description" autocomplete="false"></td>
+                    <td><input class="inputTabas" type="text" name="control_mappings" placeholder="insert control mappings" autocomplete="false"></td>
+                    <td >
+                        <div class="botonesTabla">
+                            <button class="btn btn-success btn-sm" title="Guardar" id="insertar" name="insertar">
+                                <i class="bi bi-check2-square"></i>
+                            </button>
+                        </div>
+                    </td>
+                </form>
+            </tr>
+            <!-- muestra el contenido de la tabla -->
+            {% for ids in entity %}
+            <tr>
+                <form method="post">
+                    {% csrf_token %}
+                    <td><input class="inputTabas" type="text" value="{{ids.evidence_request_references}}" name="evidence_request_references" readonly></td>
+                    <td><input class="inputTabas" type="text" value="{{ids.area_of_focus}}" name="area_of_focus" ></td>
+                    <td><textarea class="inputTabas" rows="5" name="artifact" >{{ids.artifact}}</textarea></td>
+                    <td><textarea class="inputTabas" rows="5" name="artifact_description" >{{ids.artifact_description}}</textarea></td>
+                    <td><textarea class="inputTabas" rows="5" name="control_mappings" >{{ids.control_mappings}}</textarea></td>
+                    <td >
+                        <div class="botonesTabla">
+                            <button class="btn btn-warning btn-sm" title="Editar" id="modificar" name="modificar">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Borrar" id="eliminar" name="eliminar">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </div>
+                    </td>
+                </form>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <div class="rowTitulo">
+
+        {% include 'homepage/paginator.html' %}
+
+    </div>
+{% endblock %}
