@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+[24/Aug/2023 14:07:22] "GET / HTTP/1.1" 200 1515
+[24/Aug/2023 14:07:25] "POST / HTTP/1.1" 302 0
+[24/Aug/2023 14:07:25] "GET /menu/ HTTP/1.1" 200 10916
+[24/Aug/2023 14:07:25] "GET /staticfiles/js/scripts.js HTTP/1.1" 304 0
+[24/Aug/2023 14:07:25] "GET /staticfiles/css/ass.css HTTP/1.1" 304 0
+[24/Aug/2023 14:07:27] "GET /proyectosClientes/ HTTP/1.1" 200 23093
+[24/Aug/2023 14:07:32] "POST /proyectosClientes/ HTTP/1.1" 200 26444
+[24/Aug/2023 14:07:32] "GET /media/images/BMW_logo_blue.png HTTP/1.1" 304 0
+Not Found: /.git/credentials
+[24/Aug/2023 14:09:04] "GET /.git/credentials HTTP/1.1" 404 6864

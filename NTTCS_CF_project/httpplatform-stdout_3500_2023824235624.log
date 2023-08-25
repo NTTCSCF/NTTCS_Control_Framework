@@ -1,0 +1,3 @@
+Watching for file changes with StatReloader
+Not Found: /.git/credentials
+[25/Aug/2023 01:56:26] "GET /.git/credentials HTTP/1.1" 404 6864

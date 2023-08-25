@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+[25/Aug/2023 04:37:47] "GET / HTTP/1.0" 200 1515
+Not Found: /.env
+[25/Aug/2023 04:43:16] "GET /.env HTTP/1.1" 404 6828
+Forbidden (CSRF cookie not set.): /
+[25/Aug/2023 04:43:19] "POST / HTTP/1.1" 403 2922
+[25/Aug/2023 04:43:47] "GET / HTTP/1.1" 200 1515
+Not Found: /robots.txt
+[25/Aug/2023 04:53:04] "GET /robots.txt HTTP/1.1" 404 6839
+[25/Aug/2023 04:56:03] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 05:10:04] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 05:10:10] "GET / HTTP/1.1" 200 1515

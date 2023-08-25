@@ -1,0 +1,20 @@
+Watching for file changes with StatReloader
+[24/Aug/2023 23:27:40] "GET / HTTP/1.1" 200 1515
+Not Found: /sitemap.txt
+[24/Aug/2023 23:39:51] "GET /sitemap.txt HTTP/1.1" 404 6842
+[25/Aug/2023 00:00:52] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[25/Aug/2023 00:00:53] "GET /favicon.ico HTTP/1.1" 404 6842
+[25/Aug/2023 00:04:57] "GET / HTTP/1.1" 200 1515
+Not Found: /favicon.ico
+[25/Aug/2023 00:05:32] "GET /favicon.ico HTTP/1.1" 404 6842
+[25/Aug/2023 00:05:34] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 00:16:52] "GET / HTTP/1.1" 200 1515
+Not Found: /aaa9
+[25/Aug/2023 00:18:51] "GET /aaa9 HTTP/1.1" 404 6828
+Not Found: /aab8
+[25/Aug/2023 00:18:59] "GET /aab8 HTTP/1.1" 404 6828
+[25/Aug/2023 00:19:12] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 00:26:46] "GET / HTTP/1.1" 200 1515
+Not Found: /.gitlab-ci.yml
+[25/Aug/2023 00:31:59] "GET /.gitlab-ci.yml HTTP/1.1" 404 6858

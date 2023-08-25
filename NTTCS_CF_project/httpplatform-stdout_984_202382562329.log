@@ -1,0 +1,26 @@
+Watching for file changes with StatReloader
+[25/Aug/2023 08:23:31] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 08:23:31] "GET /staticfiles/css/estilos.css HTTP/1.1" 304 0
+[25/Aug/2023 08:23:40] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 08:23:40] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 08:23:40] "GET /staticfiles/js/scripts.js HTTP/1.1" 304 0
+[25/Aug/2023 08:23:40] "GET /staticfiles/css/ass.css HTTP/1.1" 200 8047
+[25/Aug/2023 08:23:44] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 08:23:46] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 08:23:48] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 08:23:49] "GET /assessmentselect/ HTTP/1.1" 200 9869
+[25/Aug/2023 08:23:55] "POST /assessmentselect/ HTTP/1.1" 200 23245
+[25/Aug/2023 08:23:59] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 08:24:00] "GET /assessmentselect/ HTTP/1.1" 200 9869
+[25/Aug/2023 08:24:08] "POST /assessmentselect/ HTTP/1.1" 200 23245
+[25/Aug/2023 08:26:35] "POST /assessmentselect/ HTTP/1.1" 302 0
+[25/Aug/2023 08:26:35] "GET /assessment/ HTTP/1.1" 200 172974
+[25/Aug/2023 08:27:05] "POST /assessment/ HTTP/1.1" 200 183009
+[25/Aug/2023 08:27:41] "POST /assessment/ HTTP/1.1" 200 183067
+[25/Aug/2023 08:27:45] "POST /assessment/ HTTP/1.1" 200 182858
+[25/Aug/2023 08:29:27] "POST /assessment/ HTTP/1.1" 200 183093
+[25/Aug/2023 08:29:38] "POST /assessment/ HTTP/1.1" 200 177172
+[25/Aug/2023 08:30:15] "POST /assessment/ HTTP/1.1" 200 177285
+[25/Aug/2023 08:30:22] "GET /informes/ HTTP/1.1" 200 9222
+[25/Aug/2023 08:30:33] "GET /accounts/logout/ HTTP/1.1" 302 0
+[25/Aug/2023 08:30:33] "GET / HTTP/1.1" 200 1515

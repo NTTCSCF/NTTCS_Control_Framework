@@ -1,0 +1,117 @@
+Watching for file changes with StatReloader
+[25/Aug/2023 09:01:53] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 09:01:54] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 09:01:54] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[25/Aug/2023 09:01:54] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[25/Aug/2023 09:01:54] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[25/Aug/2023 09:01:54] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[25/Aug/2023 09:01:57] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 09:01:57] "GET /menu/ HTTP/1.1" 200 10916
+[25/Aug/2023 09:01:57] "GET /staticfiles/css/ass.css HTTP/1.1" 200 8047
+[25/Aug/2023 09:01:57] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 10433
+[25/Aug/2023 09:01:57] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[25/Aug/2023 09:01:57] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[25/Aug/2023 09:06:01] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 09:06:01] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[25/Aug/2023 09:07:01] "POST / HTTP/1.1" 200 1515
+[25/Aug/2023 09:07:12] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 09:07:12] "GET /menu/ HTTP/1.1" 200 10916
+[25/Aug/2023 09:07:12] "GET /staticfiles/css/ass.css HTTP/1.1" 200 8047
+[25/Aug/2023 09:07:12] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 10433
+[25/Aug/2023 09:07:13] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[25/Aug/2023 09:07:21] "GET /proyectosClientes/ HTTP/1.1" 200 23627
+Internal Server Error: /proyectosClientes/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\datastructures.py", line 84, in __getitem__
+    list_ = super().__getitem__(key)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'logo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 1596, in post
+    logo=request.FILES['logo']
+         ~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\datastructures.py", line 86, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'logo'
+[25/Aug/2023 09:07:31] "POST /proyectosClientes/ HTTP/1.1" 500 85540
+[25/Aug/2023 09:09:10] "POST /proyectosClientes/ HTTP/1.1" 200 23627
+[25/Aug/2023 09:10:02] "POST /proyectosClientes/ HTTP/1.1" 200 26978
+[25/Aug/2023 09:10:44] "GET /accounts/logout/ HTTP/1.1" 302 0
+[25/Aug/2023 09:10:44] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 09:11:00] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 09:11:00] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 09:11:13] "GET /assessmentselect/ HTTP/1.1" 200 9882
+[25/Aug/2023 09:11:17] "GET /assessmentselect/ HTTP/1.1" 200 9882
+[25/Aug/2023 09:11:25] "POST /assessmentselect/ HTTP/1.1" 200 25120
+[25/Aug/2023 09:12:20] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 09:12:25] "POST /assessmentselect/ HTTP/1.1" 302 0
+[25/Aug/2023 09:12:25] "GET /assessment/ HTTP/1.1" 200 106039
+[25/Aug/2023 09:12:46] "POST /assessmentselect/ HTTP/1.1" 302 0
+[25/Aug/2023 09:12:46] "GET /assessment/ HTTP/1.1" 200 106039
+[25/Aug/2023 09:14:48] "POST /assessment/ HTTP/1.1" 200 117076
+[25/Aug/2023 09:17:06] "POST /assessment/ HTTP/1.1" 200 117339
+[25/Aug/2023 09:19:19] "GET /exportaciones/ HTTP/1.1" 200 10123
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 815, in post
+    evidencias += i.evidencia.evidence_request_references + '\n'
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'evidence_request_references'
+[25/Aug/2023 09:19:26] "POST /exportaciones/ HTTP/1.1" 500 85456
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 815, in post
+    evidencias += i.evidencia.evidence_request_references + '\n'
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'evidence_request_references'
+[25/Aug/2023 09:19:26] "POST /exportaciones/ HTTP/1.1" 500 85456
+[25/Aug/2023 09:19:37] "POST /exportaciones/ HTTP/1.1" 200 21611
+[25/Aug/2023 09:25:02] "GET /menu/ HTTP/1.1" 200 7955

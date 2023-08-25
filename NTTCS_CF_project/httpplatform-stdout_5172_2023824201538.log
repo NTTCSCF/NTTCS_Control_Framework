@@ -1,0 +1,11 @@
+Watching for file changes with StatReloader
+Not Found: /wp-login.php
+[24/Aug/2023 22:15:40] "GET /wp-login.php HTTP/1.1" 404 6845
+[24/Aug/2023 22:41:45] "GET / HTTP/1.0" 200 1515
+Not Found: /aaa9
+[24/Aug/2023 22:44:20] "GET /aaa9 HTTP/1.1" 404 6828
+Not Found: /aab8
+[24/Aug/2023 22:44:50] "GET /aab8 HTTP/1.1" 404 6828
+[24/Aug/2023 22:45:20] "GET / HTTP/1.1" 200 1515
+[24/Aug/2023 23:02:05] "GET /admin/config.php HTTP/1.1" 302 0
+[24/Aug/2023 23:02:05] "GET /admin/login/?next=/admin/config.php HTTP/1.1" 200 4296

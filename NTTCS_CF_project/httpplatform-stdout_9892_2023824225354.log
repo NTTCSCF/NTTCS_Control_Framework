@@ -1,0 +1,18 @@
+Watching for file changes with StatReloader
+Not Found: /s3cmd.ini
+[25/Aug/2023 00:53:56] "GET /s3cmd.ini HTTP/1.1" 404 6843
+[25/Aug/2023 01:01:54] "GET / HTTP/1.1" 200 1515
+Not Found: /aaa9
+[25/Aug/2023 01:05:44] "GET /aaa9 HTTP/1.1" 404 6828
+Not Found: /aab8
+[25/Aug/2023 01:05:55] "GET /aab8 HTTP/1.1" 404 6828
+[25/Aug/2023 01:06:04] "GET / HTTP/1.1" 200 1515
+Not Found: /Dockerrun.aws.json
+[25/Aug/2023 01:10:29] "GET /Dockerrun.aws.json HTTP/1.1" 404 6870
+Not Found: /wp-config.php-backup
+[25/Aug/2023 01:16:25] "GET /wp-config.php-backup HTTP/1.1" 404 6876
+Not Found: /sitemaps.xml
+[25/Aug/2023 01:18:11] "GET /sitemaps.xml HTTP/1.1" 404 6845
+Not Found: /.aws/credentials
+[25/Aug/2023 01:20:19] "GET /.aws/credentials HTTP/1.1" 404 6864
+[25/Aug/2023 01:29:17] "GET / HTTP/1.1" 200 1515

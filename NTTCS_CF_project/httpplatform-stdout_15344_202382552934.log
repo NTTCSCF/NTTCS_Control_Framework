@@ -1,0 +1,131 @@
+Watching for file changes with StatReloader
+[25/Aug/2023 07:29:36] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 07:29:37] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
+[25/Aug/2023 07:29:37] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+[25/Aug/2023 07:29:37] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[25/Aug/2023 07:29:37] "GET /staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 200 20664
+[25/Aug/2023 07:30:05] "POST / HTTP/1.1" 200 1515
+[25/Aug/2023 07:30:20] "POST / HTTP/1.1" 200 1515
+[25/Aug/2023 07:31:02] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 07:31:02] "GET /menu/ HTTP/1.1" 200 10916
+[25/Aug/2023 07:31:03] "GET /staticfiles/css/ass.css HTTP/1.1" 200 8047
+[25/Aug/2023 07:31:03] "GET /staticfiles/js/scripts.js HTTP/1.1" 200 10433
+[25/Aug/2023 07:31:03] "GET /staticfiles/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[25/Aug/2023 07:31:03] "GET /staticfiles/images/equipo2.jpg HTTP/1.1" 200 16151
+[25/Aug/2023 07:31:07] "GET /usuarios/ HTTP/1.1" 200 17470
+[25/Aug/2023 07:32:22] "POST /usuarios/ HTTP/1.1" 200 17682
+[25/Aug/2023 07:32:30] "GET /accounts/logout/ HTTP/1.1" 302 0
+[25/Aug/2023 07:32:30] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 07:32:45] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 07:32:45] "GET /creacionPass/ HTTP/1.1" 200 6163
+[25/Aug/2023 07:33:19] "POST /creacionPass/ HTTP/1.1" 200 6487
+[25/Aug/2023 07:33:28] "GET / HTTP/1.0" 200 1515
+[25/Aug/2023 07:33:50] "POST /creacionPass/ HTTP/1.1" 200 6536
+[25/Aug/2023 07:34:23] "POST /creacionPass/ HTTP/1.1" 302 0
+[25/Aug/2023 07:34:24] "GET /accounts/logout/ HTTP/1.1" 302 0
+[25/Aug/2023 07:34:24] "GET / HTTP/1.1" 200 1793
+[25/Aug/2023 07:34:41] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 07:34:42] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 07:34:44] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 07:34:53] "GET /assessmentselect/ HTTP/1.1" 200 9667
+[25/Aug/2023 07:35:18] "GET /assessmentselect/ HTTP/1.1" 200 9667
+[25/Aug/2023 07:35:39] "GET /assessmentselect/ HTTP/1.1" 200 9667
+[25/Aug/2023 07:35:51] "GET /accounts/logout/ HTTP/1.1" 302 0
+[25/Aug/2023 07:35:51] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 07:36:15] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 07:36:16] "GET /menu/ HTTP/1.1" 200 10916
+[25/Aug/2023 07:36:20] "GET /usuarios/ HTTP/1.1" 200 17682
+[25/Aug/2023 07:36:27] "GET /proyectosClientes/ HTTP/1.1" 200 23491
+[25/Aug/2023 07:36:33] "GET /perfil/ HTTP/1.1" 200 14129
+[25/Aug/2023 07:36:40] "GET /proyectosClientes/ HTTP/1.1" 200 23491
+[25/Aug/2023 07:36:48] "POST /proyectosClientes/ HTTP/1.1" 200 24540
+[25/Aug/2023 07:36:48] "GET /media/images/BMW_logo_blue.png HTTP/1.1" 200 757116
+Internal Server Error: /proyectosClientes/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\datastructures.py", line 84, in __getitem__
+    list_ = super().__getitem__(key)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'logo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 1596, in post
+    logo=request.FILES['logo']
+         ~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\utils\datastructures.py", line 86, in __getitem__
+    raise MultiValueDictKeyError(key)
+django.utils.datastructures.MultiValueDictKeyError: 'logo'
+[25/Aug/2023 07:39:40] "POST /proyectosClientes/ HTTP/1.1" 500 85540
+Not Found: /favicon.ico
+[25/Aug/2023 07:39:40] "GET /favicon.ico HTTP/1.1" 404 6849
+[25/Aug/2023 07:41:26] "POST /proyectosClientes/ HTTP/1.1" 200 23491
+[25/Aug/2023 07:41:53] "GET /menu/ HTTP/1.1" 200 10916
+[25/Aug/2023 07:41:55] "GET /proyectosClientes/ HTTP/1.1" 200 23491
+[25/Aug/2023 07:43:51] "POST /proyectosClientes/ HTTP/1.1" 200 23627
+[25/Aug/2023 07:44:05] "POST /proyectosClientes/ HTTP/1.1" 200 26849
+[25/Aug/2023 07:44:11] "GET /accounts/logout/ HTTP/1.1" 302 0
+[25/Aug/2023 07:44:11] "GET / HTTP/1.1" 200 1515
+[25/Aug/2023 07:44:30] "POST / HTTP/1.1" 200 1515
+[25/Aug/2023 07:44:43] "POST / HTTP/1.1" 302 0
+[25/Aug/2023 07:44:43] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 07:44:46] "GET /assessmentselect/ HTTP/1.1" 200 9882
+[25/Aug/2023 07:44:50] "POST /assessmentselect/ HTTP/1.1" 200 23258
+[25/Aug/2023 07:45:27] "POST /assessmentselect/ HTTP/1.1" 302 0
+[25/Aug/2023 07:45:27] "GET /assessment/ HTTP/1.1" 200 106004
+Not Found: /wp-login.php
+[25/Aug/2023 07:45:40] "GET /wp-login.php HTTP/1.1" 404 6852
+Not Found: /.env
+[25/Aug/2023 07:45:40] "GET /.env HTTP/1.1" 404 6828
+[25/Aug/2023 07:47:02] "POST /assessment/ HTTP/1.1" 200 116714
+[25/Aug/2023 07:49:01] "POST /assessment/ HTTP/1.1" 200 117041
+[25/Aug/2023 07:54:25] "POST /assessment/ HTTP/1.1" 200 117579
+[25/Aug/2023 07:55:38] "POST /assessment/ HTTP/1.1" 200 117076
+[25/Aug/2023 07:56:07] "GET /exportaciones/ HTTP/1.1" 200 9993
+Internal Server Error: /exportaciones/
+Traceback (most recent call last):
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\contrib\auth\mixins.py", line 73, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\AppData\Local\Programs\Python\Python311\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\homepage\views.py", line 815, in post
+    evidencias += i.evidencia.evidence_request_references + '\n'
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'evidence_request_references'
+[25/Aug/2023 07:56:23] "POST /exportaciones/ HTTP/1.1" 500 85456
+[25/Aug/2023 07:56:53] "POST /exportaciones/ HTTP/1.1" 200 21610
+[25/Aug/2023 07:57:13] "GET /menu/ HTTP/1.1" 200 7955
+[25/Aug/2023 07:57:14] "GET /informes/ HTTP/1.1" 200 9092
+[25/Aug/2023 07:57:16] "GET /informes/ HTTP/1.1" 302 0
+[25/Aug/2023 07:57:16] "GET /accounts/login/?redirect_to=/informes/ HTTP/1.1" 200 1515
+[25/Aug/2023 07:57:17] "GET /staticfiles/css/main.css HTTP/1.1" 200 11099
+Not Found: /accounts/staticfiles/images/logo_NTTCS_CF.jpg
+[25/Aug/2023 07:57:17] "GET /accounts/staticfiles/images/logo_NTTCS_CF.jpg HTTP/1.1" 404 8417
+[25/Aug/2023 07:57:17] "GET /staticfiles/css/botones.css HTTP/1.1" 200 842
+[25/Aug/2023 07:57:17] "GET /staticfiles/css/estilos.css HTTP/1.1" 200 8262
