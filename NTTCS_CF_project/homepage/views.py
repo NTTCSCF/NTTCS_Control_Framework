@@ -1192,6 +1192,59 @@ class MantenimientoPreguntas(LoginRequiredMixin, TemplateView):
         context["lenConsulta"] = len(Assessment.objects.all())
         return context
 
+class MantenimientoPreguntasEs(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+    template_name = "homepage/MantenimientoPreguntasEs.html"
+
+    # funcion post que recoge los summit del formulario de la pagina.
+    def post(self, request, **knwargs):
+
+        if 'insertar' in request.POST:
+            control_question = request.POST.get('control_question')  # valor del input de control_question
+            control_description = request.POST.get('control_description')  # valor del input de control_description
+            id = request.POST.get('id')  # valor del input de id
+            if not Assessment.objects.filter(id=id).exists():
+                if control_question != '' and control_description != '' and id != '':
+                    insert = Assessment(id=id, control_question=control_question,
+                                        control_description=control_description)  # creamos un nuevo input en la tabla
+                    insert.save()
+                else:
+                    messages.error(request, 'ERROR, debe introducir todos los valores para insertar una Pregunta')
+            else:
+                messages.error(request, 'ERROR, el id debe ser distinto a uno ya existente')
+        elif 'modificar' in request.POST:
+            control_question = request.POST.get('control_question')  # valor del input de control_question
+            control_description = request.POST.get('control_description')  # valor del input de control_description
+            id = request.POST.get('id')  # valor del input de id
+            consulta = Assessment.objects.get(id=id)  # si esta en la tabla seleccionamos el ojeto en la tabla
+            consulta.control_description = control_description
+            consulta.control_question = control_question
+            consulta.save()  # fijamos los valores y los guardamos..
+        elif 'eliminar' in request.POST:
+            id = request.POST.get('id')  # valor del input de id
+
+            consulta = Assessment.objects.get(id=id)
+            consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
+
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(AssessmentEs.objects.all(), 50)
+        context = super(MantenimientoPreguntasEs, self).get_context_data(**knwargs)
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
+        context["lenConsulta"] = len(Assessment.objects.all())
+        return render(request, self.template_name,
+                      context=context)  # siempre retornamos el valor con la tabla completa.
+
+    # funcion que envia el contexto de la pagina.
+    def get_context_data(self, **knwargs):
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(AssessmentEs.objects.all(), 50)
+        context = super(MantenimientoPreguntasEs, self).get_context_data(**knwargs)
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
+        context["lenConsulta"] = len(Assessment.objects.all())
+        return context
 
 # Clase para la pagina de MantenimientoMarcosExistentes
 class MantenimientoMarcosExistentes(LoginRequiredMixin, TemplateView):
