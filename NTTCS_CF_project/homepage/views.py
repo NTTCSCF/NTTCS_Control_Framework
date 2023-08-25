@@ -1134,7 +1134,75 @@ class MantenimientoEvidencias(LoginRequiredMixin, TemplateView):
         context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
         return context
 
-    # Funcion utilizada para eliminar el valor seleccionado de la tabla
+
+# Clase para la pagina de MantenimientoEvidencias
+class MantenimientoEvidenciasEs(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+    template_name = "homepage/MantenimientoEvidenciasEs.html"
+
+    # funcion post que recoge los summit del formulario de la pagina.
+    def post(self, request, **knwargs):
+
+        if 'insertar' in request.POST:
+
+            evidence_request_references = request.POST.get(
+                'evidence_request_references')  # valor del input de evidence_request_references
+            area_of_focus = request.POST.get('area_of_focus')  # valor del input de area_of_focus
+            artifact = request.POST.get('artifact')  # valor del input de artifact
+            artifact_description = request.POST.get('artifact_description')  # valor del input de artifact_description
+            control_mappings = request.POST.get('control_mappings')  # valor del input de control_mappings
+            if not EvidencerequestcatalogEs.objects.filter(
+                    evidence_request_references=evidence_request_references).exists():
+                if evidence_request_references != '' and area_of_focus != '' and artifact != '' and artifact_description != '' and control_mappings != '':
+                    insert = Evidencerequestcatalog(evidence_request_references=evidence_request_references,
+                                                    area_of_focus=area_of_focus, artifact=artifact,
+                                                    artifact_description=artifact_description,
+                                                    control_mappings=control_mappings)  # creamos un nuevo input en la tabla
+                    insert.save()
+                else:
+                    messages.error(request, 'ERROR, debe introducir todos los valores para insertar una Evidencia')
+            else:
+                messages.error(request, 'ERROR, la evidence_request_references debe ser distinto a uno ya existente')
+        elif 'modificar' in request.POST:
+            evidence_request_references = request.POST.get(
+                'evidence_request_references')  # valor del input de evidence_request_references
+            area_of_focus = request.POST.get('area_of_focus')  # valor del input de area_of_focus
+            artifact = request.POST.get('artifact')  # valor del input de artifact
+            artifact_description = request.POST.get('artifact_description')  # valor del input de artifact_description
+            control_mappings = request.POST.get('control_mappings')  # valor del input de control_mappings
+            consulta = EvidencerequestcatalogEs.objects.get(
+                evidence_request_references=evidence_request_references)  # consulta para seleccionar el objeto que corresponde con la ultima busqueda
+            consulta.area_of_focus = area_of_focus
+            consulta.artifact = artifact
+            consulta.artifact_description = artifact_description
+            consulta.control_mappings = control_mappings
+            consulta.save()  # fijamos los valores y los guardamos.
+        elif 'eliminar' in request.POST:
+            evidence_request_references = request.POST.get(
+                'evidence_request_references')  # valor del input de evidence_request_references
+
+            consulta = EvidencerequestcatalogEs.objects.get(evidence_request_references=evidence_request_references)
+            consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
+
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(EvidencerequestcatalogEs.objects.all(), 50)
+        context = super(MantenimientoEvidenciasEs, self).get_context_data(**knwargs)
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
+        context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
+        return render(request, self.template_name,
+                      context=context)  # siempre retornamos el valor con la tabla completa.
+
+    # funcion que envia el contexto de la pagina.
+    def get_context_data(self, **knwargs):
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(EvidencerequestcatalogEs.objects.all(), 50)
+        context = super(MantenimientoEvidenciasEs, self).get_context_data(**knwargs)
+        context["entity"] = paginator.page(page)
+        context["paginator"] = paginator
+        context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
+        return context
 
 
 # Clase para la pagina de MantenimientoPreguntas
@@ -1204,9 +1272,9 @@ class MantenimientoPreguntasEs(LoginRequiredMixin, TemplateView):
             control_question = request.POST.get('control_question')  # valor del input de control_question
             control_description = request.POST.get('control_description')  # valor del input de control_description
             id = request.POST.get('id')  # valor del input de id
-            if not Assessment.objects.filter(id=id).exists():
+            if not AssessmentEs.objects.filter(id=id).exists():
                 if control_question != '' and control_description != '' and id != '':
-                    insert = Assessment(id=id, control_question=control_question,
+                    insert = AssessmentEs(id=id, control_question=control_question,
                                         control_description=control_description)  # creamos un nuevo input en la tabla
                     insert.save()
                 else:
@@ -1217,14 +1285,14 @@ class MantenimientoPreguntasEs(LoginRequiredMixin, TemplateView):
             control_question = request.POST.get('control_question')  # valor del input de control_question
             control_description = request.POST.get('control_description')  # valor del input de control_description
             id = request.POST.get('id')  # valor del input de id
-            consulta = Assessment.objects.get(id=id)  # si esta en la tabla seleccionamos el ojeto en la tabla
+            consulta = AssessmentEs.objects.get(id=id)  # si esta en la tabla seleccionamos el ojeto en la tabla
             consulta.control_description = control_description
             consulta.control_question = control_question
             consulta.save()  # fijamos los valores y los guardamos..
         elif 'eliminar' in request.POST:
             id = request.POST.get('id')  # valor del input de id
 
-            consulta = Assessment.objects.get(id=id)
+            consulta = AssessmentEs.objects.get(id=id)
             consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
         page = self.request.GET.get('page', 1)
