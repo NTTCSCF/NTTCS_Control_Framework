@@ -35,8 +35,9 @@
                             <option value="None">--- No Seleccionado ---</option>
                             {% for ids in proyectos %}
                             {% if ids.proyecto.codigo == proyectoSelec %}
-                            <option selected value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
-                            {% else %}
+                            <option selected value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}},
+                                {{ids.proyecto.nombre}}
+                                {% else %}
                             <option value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
                             </option>
                             {% endif %}
@@ -84,13 +85,47 @@
                                                     Editar
                                                 </button>
                                             </form>
+
                                             <form class="col " method="post">
                                                 {% csrf_token %}
-                                                <button type="submit" class="btn btn-danger" name="btnArchivar"
-                                                        value="{{i.assessment.id_assessment}}"><i
-                                                        class="bi bi-archive"></i> Archivar
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#modalArchivar">
+                                                    <i class="bi bi-archive"></i> Archivar
                                                 </button>
                                             </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal fade " id="modalArchivar" data-bs-backdrop="static"
+                                     data-bs-keyboard="false"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog  modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="text-align:center;">
+                                                <div class="cajaCarga">
+                                                    <h5 class="modal-title" id="exampleModalLabel2">Desea Archivar el
+                                                        Assessment?</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <p>Si archiva el assessment, no podrá seguir trabajando en el mismo.</p>
+                                                <p>¿Esta Seguro/a?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Cerrar
+                                                </button>
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger" name="btnArchivar"
+                                                            value="{{i.assessment.id_assessment}}"><i
+                                                            class="bi bi-archive"></i> Archivar
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -159,7 +194,7 @@
 </div>
 {% endif %}
 
-<div class="modal fade " id="myModal" data-bs-backdrop="static" data-bs-keyboard="false"
+<div class="modal fade " id="myModal" data-bs-keyboard="false"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
@@ -194,11 +229,16 @@
 {% endfor %}
 {% endif %}
 
+<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
 <script type="text/javascript">
-
-
+    function clicked(form) {
+        if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
+            form.submit();
+        } else {
+            return false;
+        }
+    }
     var myModal = new bootstrap.Modal(document.getElementById('myModal'), options)
-
 </script>
 
 
