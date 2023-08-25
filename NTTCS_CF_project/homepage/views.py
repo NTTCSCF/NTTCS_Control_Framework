@@ -735,74 +735,75 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
-        elif 'in' in request.POST and nombre != '' and select2 != None:
+        elif 'in' in request.POST:
+            if nombre != '' and select2 != None:
+                if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
+                    assessmentNuevo = Assessmentguardados(id_assessment=nombre,
+                                                          archivado=0,
+                                                          idioma=idioma)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
+                    assessmentNuevo.save()
 
-            if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
-                assessmentNuevo = Assessmentguardados(id_assessment=nombre,
-                                                      archivado=0,
-                                                      idioma=idioma)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
-                assessmentNuevo.save()
+                    marcos = ''
+                    marc = []
+                    for i in select2:  # recorremos el segundo selector
+                        consulta = AsociacionMarcos.objects.get(marco_id=i).nombre_tabla
+                        c = MapeoMarcos.objects.extra(
+                            where=[consulta + "='1'"])  # query para seleccionar la tabla del marco seleccionado
+                        for fila in c:
+                            if fila.ntt_id not in marc:
+                                marc += [fila.ntt_id]  # recorremos la tabla del marco cogiendo los controles de ntt
+                                # que no este repetidos
 
-                marcos = ''
-                marc = []
-                for i in select2:  # recorremos el segundo selector
-                    consulta = AsociacionMarcos.objects.get(marco_id=i).nombre_tabla
-                    c = MapeoMarcos.objects.extra(
-                        where=[consulta + "='1'"])  # query para seleccionar la tabla del marco seleccionado
-                    for fila in c:
-                        if fila.ntt_id not in marc:
-                            marc += [fila.ntt_id]  # recorremos la tabla del marco cogiendo los controles de ntt
-                            # que no este repetidos
+                    for marco in marc:
+                        marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
+                        if idioma == 'en':
+                            consulta = Assessment.objects.get(id=marco)
+                        else:
+                            consulta = AssessmentEs.objects.get(id=marco)
+                        criterioVal = consulta.campo9 + '[-33--33-]' + consulta.campo10 + '[-33--33-]' + consulta.campo11 + '[-33--33-]' + consulta.campo12 + '[-33--33-]' + consulta.campo13 + '[-33--33-]' + consulta.campo14
 
-                for marco in marc:
-                    marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
-                    if idioma == 'en':
-                        consulta = Assessment.objects.get(id=marco)
-                    else:
-                        consulta = AssessmentEs.objects.get(id=marco)
-                    criterioVal = consulta.campo9 + '[-33--33-]' + consulta.campo10 + '[-33--33-]' + consulta.campo11 + '[-33--33-]' + consulta.campo12 + '[-33--33-]' + consulta.campo13 + '[-33--33-]' + consulta.campo14
+                        a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco),
+                                              control_name=consulta.control,
+                                              descripcion=consulta.control_description, pregunta=consulta.control_question,
+                                              criteriovaloracion=criterioVal)
+                        a.save()
 
-                    a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco),
-                                          control_name=consulta.control,
-                                          descripcion=consulta.control_description, pregunta=consulta.control_question,
-                                          criteriovaloracion=criterioVal)
-                    a.save()
+                    assessmentNuevo.marcos = marcos
+                    assessmentNuevo.save()
 
-                assessmentNuevo.marcos = marcos
-                assessmentNuevo.save()
-
-                proyecto = Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado'))
-                asociacion = AsociacionProyectoAssessment(assessment=assessmentNuevo, proyecto=proyecto)
-                asociacion.save()
-                context = super(assessmentselect, self).get_context_data(**knwargs)
-                context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
-                context["proyectoSeleccionado"] = True
-                context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
-                context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                    proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
-                context["marcos"] = AsociacionMarcos.objects.all()
-                return render(request, self.template_name, context=context)
+                    proyecto = Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado'))
+                    asociacion = AsociacionProyectoAssessment(assessment=assessmentNuevo, proyecto=proyecto)
+                    asociacion.save()
+                    context = super(assessmentselect, self).get_context_data(**knwargs)
+                    context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+                    context["proyectoSeleccionado"] = True
+                    context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
+                    context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                        proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
+                    context["marcos"] = AsociacionMarcos.objects.all()
+                    return render(request, self.template_name, context=context)
+                else:
+                    messages.error(request, 'El Assessment ya exsiste.')
+                    context = super(assessmentselect, self).get_context_data(**knwargs)
+                    context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+                    context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
+                    context["proyectoSeleccionado"] = True
+                    context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                        proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
+                    context["marcos"] = AsociacionMarcos.objects.all()
+                    return render(request, self.template_name, context=context)
             else:
-                messages.error(request, 'El Assessment ya exsiste.')
+                messages.error(request, 'Necesitas introducir un nombre para el Assessment')  # Se crea mensage de error
                 context = super(assessmentselect, self).get_context_data(**knwargs)
                 context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
                 context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
                 context["proyectoSeleccionado"] = True
                 context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                    proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
+                    proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
+                    assessment__archivado=0)
                 context["marcos"] = AsociacionMarcos.objects.all()
                 return render(request, self.template_name, context=context)
-        elif nombre == '' and select2 is not None:  # if donde se recoge si se ha introducido valores de marcos paro no de nombre para el assessment
 
-            messages.error(request, 'Necesitas introducir un nombre para el Assessment')  # Se crea mensage de error
-            context = super(assessmentselect, self).get_context_data(**knwargs)
-            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
-            context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
-            context["proyectoSeleccionado"] = True
-            context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
-            context["marcos"] = AsociacionMarcos.objects.all()
-            return render(request, self.template_name, context=context)
         else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
             print('No entra')
             context = super(assessmentselect, self).get_context_data(**knwargs)
@@ -1623,11 +1624,19 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
                           context=context)  # siempre retornamos el valor con la tabla completa.
 
         elif 'codigo' in request.POST:
-            cliente_nuevo = Cliente(codigo=request.POST["codigo"],
-                                    nombre=request.POST["nombre"],
-                                    logo=request.FILES['logo']
-                                    )
-            cliente_nuevo.save()
+            if request.POST["codigo"] != '' and request.POST["nombre"] != '':
+                if not Cliente.objects.filter(codigo=request.POST["codigo"]).exists():
+                    cliente_nuevo = Cliente(codigo=request.POST["codigo"],
+                                            nombre=request.POST["nombre"],
+                                            logo=request.FILES['logo']
+                                            )
+                    cliente_nuevo.save()
+
+                else:
+                    messages.error(request, 'ERROR, el Cliente ya existe de id ya existe')
+            else:
+                messages.error(request, 'ERROR, Necesitas introducir todos los valores')
+
 
         elif 'selectorProyecto' in request.POST:
             context = super(proyectosClientes, self).get_context_data(**knwargs)
@@ -1646,20 +1655,25 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name,
                           context=context)  # siempre retornamos el valor con la tabla completa.
         elif 'codigoProyecto' in request.POST:
-            print('entra')
             codigo = request.POST.get('codigoProyecto')
             nombre = request.POST.get('nombreProyecto')
             descripcion = request.POST.get('descripcionProyecto')
-            cliente = Cliente.objects.get(codigo=request.POST.get('selectorClienteProyecto'))
+            cliente = request.POST.get('selectorClienteProyecto')
             usuarios = request.POST.getlist('selectorUsuarios')
-
-            proyecto = Proyecto(codigo=codigo, nombre=nombre, descripcion=descripcion, cliente=cliente,
-                                fecha_creacion=datetime.now())
-            proyecto.save()
-            for i in usuarios:
-                user = User.objects.get(username=i)
-                asosciacion = AsociacionUsuariosProyecto(usuario=user, proyecto=proyecto)
-                asosciacion.save()
+            if codigo != '' and nombre != '' and descripcion != '' and cliente is not None :
+                if not Proyecto.objects.filter(codigo=codigo).exists():
+                    cliente = Cliente.objects.get(codigo=cliente)
+                    proyecto = Proyecto(codigo=codigo, nombre=nombre, descripcion=descripcion, cliente=cliente,
+                                        fecha_creacion=datetime.now())
+                    proyecto.save()
+                    for i in usuarios:
+                        user = User.objects.get(username=i)
+                        asosciacion = AsociacionUsuariosProyecto(usuario=user, proyecto=proyecto)
+                        asosciacion.save()
+                else:
+                    messages.error(request, 'ERROR, el Proyecto ya existe')
+            else:
+                messages.error(request, 'ERROR, Necesitas introducir todos los valores')
 
             context = super(proyectosClientes, self).get_context_data(**knwargs)
             context["clientes"] = Cliente.objects.all()
@@ -1696,7 +1710,7 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name,
                           context=context)  # siempre retornamos el valor con la tabla completa.
 
-        print('no entra')
+
         context = super(proyectosClientes, self).get_context_data(**knwargs)
         context["clientes"] = Cliente.objects.all()
         context["usuarios"] = User.objects.all()
