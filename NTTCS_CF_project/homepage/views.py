@@ -1155,7 +1155,7 @@ class MantenimientoEvidenciasEs(LoginRequiredMixin, TemplateView):
             if not EvidencerequestcatalogEs.objects.filter(
                     evidence_request_references=evidence_request_references).exists():
                 if evidence_request_references != '' and area_of_focus != '' and artifact != '' and artifact_description != '' and control_mappings != '':
-                    insert = Evidencerequestcatalog(evidence_request_references=evidence_request_references,
+                    insert = EvidencerequestcatalogEs(evidence_request_references=evidence_request_references,
                                                     area_of_focus=area_of_focus, artifact=artifact,
                                                     artifact_description=artifact_description,
                                                     control_mappings=control_mappings)  # creamos un nuevo input en la tabla
@@ -1190,7 +1190,7 @@ class MantenimientoEvidenciasEs(LoginRequiredMixin, TemplateView):
         context = super(MantenimientoEvidenciasEs, self).get_context_data(**knwargs)
         context["entity"] = paginator.page(page)
         context["paginator"] = paginator
-        context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
+        context["lenConsulta"] = len(EvidencerequestcatalogEs.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
@@ -1201,7 +1201,7 @@ class MantenimientoEvidenciasEs(LoginRequiredMixin, TemplateView):
         context = super(MantenimientoEvidenciasEs, self).get_context_data(**knwargs)
         context["entity"] = paginator.page(page)
         context["paginator"] = paginator
-        context["lenConsulta"] = len(Evidencerequestcatalog.objects.all())
+        context["lenConsulta"] = len(EvidencerequestcatalogEs.objects.all())
         return context
 
 
@@ -1300,7 +1300,7 @@ class MantenimientoPreguntasEs(LoginRequiredMixin, TemplateView):
         context = super(MantenimientoPreguntasEs, self).get_context_data(**knwargs)
         context["entity"] = paginator.page(page)
         context["paginator"] = paginator
-        context["lenConsulta"] = len(Assessment.objects.all())
+        context["lenConsulta"] = len(AssessmentEs.objects.all())
         return render(request, self.template_name,
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
@@ -1311,7 +1311,7 @@ class MantenimientoPreguntasEs(LoginRequiredMixin, TemplateView):
         context = super(MantenimientoPreguntasEs, self).get_context_data(**knwargs)
         context["entity"] = paginator.page(page)
         context["paginator"] = paginator
-        context["lenConsulta"] = len(Assessment.objects.all())
+        context["lenConsulta"] = len(AssessmentEs.objects.all())
         return context
 
 # Clase para la pagina de MantenimientoMarcosExistentes
