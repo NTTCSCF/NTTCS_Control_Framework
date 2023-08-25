@@ -72,15 +72,15 @@
                                 {% for i in assess %}
 
                                 <div class="card card-body mb-3">
-                                    <div class="row justify-content-between align-items-center">
+                                    <div class="row justify-content-between align-items-center ">
 
                                         <div class="col-7">
                                             <h4 class="card-title text-center">{{i.assessment.id_assessment}} </h4>
                                         </div>
-                                        <div class="col-4 row ">
+                                        <div class="col-4 row justify-content-center align-items-center">
                                             <form class="col" method="post">
                                                 {% csrf_token %}
-                                                <button type="submit" class="btn btn-info" name="btnEditar"
+                                                <button style="font-size:0.6vw;"  type="submit" class="btn btn-info " name="btnEditar"
                                                         value="{{i.assessment.id_assessment}}"><i class="bi bi-pen"></i>
                                                     Editar
                                                 </button>
@@ -88,7 +88,7 @@
 
                                             <form class="col " method="post">
                                                 {% csrf_token %}
-                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                <button style="font-size:0.6vw;"  type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                         data-bs-target="#modalArchivar">
                                                     <i class="bi bi-archive"></i> Archivar
                                                 </button>
