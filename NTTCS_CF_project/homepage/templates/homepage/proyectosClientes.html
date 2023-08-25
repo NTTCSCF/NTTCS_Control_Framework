@@ -72,9 +72,12 @@
                             <h5 class="card-title text-center">Rellene los datos del cliente</h5>
 
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">codigo del cliente</span>
+                                <span class="input-group-text textoInputs" id="basic-addon1">codigo del cliente</span>
                                 <input type="text" class="form-control" placeholder="Codigo" aria-label="Codigo"
                                        aria-describedby="basic-addon1" name="codigo">
+
+                            </div>
+                            <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon2">Nombre del cliente</span>
                                 <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
                                        aria-describedby="basic-addon2" name="nombre">
@@ -86,7 +89,7 @@
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-secondary">Añadir cliente</button>
+                                    <button type="submit" class="btn btn-secondary textoInputs">Añadir cliente</button>
                                 </p>
 
 
@@ -204,10 +207,12 @@
                             {% csrf_token %}
                             <h5 class="card-title text-center">Rellene los datos del Proyecto</h5>
 
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3 ">
                                 <span class="input-group-text" id="basic-addon3">Codigo del Proyecto</span>
                                 <input type="text" class="form-control" placeholder="Codigo" aria-label="Codigo"
                                        aria-describedby="basic-addon3" id="codigoProyecto" name="codigoProyecto">
+                            </div>
+                            <div class="input-group mb-3 ">
                                 <span class="input-group-text" id="basic-addon4">Nombre del Proyecto</span>
                                 <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
                                        aria-describedby="basic-addon4" name="nombreProyecto">
@@ -219,7 +224,7 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text" for="selectorClienteProyecto">Seleccione Cliente</label>
+                                <label class="input-group-text textoInputs" for="selectorClienteProyecto">Seleccione Cliente</label>
                                 <select class="form-select" id="selectorClienteProyecto" name="selectorClienteProyecto">
                                     <option selected disabled value="noSel">Seleccione Cliente</option>
                                     {% for i in clientes %}
@@ -229,7 +234,7 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text" for="selectorUsuarios">Seleccione Usuarios</label>
+                                <label class="input-group-text " for="selectorUsuarios">Seleccione Usuarios</label>
                                 <select multiple class="form-select selectpicker" data-live-search="true"
                                         data-actions-box="true" id="selectorUsuarios" name="selectorUsuarios">
                                     {% for ids in usuarios %}
