@@ -1892,21 +1892,28 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
         elif 'Titulo' in request.POST:
+
             controles = request.POST.getlist('selectorControles')
             grupoControles = ''
             for i in controles:
                 grupoControles += i + '\n'
-            entrevista = Entrevistas(
-                titulo=request.POST.get('Titulo'),
-                fecha=request.POST.get('Fecha'),
-                grupocontroles=grupoControles,
-                area=request.POST.get('Area'),
-                creador=User.objects.get(username=request.user),
-                duracionestimada=request.POST.get('Duracion'),
-                assesment=Assessmentguardados.objects.get(id_assessment=request.session.get('assessmentSeleccionado')),
-                editor=User.objects.get(username=request.POST.get('selectorEditor')),
-            )
-            entrevista.save()
+            if request.POST.get('Titulo') != '' and request.POST.get('Fecha') != '' and request.POST.get(
+                    'Area') != '' and request.POST.get('Duracion') != '' and request.POST.get(
+                    'selectorEditor') != '' and grupoControles != '':
+                entrevista = Entrevistas(
+                    titulo=request.POST.get('Titulo'),
+                    fecha=request.POST.get('Fecha'),
+                    grupocontroles=grupoControles,
+                    area=request.POST.get('Area'),
+                    creador=User.objects.get(username=request.user),
+                    duracionestimada=request.POST.get('Duracion'),
+                    assesment=Assessmentguardados.objects.get(
+                        id_assessment=request.session.get('assessmentSeleccionado')),
+                    editor=User.objects.get(username=request.POST.get('selectorEditor')),
+                )
+                entrevista.save()
+            else:
+                messages.error(request, 'ERROR, Necesitas introducir todos los valores')
             context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
