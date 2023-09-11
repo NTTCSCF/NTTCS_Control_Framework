@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block titulo %} Seleccion assessment {% endblock %}
+
+{% block contenido %}
+{% load static %}
+
+
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1> Entrevistas </h1>
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Entrevistas pendientes
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Creadas por mi</h5>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Aqui aparecen las entrevistas creadas por ti</h5>
+                            {% for i in creadas %}
+                            <form class="card card-body mb-3" method="post">
+                                {% csrf_token %}
+                                <div class="row justify-content-center align-items-center ">
+                                    <div class="col">
+                                        <h4 class="card-title text-center">{{i.titulo}}</h4>
+                                    </div>
+
+                                </div>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col  text-center">
+                                        <div class="row g-0 justify-content-center align-items-center">
+                                            <div class="col-4 text-body-secondary fs-6">Fecha: {{i.fecha.date}}</div>
+                                            <div class="col-2 text-body-secondary fs-6">Hora: {{i.fecha.time}}</div>
+                                            <div class="col-3 text-body-secondary fs-6">Finalización: {{i.duracionestimada}}</div>
+                                            <div class="col-3 text-body-secondary fs-6">Duración: {{i.duracionestimada|add:i.fecha.time}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Asistente</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+                            <h5 class="card-title text-center">Aqui aparecen las entrevistas en las que estas como
+                                asistente</h5>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Crear entrevista
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Seleccione Proyecto</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+                            <select class="selectpicker" data-width="100%" aria-label="Default select example"
+                                    data-live-search="true" onchange="this.form.submit()" id="selectorProyecto"
+                                    name="selectorProyecto">
+                                <option selected disabled value="None">--- No Seleccionado ---</option>
+                                {% for ids in proyectos %}
+                                {% if ids.proyecto.codigo == proyectoSelec %}
+                                <option selected value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}},
+                                    {{ids.proyecto.nombre}}
+                                    {% else %}
+                                <option value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
+                                </option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                {% if proyectoSeleccionado %}
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Seleccione Assessmet</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+                            <select class="selectpicker" data-width="100%" aria-label="Default select example"
+                                    data-live-search="true" onchange="this.form.submit()" id="selectorAssessment"
+                                    name="selectorAssessment">
+                                <option selected disabled value="None">--- No Seleccionado ---</option>
+                                {% for i in assess %}
+                                {% if i.assessment.id_assessment == assessSelec %}
+                                <option selected value="{{i.assessment.id_assessment}}">{{i.assessment.id_assessment}}
+                                    {% else %}
+                                <option value="{{i.assessment.id_assessment}}">{{i.assessment.id_assessment}}
+                                </option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+
+                {% if assessmentSeleccionado %}
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+
+                        <h5 class="card-header text-center">Rellene los datos para crear la entrevista</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+
+                            <div class="input-group mb-3 ">
+                                <span class="input-group-text" id="basic-addon3">Titulo</span>
+                                <input type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
+                                       aria-describedby="basic-addon3" id="Titulo" name="Titulo">
+                            </div>
+                            <div class="input-group mb-3 ">
+                                <span class="input-group-text" id="basic-addon4">Area</span>
+                                <input type="text" class="form-control" placeholder="Area" aria-label="Area"
+                                       aria-describedby="basic-addon4" name="Area">
+                            </div>
+                            <div class="input-group mb-3 ">
+                                <span class="input-group-text" id="basic-addon5">Fecha</span>
+                                <input type="datetime-local" class="form-control" placeholder="Fecha" aria-label="Fecha"
+                                       aria-describedby="basic-addon5" name="Fecha">
+                                <span class="input-group-text" id="basic-addon6">Hora Finalizacion </span>
+                                <input type="Time" class="form-control" placeholder="Duracion" aria-label="Duracion"
+                                       aria-describedby="basic-addon6" name="Duracion">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text " for="selectorUsuarios">Seleccione Los Controles</label>
+                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                        data-actions-box="true" id="selectorControles" name="selectorControles">
+                                    {% for i in controlesAssess %}
+                                    <option value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}</option>
+
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text " for="selectorUsuarios">Seleccione al Editor</label>
+                                <select class="form-select " data-live-search="true"
+                                        data-actions-box="true" id="selectorEditor" name="selectorEditor">
+                                    <option selected disabled value="none">Seleccione al editor</option>
+                                    {% for ids in usuarios %}
+                                    {% if ids.username != 'admin' %}
+                                    <option value="{{ids.username}}">{{ids.username}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text " for="selectorUsuarios">Seleccione Consultores</label>
+                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                        data-actions-box="true" id="selectorUsuarios" name="selectorUsuarios">
+                                    {% for ids in usuarios %}
+                                    {% if ids.username != 'admin' %}
+                                    <option value="{{ids.username}}">{{ids.username}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="card-text text-center">
+                                <p class="d-inline-flex gap-1">
+                                    <button type="submit" class="btn btn-secondary">Crear Entrevista</button>
+                                </p>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade  " id="myModal" data-bs-keyboard="false"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form class="modal-dialog modal-lg  modal-dialog-centered" method="post">
+        {% csrf_token %}
+        <div class="modal-content">
+
+            <div class="modal-header" style="text-align:center;">
+                <div class="cajaCarga">
+                    <h5 class="modal-title" id="exampleModalLabel">Creando Assessment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="row">
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="selectorUsuarios">Seleccione Usuarios</label>
+                        <select multiple class="form-select selectpicker" data-live-search="true"
+                                data-actions-box="true" id="selectorUsuarios2" name="selectorUsuarios2">
+                            {% for ids in usuarios %}
+                            {% if ids.username != 'admin' %}
+                            {% if ids.username in usuariosProyecto %}
+                            <option selected value="{{ids.username}}">{{ids.username}}</option>
+                            {% else %}
+                            <option value="{{ids.username}}">{{ids.username}}</option>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}

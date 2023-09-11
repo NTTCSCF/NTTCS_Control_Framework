@@ -199,6 +199,10 @@
 .textoBotones{
     font-size:1vw;
 }
+.modal-dialog.modal-800 {
+    width: 1200px;
+    margin: 30px auto;
+}
 
 .cajaMitad{
     height:100%;

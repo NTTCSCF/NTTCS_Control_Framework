@@ -26,10 +26,10 @@ urlpatterns = [
     path('MantenimientoControlesNTTCS/', views.MantenimientoControlesNTTCS.as_view(), name='proyectosClientes'),
     path('proyectosClientes/', views.proyectosClientes.as_view(), name='MantenimientoMapeoMarcos'),
     path('listadoControles/', views.listadoControles.as_view(), name='listadoControles'),
+    path('entrevistasUsuarios/', views.entrevistasUsuarios.as_view(), name='entrevistasUsuarios'),
+path('planProyecto/', views.planProyecto.as_view(), name='planProyecto'),
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
     path('logout', views.logout, name='logout'),
-    #prueba jose
-    path('MantDominios2/', views.MantDominios2.as_view(), name='MantDominios2'),
 
 ]
 
