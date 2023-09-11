@@ -18,7 +18,8 @@ from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguar
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
     AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas, \
     AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs, Cliente, Proyecto, AsociacionUsuariosProyecto, \
-    AsociacionProyectoAssessment
+    AsociacionProyectoAssessment, PlanProyectosMejora, AsociacionProyectoMejoraIniciativa, Entrevistas, \
+    AsociacionEntrevistasUsuarios
 
 from django.views.generic import TemplateView, ListView
 import mysql.connector
@@ -684,7 +685,6 @@ class assessment(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context=context)
 
 
-
 # Clase para la pagina de AssessmentSelect
 
 class assessmentselect(LoginRequiredMixin, TemplateView):
@@ -722,6 +722,9 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         elif 'btnEditar' in request.POST:
             request.session["assessmentGuardado"] = btnEditar
             return redirect("assessment")
+        elif 'btnPlan' in request.POST:
+            request.session["assessmentGuardado"] = request.POST.get('btnPlan')
+            return redirect("planProyecto")
         elif 'btnArchivar' in request.POST:
             ass = Assessmentguardados.objects.get(id_assessment=btnArchivar)
             ass.archivado = 1
@@ -731,7 +734,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             context["proyectoSeleccionado"] = True
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
+                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
+                assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
@@ -764,7 +768,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
 
                         a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco),
                                               control_name=consulta.control,
-                                              descripcion=consulta.control_description, pregunta=consulta.control_question,
+                                              descripcion=consulta.control_description,
+                                              pregunta=consulta.control_question,
                                               criteriovaloracion=criterioVal)
                         a.save()
 
@@ -779,7 +784,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     context["proyectoSeleccionado"] = True
                     context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
                     context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                        proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
+                        proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
+                        assessment__archivado=0)
                     context["marcos"] = AsociacionMarcos.objects.all()
                     return render(request, self.template_name, context=context)
                 else:
@@ -789,7 +795,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
                     context["proyectoSeleccionado"] = True
                     context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                        proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
+                        proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
+                        assessment__archivado=0)
                     context["marcos"] = AsociacionMarcos.objects.all()
                     return render(request, self.template_name, context=context)
             else:
@@ -811,7 +818,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["proyectoSeleccionado"] = True
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')), assessment__archivado=0)
+                proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
+                assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
 
@@ -1156,9 +1164,9 @@ class MantenimientoEvidenciasEs(LoginRequiredMixin, TemplateView):
                     evidence_request_references=evidence_request_references).exists():
                 if evidence_request_references != '' and area_of_focus != '' and artifact != '' and artifact_description != '' and control_mappings != '':
                     insert = EvidencerequestcatalogEs(evidence_request_references=evidence_request_references,
-                                                    area_of_focus=area_of_focus, artifact=artifact,
-                                                    artifact_description=artifact_description,
-                                                    control_mappings=control_mappings)  # creamos un nuevo input en la tabla
+                                                      area_of_focus=area_of_focus, artifact=artifact,
+                                                      artifact_description=artifact_description,
+                                                      control_mappings=control_mappings)  # creamos un nuevo input en la tabla
                     insert.save()
                 else:
                     messages.error(request, 'ERROR, debe introducir todos los valores para insertar una Evidencia')
@@ -1260,6 +1268,7 @@ class MantenimientoPreguntas(LoginRequiredMixin, TemplateView):
         context["lenConsulta"] = len(Assessment.objects.all())
         return context
 
+
 class MantenimientoPreguntasEs(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
@@ -1275,7 +1284,7 @@ class MantenimientoPreguntasEs(LoginRequiredMixin, TemplateView):
             if not AssessmentEs.objects.filter(id=id).exists():
                 if control_question != '' and control_description != '' and id != '':
                     insert = AssessmentEs(id=id, control_question=control_question,
-                                        control_description=control_description)  # creamos un nuevo input en la tabla
+                                          control_description=control_description)  # creamos un nuevo input en la tabla
                     insert.save()
                 else:
                     messages.error(request, 'ERROR, debe introducir todos los valores para insertar una Pregunta')
@@ -1313,6 +1322,7 @@ class MantenimientoPreguntasEs(LoginRequiredMixin, TemplateView):
         context["paginator"] = paginator
         context["lenConsulta"] = len(AssessmentEs.objects.all())
         return context
+
 
 # Clase para la pagina de MantenimientoMarcosExistentes
 class MantenimientoMarcosExistentes(LoginRequiredMixin, TemplateView):
@@ -1781,7 +1791,7 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
             descripcion = request.POST.get('descripcionProyecto')
             cliente = request.POST.get('selectorClienteProyecto')
             usuarios = request.POST.getlist('selectorUsuarios')
-            if codigo != '' and nombre != '' and descripcion != '' and cliente is not None :
+            if codigo != '' and nombre != '' and descripcion != '' and cliente is not None:
                 if not Proyecto.objects.filter(codigo=codigo).exists():
                     cliente = Cliente.objects.get(codigo=cliente)
                     proyecto = Proyecto(codigo=codigo, nombre=nombre, descripcion=descripcion, cliente=cliente,
@@ -1831,7 +1841,6 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name,
                           context=context)  # siempre retornamos el valor con la tabla completa.
 
-
         context = super(proyectosClientes, self).get_context_data(**knwargs)
         context["clientes"] = Cliente.objects.all()
         context["usuarios"] = User.objects.all()
@@ -1840,63 +1849,205 @@ class proyectosClientes(LoginRequiredMixin, TemplateView):
                       context=context)  # siempre retornamos el valor con la tabla completa.
 
 
-# DATA TABLES
-
-# clase de prueba codigo python
-class MantDominios2(LoginRequiredMixin, TemplateView):
+class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
-    template_name = "homepage/MantDominios2.html"
+    template_name = "homepage/EntrevistasUsuario.html"
 
     def get_context_data(self, **knwargs):
-        context = super(MantDominios2, self).get_context_data(**knwargs)
-        context["dominios"] = Domains.objects.all()
-
+        context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
+        context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+        context["proyectoSelec"] = ''
+        context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
         return context
 
-    # funcion que envia el contexto de la pagina.
+    def post(self, request, **knwargs):
+        if 'selectorProyecto' in request.POST:
+            context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSelec"] = request.POST.get('selectorProyecto')
+            context["proyectoSeleccionado"] = True
+            request.session["proyectoSeleccionado"] = request.POST.get('selectorProyecto')
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.POST.get('selectorProyecto')), assessment__archivado=0)
+            context["marcos"] = AsociacionMarcos.objects.all()
+            return render(request, self.template_name, context=context)
+
+        elif 'selectorAssessment' in request.POST:
+            context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
+            context["proyectoSeleccionado"] = True
+            request.session["proyectoSeleccionado"] = request.session.get('proyectoSeleccionado')
+
+            context["assessSelec"] = request.POST.get('selectorAssessment')
+            context["assessmentSeleccionado"] = True
+            request.session["assessmentSeleccionado"] = request.POST.get('selectorAssessment')
+
+            context["controlesAssess"] = AssessmentCreados.objects.filter(
+                assessment=request.POST.get('selectorAssessment'))
+            context["usuarios"] = User.objects.all()
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
+            context["marcos"] = AsociacionMarcos.objects.all()
+            return render(request, self.template_name, context=context)
+        elif 'Titulo' in request.POST:
+            controles = request.POST.getlist('selectorControles')
+            grupoControles = ''
+            for i in controles:
+                grupoControles += i + '\n'
+            entrevista = Entrevistas(
+                titulo=request.POST.get('Titulo'),
+                fecha=request.POST.get('Fecha'),
+                grupocontroles=grupoControles,
+                area=request.POST.get('Area'),
+                creador=User.objects.get(username=request.user),
+                duracionestimada=request.POST.get('Duracion'),
+                assesment=Assessmentguardados.objects.get(id_assessment=request.session.get('assessmentSeleccionado')),
+                editor=User.objects.get(username=request.POST.get('selectorEditor')),
+            )
+            entrevista.save()
+            context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
+            context["proyectoSeleccionado"] = True
+
+            context["assessSelec"] = request.session.get('assessmentSeleccionado')
+            context["assessmentSeleccionado"] = True
+
+            context["controlesAssess"] = AssessmentCreados.objects.filter(
+                assessment=request.session.get('assessmentSeleccionado'))
+            context["usuarios"] = User.objects.all()
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
+            context["marcos"] = AsociacionMarcos.objects.all()
+            return render(request, self.template_name, context=context)
+
+
+class planProyecto(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+    template_name = "homepage/planProyecto.html"
+
+    def contexto(self, context):
+        assSelect = self.request.session.get('assessmentGuardado')
+        ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+        if PlanProyectosMejora.objects.filter(assessment=ass).exists():
+            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            context["plan"] = PlanProyectosMejora.objects.get(assessment=ass)
+            context["duracion"] = str(PlanProyectosMejora.objects.get(assessment=ass).duracion)
+            context["coste"] = str(PlanProyectosMejora.objects.get(assessment=ass).coste)
+            context["beneficio"] = str(PlanProyectosMejora.objects.get(assessment=ass).beneficio)
+            g = []
+            c = []
+            for i in plan.descripcion.split(" "):
+                p = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass,
+                                                                 iniciativa__descripcion__icontains=i)
+                for s in p:
+                    if s not in g and not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
+                                                                                            iniciativa=s.iniciativa).exists():
+                        g += [s]
+                p = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass,
+                                                               iniciativa__descripcion__icontains=i)
+                for s in p:
+                    if s not in c and not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
+                                                                                            iniciativa=s.iniciativa).exists():
+                        c += [s]
+            context["recomendacion"] = g + c
+        context["iniciativas"] = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass)
+        context["iniciativasc"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass)
+        context["asociadas"] = AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan)
+        context["assess"] = Assessmentguardados.objects.get(id_assessment=assSelect)
+        return context
+
+    def get_context_data(self, **knwargs):
+        assSelect = self.request.session.get('assessmentGuardado')
+        context = super(planProyecto, self).get_context_data(**knwargs)
+        context = self.contexto(context)
+        return context
 
     def post(self, request, **knwargs):
+        assSelect = request.session.get('assessmentGuardado')
+        if 'NombrePlan' in request.POST:
+            if request.POST.get('NombrePlan') != '' and request.POST.get('descripcionPlan') != '' and request.POST.get(
+                    'riesgosPlan') != '' and request.POST.get('tipoPlan') != '' and request.POST.get(
+                'duracionPlan') != '' and request.POST.get('costePlan') != '' and request.POST.get(
+                'beneficioPlan') != '':
+                ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+                if PlanProyectosMejora.objects.filter(assessment=ass).exists():
+                    plan = PlanProyectosMejora.objects.get(assessment=ass)
+                    plan.nombre = request.POST.get('NombrePlan')
+                    plan.descripcion = request.POST.get('descripcionPlan')
+                    plan.riesgos = request.POST.get('riesgosPlan')
+                    plan.tipo = request.POST.get('tipoPlan')
+                    plan.duracion = request.POST.get('duracionPlan')
+                    plan.coste = request.POST.get('costePlan')
+                    plan.beneficio = request.POST.get('beneficioPlan')
+                    plan.assessment = ass
+                else:
+                    plan = PlanProyectosMejora(nombre=request.POST.get('NombrePlan'),
+                                               descripcion=request.POST.get('descripcionPlan'),
+                                               riesgos=request.POST.get('riesgosPlan'),
+                                               tipo=request.POST.get('tipoPlan'),
+                                               duracion=request.POST.get('duracionPlan'),
+                                               coste=request.POST.get('costePlan'),
+                                               beneficio=request.POST.get('beneficioPlan'),
+                                               assessment=ass)
+                plan.save()
+                context = super(planProyecto, self).get_context_data(**knwargs)
+                context = self.contexto(context)
+                request.session["planCreado"] = request.POST.get('NombrePlan')
+                return render(request, self.template_name, context=context)
+            else:
+                messages.error(request, 'ERROR, Necesitas introducir todos los valores')
 
-        # insertar datos en la tabla
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
+        elif 'selectorIniciativasg' in request.POST:
+            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            iniciaticasSelect = request.POST.getlist('selectorIniciativasg')
+            for i in iniciaticasSelect:
+                asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
+                                                                iniciativa=Iniciativas.objects.get(nombre=i))
+                asociacion.save()
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
 
-        if 'insertar' in request.POST:
-            identifier = request.POST.get('identifier')
-            domain = request.POST.get('domain')
-            security = request.POST.get('security')
-            principle_intent = request.POST.get('principle_intent')
+        elif 'selectorIniciativasc' in request.POST:
+            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            iniciaticasSelect = request.POST.getlist('selectorIniciativasc')
+            for i in iniciaticasSelect:
+                asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
+                                                                iniciativa=Iniciativas.objects.get(nombre=i))
+                asociacion.save()
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
 
-            insert = Domains(identifier=identifier,
-                             domain=domain,
-                             security_privacy_by_design_s_p_principles=security,
-                             principle_intent=principle_intent,
-                             comentario="hola",
-                             comentario2="hola comentario 2")
-            insert.save()
+        elif 'btnAnadirRecomendacion' in request.POST:
+            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            iniciaticasSelect = request.POST.get('btnAnadirRecomendacion')
+            asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
+                                                            iniciativa=Iniciativas.objects.get(
+                                                                nombre=iniciaticasSelect))
+            asociacion.save()
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
 
-        # modificar datos en la tabla
-        if 'modificar' in request.POST:
-            identifier = request.POST.get('identifier')
-            domain = request.POST.get('domain')
-            security = request.POST.get('security')
-            principle_intent = request.POST.get('principle_intent')
-
-            modify = Domains(identifier=identifier)
-            modify.domain = domain
-            modify.security_privacy_by_design_s_p_principles = security
-            modify.principle_intent = principle_intent
-            modify.comentario = "comentario modificado"
-
-            modify.save()
-
-        # eliminar datos en la tabla
-        if 'eliminar' in request.POST:
-            identifier = request.POST.get('identifier')
-
-            borrar = Domains(identifier=identifier)
-            borrar.delete()
-
-        # una vez realizado una accion como identificar, eliminar o modificar regresa a mostrar todos los datos.
-        context = super(MantDominios2, self).get_context_data(**knwargs)
-        context["infoTabla"] = Domains.objects.all()
-        return render(request, self.template_name, context=context)
+        elif 'btnEliminarAsociacion' in request.POST:
+            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            iniciaticasSelect = request.POST.get('btnEliminarAsociacion')
+            asociacion = AsociacionProyectoMejoraIniciativa.objects.get(proyecto=plan,
+                                                                        iniciativa=Iniciativas.objects.get(
+                                                                            nombre=iniciaticasSelect))
+            asociacion.delete()
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)

@@ -224,7 +224,8 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text textoInputs" for="selectorClienteProyecto">Seleccione Cliente</label>
+                                <label class="input-group-text textoInputs" for="selectorClienteProyecto">Seleccione
+                                    Cliente</label>
                                 <select class="form-select" id="selectorClienteProyecto" name="selectorClienteProyecto">
                                     <option selected disabled value="noSel">Seleccione Cliente</option>
                                     {% for i in clientes %}
@@ -265,11 +266,12 @@
     </div>
 </div>
 
+
 <div class="modal fade  " id="myModal" data-bs-keyboard="false"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form class="modal-dialog modal-lg  modal-dialog-centered" method="post">
         {% csrf_token %}
-        <div class="modal-content" >
+        <div class="modal-content">
 
             <div class="modal-header" style="text-align:center;">
                 <div class="cajaCarga">

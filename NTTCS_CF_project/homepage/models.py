@@ -95,6 +95,7 @@ class Assessmentguardados(models.Model):
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_ultima_modificacion = models.DateField(blank=True, null=True)
     fecha_cierre = models.DateField(blank=True, null=True)
+    plan_proyecto_mejora = models.ForeignKey('PlanProyectosMejora', models.DO_NOTHING, db_column='plan_proyecto_mejora', blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
@@ -117,7 +118,7 @@ class AssessmentCreados(models.Model):
 
 class AsociacionEvidenciasGenericas(models.Model):
     evidencia = models.ForeignKey('Evidencerequestcatalog', models.DO_NOTHING, blank=True, null=True)
-    assessment = models.ForeignKey('AssessmentCreados', models.DO_NOTHING)
+    assessment = models.ForeignKey('AssessmentCreados', models.DO_NOTHING, db_column='assessment')
     iniciativa = models.ForeignKey('Iniciativas', models.DO_NOTHING, db_column='iniciativa', blank=True, null=True)
     evidencia_id_es = models.ForeignKey('EvidencerequestcatalogEs', models.DO_NOTHING, db_column='evidencia_id_es', blank=True, null=True)
     objects = models.Manager()
@@ -177,6 +178,51 @@ class AsociacionProyectoAssessment(models.Model):
     class Meta:
         managed = False
         db_table = 'asociacion_proyecto_assessment'
+
+class PlanProyectosMejora(models.Model):
+    nombre = models.CharField(max_length=100, blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
+    riesgos = models.TextField(blank=True, null=True)
+    tipo = models.TextField(blank=True, null=True)
+    duracion = models.FloatField(blank=True, null=True)
+    coste = models.FloatField(blank=True, null=True)
+    beneficio = models.FloatField(blank=True, null=True)
+    assessment = models.ForeignKey('Assessmentguardados', models.DO_NOTHING, db_column='assessment', blank=True, null=True)
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'plan_proyectos_mejora'
+
+class AsociacionProyectoMejoraIniciativa(models.Model):
+    proyecto = models.ForeignKey('PlanProyectosMejora', models.DO_NOTHING, db_column='proyecto')
+    iniciativa = models.ForeignKey('Iniciativas', models.DO_NOTHING, db_column='iniciativa')
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'asociacion_proyecto_mejora_iniciativa'
+
+class Entrevistas(models.Model):
+    titulo = models.CharField(db_column='Titulo', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    fecha = models.DateTimeField(blank=True, null=True)
+    grupocontroles = models.TextField(db_column='grupoControles', blank=True, null=True)  # Field name made lowercase.
+    area = models.TextField(blank=True, null=True)
+    creador = models.ForeignKey('acounts.User', models.DO_NOTHING, db_column='creador', blank=True, null=True)
+    duracionestimada = models.TimeField(db_column='duracionEstimada', blank=True, null=True)  # Field name made lowercase.
+    duracionreal = models.TimeField(db_column='duracionReal', blank=True, null=True)  # Field name made lowercase.
+    assesment = models.ForeignKey('Assessmentguardados', models.DO_NOTHING, db_column='assesment')
+    editor = models.ForeignKey('acounts.User', models.DO_NOTHING, db_column='editor', related_name='entrevistas_editor_set', blank=True, null=True)
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'entrevistas'
+
+class AsociacionEntrevistasUsuarios(models.Model):
+    entrevista = models.ForeignKey('Entrevistas', models.DO_NOTHING, db_column='entrevista')
+    usuario = models.ForeignKey('acounts.User', models.DO_NOTHING, db_column='usuario')
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'asociacion_entrevistas_usuarios'
 
 class Cliente(models.Model):
     codigo = models.CharField(primary_key=True, max_length=100)
