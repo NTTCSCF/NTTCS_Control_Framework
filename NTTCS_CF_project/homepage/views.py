@@ -1916,6 +1916,11 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                     asistentes=request.POST.get('Asistentes')
                 )
                 entrevista.save()
+                users = request.POST.getlist('selectorUsuarios')
+                for i in users:
+                    usuario = User.objects.get(username=i)
+                    asociar = AsociacionEntrevistasUsuarios(entrevista=entrevista, usuario=usuario)
+                    asociar.save()
             else:
                 messages.error(request, 'ERROR, Necesitas introducir todos los valores')
             context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
