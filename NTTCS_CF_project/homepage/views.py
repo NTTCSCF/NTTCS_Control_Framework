@@ -1871,6 +1871,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.POST.get('selectorProyecto')), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
+            context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
             return render(request, self.template_name, context=context)
 
         elif 'selectorAssessment' in request.POST:
@@ -1890,6 +1891,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
+            context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
             return render(request, self.template_name, context=context)
         elif 'Titulo' in request.POST:
 
@@ -1900,9 +1902,10 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             if request.POST.get('Titulo') != '' and request.POST.get('Fecha') != '' and request.POST.get(
                     'Area') != '' and request.POST.get('Duracion') != '' and request.POST.get(
                     'selectorEditor') != '' and grupoControles != '':
+                print(request.POST.get('Fecha'))
                 entrevista = Entrevistas(
                     titulo=request.POST.get('Titulo'),
-                    fecha=request.POST.get('Fecha'),
+                    fecha=datetime.strptime(request.POST.get('Fecha').replace('T', ' '), "%Y-%m-%d %H:%M").astimezone(),
                     grupocontroles=grupoControles,
                     area=request.POST.get('Area'),
                     creador=User.objects.get(username=request.user),
@@ -1910,6 +1913,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                     assesment=Assessmentguardados.objects.get(
                         id_assessment=request.session.get('assessmentSeleccionado')),
                     editor=User.objects.get(username=request.POST.get('selectorEditor')),
+                    asistentes=request.POST.get('Asistentes')
                 )
                 entrevista.save()
             else:
@@ -1928,7 +1932,12 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
+            context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
             return render(request, self.template_name, context=context)
+        elif 'btnEditarAssesment' in request.POST:
+            request.session["EntrevistaEditar"] = request.POST.get('btnEditarAssesment')
+            return redirect("encuestaEntrevista")
+
 
 
 class planProyecto(LoginRequiredMixin, TemplateView):
@@ -2058,3 +2067,110 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
+
+# Clase para la pagina de Entrevista
+class encuestaEntrevista(LoginRequiredMixin, TemplateView):
+    login_url = ""
+    redirect_field_name = "redirect_to"
+    template_name = "homepage/EncuestaEntrevista.html"
+
+    def contextTotal(self, request, select,  context):
+
+        entre = self.request.session.get('EntrevistaEditar')
+        entrevista = Entrevistas.objects.get(id=entre)
+        assSelect = entrevista.assesment.id_assessment
+        assGuardado = entrevista.assesment
+        e = entrevista.grupocontroles.split('\n')
+        e = e[:len(e) - 1]
+        if e.index(select) == len(e)-1:
+            context["ultimo"] = True
+        else:
+            context["ultimo"] = False
+        context["controlEntrevista"] = e[:len(e)]
+        context["NombreAss"] = assSelect
+        context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+        control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
+        context["control"] = control
+        self.request.session["controlSelect"] = select
+        return request, context
+
+    # funcion que envia el contexto de la pagina.
+    def get_context_data(self, **knwargs):
+        entre = self.request.session.get('EntrevistaEditar')
+        entrevista = Entrevistas.objects.get(id=entre)
+        context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+        assSelect = entrevista.assesment.id_assessment
+        assGuardado = entrevista.assesment
+        e=entrevista.grupocontroles.split('\n')
+
+        context["controlEntrevista"] = e[:len(e) - 1]
+        context["ultimo"] = False
+        context["NombreAss"] = assSelect
+        context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+        self.request.session["controlSelect"] = 'noSel'
+        return context
+
+    # funcion post que recoge los summit del formulario de la pagina.
+    def post(self, request, **knwargs):
+        entre = request.session.get('EntrevistaEditar')
+        entrevista = Entrevistas.objects.get(id=entre)
+        assSelect = entrevista.assesment.id_assessment
+        select = request.POST.get('selector')  # valor de el selector de control
+        boton2 = request.POST.get('boton2')  # valor del boton 2
+        boton3 = request.POST.get('boton3')  # valor del boton 2
+
+        if 'selector' in request.POST:  # se recoge la pulsacion del select
+            if select == 'noSel':
+                entrevista = Entrevistas.objects.get(id=entre)
+                context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                assSelect = entrevista.assesment.id_assessment
+                assGuardado = entrevista.assesment
+                e = entrevista.grupocontroles.split('\n')
+                context["controlEntrevista"] = e[:len(e) - 1]
+                context["NombreAss"] = assSelect
+                context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+                self.request.session["controlSelect"] = 'noSel'
+                return render(request, self.template_name, context=context)
+            else:
+                context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                request, context = self.contextTotal(request, select, context)
+                return render(request, self.template_name, context=context)
+
+        elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
+            controlSeleccionado = request.session.get('controlSelect')
+            if request.session["controlSelect"] != 'noSel':
+                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                        control_id=request.session["controlSelect"])
+                control.respuesta = str(request.POST.get('respuesta'))
+                control.valoracion = request.POST.get('valmad')
+                control.valoracionobjetivo = request.POST.get('valmadob')
+                control.save()
+                e = entrevista.grupocontroles.split('\n')
+                e = e[:len(e) - 1]
+                controlSeleccionado = e[e.index(request.session.get('controlSelect'))+1]
+
+            else:
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+            context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+            request, context = self.contextTotal(request, controlSeleccionado, context)
+            return render(request, self.template_name, context=context)
+
+        elif boton3 == 'btn3':  # recogemos la pulsacion del boton de guardar valoracion
+            controlSeleccionado = request.session.get('controlSelect')
+            if request.session["controlSelect"] != 'noSel':
+                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                        control_id=request.session["controlSelect"])
+                control.respuesta = str(request.POST.get('respuesta'))
+                control.valoracion = request.POST.get('valmad')
+                control.valoracionobjetivo = request.POST.get('valmadob')
+                control.save()
+
+
+            else:
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+
+            return redirect('entrevistasUsuarios')

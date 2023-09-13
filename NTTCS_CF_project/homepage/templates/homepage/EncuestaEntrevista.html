@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block titulo %} Entrevista {% endblock %}
+
+{% block contenido %}
+
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>{{NombreAss}}</h1>
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <!-- Seleccion de assesment creado -->
+    <form class="contenedorSelector" method="post" id="form">
+        {% csrf_token %}
+        <div class="cajasTextoSelectorAssessment">
+            <label style="font-size: 1.4vw;" for="selector"> Seleccione un Control</label>
+        </div>
+        <div class="cajasSelectorAssessment">
+            <select class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"
+                    onchange="this.form.submit()" id="selector" name="selector">
+                <option selected value="noSel">--- No Seleccionado ---</option>
+                {% for ids in assess %}
+                {% if ids.control_id in controlEntrevista %}
+                {% if ids.control_id == control.control_id %}
+                {% if ids.respuesta == None %}
+                <option class="container " selected value="{{ids.control_id}}" title="{{ids.control_id}}"
+                        data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
+                {% else %}
+                <option class="container " selected value="{{ids.control_id}}" title="{{ids.control_id}}"
+                        data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'><i class='bi bi-check2-circle'></i></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div>"></option>
+                {% endif %}
+                {% else %}
+                {% if ids.respuesta == None %}
+                <option class="container " value="{{ids.control_id}}" title="{{ids.control_id}}"
+                        data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
+                {% else %}
+                <option class="container " value="{{ids.control_id}}" title="{{ids.control_id}}"
+                        data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'><i class='bi bi-check2-circle'></i></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+</div>
+
+
+<div class="rowCajas">
+    <!-- Tarjeta del nombre del control -->
+    <div class="cajaNombreControl">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadroayuda"></div>
+                <div class="cuadrotexto">
+                    Nombre del control
+                </div>
+                <div class="cuadroayuda" data-toggle="tooltip" data-bs-placement="top"
+                     title="Aqui se muestra el nombre del control seleccionado">
+                    <i class="bi bi-info-circle iconosAyuda"></i>
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="cuadrotexto">
+                    {{control.control_name}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tarjeta de descripcion del control -->
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadroayuda"></div>
+                <div class="cuadrotexto">
+                    Descripción del control
+                </div>
+                <div class="cuadroayuda" data-toggle="tooltip" data-bs-placement="top"
+                     title="Se muestra una descripción del control para tener mas información sobre este">
+                    <i class="bi bi-info-circle iconosAyuda"></i>
+                </div>
+
+            </div>
+            <div class="textoTarjeta">
+                <div class="cuadrotexto">
+                    {{control.descripcion}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarjeta de pregunta para el control -->
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadroayuda"></div>
+                <div class="cuadrotexto">
+                    Pregunta para el control
+                </div>
+                <div class="cuadroayuda" data-toggle="tooltip" data-bs-placement="top"
+                     title="Se muestra la pregunta la cual se ha de contestar en el apartado de entrada de texto que se encuentra justo debajo.">
+                    <i class="bi bi-info-circle iconosAyuda"></i>
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="cuadrotexto">
+                    {{control.pregunta}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form class="cajaForm" method="post" id="form2">
+    {% csrf_token %}
+    <div class="rowCajas">
+        <!-- Captura de la respuesta escrita -->
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadroayuda"></div>
+                <div class="cuadrotexto">
+                    Respuesta
+                </div>
+                <div class="cuadroayuda" data-toggle="tooltip" data-bs-placement="top"
+                     title="Se muestra la pregunta la cual se ha de contestar en el apartado de entrada de texto que se encuentra justo debajo.">
+                    <i class="bi bi-info-circle iconosAyuda"></i>
+                </div>
+            </div>
+            <div class="textoTarjetaGrande2">
+                <div class="cajaEditorTexto">
+                    {% if control.respuesta == None %}
+                    <textarea style="height:100%;" id="editor" name="respuesta"></textarea>
+                    {% else %}
+                    <textarea style="height:100%;" id="editor" name="respuesta">{{control.respuesta}}</textarea>
+                    {% endif %}
+                    <!-- Script para el uso del editor de texto -->
+                    <script type="text/javascript">
+
+                        $(function() {
+                            $('textarea').each(function () {
+                                const editor = Jodit.make('#editor', {
+                                    "spellcheck": true,
+                                    "language": "es",
+                                    placeholder:"Escriba aqui la respuesta para la pregunta de este control...",
+                                    height: "400",
+                                    allowResizeX: false,
+                                    allowResizeY: false
+                                });
+                            });
+                        });
+
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rowCajas">
+        <div class="cajaMitad">
+
+        </div>
+        <!-- Botones de guardar y archivar -->
+        <div class="cajaMitad">
+            <div class="cajaBoton">
+                {% if ultimo %}
+                <button style="font-size:1.3vw;" class="btn btn-outline-success btn-lg btn-block" type="submit"
+                        id="boton3" name="boton3" value="btn3">Terminar Entrevista
+                </button>
+                {% else %}
+                <button style="font-size:1.3vw;" class="btn btn-outline-success btn-lg btn-block" type="submit"
+                        id="boton2" name="boton2" value="btn2">Siguiente Control
+                </button>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags %}
+    <script type="text/javascript">
+        setTimeout(() => {
+            window.alert("{{ message }}")
+        }, 400);
+    </script>
+    {% endif %}
+
+    {% endfor %}
+    {% endif %}
+
+</form>
+
+
+<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
+<script type="text/javascript">
+    function clicked(form) {
+        if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
+            form.submit();
+        } else {
+            return false;
+        }
+    }
+
+</script>
+
+{% endblock %}
+
+
+
