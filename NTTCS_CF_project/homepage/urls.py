@@ -27,7 +27,8 @@ urlpatterns = [
     path('proyectosClientes/', views.proyectosClientes.as_view(), name='MantenimientoMapeoMarcos'),
     path('listadoControles/', views.listadoControles.as_view(), name='listadoControles'),
     path('entrevistasUsuarios/', views.entrevistasUsuarios.as_view(), name='entrevistasUsuarios'),
-path('planProyecto/', views.planProyecto.as_view(), name='planProyecto'),
+    path('encuestaEntrevista/', views.encuestaEntrevista.as_view(), name='encuestaEntrevista'),
+    path('planProyecto/', views.planProyecto.as_view(), name='planProyecto'),
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
     path('logout', views.logout, name='logout'),
 
