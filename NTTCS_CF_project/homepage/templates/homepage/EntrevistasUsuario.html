@@ -85,12 +85,62 @@
                 <div class="rowCajas">
                     <div class="card text-bg-ligth border-ligth cardModificada">
                         <h5 class="card-header text-center">Asistente</h5>
-                        <form class="card-body" method="post">
-                            {% csrf_token %}
+                        <div class="card-body" >
+
                             <h5 class="card-title text-center">Aqui aparecen las entrevistas en las que estas como
                                 asistente</h5>
+                            {% for i in asistes %}
+                            <form class="card card-body mb-3" method="post">
+                                {% csrf_token %}
 
-                        </form>
+                                <div class="row justify-content-center align-items-center ">
+                                    <div class="col">
+                                        <h4 class="card-title text-center">{{i.entrevista.titulo}}</h4>
+                                    </div>
+                                </div>
+                                <div class="row  justify-content-center align-items-center">
+                                    <div class="row g-0 justify-content-center align-items-center text-center">
+                                        <div class="col-4 text-body-secondary fs-6">Fecha: {{i.entrevista.fecha.date}}</div>
+                                        <div class="col-2 text-body-secondary fs-6">Hora: {{i.entrevista.fecha.time}}</div>
+                                        <div class="col-3 text-body-secondary fs-6">Finalización:
+                                            {{i.entrevista.duracionestimada}}
+                                        </div>
+                                        <div class="col-3 text-body-secondary fs-6">Duración:
+                                            {{i.entrevista.duracionestimada|resta:i.entrevista.fecha}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-center ">
+                                    <div class="col g-4">
+                                        <h5 class="card-title text-center">Se tratará el assessment:
+                                            {{i.entrevista.assesment.id_assessment}} y el area: {{i.entrevista.area}}</h5>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-center ">
+                                    <div class="col-3"></div>
+                                    <div class="col g-4">
+                                        <div class="text-body text-center fs-6">Es editada por: {{i.entrevista.editor}}</div>
+                                    </div>
+                                    <div class="col-3 g-4">
+                                        {% if i.entrevista.editor == user %}
+                                        <button style="font-size:0.5vw;" type="submit" class="btn btn-sm btn-info"
+                                                name="btnEditarAssesment"
+                                                value="{{i.id}}"><i class="bi bi-pencil"></i>
+                                            Comenzar Entrevista
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center align-items-center ">
+                                    <div class="col g-4">
+                                        <h5 class="card-title text-center">Asisten: {{i.entrevista.asistentes}} </h5>
+                                    </div>
+                                </div>
+                            </form>
+
+                            {% endfor %}
+
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1859,6 +1859,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
         context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         context["proyectoSelec"] = ''
         context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
+        context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
         return context
 
     def post(self, request, **knwargs):
