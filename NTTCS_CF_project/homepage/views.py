@@ -2108,12 +2108,14 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
         assSelect = entrevista.assesment.id_assessment
         assGuardado = entrevista.assesment
         e=entrevista.grupocontroles.split('\n')
-
-        context["controlEntrevista"] = e[:len(e) - 1]
+        e = e[:len(e) - 1]
+        context["controlEntrevista"] = e
         context["ultimo"] = False
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
-        self.request.session["controlSelect"] = 'noSel'
+        control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=e[0])
+        context["control"] = control
+        self.request.session["controlSelect"] = e[0]
         return context
 
     # funcion post que recoge los summit del formulario de la pagina.
