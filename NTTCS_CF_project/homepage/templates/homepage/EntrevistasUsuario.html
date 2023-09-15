@@ -245,7 +245,7 @@
                                     <option selected disabled value="none">Seleccione al editor</option>
                                     {% for ids in usuarios %}
                                     {% if ids.username != 'admin' %}
-                                    <option value="{{ids.username}}">{{ids.username}}</option>
+                                    <option value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
                                     {% endif %}
                                     {% endfor %}
                                 </select>
@@ -257,7 +257,7 @@
                                         data-actions-box="true" id="selectorUsuarios" name="selectorUsuarios">
                                     {% for ids in usuarios %}
                                     {% if ids.username != 'admin' %}
-                                    <option value="{{ids.username}}">{{ids.username}}</option>
+                                    <option value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
                                     {% endif %}
                                     {% endfor %}
                                 </select>

@@ -1889,7 +1889,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
 
             context["controlesAssess"] = AssessmentCreados.objects.filter(
                 assessment=request.POST.get('selectorAssessment'))
-            context["usuarios"] = User.objects.all()
+            context["usuarios"] = AsociacionUsuariosProyecto.objects.filter(proyecto=request.session.get('proyectoSeleccionado'))
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
@@ -1935,7 +1935,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
 
             context["controlesAssess"] = AssessmentCreados.objects.filter(
                 assessment=request.session.get('assessmentSeleccionado'))
-            context["usuarios"] = User.objects.all()
+            context["usuarios"] = AsociacionUsuariosProyecto.objects.filter(proyecto=request.session.get('proyectoSeleccionado'))
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
