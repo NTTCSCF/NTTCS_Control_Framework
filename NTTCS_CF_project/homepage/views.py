@@ -1873,6 +1873,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                 proyecto=Proyecto.objects.get(codigo=request.POST.get('selectorProyecto')), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
             return render(request, self.template_name, context=context)
 
         elif 'selectorAssessment' in request.POST:
@@ -1893,6 +1894,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                 proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
             return render(request, self.template_name, context=context)
         elif 'Titulo' in request.POST:
 
@@ -1903,7 +1905,6 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             if request.POST.get('Titulo') != '' and request.POST.get('Fecha') != '' and request.POST.get(
                     'Area') != '' and request.POST.get('Duracion') != '' and request.POST.get(
                     'selectorEditor') != '' and grupoControles != '':
-                print(request.POST.get('Fecha'))
                 entrevista = Entrevistas(
                     titulo=request.POST.get('Titulo'),
                     fecha=datetime.strptime(request.POST.get('Fecha').replace('T', ' '), "%Y-%m-%d %H:%M").astimezone(),
@@ -1939,6 +1940,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                 proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
             return render(request, self.template_name, context=context)
         elif 'btnEditarAssesment' in request.POST:
             request.session["EntrevistaEditar"] = request.POST.get('btnEditarAssesment')
