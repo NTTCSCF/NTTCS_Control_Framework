@@ -1945,6 +1945,15 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
         elif 'btnEditarAssesment' in request.POST:
             request.session["EntrevistaEditar"] = request.POST.get('btnEditarAssesment')
             return redirect("encuestaEntrevista")
+        elif 'btnEliminarEntrevista' in request.POST:
+            entrevista = Entrevistas.objects.get(id=request.POST.get('btnEliminarEntrevista'))
+            entrevista.delete()
+            context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSelec"] = ''
+            context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+            return render(request, self.template_name, context=context)
 
 
 
@@ -2115,6 +2124,10 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
         context["ultimo"] = False
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+        if assGuardado.idioma == 'en':
+            context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
+        else:
+            context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=e[0])
         context["control"] = control
         self.request.session["controlSelect"] = e[0]
@@ -2127,7 +2140,9 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
         assSelect = entrevista.assesment.id_assessment
         select = request.POST.get('selector')  # valor de el selector de control
         boton2 = request.POST.get('boton2')  # valor del boton 2
-        boton3 = request.POST.get('boton3')  # valor del boton 2
+        boton3 = request.POST.get('boton3')  # valor del boton 3
+        boton6 = request.POST.get('boton6')  # valor del boton 6
+        boton7 = request.POST.get('boton7')  # valor del boton 7
 
         if 'selector' in request.POST:  # se recoge la pulsacion del select
             if select == 'noSel':
@@ -2160,6 +2175,45 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
                 e = e[:len(e) - 1]
                 controlSeleccionado = e[e.index(request.session.get('controlSelect'))+1]
 
+            else:
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+            context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+            request, context = self.contextTotal(request, controlSeleccionado, context)
+            return render(request, self.template_name, context=context)
+
+        elif boton6 == 'btn6':  # recogemos la pulsacion del boton de guardar valoracion
+            controlSeleccionado = request.session.get('controlSelect')
+            if request.session["controlSelect"] != 'noSel':
+                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                        control_id=request.session["controlSelect"])
+                control.respuesta = str(request.POST.get('respuesta'))
+                control.valoracion = request.POST.get('valmad')
+                control.valoracionobjetivo = request.POST.get('valmadob')
+                control.save()
+                e = entrevista.grupocontroles.split('\n')
+                e = e[:len(e) - 1]
+                controlSeleccionado = e[e.index(request.session.get('controlSelect'))-1]
+
+            else:
+                messages.error(request,
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+            context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+            request, context = self.contextTotal(request, controlSeleccionado, context)
+            return render(request, self.template_name, context=context)
+
+        elif boton7 == 'btn7':  # recogemos la pulsacion del boton de guardar valoracion
+            controlSeleccionado = request.session.get('controlSelect')
+            if request.session["controlSelect"] != 'noSel':
+                assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                control = AssessmentCreados.objects.get(assessment=assGuardado,
+                                                        control_id=request.session["controlSelect"])
+                control.respuesta = str(request.POST.get('respuesta'))
+                control.valoracion = request.POST.get('valmad')
+                control.valoracionobjetivo = request.POST.get('valmadob')
+                control.save()
+                controlSeleccionado = request.session.get('controlSelect')
             else:
                 messages.error(request,
                                'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
