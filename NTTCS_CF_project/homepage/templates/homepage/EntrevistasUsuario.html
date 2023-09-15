@@ -28,8 +28,7 @@
                         <div class="card-body">
                             <h5 class="card-title text-center">Aqui aparecen las entrevistas creadas por ti</h5>
                             {% for i in creadas %}
-                            <form class="card card-body mb-3" method="post">
-                                {% csrf_token %}
+                            <div class="card card-body mb-3">
 
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col">
@@ -57,9 +56,10 @@
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col-3"></div>
                                     <div class="col g-4">
-                                        <div class="text-body text-center fs-6">Es editada por: {{i.editor}}</div>
+                                        <div class="text-body text-center fs-6">Es iniciada por: {{i.editor}}</div>
                                     </div>
-                                    <div class="col-3 g-4">
+                                    <form class="col-3 g-4" method="post">
+                                        {% csrf_token %}
                                         {% if i.editor == user %}
                                         <button style="font-size:0.5vw;" type="submit" class="btn btn-sm btn-info"
                                                 name="btnEditarAssesment"
@@ -67,14 +67,24 @@
                                             Comenzar Entrevista
                                         </button>
                                         {% endif %}
-                                    </div>
+                                    </form>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
                                         <h5 class="card-title text-center">Asisten: {{i.asistentes}} </h5>
                                     </div>
                                 </div>
-                            </form>
+                                <div class="row justify-content-center align-items-center ">
+                                    <form class="col-2 g-4" method="post">
+                                        {% csrf_token %}
+                                        <button style="font-size:0.5vw;" type="submit" class="btn btn-sm btn-danger"
+                                                name="btnEliminarEntrevista"
+                                                value="{{i.id}}"><i class="bi-trash"></i>
+                                            Eliminar Entrevista
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
 
                             {% endfor %}
 
@@ -119,7 +129,7 @@
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col-3"></div>
                                     <div class="col g-4">
-                                        <div class="text-body text-center fs-6">Es editada por: {{i.entrevista.editor}}</div>
+                                        <div class="text-body text-center fs-6">Es iniciada por: {{i.entrevista.editor}}</div>
                                     </div>
                                     <div class="col-3 g-4">
                                         {% if i.entrevista.editor == user %}
@@ -239,7 +249,7 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " for="selectorUsuarios">Seleccione al Editor</label>
+                                <label class="input-group-text " for="selectorUsuarios">Seleccione al Responsable de la Entrevista</label>
                                 <select class="form-select " data-live-search="true"
                                         data-actions-box="true" id="selectorEditor" name="selectorEditor">
                                     <option selected disabled value="none">Seleccione al editor</option>
