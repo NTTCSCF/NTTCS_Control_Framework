@@ -537,3 +537,11 @@ fieldset[disabled] .btn-ntt.active {
   color: #0060AE;
   background-color: #FFFFFF;
 }
+
+.fr-1{
+    font-size:0.8vw;
+}
+
+.fr-4{
+    font-size:1.3vw;
+}

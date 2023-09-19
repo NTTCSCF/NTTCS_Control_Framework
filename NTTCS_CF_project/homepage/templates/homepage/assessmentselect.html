@@ -76,24 +76,24 @@
                                             <h4 class="card-title text-center">{{i.assessment.id_assessment}} </h4>
                                         </div>
                                         <div class="col-4 row justify-content-center align-items-center">
-                                            <form class="col" method="post">
+                                            <form class="col-auto m-1" method="post">
                                                 {% csrf_token %}
-                                                <button style="font-size:0.6vw;" type="submit" class="btn btn-info "
+                                                <button style="font-size:0.6vw;" type="submit" class="btn btn-ntt "
                                                         name="btnEditar"
                                                         value="{{i.assessment.id_assessment}}"><i class="bi bi-pen"></i>
                                                     Editar
                                                 </button>
                                             </form>
-                                            <form class="col" method="post">
+                                            <form class="col-auto" method="post">
                                                 {% csrf_token %}
-                                                <button style="font-size:0.6vw;" type="submit" class="btn btn-info "
+                                                <button style="font-size:0.6vw;" type="submit" class="btn btn-ntt "
                                                         name="btnPlan"
                                                         value="{{i.assessment.id_assessment}}"><i
                                                         class="bi bi-clipboard"></i> plan de proyecto
                                                 </button>
                                             </form>
 
-                                            <form class="col " method="post">
+                                            <form class="col-auto m-1" method="post">
                                                 {% csrf_token %}
                                                 <button style="font-size:0.6vw;" type="button" class="btn btn-danger"
                                                         data-bs-toggle="modal"
@@ -281,12 +281,12 @@
                             <h5 class="card-title text-center">Rellene los datos del Assessment</h5>
 
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Nombre del Assessment</span>
-                                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon1">Nombre del Assessment</span>
+                                <input type="text" class="form-control " style="font-size:0.8vw;" placeholder="Nombre" aria-label="Nombre"
                                        aria-describedby="basic-addon1" name="in">
 
-                                <label class="input-group-text" for="idioma">Idioma</label>
-                                <select class="form-select" id="idioma" name="idioma">
+                                <label class="input-group-text " style="font-size:0.8vw;" for="idioma">Idioma</label>
+                                <select class="form-select fr-1" id="idioma" name="idioma">
                                     <option value="es">Español</option>
                                     <option value="en">Ingles</option>
                                 </select>
@@ -294,9 +294,9 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text" for="selector2">Marcos a incluir en el
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selector2">Marcos a incluir en el
                                     assessment</label>
-                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                <select multiple class="form-select selectpicker " style="font-size:0.8vw;" data-live-search="true"
                                         id="selector2"
                                         name="selector2" data-actions-box="true">
                                     {% for ids in marcos %}
@@ -306,7 +306,7 @@
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button style="font-size:1.2vw;" class="btn btn-outline-secondary btn-lg btn-block"
+                                    <button style="font-size:1.2vw;" class="btn btn-ntt btn-lg btn-block"
                                             data-bs-toggle="modal" data-bs-target="#myModal" type="submit" id="boton3"
                                             name="boton3"
                                             value="btn3">Crear Assessment
