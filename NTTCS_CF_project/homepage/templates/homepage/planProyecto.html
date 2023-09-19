@@ -31,34 +31,34 @@
                             {% csrf_token %}
 
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text"
+                                <span class="input-group-text" style="font-size:0.8vw;"
                                       id="basic-addon3">Nombre</span>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" style="font-size:0.8vw;"
                                        placeholder="Nombre"
                                        aria-label="Nombre"
                                        aria-describedby="basic-addon3" id="NombrePlan"
                                        name="NombrePlan" value="{{plan.nombre}}">
                             </div>
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text">Descripción</span>
-                                <textarea class="form-control"
+                                <span class="input-group-text" style="font-size:0.8vw;">Descripción</span>
+                                <textarea class="form-control" style="font-size:0.8vw;"
                                           aria-label="Descripción"
                                           rows="8"
                                           placeholder="Descripción"
                                           name="descripcionPlan">{{plan.descripcion}}</textarea>
                             </div>
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text">Riesgos</span>
-                                <textarea class="form-control"
+                                <span class="input-group-text" style="font-size:0.8vw;">Riesgos</span>
+                                <textarea class="form-control" style="font-size:0.8vw;"
                                           aria-label="Riesgos"
                                           rows="5"
                                           placeholder="Riesgos"
                                           name="riesgosPlan">{{plan.riesgos}}</textarea>
                             </div>
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text"
+                                <span class="input-group-text" style="font-size:0.8vw;"
                                       id="basic-addon4">Tipo</span>
-                                <input type="text" class="form-control"
+                                <input type="text" class="form-control" style="font-size:0.8vw;"
                                        placeholder="Tipo"
                                        aria-label="Tipo"
                                        aria-describedby="basic-addon4" id="tipoPlan"
@@ -66,9 +66,9 @@
                             </div>
 
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text"
+                                <span class="input-group-text" style="font-size:0.8vw;"
                                       id="basic-addon7">Duracion</span>
-                                <input type="number" class="form-control"
+                                <input type="number" class="form-control" style="font-size:0.8vw;"
                                        placeholder="Duracion"
                                        aria-label="Duracion" step="any"
                                        aria-describedby="basic-addon7" id="duracionPlan"
@@ -78,17 +78,17 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <span class="input-group-text"
+                                <span class="input-group-text" style="font-size:0.8vw;"
                                       id="basic-addon5">Coste</span>
-                                <input type="number" class="form-control"
+                                <input type="number" class="form-control" style="font-size:0.8vw;"
                                        placeholder="Coste" step="any"
                                        aria-label="Coste"
                                        aria-describedby="basic-addon5" id="costePlan"
                                        name="costePlan" value="{{coste}}">
 
-                                <span class="input-group-text"
+                                <span class="input-group-text" style="font-size:0.8vw;"
                                       id="basic-addon6">Beneficio</span>
-                                <input type="number" class="form-control"
+                                <input type="number" class="form-control" style="font-size:0.8vw;"
                                        placeholder="Beneficio" step="any"
                                        aria-label="Beneficio"
                                        aria-describedby="basic-addon6"
@@ -97,7 +97,7 @@
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-secondary">Crear Plan de Proyecto</button>
+                                    <button type="submit" class="btn btn-ntt">Crear Plan de Proyecto</button>
                                 </p>
                             </div>
                         </form>
@@ -124,11 +124,11 @@
                                 {% csrf_token %}
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col-7">
-                                        <h4 class="card-title text-center">{{i.iniciativa.nombre}},
+                                        <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
                                             {{i.iniciativa.descripcion}}</h4>
                                     </div>
-                                    <div class="col-2 row justify-content-center align-items-center">
-                                        <button style="font-size:0.6vw;" type="submit" class="btn btn-info "
+                                    <div class="col-auto row justify-content-center align-items-center">
+                                        <button style="font-size:0.6vw;" type="submit" class="btn btn-ntt"
                                                 name="btnAnadirRecomendacion"
                                                 value="{{i.iniciativa.nombre}}"><i class="bi bi-plus-circle"></i>
                                             Añadir
@@ -147,9 +147,9 @@
                         <form class="card-body" method="post">
                             {% csrf_token %}
                             <div class="input-group mb-3">
-                                <label class="input-group-text " for="selectorIniciativasg">Seleccione
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorIniciativasg">Seleccione
                                     iniciativas Genericas</label>
-                                <select multiple class="form-select selectpicker"
+                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
                                         data-live-search="true"
                                         data-actions-box="true" id="selectorIniciativasg"
                                         name="selectorIniciativas">
@@ -162,16 +162,16 @@
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-secondary">Asociar Iniciativas</button>
+                                    <button type="submit" class="btn btn-ntt">Asociar Iniciativas</button>
                                 </p>
                             </div>
                         </form>
                         <form class="card-body" method="post">
                             {% csrf_token %}
                             <div class="input-group mb-3">
-                                <label class="input-group-text " for="selectorIniciativasc">Seleccione
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorIniciativasc">Seleccione
                                     iniciativas Creadas</label>
-                                <select multiple class="form-select selectpicker"
+                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
                                         data-live-search="true"
                                         data-actions-box="true" id="selectorIniciativasc"
                                         name="selectorIniciativas">
@@ -184,7 +184,7 @@
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-secondary">Asociar Iniciativas</button>
+                                    <button type="submit" class="btn btn-ntt">Asociar Iniciativas</button>
                                 </p>
                             </div>
                         </form>
@@ -212,10 +212,10 @@
                                 {% csrf_token %}
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col-8">
-                                        <h4 class="card-title text-center">{{i.iniciativa.nombre}},
+                                        <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
                                             {{i.iniciativa.descripcion}}</h4>
                                     </div>
-                                    <div class="col-1 row justify-content-center align-items-center">
+                                    <div class="col-auto row justify-content-center align-items-center">
                                         <button style="font-size:0.6vw;" type="submit" class="btn btn-danger "
                                                 name="btnEliminarAsociacion"
                                                 value="{{i.iniciativa.nombre}}"><i class="bi bi-trash"></i>

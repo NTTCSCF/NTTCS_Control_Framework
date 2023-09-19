@@ -37,13 +37,13 @@
                                     </div>
                                 </div>
                                 <div class="row  justify-content-center align-items-center">
-                                    <div class="row g-0 justify-content-center align-items-center text-center">
-                                        <div class="col-4 text-body-secondary fs-6">Fecha: {{i.fecha.date}}</div>
-                                        <div class="col-2 text-body-secondary fs-6">Hora: {{i.fecha.time}}</div>
-                                        <div class="col-3 text-body-secondary fs-6">Finalización:
+                                    <div class="row g-0 justify-content-center align-items-center text-center" >
+                                        <div class="col-3 text-body-secondary fr-1">Fecha: {{i.fecha.date}}</div>
+                                        <div class="col-3 text-body-secondary fr-1" style="font-size:0.8vw;">Hora: {{i.fecha.time}}</div>
+                                        <div class="col-3 text-body-secondary fr-1" style="font-size:0.8vw;">Finalización:
                                             {{i.duracionestimada}}
                                         </div>
-                                        <div class="col-3 text-body-secondary fs-6">Duración:
+                                        <div class="col-3 text-body-secondary fr-1" >Duración:
                                             {{i.duracionestimada|resta:i.fecha}}
                                         </div>
                                     </div>
@@ -55,14 +55,14 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
-                                    <div class="col-3"></div>
-                                    <div class="col g-4">
+
+                                    <div class="col-auto g-4">
                                         <div class="text-body text-center fs-6">Es iniciada por: {{i.editor}}</div>
                                     </div>
-                                    <form class="col-3 g-4" method="post">
+                                    <form class="col-auto g-4" method="post">
                                         {% csrf_token %}
                                         {% if i.editor == user %}
-                                        <button style="font-size:0.5vw;" type="submit" class="btn btn-sm btn-info"
+                                        <button style="font-size:0.7vw;" type="submit" class="btn btn-sm btn-ntt"
                                                 name="btnEditarAssesment"
                                                 value="{{i.id}}"><i class="bi bi-pencil"></i>
                                             Comenzar Entrevista
@@ -76,9 +76,9 @@
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
-                                    <form class="col-2 g-4" method="post">
+                                    <form class="col-auto g-4" method="post">
                                         {% csrf_token %}
-                                        <button style="font-size:0.5vw;" type="submit" class="btn btn-sm btn-danger"
+                                        <button style="font-size:0.7vw;" type="submit" class="btn btn-sm btn-danger"
                                                 name="btnEliminarEntrevista"
                                                 value="{{i.id}}"><i class="bi-trash"></i>
                                             Eliminar Entrevista
@@ -225,27 +225,27 @@
                             {% csrf_token %}
 
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text" id="basic-addon3">Titulo</span>
-                                <input type="text" class="form-control" placeholder="Titulo" aria-label="Titulo"
+                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon3">Titulo</span>
+                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Titulo" aria-label="Titulo"
                                        aria-describedby="basic-addon3" id="Titulo" name="Titulo">
                             </div>
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text" id="basic-addon4">Area</span>
-                                <input type="text" class="form-control" placeholder="Area" aria-label="Area"
+                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon4">Area</span>
+                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Area" aria-label="Area"
                                        aria-describedby="basic-addon4" name="Area">
                             </div>
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text" id="basic-addon5">Fecha</span>
-                                <input type="datetime-local" class="form-control" placeholder="Fecha" aria-label="Fecha"
+                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon5">Fecha</span>
+                                <input type="datetime-local" style="font-size:0.8vw;" class="form-control" placeholder="Fecha" aria-label="Fecha"
                                        aria-describedby="basic-addon5" name="Fecha">
-                                <span class="input-group-text" id="basic-addon6">Hora Finalizacion </span>
-                                <input type="Time" class="form-control" placeholder="Duracion" aria-label="Duracion"
+                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon6">Hora Finalizacion </span>
+                                <input type="Time" style="font-size:0.8vw;" class="form-control" placeholder="Duracion" aria-label="Duracion"
                                        aria-describedby="basic-addon6" name="Duracion">
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " for="selectorUsuarios">Seleccione Los Controles</label>
-                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione Los Controles</label>
+                                <select multiple class="form-select selectpicker" data-live-search="true" style="font-size:0.8vw;"
                                         data-actions-box="true" id="selectorControles" name="selectorControles">
                                     {% for i in controlesAssess %}
                                     <option value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}</option>
@@ -255,11 +255,11 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " for="selectorUsuarios">Seleccione al Responsable de la
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione al Responsable de la
                                     Entrevista</label>
-                                <select class="form-select " data-live-search="true"
+                                <select class="form-select " data-live-search="true" style="font-size:0.8vw;"
                                         data-actions-box="true" id="selectorEditor" name="selectorEditor">
-                                    <option selected disabled value="none">Seleccione al editor</option>
+                                    <option selected disabled value="none">Seleccione al Responsable</option>
                                     {% for ids in usuarios %}
                                     {% if ids.username != 'admin' %}
                                     <option value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
@@ -269,8 +269,8 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " for="selectorUsuarios">Seleccione Consultores</label>
-                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione Consultores</label>
+                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;" data-live-search="true"
                                         data-actions-box="true" id="selectorUsuarios" name="selectorUsuarios">
                                     {% for ids in usuarios %}
                                     {% if ids.username != 'admin' %}
@@ -280,17 +280,17 @@
                                 </select>
                             </div>
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text">Asistentes</span>
+                                <span class="input-group-text" style="font-size:0.8vw;">Asistentes</span>
                                 <textarea class="form-control"
                                           aria-label="Asistentes"
                                           rows="5"
                                           placeholder="Asistentes"
-                                          name="Asistentes"></textarea>
+                                          name="Asistentes" style="font-size:0.8vw;"></textarea>
                             </div>
 
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-secondary">Crear Entrevista</button>
+                                    <button type="submit" class="btn btn-ntt">Crear Entrevista</button>
                                 </p>
                             </div>
 
@@ -340,7 +340,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-ntt">Save changes</button>
             </div>
 
         </div>

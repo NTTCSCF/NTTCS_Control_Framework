@@ -72,24 +72,28 @@
                             <h5 class="card-title text-center">Rellene los datos del cliente</h5>
 
                             <div class="input-group mb-3">
-                                <span class="input-group-text textoInputs" id="basic-addon1">codigo del cliente</span>
-                                <input type="text" class="form-control" placeholder="Codigo" aria-label="Codigo"
+                                <span class="input-group-text textoInputs" style="font-size:0.8vw;" id="basic-addon1">codigo del cliente</span>
+                                <input type="text" class="form-control" style="font-size:0.8vw;" placeholder="Codigo"
+                                       aria-label="Codigo"
                                        aria-describedby="basic-addon1" name="codigo">
 
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">Nombre del cliente</span>
-                                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon2">Nombre del cliente</span>
+                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Nombre"
+                                       aria-label="Nombre"
                                        aria-describedby="basic-addon2" name="nombre">
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text" for="logo">Logo del cliente</label>
-                                <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
+                                <label class="input-group-text" style="font-size:0.8vw;" for="logo">Logo del
+                                    cliente</label>
+                                <input type="file" style="font-size:0.8vw;" class="form-control" id="logo" name="logo"
+                                       accept="image/*">
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-secondary textoInputs">Añadir cliente</button>
+                                    <button type="submit" class="btn btn-ntt textoInputs">Añadir cliente</button>
                                 </p>
 
 
@@ -186,7 +190,7 @@
 
                                             </div>
                                             <div class="col">
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                <button type="button" class="btn btn-ntt" data-bs-toggle="modal"
                                                         data-bs-target="#myModal">
                                                     Editar usuarios
                                                 </button>
@@ -208,25 +212,30 @@
                             <h5 class="card-title text-center">Rellene los datos del Proyecto</h5>
 
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text" id="basic-addon3">Codigo del Proyecto</span>
-                                <input type="text" class="form-control" placeholder="Codigo" aria-label="Codigo"
+                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon3">Codigo del Proyecto</span>
+                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Codigo"
+                                       aria-label="Codigo"
                                        aria-describedby="basic-addon3" id="codigoProyecto" name="codigoProyecto">
                             </div>
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text" id="basic-addon4">Nombre del Proyecto</span>
-                                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon4">Nombre del Proyecto</span>
+                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Nombre"
+                                       aria-label="Nombre"
                                        aria-describedby="basic-addon4" name="nombreProyecto">
                             </div>
                             <div class="input-group mb-3 ">
-                                <span class="input-group-text">Descripción del proyecto</span>
-                                <textarea class="form-control" aria-label="Descripción del proyecto"
+                                <span class="input-group-text" style="font-size:0.8vw;">Descripción del proyecto</span>
+                                <textarea class="form-control" style="font-size:0.8vw;"
+                                          aria-label="Descripción del proyecto"
                                           rows="8" name="descripcionProyecto"></textarea>
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text textoInputs" for="selectorClienteProyecto">Seleccione
+                                <label class="input-group-text textoInputs" style="font-size:0.8vw;"
+                                       for="selectorClienteProyecto">Seleccione
                                     Cliente</label>
-                                <select class="form-select" id="selectorClienteProyecto" name="selectorClienteProyecto">
+                                <select class="form-select" style="font-size:0.8vw;" id="selectorClienteProyecto"
+                                        name="selectorClienteProyecto">
                                     <option selected disabled value="noSel">Seleccione Cliente</option>
                                     {% for i in clientes %}
                                     <option value="{{i.codigo}}">{{i.codigo}}, {{i.nombre}}</option>
@@ -235,8 +244,10 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " for="selectorUsuarios">Seleccione Usuarios</label>
-                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione
+                                    Usuarios</label>
+                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
+                                        data-live-search="true"
                                         data-actions-box="true" id="selectorUsuarios" name="selectorUsuarios">
                                     {% for ids in usuarios %}
                                     {% if ids.username != 'admin' %}
@@ -249,7 +260,7 @@
 
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-secondary">Crear Proyecto</button>
+                                    <button type="submit" class="btn btn-ntt">Crear Proyecto</button>
                                 </p>
                             </div>
 
@@ -302,7 +313,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-ntt">Guardar</button>
             </div>
 
         </div>
