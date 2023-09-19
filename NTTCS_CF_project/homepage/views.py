@@ -1873,7 +1873,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
         context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
         context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         context["proyectoSelec"] = ''
-        context["creadas"] = Entrevistas.objects.filter(creador=self.request.user)
+        context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
         context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
         return context
 
@@ -2002,9 +2002,10 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                                                                                             iniciativa=s.iniciativa).exists():
                         c += [s]
             context["recomendacion"] = g + c
+            context["asociadas"] = AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan)
         context["iniciativas"] = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass)
         context["iniciativasc"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass)
-        context["asociadas"] = AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan)
+
         context["assess"] = Assessmentguardados.objects.get(id_assessment=assSelect)
         return context
 

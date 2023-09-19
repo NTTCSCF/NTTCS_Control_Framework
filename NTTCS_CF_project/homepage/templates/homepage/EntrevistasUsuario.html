@@ -24,9 +24,10 @@
             <div class="textoTarjeta">
                 <div class="rowCajas">
                     <div class="card text-bg-ligth border-ligth cardModificada">
-                        <h5 class="card-header text-center">Creadas por mi</h5>
+                        <h5 class="card-header text-center">Mis entrevistas</h5>
                         <div class="card-body">
-                            <h5 class="card-title text-center">Aqui aparecen las entrevistas creadas por ti</h5>
+                            <h5 class="card-title text-center">Aqui aparecen las entrevistas en las que eres el
+                                responsable</h5>
                             {% for i in creadas %}
                             <div class="card card-body mb-3">
 
@@ -94,12 +95,12 @@
                 </div>
                 <div class="rowCajas">
                     <div class="card text-bg-ligth border-ligth cardModificada">
-                        <h5 class="card-header text-center">Asistente</h5>
-                        <div class="card-body" >
+                        <h5 class="card-header text-center">Otras Entrevistas</h5>
+                        <div class="card-body">
 
-                            <h5 class="card-title text-center">Aqui aparecen las entrevistas en las que estas como
-                                asistente</h5>
+                            <h5 class="card-title text-center">Aqui aparecen las demas entrevistas</h5>
                             {% for i in asistes %}
+                            {% if i.entrevista.editor != user %}
                             <form class="card card-body mb-3" method="post">
                                 {% csrf_token %}
 
@@ -110,8 +111,10 @@
                                 </div>
                                 <div class="row  justify-content-center align-items-center">
                                     <div class="row g-0 justify-content-center align-items-center text-center">
-                                        <div class="col-4 text-body-secondary fs-6">Fecha: {{i.entrevista.fecha.date}}</div>
-                                        <div class="col-2 text-body-secondary fs-6">Hora: {{i.entrevista.fecha.time}}</div>
+                                        <div class="col-4 text-body-secondary fs-6">Fecha: {{i.entrevista.fecha.date}}
+                                        </div>
+                                        <div class="col-2 text-body-secondary fs-6">Hora: {{i.entrevista.fecha.time}}
+                                        </div>
                                         <div class="col-3 text-body-secondary fs-6">Finalización:
                                             {{i.entrevista.duracionestimada}}
                                         </div>
@@ -123,13 +126,16 @@
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
                                         <h5 class="card-title text-center">Se tratará el assessment:
-                                            {{i.entrevista.assesment.id_assessment}} y el area: {{i.entrevista.area}}</h5>
+                                            {{i.entrevista.assesment.id_assessment}} y el area:
+                                            {{i.entrevista.area}}</h5>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col-3"></div>
                                     <div class="col g-4">
-                                        <div class="text-body text-center fs-6">Es iniciada por: {{i.entrevista.editor}}</div>
+                                        <div class="text-body text-center fs-6">Es iniciada por:
+                                            {{i.entrevista.editor}}
+                                        </div>
                                     </div>
                                     <div class="col-3 g-4">
                                         {% if i.entrevista.editor == user %}
@@ -147,7 +153,7 @@
                                     </div>
                                 </div>
                             </form>
-
+                            {% endif %}
                             {% endfor %}
 
                         </div>
@@ -249,7 +255,8 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " for="selectorUsuarios">Seleccione al Responsable de la Entrevista</label>
+                                <label class="input-group-text " for="selectorUsuarios">Seleccione al Responsable de la
+                                    Entrevista</label>
                                 <select class="form-select " data-live-search="true"
                                         data-actions-box="true" id="selectorEditor" name="selectorEditor">
                                     <option selected disabled value="none">Seleccione al editor</option>
