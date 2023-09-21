@@ -2001,10 +2001,15 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                             c += [s]
                 context["recomendacion"] = g + c
                 context["asociadas"] = AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan)
-
+            context["ProyectoSeleccionado"] = ProyectosMejora.objects.get(
+                id=self.request.session["ProyectoSeleccionado"])
+        else:
+            context["ProyectoSeleccionado"] = self.request.session["ProyectoSeleccionado"]
         if ass.plan_proyecto_mejora != None:
             context["plan"] = ass.plan_proyecto_mejora
         context["proyectos"] = AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora)
+        context["primero"] = AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora)[0].proyecto_mejora.id
+        print(self.request.session["ProyectoSeleccionado"])
         context["iniciativas"] = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass)
         context["iniciativasc"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass)
         context["assess"] = Assessmentguardados.objects.get(id_assessment=assSelect)
