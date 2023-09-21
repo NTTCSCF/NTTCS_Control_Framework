@@ -159,224 +159,238 @@
                         <div class="card-body">
                             <div id="carouselExample" class="carousel slide">
                                 <div class="carousel-inner">
+
                                     {% for i in proyectos %}
-                                    <div class="carousel-item active">
-                                        <div class="row justify-content-center aling-items-center ">
-                                            <div class="col-auto">
-                                                <h4 class="text-center">{{i.proyecto_mejora.nombre}}</h4>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-center aling-items-center mb-2">
-                                            <div class="col-auto">
-                                                <div class="col-auto text-body-secondary text-center fs-6">
-                                                    {{i.proyecto_mejora.descripcion}}
+                                    {% if ProyectoSeleccionado == None %}
+                                        {% if i.proyecto_mejora.id == primero %}
+                                        <div class="carousel-item active">
+                                        {% else %}
+                                        <div class="carousel-item ">
+                                        {% endif %}
+                                    {% else %}
+                                        {% if i.proyecto_mejora == ProyectoSeleccionado %}
+                                        <div class="carousel-item active">
+                                        {% else %}
+                                        <div class="carousel-item ">
+                                        {% endif %}
+                                    {% endif %}
+                                            <div class="row justify-content-center aling-items-center ">
+                                                <div class="col-auto">
+                                                    <h4 class="text-center">{{i.proyecto_mejora.nombre}}</h4>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row justify-content-center aling-items-center mb-2">
-                                            <div class="col-auto">
-                                                <div class="col-auto text-center fs-9">
-                                                    Riesgos: {{i.proyecto_mejora.riesgos}}
+                                            <div class="row justify-content-center aling-items-center mb-2">
+                                                <div class="col-auto">
+                                                    <div class="col-auto text-body-secondary text-center fs-6">
+                                                        {{i.proyecto_mejora.descripcion}}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row justify-content-center aling-items-center mb-2">
-                                            <div class="col-auto">
-                                                <div class="col text-center fs-9">
-                                                    Tipo: {{i.proyecto_mejora.tipo}}
-                                                </div>
-                                                <div class="col text-center fs-9">
-                                                    Duracion: {{i.proyecto_mejora.duracion}} meses
+                                            <div class="row justify-content-center aling-items-center mb-2">
+                                                <div class="col-auto">
+                                                    <div class="col-auto text-center fs-9">
+                                                        Riesgos: {{i.proyecto_mejora.riesgos}}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row justify-content-center aling-items-center mb-4">
-                                            <div class="col-auto">
-                                                <div class="col text-center fs-9">
-                                                    Coste: {{i.proyecto_mejora.coste}}
-                                                </div>
-                                                <div class="col text-center fs-9">
-                                                    Beneficio: {{i.proyecto_mejora.beneficio}}
+                                            <div class="row justify-content-center aling-items-center mb-2">
+                                                <div class="col-auto">
+                                                    <div class="col text-center fs-9">
+                                                        Tipo: {{i.proyecto_mejora.tipo}}
+                                                    </div>
+                                                    <div class="col text-center fs-9">
+                                                        Duracion: {{i.proyecto_mejora.duracion}} meses
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row justify-content-center aling-items-center mb-1">
-                                            <form class="col-auto justify-content-center" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-ntt"
-                                                        value="{{i.proyecto_mejora.id}}" name="btnSeleccionProyecto">
-                                                    Seleccionar
-                                                </button>
-                                            </form>
-                                        </div>
+                                            <div class="row justify-content-center aling-items-center mb-4">
+                                                <div class="col-auto">
+                                                    <div class="col text-center fs-9">
+                                                        Coste: {{i.proyecto_mejora.coste}}
+                                                    </div>
+                                                    <div class="col text-center fs-9">
+                                                        Beneficio: {{i.proyecto_mejora.beneficio}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row justify-content-center aling-items-center mb-1">
+                                                <form class="col-auto justify-content-center" method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-ntt"
+                                                            value="{{i.proyecto_mejora.id}}"
+                                                            name="btnSeleccionProyecto">
+                                                        Seleccionar
+                                                    </button>
+                                                </form>
+                                            </div>
 
 
+                                        </div>
+                                        {% endfor %}
                                     </div>
-                                    {% endfor %}
+                                    <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExample"
+                                            data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExample"
+                                            data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
-                                <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExample"
-                                        data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExample"
-                                        data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="cajaPreguntaDescripcion">
-        <div class="tarjeta">
-            <div class="tituloTarjeta">
-                <div class="cuadrotexto">
-                    Iniciativas
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Iniciativas
+                    </div>
                 </div>
-            </div>
-            <div class="textoTarjeta">
-                <div class="rowCajas">
-                    <div class="card text-bg-ligth border-ligth cardModificada">
-                        <h5 class="card-header text-center">Recomendación de iniciativas</h5>
-                        <div class="card-body">
-                            {% for i in recomendacion %}
-                            <form class="card card-body mb-3" method="post">
+                <div class="textoTarjeta">
+                    <div class="rowCajas">
+                        <div class="card text-bg-ligth border-ligth cardModificada">
+                            <h5 class="card-header text-center">Recomendación de iniciativas</h5>
+                            <div class="card-body">
+                                {% for i in recomendacion %}
+                                <form class="card card-body mb-3" method="post">
+                                    {% csrf_token %}
+                                    <div class="row justify-content-center align-items-center ">
+                                        <div class="col-7">
+                                            <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
+                                                {{i.iniciativa.descripcion}}</h4>
+                                        </div>
+                                        <div class="col-auto row justify-content-center align-items-center">
+                                            <button style="font-size:0.6vw;" type="submit" class="btn btn-ntt"
+                                                    name="btnAnadirRecomendacion"
+                                                    value="{{i.iniciativa.nombre}}"><i class="bi bi-plus-circle"></i>
+                                                Añadir
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rowCajas">
+                        <div class="card text-bg-ligth border-ligth cardModificada">
+                            <h5 class="card-header text-center">Seleccione las iniciativas</h5>
+                            <form class="card-body" method="post">
                                 {% csrf_token %}
-                                <div class="row justify-content-center align-items-center ">
-                                    <div class="col-7">
-                                        <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
-                                            {{i.iniciativa.descripcion}}</h4>
-                                    </div>
-                                    <div class="col-auto row justify-content-center align-items-center">
-                                        <button style="font-size:0.6vw;" type="submit" class="btn btn-ntt"
-                                                name="btnAnadirRecomendacion"
-                                                value="{{i.iniciativa.nombre}}"><i class="bi bi-plus-circle"></i>
-                                            Añadir
-                                        </button>
-                                    </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text " style="font-size:0.8vw;"
+                                           for="selectorIniciativasg">Seleccione
+                                        iniciativas Genericas</label>
+                                    <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
+                                            data-live-search="true"
+                                            data-actions-box="true" id="selectorIniciativasg"
+                                            name="selectorIniciativas">
+                                        {% for i in iniciativas %}
+
+                                        <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="card-text text-center">
+                                    <p class="d-inline-flex gap-1">
+                                        <button type="submit" class="btn btn-ntt">Asociar Iniciativas</button>
+                                    </p>
                                 </div>
                             </form>
-
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                <div class="rowCajas">
-                    <div class="card text-bg-ligth border-ligth cardModificada">
-                        <h5 class="card-header text-center">Seleccione las iniciativas</h5>
-                        <form class="card-body" method="post">
-                            {% csrf_token %}
-                            <div class="input-group mb-3">
-                                <label class="input-group-text " style="font-size:0.8vw;"
-                                       for="selectorIniciativasg">Seleccione
-                                    iniciativas Genericas</label>
-                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
-                                        data-live-search="true"
-                                        data-actions-box="true" id="selectorIniciativasg"
-                                        name="selectorIniciativas">
-                                    {% for i in iniciativas %}
-
-                                    <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="card-text text-center">
-                                <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-ntt">Asociar Iniciativas</button>
-                                </p>
-                            </div>
-                        </form>
-                        <form class="card-body" method="post">
-                            {% csrf_token %}
-                            <div class="input-group mb-3">
-                                <label class="input-group-text " style="font-size:0.8vw;"
-                                       for="selectorIniciativasc">Seleccione
-                                    iniciativas Creadas</label>
-                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
-                                        data-live-search="true"
-                                        data-actions-box="true" id="selectorIniciativasc"
-                                        name="selectorIniciativas">
-                                    {% for i in iniciativasc %}
-
-                                    <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
-                                    </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="card-text text-center">
-                                <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-ntt">Asociar Iniciativas</button>
-                                </p>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="rowTitulo">
-    <div class="cajaPreguntaDescripcion">
-        <div class="tarjeta">
-            <div class="tituloTarjeta">
-                <div class="cuadrotexto">
-                    Iniciativas asociadas
-                </div>
-            </div>
-            <div class="textoTarjeta">
-                <div class="rowCajas">
-                    <div class="card text-bg-ligth border-ligth cardModificada">
-                        <div class="card-body">
-                            {% for i in asociadas %}
-                            <form class="card card-body mb-3" method="post">
+                            <form class="card-body" method="post">
                                 {% csrf_token %}
-                                <div class="row justify-content-center align-items-center ">
-                                    <div class="col-8">
-                                        <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
-                                            {{i.iniciativa.descripcion}}</h4>
-                                    </div>
-                                    <div class="col-auto row justify-content-center align-items-center">
-                                        <button style="font-size:0.6vw;" type="submit" class="btn btn-danger "
-                                                name="btnEliminarAsociacion"
-                                                value="{{i.iniciativa.nombre}}"><i class="bi bi-trash"></i>
-                                            Eliminar
-                                        </button>
-                                    </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text " style="font-size:0.8vw;"
+                                           for="selectorIniciativasc">Seleccione
+                                        iniciativas Creadas</label>
+                                    <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
+                                            data-live-search="true"
+                                            data-actions-box="true" id="selectorIniciativasc"
+                                            name="selectorIniciativas">
+                                        {% for i in iniciativasc %}
+
+                                        <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="card-text text-center">
+                                    <p class="d-inline-flex gap-1">
+                                        <button type="submit" class="btn btn-ntt">Asociar Iniciativas</button>
+                                    </p>
                                 </div>
                             </form>
-
-                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal fade  " id="myModal" data-bs-keyboard="false"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form class="modal-dialog modal-lg  modal-dialog-centered" method="post">
-        {% csrf_token %}
-        <div class="modal-content">
 
+    <div class="rowTitulo">
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Iniciativas asociadas
+                    </div>
+                </div>
+                <div class="textoTarjeta">
+                    <div class="rowCajas">
+                        <div class="card text-bg-ligth border-ligth cardModificada">
+                            <div class="card-body">
+                                {% for i in asociadas %}
+                                <form class="card card-body mb-3" method="post">
+                                    {% csrf_token %}
+                                    <div class="row justify-content-center align-items-center ">
+                                        <div class="col-8">
+                                            <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
+                                                {{i.iniciativa.descripcion}}</h4>
+                                        </div>
+                                        <div class="col-auto row justify-content-center align-items-center">
+                                            <button style="font-size:0.6vw;" type="submit" class="btn btn-danger "
+                                                    name="btnEliminarAsociacion"
+                                                    value="{{i.iniciativa.nombre}}"><i class="bi bi-trash"></i>
+                                                Eliminar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
-    </form>
-</div>
+    </div>
+    <div class="modal fade  " id="myModal" data-bs-keyboard="false"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form class="modal-dialog modal-lg  modal-dialog-centered" method="post">
+            {% csrf_token %}
+            <div class="modal-content">
 
 
-{% endblock %}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+
+    {% endblock %}
