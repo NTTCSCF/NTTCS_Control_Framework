@@ -18,15 +18,64 @@
         <div class="tarjeta">
             <div class="tituloTarjeta">
                 <div class="cuadrotexto">
-                    Creacion de Plan de proyecto de mejora
+                    Plan Proyecto de Mejora
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="rowCajas">
+
+                    <div class=" card text-bg-ligth border-ligth cardModificada ">
+
+                        <h5 class="card-header text-center">Rellene los datos del plan
+                            de proyecto de mejora</h5>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" style="font-size:0.8vw;"
+                                      id="basic-addon">Nombre</span>
+                                <input type="text" class="form-control" style="font-size:0.8vw;"
+                                       placeholder="Nombre"
+                                       aria-label="Nombre"
+                                       aria-describedby="basic-addon3" id="NombrePlanProyecto"
+                                       name="NombrePlanProyecto" value="{{plan.nombre}}">
+                            </div>
+                            <div class="input-group mb-3 ">
+                                <span class="input-group-text" style="font-size:0.8vw;">Descripción</span>
+                                <textarea class="form-control" style="font-size:0.8vw;"
+                                          aria-label="Descripción"
+                                          rows="8"
+                                          placeholder="Descripción"
+                                          name="descripcionPlanProyecto">{{plan.descripcion}}</textarea>
+                            </div>
+                            <div class="card-text text-center">
+                                <p class="d-inline-flex gap-1">
+                                    <button type="submit" class="btn btn-ntt">Guardar</button>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Creacion de proyecto de mejora
                 </div>
             </div>
             <div class="textoTarjeta">
                 <div class="rowCajas">
                     <div class="card text-bg-ligth border-ligth cardModificada">
 
-                        <h5 class="card-header text-center">Rellene los datos del plan
-                            de proyecto de mejora</h5>
+                        <h5 class="card-header text-center">Rellene los datos del proyecto de mejora</h5>
                         <form class="card-body" method="post">
                             {% csrf_token %}
 
@@ -37,7 +86,7 @@
                                        placeholder="Nombre"
                                        aria-label="Nombre"
                                        aria-describedby="basic-addon3" id="NombrePlan"
-                                       name="NombrePlan" value="{{plan.nombre}}">
+                                       name="NombrePlan" value="">
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;">Descripción</span>
@@ -45,7 +94,7 @@
                                           aria-label="Descripción"
                                           rows="8"
                                           placeholder="Descripción"
-                                          name="descripcionPlan">{{plan.descripcion}}</textarea>
+                                          name="descripcionPlan"></textarea>
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;">Riesgos</span>
@@ -53,7 +102,7 @@
                                           aria-label="Riesgos"
                                           rows="5"
                                           placeholder="Riesgos"
-                                          name="riesgosPlan">{{plan.riesgos}}</textarea>
+                                          name="riesgosPlan"></textarea>
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;"
@@ -62,7 +111,7 @@
                                        placeholder="Tipo"
                                        aria-label="Tipo"
                                        aria-describedby="basic-addon4" id="tipoPlan"
-                                       name="tipoPlan" value="{{plan.tipo}}">
+                                       name="tipoPlan" value="">
                             </div>
 
                             <div class="input-group mb-3 ">
@@ -72,7 +121,7 @@
                                        placeholder="Duracion"
                                        aria-label="Duracion" step="any"
                                        aria-describedby="basic-addon7" id="duracionPlan"
-                                       name="duracionPlan" value="{{duracion}}">
+                                       name="duracionPlan" value="">
                                 <span class="input-group-text"
                                       id="basic-addon8">meses</span>
                             </div>
@@ -84,7 +133,7 @@
                                        placeholder="Coste" step="any"
                                        aria-label="Coste"
                                        aria-describedby="basic-addon5" id="costePlan"
-                                       name="costePlan" value="{{coste}}">
+                                       name="costePlan" value="">
 
                                 <span class="input-group-text" style="font-size:0.8vw;"
                                       id="basic-addon6">Beneficio</span>
@@ -93,7 +142,7 @@
                                        aria-label="Beneficio"
                                        aria-describedby="basic-addon6"
                                        id="beneficioPlan"
-                                       name="beneficioPlan" value="{{beneficio}}">
+                                       name="beneficioPlan" value="">
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
@@ -101,6 +150,84 @@
                                 </p>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <div class="rowCajas">
+                    <div class=" card text-bg-secondary border-ligth cardModificada ">
+
+                        <h5 class="card-header text-center">Seleccione el proyecto de mejora</h5>
+                        <div class="card-body">
+                            <div id="carouselExample" class="carousel slide">
+                                <div class="carousel-inner">
+                                    {% for i in proyectos %}
+                                    <div class="carousel-item active">
+                                        <div class="row justify-content-center aling-items-center ">
+                                            <div class="col-auto">
+                                                <h4 class="text-center">{{i.proyecto_mejora.nombre}}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-2">
+                                            <div class="col-auto">
+                                                <div class="col-auto text-body-secondary text-center fs-6">
+                                                    {{i.proyecto_mejora.descripcion}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-2">
+                                            <div class="col-auto">
+                                                <div class="col-auto text-center fs-9">
+                                                    Riesgos: {{i.proyecto_mejora.riesgos}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-2">
+                                            <div class="col-auto">
+                                                <div class="col text-center fs-9">
+                                                    Tipo: {{i.proyecto_mejora.tipo}}
+                                                </div>
+                                                <div class="col text-center fs-9">
+                                                    Duracion: {{i.proyecto_mejora.duracion}} meses
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-4">
+                                            <div class="col-auto">
+                                                <div class="col text-center fs-9">
+                                                    Coste: {{i.proyecto_mejora.coste}}
+                                                </div>
+                                                <div class="col text-center fs-9">
+                                                    Beneficio: {{i.proyecto_mejora.beneficio}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-1">
+                                            <form class="col-auto justify-content-center" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-ntt"
+                                                        value="{{i.proyecto_mejora.id}}" name="btnSeleccionProyecto">
+                                                    Seleccionar
+                                                </button>
+                                            </form>
+                                        </div>
+
+
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExample"
+                                        data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExample"
+                                        data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,7 +274,8 @@
                         <form class="card-body" method="post">
                             {% csrf_token %}
                             <div class="input-group mb-3">
-                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorIniciativasg">Seleccione
+                                <label class="input-group-text " style="font-size:0.8vw;"
+                                       for="selectorIniciativasg">Seleccione
                                     iniciativas Genericas</label>
                                 <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
                                         data-live-search="true"
@@ -169,7 +297,8 @@
                         <form class="card-body" method="post">
                             {% csrf_token %}
                             <div class="input-group mb-3">
-                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorIniciativasc">Seleccione
+                                <label class="input-group-text " style="font-size:0.8vw;"
+                                       for="selectorIniciativasc">Seleccione
                                     iniciativas Creadas</label>
                                 <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
                                         data-live-search="true"
