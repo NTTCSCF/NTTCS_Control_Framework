@@ -2008,8 +2008,9 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         if ass.plan_proyecto_mejora != None:
             context["plan"] = ass.plan_proyecto_mejora
         context["proyectos"] = AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora)
-        context["primero"] = AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora)[0].proyecto_mejora.id
-        print(self.request.session["ProyectoSeleccionado"])
+        if AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora).exists():
+            context["primero"] = AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora)[0].proyecto_mejora.id
+
         context["iniciativas"] = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass)
         context["iniciativasc"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass)
         context["assess"] = Assessmentguardados.objects.get(id_assessment=assSelect)
