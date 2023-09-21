@@ -18,8 +18,8 @@ from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguar
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
     AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas, \
     AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs, Cliente, Proyecto, AsociacionUsuariosProyecto, \
-    AsociacionProyectoAssessment, PlanProyectosMejora, AsociacionProyectoMejoraIniciativa, Entrevistas, \
-    AsociacionEntrevistasUsuarios
+    AsociacionProyectoAssessment, ProyectosMejora, AsociacionProyectoMejoraIniciativa, Entrevistas, \
+    AsociacionEntrevistasUsuarios, AsociacionPlanProyectosProyectos, PlanProyectoMejora, AsociacionProyectoAssessment
 
 from django.views.generic import TemplateView, ListView
 import mysql.connector
@@ -1980,37 +1980,39 @@ class planProyecto(LoginRequiredMixin, TemplateView):
     def contexto(self, context):
         assSelect = self.request.session.get('assessmentGuardado')
         ass = Assessmentguardados.objects.get(id_assessment=assSelect)
-        if PlanProyectosMejora.objects.filter(assessment=ass).exists():
-            plan = PlanProyectosMejora.objects.get(assessment=ass)
-            context["plan"] = PlanProyectosMejora.objects.get(assessment=ass)
-            context["duracion"] = str(PlanProyectosMejora.objects.get(assessment=ass).duracion)
-            context["coste"] = str(PlanProyectosMejora.objects.get(assessment=ass).coste)
-            context["beneficio"] = str(PlanProyectosMejora.objects.get(assessment=ass).beneficio)
-            g = []
-            c = []
-            for i in plan.descripcion.split(" "):
-                p = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass,
-                                                                 iniciativa__descripcion__icontains=i)
-                for s in p:
-                    if s not in g and not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
-                                                                                            iniciativa=s.iniciativa).exists():
-                        g += [s]
-                p = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass,
-                                                               iniciativa__descripcion__icontains=i)
-                for s in p:
-                    if s not in c and not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
-                                                                                            iniciativa=s.iniciativa).exists():
-                        c += [s]
-            context["recomendacion"] = g + c
-            context["asociadas"] = AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan)
+        if self.request.session["ProyectoSeleccionado"] != None:
+            if ProyectosMejora.objects.filter(id=self.request.session["ProyectoSeleccionado"]).exists():
+                plan = ProyectosMejora.objects.get(id=self.request.session["ProyectoSeleccionado"])
+
+                g = []
+                c = []
+                for i in plan.descripcion.split(" "):
+                    p = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass,
+                                                                     iniciativa__descripcion__icontains=i)
+                    for s in p:
+                        if s not in g and not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
+                                                                                                iniciativa=s.iniciativa).exists():
+                            g += [s]
+                    p = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass,
+                                                                   iniciativa__descripcion__icontains=i)
+                    for s in p:
+                        if s not in c and not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
+                                                                                                iniciativa=s.iniciativa).exists():
+                            c += [s]
+                context["recomendacion"] = g + c
+                context["asociadas"] = AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan)
+
+        if ass.plan_proyecto_mejora != None:
+            context["plan"] = ass.plan_proyecto_mejora
+        context["proyectos"] = AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora)
         context["iniciativas"] = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass)
         context["iniciativasc"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass)
-
         context["assess"] = Assessmentguardados.objects.get(id_assessment=assSelect)
         return context
 
     def get_context_data(self, **knwargs):
         assSelect = self.request.session.get('assessmentGuardado')
+        self.request.session["ProyectoSeleccionado"] = None
         context = super(planProyecto, self).get_context_data(**knwargs)
         context = self.contexto(context)
         return context
@@ -2023,32 +2025,43 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                 'duracionPlan') != '' and request.POST.get('costePlan') != '' and request.POST.get(
                 'beneficioPlan') != '':
                 ass = Assessmentguardados.objects.get(id_assessment=assSelect)
-                if PlanProyectosMejora.objects.filter(assessment=ass).exists():
-                    plan = PlanProyectosMejora.objects.get(assessment=ass)
-                    plan.nombre = request.POST.get('NombrePlan')
-                    plan.descripcion = request.POST.get('descripcionPlan')
-                    plan.riesgos = request.POST.get('riesgosPlan')
-                    plan.tipo = request.POST.get('tipoPlan')
-                    plan.duracion = request.POST.get('duracionPlan')
-                    plan.coste = request.POST.get('costePlan')
-                    plan.beneficio = request.POST.get('beneficioPlan')
-                    plan.assessment = ass
-                else:
-                    plan = PlanProyectosMejora(nombre=request.POST.get('NombrePlan'),
+                if ass.plan_proyecto_mejora != None:
+                    proyecto = ProyectosMejora(nombre=request.POST.get('NombrePlan'),
                                                descripcion=request.POST.get('descripcionPlan'),
                                                riesgos=request.POST.get('riesgosPlan'),
                                                tipo=request.POST.get('tipoPlan'),
                                                duracion=request.POST.get('duracionPlan'),
                                                coste=request.POST.get('costePlan'),
                                                beneficio=request.POST.get('beneficioPlan'),
-                                               assessment=ass)
-                plan.save()
-                context = super(planProyecto, self).get_context_data(**knwargs)
-                context = self.contexto(context)
-                request.session["planCreado"] = request.POST.get('NombrePlan')
-                return render(request, self.template_name, context=context)
+                                               )
+                    proyecto.save()
+                    plan = ass.plan_proyecto_mejora
+                    asociacion = AsociacionPlanProyectosProyectos(proyecto_mejora=proyecto, plan_proyecto=plan)
+                    asociacion.save()
+
+                    context = super(planProyecto, self).get_context_data(**knwargs)
+                    context = self.contexto(context)
+
+                    return render(request, self.template_name, context=context)
+                else:
+                    messages.error(request, 'ERROR, Necesitas crear un plan de proyecto antes de crear un proyecto')
             else:
                 messages.error(request, 'ERROR, Necesitas introducir todos los valores')
+
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
+        elif 'NombrePlanProyecto' in request.POST:
+            plan = PlanProyectoMejora(nombre=request.POST.get("NombrePlanProyecto"), descripcion=request.POST.get("descripcionPlanProyecto"))
+            plan.save()
+            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+            ass.plan_proyecto_mejora = plan
+            ass.save()
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
+        elif 'btnSeleccionProyecto' in request.POST:
+            request.session["ProyectoSeleccionado"] = request.POST.get('btnSeleccionProyecto')
 
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
@@ -2370,7 +2383,7 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
                 context = super(encuestaEntrevista, self).get_context_data(**knwargs)
                 request, context = self.contextTotal(request, request.session["controlSelect"], context)
                 return render(request, self.template_name, context=context)
-            
+
         elif btnEliminarEvidencia != '':  # if encargado de Eliminar las evidencias
             evidencia = AsociacionEvidenciasGenericas.objects.get(id=btnEliminarEvidencia)
             evidencia.delete()

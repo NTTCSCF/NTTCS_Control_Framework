@@ -95,7 +95,7 @@ class Assessmentguardados(models.Model):
     fecha_creacion = models.DateField(blank=True, null=True)
     fecha_ultima_modificacion = models.DateField(blank=True, null=True)
     fecha_cierre = models.DateField(blank=True, null=True)
-    plan_proyecto_mejora = models.ForeignKey('PlanProyectosMejora', models.DO_NOTHING, db_column='plan_proyecto_mejora', blank=True, null=True)
+    plan_proyecto_mejora = models.ForeignKey('PlanProyectoMejora', models.DO_NOTHING, db_column='plan_proyecto_mejora', blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
@@ -179,7 +179,23 @@ class AsociacionProyectoAssessment(models.Model):
         managed = False
         db_table = 'asociacion_proyecto_assessment'
 
-class PlanProyectosMejora(models.Model):
+class PlanProyectoMejora(models.Model):
+    nombre = models.CharField(max_length=100, blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'plan_proyecto_mejora'
+
+class AsociacionPlanProyectosProyectos(models.Model):
+    proyecto_mejora = models.ForeignKey('ProyectosMejora', models.DO_NOTHING, db_column='proyecto_mejora', blank=True, null=True)
+    plan_proyecto = models.ForeignKey('PlanProyectoMejora', models.DO_NOTHING, db_column='plan_proyecto', blank=True, null=True)
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'asociacion_plan_proyectos_proyectos'
+
+class ProyectosMejora(models.Model):
     nombre = models.CharField(max_length=100, blank=True, null=True)
     descripcion = models.TextField(blank=True, null=True)
     riesgos = models.TextField(blank=True, null=True)
@@ -187,14 +203,13 @@ class PlanProyectosMejora(models.Model):
     duracion = models.FloatField(blank=True, null=True)
     coste = models.FloatField(blank=True, null=True)
     beneficio = models.FloatField(blank=True, null=True)
-    assessment = models.ForeignKey('Assessmentguardados', models.DO_NOTHING, db_column='assessment', blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
-        db_table = 'plan_proyectos_mejora'
+        db_table = 'proyectos_mejora'
 
 class AsociacionProyectoMejoraIniciativa(models.Model):
-    proyecto = models.ForeignKey('PlanProyectosMejora', models.DO_NOTHING, db_column='proyecto')
+    proyecto = models.ForeignKey('ProyectosMejora', models.DO_NOTHING, db_column='proyecto')
     iniciativa = models.ForeignKey('Iniciativas', models.DO_NOTHING, db_column='iniciativa')
     objects = models.Manager()
     class Meta:
