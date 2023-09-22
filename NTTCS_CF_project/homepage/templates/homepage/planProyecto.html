@@ -86,7 +86,7 @@
                                        placeholder="Nombre"
                                        aria-label="Nombre"
                                        aria-describedby="basic-addon3" id="NombrePlan"
-                                       name="NombrePlan" value="">
+                                       name="NombrePlan" value="{{ProyectoEditar.nombre}}">
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;">Descripción</span>
@@ -94,7 +94,7 @@
                                           aria-label="Descripción"
                                           rows="8"
                                           placeholder="Descripción"
-                                          name="descripcionPlan"></textarea>
+                                          name="descripcionPlan">{{ProyectoEditar.descripcion}}</textarea>
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;">Riesgos</span>
@@ -102,7 +102,7 @@
                                           aria-label="Riesgos"
                                           rows="5"
                                           placeholder="Riesgos"
-                                          name="riesgosPlan"></textarea>
+                                          name="riesgosPlan">{{ProyectoEditar.riesgos}}</textarea>
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;"
@@ -111,7 +111,7 @@
                                        placeholder="Tipo"
                                        aria-label="Tipo"
                                        aria-describedby="basic-addon4" id="tipoPlan"
-                                       name="tipoPlan" value="">
+                                       name="tipoPlan" value="{{ProyectoEditar.tipo}}">
                             </div>
 
                             <div class="input-group mb-3 ">
@@ -121,7 +121,7 @@
                                        placeholder="Duracion"
                                        aria-label="Duracion" step="any"
                                        aria-describedby="basic-addon7" id="duracionPlan"
-                                       name="duracionPlan" value="">
+                                       name="duracionPlan" value="{{duracion}}">
                                 <span class="input-group-text"
                                       id="basic-addon8">meses</span>
                             </div>
@@ -133,7 +133,7 @@
                                        placeholder="Coste" step="any"
                                        aria-label="Coste"
                                        aria-describedby="basic-addon5" id="costePlan"
-                                       name="costePlan" value="">
+                                       name="costePlan" value="{{coste}}">
 
                                 <span class="input-group-text" style="font-size:0.8vw;"
                                       id="basic-addon6">Beneficio</span>
@@ -142,11 +142,15 @@
                                        aria-label="Beneficio"
                                        aria-describedby="basic-addon6"
                                        id="beneficioPlan"
-                                       name="beneficioPlan" value="">
+                                       name="beneficioPlan" value="{{beneficio}}">
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-ntt">Crear Plan de Proyecto</button>
+                                    {% if editandoProyecto %}
+                                    <button type="submit" class="btn btn-ntt" name="editarProyecto">Editar Plan de Proyecto</button>
+                                    {% else %}
+                                    <button type="submit" class="btn btn-ntt" name="crearProyecto">Crear Plan de Proyecto</button>
+                                    {% endif%}
                                 </p>
                             </div>
                         </form>
@@ -214,6 +218,14 @@
                                                 </div>
                                             </div>
                                             <div class="row justify-content-center aling-items-center mb-1">
+                                                <form class="col-auto justify-content-center" method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-ntt"
+                                                            value="{{i.proyecto_mejora.id}}"
+                                                            name="btnEditarProyecto">
+                                                        <i class="bi bi-pencil"></i> Editar
+                                                    </button>
+                                                </form>
                                                 <form class="col-auto justify-content-center" method="post">
                                                     {% csrf_token %}
                                                     <button type="submit" class="btn btn-ntt"
