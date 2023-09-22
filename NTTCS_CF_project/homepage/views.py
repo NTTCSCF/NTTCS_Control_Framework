@@ -2026,7 +2026,7 @@ class planProyecto(LoginRequiredMixin, TemplateView):
 
     def post(self, request, **knwargs):
         assSelect = request.session.get('assessmentGuardado')
-        if 'NombrePlan' in request.POST:
+        if 'crearProyecto' in request.POST:
             if request.POST.get('NombrePlan') != '' and request.POST.get('descripcionPlan') != '' and request.POST.get(
                     'riesgosPlan') != '' and request.POST.get('tipoPlan') != '' and request.POST.get(
                 'duracionPlan') != '' and request.POST.get('costePlan') != '' and request.POST.get(
@@ -2058,6 +2058,34 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
+        elif 'editarProyecto' in request.POST:
+            if request.POST.get('NombrePlan') != '' and request.POST.get('descripcionPlan') != '' and request.POST.get(
+                    'riesgosPlan') != '' and request.POST.get('tipoPlan') != '' and request.POST.get(
+                'duracionPlan') != '' and request.POST.get('costePlan') != '' and request.POST.get(
+                'beneficioPlan') != '':
+                ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+                proyecto = ProyectosMejora.objects.get(id=request.session["ProyectoEditar"])
+                proyecto.nombre=request.POST.get('NombrePlan')
+                proyecto.descripcion=request.POST.get('descripcionPlan')
+                proyecto.riesgos=request.POST.get('riesgosPlan')
+                proyecto.tipo=request.POST.get('tipoPlan')
+                proyecto.duracion=request.POST.get('duracionPlan')
+                proyecto.coste=request.POST.get('costePlan')
+                proyecto.beneficio=request.POST.get('beneficioPlan')
+                proyecto.save()
+                
+
+                context = super(planProyecto, self).get_context_data(**knwargs)
+                context = self.contexto(context)
+
+                return render(request, self.template_name, context=context)
+                
+            else:
+                messages.error(request, 'ERROR, Necesitas introducir todos los valores')
+
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
         elif 'NombrePlanProyecto' in request.POST:
             ass = Assessmentguardados.objects.get(id_assessment=assSelect)
             if ass.plan_proyecto_mejora == None:
@@ -2080,6 +2108,19 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
+
+        elif 'btnEditarProyecto' in request.POST:
+            request.session["ProyectoEditar"] = request.POST.get('btnEditarProyecto')
+
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context["ProyectoEditar"] = ProyectosMejora.objects.get(id=request.session["ProyectoEditar"])
+            context["duracion"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).duracion)
+            context["coste"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).coste)
+            context["beneficio"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).beneficio)
+            context["editandoProyecto"] = True
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
+
         elif 'selectorIniciativasg' in request.POST:
             plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
             iniciaticasSelect = request.POST.getlist('selectorIniciativasg')
