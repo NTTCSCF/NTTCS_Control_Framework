@@ -4,4 +4,3 @@ mysqlclient
 mysql
 mysql-connector-python
 xlsxwriter
-django-debug-toolbar
