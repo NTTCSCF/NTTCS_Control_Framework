@@ -19,16 +19,13 @@ from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguar
     AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas, \
     AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs, Cliente, Proyecto, AsociacionUsuariosProyecto, \
     AsociacionProyectoAssessment, ProyectosMejora, AsociacionProyectoMejoraIniciativa, Entrevistas, \
-    AsociacionEntrevistasUsuarios, AsociacionPlanProyectosProyectos, PlanProyectoMejora, AsociacionProyectoAssessment
+    AsociacionEntrevistasUsuarios, AsociacionPlanProyectosProyectos, PlanProyectoMejora
 
 from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
 import csv
 import xlsxwriter
-# IMPORT PARA DATATABLES
-from django.http.response import JsonResponse
-from django.template import loader
 
 
 # Create your views here.
@@ -2001,6 +1998,10 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                             c += [s]
                 context["recomendacion"] = g + c
                 context["asociadas"] = AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan)
+                asoci=[]
+                for i in AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan):
+                    asoci += [i.iniciativa.id]
+                context["idAsoci"] = asoci
             context["ProyectoSeleccionado"] = ProyectosMejora.objects.get(
                 id=self.request.session["ProyectoSeleccionado"])
         else:
@@ -2058,11 +2059,18 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
         elif 'NombrePlanProyecto' in request.POST:
-            plan = PlanProyectoMejora(nombre=request.POST.get("NombrePlanProyecto"), descripcion=request.POST.get("descripcionPlanProyecto"))
-            plan.save()
             ass = Assessmentguardados.objects.get(id_assessment=assSelect)
-            ass.plan_proyecto_mejora = plan
-            ass.save()
+            if ass.plan_proyecto_mejora == None:
+                plan = PlanProyectoMejora(nombre=request.POST.get("NombrePlanProyecto"), descripcion=request.POST.get("descripcionPlanProyecto"))
+                plan.save()
+                ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+                ass.plan_proyecto_mejora = plan
+                ass.save()
+            else:
+                plan = ass.plan_proyecto_mejora
+                plan.nombre = request.POST.get("NombrePlanProyecto")
+                plan.descripcion = request.POST.get("descripcionPlanProyecto")
+                plan.save()
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
@@ -2073,49 +2081,56 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
         elif 'selectorIniciativasg' in request.POST:
-            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
-            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
             iniciaticasSelect = request.POST.getlist('selectorIniciativasg')
             for i in iniciaticasSelect:
-                asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
-                                                                iniciativa=Iniciativas.objects.get(nombre=i))
-                asociacion.save()
+                if not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
+                                                                         iniciativa=Iniciativas.objects.get(
+                                                                             nombre=i)).exists():
+                    asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
+                                                                    iniciativa=Iniciativas.objects.get(nombre=i))
+                    asociacion.save()
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
 
         elif 'selectorIniciativasc' in request.POST:
-            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
-            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
             iniciaticasSelect = request.POST.getlist('selectorIniciativasc')
+
             for i in iniciaticasSelect:
-                asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
-                                                                iniciativa=Iniciativas.objects.get(nombre=i))
-                asociacion.save()
+                if not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
+                                                                         iniciativa=Iniciativas.objects.get(
+                                                                                 nombre=i)).exists():
+                    asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
+                                                                    iniciativa=Iniciativas.objects.get(nombre=i))
+                    asociacion.save()
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
 
         elif 'btnAnadirRecomendacion' in request.POST:
-            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
-            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
             iniciaticasSelect = request.POST.get('btnAnadirRecomendacion')
-            asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
-                                                            iniciativa=Iniciativas.objects.get(
-                                                                nombre=iniciaticasSelect))
-            asociacion.save()
+            if not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,iniciativa=Iniciativas.objects.get(
+                                                                            nombre=iniciaticasSelect)).exists():
+                asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
+                                                                iniciativa=Iniciativas.objects.get(
+                                                                    nombre=iniciaticasSelect))
+                asociacion.save()
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
 
         elif 'btnEliminarAsociacion' in request.POST:
-            ass = Assessmentguardados.objects.get(id_assessment=assSelect)
-            plan = PlanProyectosMejora.objects.get(assessment=ass)
+            plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
             iniciaticasSelect = request.POST.get('btnEliminarAsociacion')
-            asociacion = AsociacionProyectoMejoraIniciativa.objects.get(proyecto=plan,
-                                                                        iniciativa=Iniciativas.objects.get(
-                                                                            nombre=iniciaticasSelect))
-            asociacion.delete()
+            if  AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan, iniciativa=Iniciativas.objects.get(
+                    nombre=iniciaticasSelect)).exists():
+                asociacion = AsociacionProyectoMejoraIniciativa.objects.get(proyecto=plan,
+                                                                            iniciativa=Iniciativas.objects.get(
+                                                                                nombre=iniciaticasSelect))
+                asociacion.delete()
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)

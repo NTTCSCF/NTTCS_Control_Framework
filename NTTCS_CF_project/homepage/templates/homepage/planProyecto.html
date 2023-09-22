@@ -296,9 +296,10 @@
                                             data-actions-box="true" id="selectorIniciativasg"
                                             name="selectorIniciativas">
                                         {% for i in iniciativas %}
-
+                                        {% if i.iniciativa.id not in idAsoci %}
                                         <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
                                         </option>
+                                        {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -319,9 +320,10 @@
                                             data-actions-box="true" id="selectorIniciativasc"
                                             name="selectorIniciativas">
                                         {% for i in iniciativasc %}
-
+                                        {% if i.iniciativa.id not in idAsoci %}
                                         <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
                                         </option>
+                                        {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
