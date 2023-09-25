@@ -78,6 +78,14 @@
                                 <div class="row justify-content-center align-items-center ">
                                     <form class="col-auto g-4" method="post">
                                         {% csrf_token %}
+                                        <button style="font-size:0.7vw;" type="submit" class="btn btn-sm btn-ntt"
+                                                name="btnEditarEntrevista"
+                                                value="{{i.id}}"><i class="bi bi-pencil"></i>
+                                            Editar Entrevista
+                                        </button>
+                                    </form>
+                                    <form class="col-auto g-4" method="post">
+                                        {% csrf_token %}
                                         <button style="font-size:0.7vw;" type="submit" class="btn btn-sm btn-danger"
                                                 name="btnEliminarEntrevista"
                                                 value="{{i.id}}"><i class="bi-trash"></i>
@@ -227,20 +235,20 @@
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon3">Titulo</span>
                                 <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Titulo" aria-label="Titulo"
-                                       aria-describedby="basic-addon3" id="Titulo" name="Titulo">
+                                       aria-describedby="basic-addon3" id="Titulo" name="Titulo" value="{{entrevistaEditar.titulo}}">
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon4">Area</span>
                                 <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Area" aria-label="Area"
-                                       aria-describedby="basic-addon4" name="Area">
+                                       aria-describedby="basic-addon4" name="Area" value="{{entrevistaEditar.area}}">
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon5">Fecha</span>
                                 <input type="datetime-local" style="font-size:0.8vw;" class="form-control" placeholder="Fecha" aria-label="Fecha"
-                                       aria-describedby="basic-addon5" name="Fecha">
+                                       aria-describedby="basic-addon5" name="Fecha" value="{{entrevistaEditarFecha}}">
                                 <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon6">Hora Finalizacion </span>
                                 <input type="Time" style="font-size:0.8vw;" class="form-control" placeholder="Duracion" aria-label="Duracion"
-                                       aria-describedby="basic-addon6" name="Duracion">
+                                       aria-describedby="basic-addon6" name="Duracion" value="{{entrevistaEditarDuracion}}">
                             </div>
 
                             <div class="input-group mb-3">
@@ -248,8 +256,11 @@
                                 <select multiple class="form-select selectpicker" data-live-search="true" style="font-size:0.8vw;"
                                         data-actions-box="true" id="selectorControles" name="selectorControles">
                                     {% for i in controlesAssess %}
-                                    <option value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}</option>
-
+                                    {% if i.control_id in entrevistaControles %}
+                                    <option selected value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}</option>
+                                    {% else %}
+                                    <option  value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
@@ -261,7 +272,9 @@
                                         data-actions-box="true" id="selectorEditor" name="selectorEditor">
                                     <option selected disabled value="none">Seleccione al Responsable</option>
                                     {% for ids in usuarios %}
-                                    {% if ids.username != 'admin' %}
+                                    {% if ids.usuario.id == entrevistaEditar.editor.id %}
+                                    <option selected value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
+                                    {% else %}
                                     <option value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
                                     {% endif %}
                                     {% endfor %}
@@ -273,8 +286,10 @@
                                 <select multiple class="form-select selectpicker" style="font-size:0.8vw;" data-live-search="true"
                                         data-actions-box="true" id="selectorUsuarios" name="selectorUsuarios">
                                     {% for ids in usuarios %}
-                                    {% if ids.username != 'admin' %}
-                                    <option value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
+                                    {% if ids.usuario.id in entrevistaEditarConsultores %}
+                                    <option selected value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
+                                    {% else %}
+                                    <option value="{{ids.usuario.username}}">{{ids.usuario.username}} </option>
                                     {% endif %}
                                     {% endfor %}
                                 </select>
@@ -285,12 +300,16 @@
                                           aria-label="Asistentes"
                                           rows="5"
                                           placeholder="Asistentes"
-                                          name="Asistentes" style="font-size:0.8vw;"></textarea>
+                                          name="Asistentes" style="font-size:0.8vw;">{{entrevistaEditar.asistentes}}</textarea>
                             </div>
 
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
-                                    <button type="submit" class="btn btn-ntt">Crear Entrevista</button>
+                                    {% if entrevistaEditarEditando %}
+                                    <button type="submit" class="btn btn-ntt" name="btnEditarEntrevistaEnviar" value="{{entrevistaEditar.id}}">Editar Entrevista</button>
+                                    {% else %}
+                                    <button type="submit" class="btn btn-ntt" name="btnCrearEntrevista">Crear Entrevista</button>
+                                    {% endif %}
                                 </p>
                             </div>
 
