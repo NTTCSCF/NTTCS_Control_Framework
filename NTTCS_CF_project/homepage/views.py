@@ -10,10 +10,11 @@ from django.contrib.auth.views import LoginView
 
 import json
 
+from acounts.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, HttpResponse, redirect
 from datetime import datetime
-from acounts.models import User
+
 from .models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentguardados, \
     NttcsCf20231, Domains, Evidencerequestcatalog, Evidencias, MapeoMarcos, AssessmentCreados, \
     AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas, \
@@ -89,6 +90,7 @@ class CreacionPass(LoginRequiredMixin, TemplateView):
         passwordModificar = request.POST.get('passwordModificar')  # valor del passwordModificar
         password2Modificar = request.POST.get('password2Modificar')  # valor del password2Modificar
         user = request.user
+
         if password != '' and passwordModificar != '' and password2Modificar != '':  # comprobacion de entrega de cademas vacias
             if passwordModificar == password2Modificar:  # comprobacion de que las dos nuevas pass sean iguales
                 if password != passwordModificar:  # coprobacion de que la contraseña nueva es distinta que la anterior
@@ -157,7 +159,6 @@ class Perfil(LoginRequiredMixin, TemplateView):
 class Usuarios(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
-
     template_name = "homepage/Usuarios.html"
 
     def get_context_data(self, **knwargs):

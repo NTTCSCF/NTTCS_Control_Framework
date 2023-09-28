@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'homepage.templatetags.filter',
     'homepage',
-    'acounts'
+    'acounts',
 ]
 AUTH_USER_MODEL = "acounts.user"
 LOGIN_REDIRECT_URL = 'menu/'
