@@ -594,7 +594,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                                 asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia,
                                                                                        assessment=control)
                             else:
-                                evidencia = Evidencerequestcatalog.objects.get(
+                                evidencia = EvidencerequestcatalogEs.objects.get(
                                     evidence_request_references=selectEviasig)
                                 asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia,
                                                                                        assessment=control)
@@ -2006,7 +2006,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                 messages.error(request, 'ERROR, Necesitas introducir todos los valores')
             context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
-            
+
             context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
             context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
             return render(request, self.template_name, context=context)
