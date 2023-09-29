@@ -6,6 +6,6 @@ register = template.Library()
 
 @register.filter(name='resta')
 def resta(a, b):
-    a = datetime(b.year, b.month, b.day, a.hour, a.minute).astimezone()
-    b = b.astimezone()
+    a = datetime.fromisoformat(b.isoformat().split("T")[0]+"T"+str(a))
+    b = b.replace(tzinfo=None)
     return a-b
