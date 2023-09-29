@@ -698,6 +698,8 @@ class assessment(LoginRequiredMixin, TemplateView):
             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
             return render(request, self.template_name, context=context)
 
+
+
 # Clase para la pagina de AssessmentSelect
 
 class assessmentselect(LoginRequiredMixin, TemplateView):
