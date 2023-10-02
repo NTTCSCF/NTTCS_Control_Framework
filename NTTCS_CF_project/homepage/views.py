@@ -759,20 +759,31 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 proyecto=Proyecto.objects.get(codigo=selectorProyecto), assessment__archivado=0)
 
             context["marcos"] = AsociacionMarcos.objects.all()
-            # Renderiza el template a base del contexto
+            # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
+        # Si se decide editar algún assessments.
         elif 'btnEditar' in request.POST:
             request.session["assessmentGuardado"] = btnEditar
+            # Redirección hacia la url especificada en base del nombre.
             return redirect("assessment")
+
+        # Si se presiona el botón 'plan de proyecto' asociado a cada assessment.
         elif 'btnPlan' in request.POST:
             request.session["assessmentGuardado"] = request.POST.get('btnPlan')
+            # Redirección hacia la url especificada en base del nombre.
             return redirect("planProyecto")
+
+        # Si se presiona el botón 'archivar' asociado a cada assessment.
         elif 'btnArchivar' in request.POST:
+
             ass = Assessmentguardados.objects.get(id_assessment=btnArchivar)
             ass.archivado = 1
             ass.save()
+
+            # Se inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(assessmentselect, self).get_context_data(**knwargs)
+
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
             context["proyectoSeleccionado"] = True
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
@@ -780,6 +791,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
                 assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
+
+            # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
         elif 'in' in request.POST:
