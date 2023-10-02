@@ -818,6 +818,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     marcos = ''
                     marc = []
 
+
+                    # TODO: understand the code within the loops
                     # Recorremos el segundo selector
                     for i in select2:
 
