@@ -776,40 +776,55 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         # Si se presiona el botón 'archivar' asociado a cada assessment.
         elif 'btnArchivar' in request.POST:
 
+            # TODO: Understand ass variable
             ass = Assessmentguardados.objects.get(id_assessment=btnArchivar)
             ass.archivado = 1
             ass.fecha_cierre = datetime.now().isoformat().split('T')[0]
             ass.save()
 
+            '''Inicializamos el contexto '''
             # Se inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(assessmentselect, self).get_context_data(**knwargs)
-
+            # Conseguimos los proyectos asociados al usuario.
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
             context["proyectoSeleccionado"] = True
+            # Guardamos en el contexto el proyecto seleccionado, el cual fue guardado anteriormente.
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
+            # TODO: Understand the following statement
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
                 assessment__archivado=0)
+            #
             context["marcos"] = AsociacionMarcos.objects.all()
 
             # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
+        # Si se escribe algo en el campo de nombre del assessment.
         elif 'in' in request.POST:
+            # Si tanto el nombre como el selector de marcos no estan sin seleccionar.
             if nombre != '' and select2 != None:
+                # Comprobamos que el nombre no existe en la BD (nombre nuevo)
                 if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
+
+                    # Creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco.
                     assessmentNuevo = Assessmentguardados(id_assessment=nombre,
                                                           archivado=0,
                                                           fecha_creacion=datetime.now().isoformat().split('T')[0],
-                                                          idioma=idioma)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
+                                                          idioma=idioma)
+                    # Guardamos dicho assessment en la base de datos.
                     assessmentNuevo.save()
 
                     marcos = ''
                     marc = []
-                    for i in select2:  # recorremos el segundo selector
+
+                    # Recorremos el segundo selector
+                    for i in select2:
+
                         consulta = AsociacionMarcos.objects.get(marco_id=i).nombre_tabla
+                        # Query para seleccionar la tabla del marco seleccionado.
                         c = MapeoMarcos.objects.extra(
-                            where=[consulta + "='1'"])  # query para seleccionar la tabla del marco seleccionado
+                            where=[consulta + "='1'"])
                         for fila in c:
                             if fila.ntt_id not in marc:
                                 marc += [fila.ntt_id]  # recorremos la tabla del marco cogiendo los controles de ntt
