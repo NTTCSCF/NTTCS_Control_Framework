@@ -700,40 +700,68 @@ class assessment(LoginRequiredMixin, TemplateView):
 
 
 
-# Clase para la pagina de AssessmentSelect
+
 
 class assessmentselect(LoginRequiredMixin, TemplateView):
+    ''' Definición de la clase 'assessmentselect' '''
+
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/assessmentselect.html"
 
-    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+        '''El objetivo de este método es proporcionar datos de contexto para una vista,
+        que luego se pueden utilizar en una plantilla HTML para renderizar la página web.'''
+
+        '''Asegura que cualquier funcionalidad definida en las clases base 'LoginRequiredMixin' y 'TemplateView'
+        se ejecute antes de personalizarla en la subclase assessmentselect.'''
         context = super(assessmentselect, self).get_context_data(**knwargs)
+
         context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         context["marcos"] = AsociacionMarcos.objects.all()
         return context
 
-    # funcion post que recoge los summit del formulario de la pagina.
+
     def post(self, request, **knwargs):
-        nombre = request.POST.get('in')  # Valor del input de nombre
-        selectorProyecto = request.POST.get('selectorProyecto')  # valor de selector de proyecto
-        select2 = request.POST.getlist('selector2')  # valor de selector de marcos para la creacion del assesment
-        idioma = request.POST.getlist('idioma')  # valor de selector de marcos para la creacion del assesment
+        ''' Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
+        a través de un formulario. '''
 
-        btnEditar = request.POST.get('btnEditar')  # valor de selector de marcos para la creacion del assesment
-        btnArchivar = request.POST.get('btnArchivar')  # valor de selector de marcos para la creacion del assesment
+        # Valor del input de nombre.
+        nombre = request.POST.get('in')
+        # Valor de selector de proyecto.
+        selectorProyecto = request.POST.get('selectorProyecto')
+        # Valor de selector de marcos de seguridad.
+        select2 = request.POST.getlist('selector2')
+        # Valor del input de idioma.
+        idioma = request.POST.getlist('idioma')
+        # Valor asociado al botón de editar (el id del assesmment asociado).
+        btnEditar = request.POST.get('btnEditar')
+        # Valor asociado al botón de archivar (el id del assesmment asociado).
+        btnArchivar = request.POST.get('btnArchivar')
 
+        # Comprueba si el usuario ha seleccionado un proyecto en el formulario.
         if 'selectorProyecto' in request.POST:
+
+            # Esto inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(assessmentselect, self).get_context_data(**knwargs)
+            # Añade al conexto los proyectos asociados al usuario.
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+
             context["proyectoSelec"] = selectorProyecto
             context["proyectoSeleccionado"] = True
+
+            # Se guarda el proyecto seleccionado en una sessión en el servidor,
             request.session["proyectoSeleccionado"] = selectorProyecto
+
+            ''' Recupera todos los objetos de la classe AsociacionProyectoAssessment filtrados por el proyecto
+            seleccionado en el selector de proyectos. '''
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=selectorProyecto), assessment__archivado=0)
+
             context["marcos"] = AsociacionMarcos.objects.all()
+            # Renderiza el template a base del contexto
             return render(request, self.template_name, context=context)
+
         elif 'btnEditar' in request.POST:
             request.session["assessmentGuardado"] = btnEditar
             return redirect("assessment")
@@ -837,6 +865,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 assessment__archivado=0)
             context["marcos"] = AsociacionMarcos.objects.all()
             return render(request, self.template_name, context=context)
+
 
 
 # Clase para la pagina de Exportaciones
