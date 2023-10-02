@@ -307,6 +307,8 @@ class assessment(LoginRequiredMixin, TemplateView):
         assSelect = self.request.session.get('assessmentGuardado')
         context = super(assessment, self).get_context_data(**knwargs)
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+        assGuardado.fecha_ultima_modificacion = datetime.now().isoformat().split('T')[0]
+        assGuardado.save()
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         if assGuardado.idioma == 'en':
@@ -698,7 +700,6 @@ class assessment(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context=context)
 
 # Clase para la pagina de AssessmentSelect
-
 class assessmentselect(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
@@ -740,6 +741,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         elif 'btnArchivar' in request.POST:
             ass = Assessmentguardados.objects.get(id_assessment=btnArchivar)
             ass.archivado = 1
+            ass.fecha_cierre = datetime.now().isoformat().split('T')[0]
             ass.save()
             context = super(assessmentselect, self).get_context_data(**knwargs)
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
@@ -756,6 +758,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
                     assessmentNuevo = Assessmentguardados(id_assessment=nombre,
                                                           archivado=0,
+                                                          fecha_creacion=datetime.now().isoformat().split('T')[0],
                                                           idioma=idioma)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
                     assessmentNuevo.save()
 
