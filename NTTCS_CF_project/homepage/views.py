@@ -308,6 +308,8 @@ class assessment(LoginRequiredMixin, TemplateView):
         assSelect = self.request.session.get('assessmentGuardado')
         context = super(assessment, self).get_context_data(**knwargs)
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+        assGuardado.fecha_ultima_modificacion = datetime.now().isoformat().split('T')[0]
+        assGuardado.save()
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         if assGuardado.idioma == 'en':
@@ -699,9 +701,6 @@ class assessment(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context=context)
 
 
-
-
-
 class assessmentselect(LoginRequiredMixin, TemplateView):
     ''' Definición de la clase 'assessmentselect' '''
 
@@ -779,6 +778,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
 
             ass = Assessmentguardados.objects.get(id_assessment=btnArchivar)
             ass.archivado = 1
+            ass.fecha_cierre = datetime.now().isoformat().split('T')[0]
             ass.save()
 
             # Se inicializa un diccionario llamado context con algunos datos de contexto.
@@ -800,6 +800,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                 if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
                     assessmentNuevo = Assessmentguardados(id_assessment=nombre,
                                                           archivado=0,
+                                                          fecha_creacion=datetime.now().isoformat().split('T')[0],
                                                           idioma=idioma)  # creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco
                     assessmentNuevo.save()
 
