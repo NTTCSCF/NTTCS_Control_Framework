@@ -823,34 +823,44 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     assessmentNuevo.save()
 
                     marcos = ''
+                    ''' Marcos de NTT separados por un espacio.'''
+
                     marc = []
+                    '''Lista de marcos de NTT.'''
 
                     # Iteramos sobre el selector de marcos.
                     for i in select2:
                         # Conseguimos el nombre de la tabla asociada a la iteración.
                         consulta = AsociacionMarcos.objects.get(marco_id=i).nombre_tabla
 
-                        # Query para seleccionar la tabla del marco seleccionado.
+                        # Accede a la columna ('consulta') y accede a la fila con valor a 1,
+                        # que pertenece al marco de NTT correspondiente.
                         c = MapeoMarcos.objects.extra(
                             where=[consulta + "='1'"])
 
+                        # Recorremos la tabla del marco.
                         for fila in c:
                             if fila.ntt_id not in marc:
-                                marc += [fila.ntt_id]  # recorremos la tabla del marco cogiendo los controles de ntt
-                                # que no este repetidos
+                                # Guardamos los marcos de NTT sin repetirlos.
+                                marc += [fila.ntt_id]
 
+                    # Recorremos la lista de marcos de NTT.
                     for marco in marc:
-                        # creamos un string con todos los controles de ntt separados por intros
+                        # Añadimos un elemento de la lista al string, separado por un espacio.
                         marcos += marco + '\n'
 
+                        # Obtenemos el assesment en función del idioma y del marco de NTT.
                         if idioma == 'en':
                             consulta = Assessment.objects.get(id=marco)
                         else:
                             consulta = AssessmentEs.objects.get(id=marco)
 
+
+                        # Manera compacta de guardar muchos campos distintos en una sola variable.
+                        # Posteriormente, se usará "split('-33--33-')" para acceder a cada campo.
                         criterioVal = consulta.campo9 + '[-33--33-]' + consulta.campo10 + '[-33--33-]' + consulta.campo11 + '[-33--33-]' + consulta.campo12 + '[-33--33-]' + consulta.campo13 + '[-33--33-]' + consulta.campo14
 
-                        
+                        # Se crea una fila en 'AssessmentCreados' y se guarda en la BD.
                         a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco),
                                               control_name=consulta.control,
                                               descripcion=consulta.control_description,
@@ -858,9 +868,11 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                                               criteriovaloracion=criterioVal)
                         a.save()
 
+                    # Actualizamos la fila creada anteriormente con los marcos de NTT.
                     assessmentNuevo.marcos = marcos
                     assessmentNuevo.save()
 
+                    # Asociamos el assessment nuevo con el proyecto seleccionado y se guarda en la BD.
                     proyecto = Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado'))
                     asociacion = AsociacionProyectoAssessment(assessment=assessmentNuevo, proyecto=proyecto)
                     asociacion.save()
