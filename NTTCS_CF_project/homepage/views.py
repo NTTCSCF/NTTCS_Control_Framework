@@ -741,48 +741,53 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         # Comprueba si el usuario ha seleccionado un proyecto en el formulario.
         if 'selectorProyecto' in request.POST:
 
+            '''Inicialización del contexto '''
             # Esto inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(assessmentselect, self).get_context_data(**knwargs)
             # Añade al conexto los proyectos asociados al usuario.
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
-
             context["proyectoSelec"] = selectorProyecto
             context["proyectoSeleccionado"] = True
+            # Recupera todos los objetos de la classe AsociacionProyectoAssessment filtrados por el proyecto
+            # seleccionado en el selector de proyectos.
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=selectorProyecto), assessment__archivado=0)
+            # Se guardan todos los marcos de seguridad en el contexto.
+            context["marcos"] = AsociacionMarcos.objects.all()
 
             # Se guarda el proyecto seleccionado en una sessión en el servidor,
             request.session["proyectoSeleccionado"] = selectorProyecto
 
-            ''' Recupera todos los objetos de la classe AsociacionProyectoAssessment filtrados por el proyecto
-            seleccionado en el selector de proyectos. '''
-            context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                proyecto=Proyecto.objects.get(codigo=selectorProyecto), assessment__archivado=0)
-
-            context["marcos"] = AsociacionMarcos.objects.all()
             # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
         # Si se decide editar algún assessments.
         elif 'btnEditar' in request.POST:
             request.session["assessmentGuardado"] = btnEditar
+
             # Redirección hacia la url especificada en base del nombre.
             return redirect("assessment")
 
         # Si se presiona el botón 'plan de proyecto' asociado a cada assessment.
         elif 'btnPlan' in request.POST:
             request.session["assessmentGuardado"] = request.POST.get('btnPlan')
+
             # Redirección hacia la url especificada en base del nombre.
             return redirect("planProyecto")
 
         # Si se presiona el botón 'archivar' asociado a cada assessment.
         elif 'btnArchivar' in request.POST:
 
-            # TODO: Understand ass variable
+            # Buscamos el assessment en función del id.
             ass = Assessmentguardados.objects.get(id_assessment=btnArchivar)
+            # Se archiva el assessment (0 = no archivado / 1 = archivado).
             ass.archivado = 1
+            # Se actualiza la fecha en formato 'AAAA-MM-DD'.
             ass.fecha_cierre = datetime.now().isoformat().split('T')[0]
+            # Se guardan todos los cambios.
             ass.save()
 
-            '''Inicializamos el contexto '''
+            '''Inicialización del contexto '''
             # Se inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(assessmentselect, self).get_context_data(**knwargs)
             # Conseguimos los proyectos asociados al usuario.
@@ -790,11 +795,11 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
             context["proyectoSeleccionado"] = True
             # Guardamos en el contexto el proyecto seleccionado, el cual fue guardado anteriormente.
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
-            # TODO: Understand the following statement
+            # Obtenemos todos los filas de la tabla 'AsociacionProyectoAssessment' que cumplan dichas condiciones.
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
                 assessment__archivado=0)
-            #
+            # Se guardan todos los marcos de seguridad en el contexto.
             context["marcos"] = AsociacionMarcos.objects.all()
 
             # Renderiza el template en base del contexto.
@@ -802,12 +807,14 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
 
         # Si se escribe algo en el campo de nombre del assessment.
         elif 'in' in request.POST:
-            # Si tanto el nombre como el selector de marcos no estan sin seleccionar.
+
+            # Si tanto el nombre como el selector de marcos están seleccionados.
             if nombre != '' and select2 != None:
-                # Comprobamos que el nombre no existe en la BD (nombre nuevo)
+                # Comprobamos que el nombre del assessment no existe en la BD (nombre nuevo)
                 if Assessmentguardados.objects.filter(id_assessment=nombre).exists() == False:
 
-                    # Creamos una nueva fila en assessmentguardados con el string de marcos y el nombre del marco.
+                    # Creamos una nueva fila en 'assessmentguardados' inicializada con el nombre del assessment,
+                    # la fecha de creación en formato 'AAAA-MM-DD', el idioma y el estado (0 = no archivado).
                     assessmentNuevo = Assessmentguardados(id_assessment=nombre,
                                                           archivado=0,
                                                           fecha_creacion=datetime.now().isoformat().split('T')[0],
@@ -818,28 +825,32 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     marcos = ''
                     marc = []
 
-
-                    # TODO: understand the code within the loops
-                    # Recorremos el segundo selector
+                    # Iteramos sobre el selector de marcos.
                     for i in select2:
-
+                        # Conseguimos el nombre de la tabla asociada a la iteración.
                         consulta = AsociacionMarcos.objects.get(marco_id=i).nombre_tabla
+
                         # Query para seleccionar la tabla del marco seleccionado.
                         c = MapeoMarcos.objects.extra(
                             where=[consulta + "='1'"])
+
                         for fila in c:
                             if fila.ntt_id not in marc:
                                 marc += [fila.ntt_id]  # recorremos la tabla del marco cogiendo los controles de ntt
                                 # que no este repetidos
 
                     for marco in marc:
-                        marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
+                        # creamos un string con todos los controles de ntt separados por intros
+                        marcos += marco + '\n'
+
                         if idioma == 'en':
                             consulta = Assessment.objects.get(id=marco)
                         else:
                             consulta = AssessmentEs.objects.get(id=marco)
+
                         criterioVal = consulta.campo9 + '[-33--33-]' + consulta.campo10 + '[-33--33-]' + consulta.campo11 + '[-33--33-]' + consulta.campo12 + '[-33--33-]' + consulta.campo13 + '[-33--33-]' + consulta.campo14
 
+                        
                         a = AssessmentCreados(assessment=assessmentNuevo, control_id=str(marco),
                                               control_name=consulta.control,
                                               descripcion=consulta.control_description,
@@ -853,48 +864,90 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     proyecto = Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado'))
                     asociacion = AsociacionProyectoAssessment(assessment=assessmentNuevo, proyecto=proyecto)
                     asociacion.save()
+
+                    '''Inicialización del contexto '''
+                    # Se inicializa un diccionario llamado context con algunos datos de contexto.
                     context = super(assessmentselect, self).get_context_data(**knwargs)
+                    # Conseguimos los proyectos asociados al usuario.
                     context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
                     context["proyectoSeleccionado"] = True
+                    # Guardamos en el contexto el proyecto seleccionado, el cual fue guardado anteriormente.
                     context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
+                    # Obtenemos todos los filas de la tabla 'AsociacionProyectoAssessment' que cumplan dichas condiciones.
                     context["assess"] = AsociacionProyectoAssessment.objects.filter(
                         proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
                         assessment__archivado=0)
+                    # Se guardan todos los marcos de seguridad en el contexto.
                     context["marcos"] = AsociacionMarcos.objects.all()
+
+                    # Se renderiza el template en base del contexto.
                     return render(request, self.template_name, context=context)
+
+                # Si el nombre del assessment ya existe en la BD (nombre repetido).
                 else:
+                    # Mensaje de error.
                     messages.error(request, 'El Assessment ya exsiste.')
+
+                    '''Inicialización del contexto '''
+                    # Se inicializa un diccionario llamado context con algunos datos de contexto.
                     context = super(assessmentselect, self).get_context_data(**knwargs)
+                    # Conseguimos los proyectos asociados al usuario.
                     context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+                    # Guardamos en el contexto el proyecto seleccionado, el cual fue guardado anteriormente.
                     context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
                     context["proyectoSeleccionado"] = True
+                    # Obtenemos todos los filas de la tabla 'AsociacionProyectoAssessment' que cumplan dichas condiciones.
                     context["assess"] = AsociacionProyectoAssessment.objects.filter(
                         proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
                         assessment__archivado=0)
+                    # Se guardan todos los marcos de seguridad en el contexto.
                     context["marcos"] = AsociacionMarcos.objects.all()
+
+                    # Se renderiza el template en base del contexto.
                     return render(request, self.template_name, context=context)
+
+            # Si tanto el nombre como el selector de marcos están vacíos.
             else:
-                messages.error(request, 'Necesitas introducir un nombre para el Assessment')  # Se crea mensage de error
+                # Se crea mensage de error
+                messages.error(request, 'Necesitas introducir un nombre para el Assessment')
+
+                '''Inicialización del contexto '''
+                # Se inicializa un diccionario llamado context con algunos datos de contexto.
                 context = super(assessmentselect, self).get_context_data(**knwargs)
+                # Conseguimos los proyectos asociados al usuario.
                 context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+                # Guardamos en el contexto el proyecto seleccionado, el cual fue guardado anteriormente.
                 context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
                 context["proyectoSeleccionado"] = True
+                # Obtenemos todos los filas de la tabla 'AsociacionProyectoAssessment' que cumplan dichas condiciones.
                 context["assess"] = AsociacionProyectoAssessment.objects.filter(
                     proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
                     assessment__archivado=0)
+                # Se guardan todos los marcos de seguridad en el contexto.
                 context["marcos"] = AsociacionMarcos.objects.all()
+
+                # Se renderiza el template en base del contexto.
                 return render(request, self.template_name, context=context)
 
-        else:  # este else esta por si se toca algun boton pero no hay ninguna cosa seleccionada.
-            print('No entra')
+        # Por si se toca algún boton pero no hay ninguna cosa seleccionada.
+        # TODO: Is this statement necessary?
+        else:
+            '''Inicialización del contexto '''
+            # Se inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(assessmentselect, self).get_context_data(**knwargs)
+            # Conseguimos los proyectos asociados al usuario.
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            # Guardamos en el contexto el proyecto seleccionado, el cual fue guardado anteriormente.
             context["proyectoSelec"] = request.session.get('proyectoSeleccionado')
             context["proyectoSeleccionado"] = True
+            # Obtenemos todos los filas de la tabla 'AsociacionProyectoAssessment' que cumplan dichas condiciones.
             context["assess"] = AsociacionProyectoAssessment.objects.filter(
                 proyecto=Proyecto.objects.get(codigo=request.session.get('proyectoSeleccionado')),
                 assessment__archivado=0)
+            # Se guardan todos los marcos de seguridad en el contexto.
             context["marcos"] = AsociacionMarcos.objects.all()
+
+            #  Se renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
 
