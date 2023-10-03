@@ -9,6 +9,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.views import LoginView
 
 import json
+import pandas as pd
 
 from acounts.models import User
 from django.core.paginator import Paginator
@@ -974,83 +975,131 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **knwargs):
         context = super(Exportaciones, self).get_context_data(**knwargs)
-        context["assess"] = Assessmentguardados.objects.all()
+        context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         return context
 
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
+        selectorProyecto = request.POST.get('selectorProyecto')  # valor de selector de proyecto
         selector = request.POST.get('selector1')
         excel = request.POST.get('excel')
         csvinput = request.POST.get('csv')
         word = request.POST.get('word')
-        if selector != 'None':
-            ass = Assessmentguardados.objects.get(id_assessment=selector)
-            consulta = AssessmentCreados.objects.filter(assessment=ass)
-            valores = []
+        if 'selectorProyecto' in request.POST:
+            context = super(Exportaciones, self).get_context_data(**knwargs)
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            context["proyectoSelec"] = selectorProyecto
+            context["proyectoSeleccionado"] = True
+            request.session["proyectoSeleccionado"] = selectorProyecto
+            context["assess"] = AsociacionProyectoAssessment.objects.filter(
+                proyecto=Proyecto.objects.get(codigo=selectorProyecto), assessment__archivado=0)
+            context["marcos"] = AsociacionMarcos.objects.all()
+            return render(request, self.template_name, context=context)
+        elif "selector1" in request.POST:
+            if selector != 'None':
+                ass = Assessmentguardados.objects.get(id_assessment=selector)
+                consulta = AssessmentCreados.objects.filter(assessment=ass)
+                seleccion = request.POST.getlist("selector2")
+                valores = []
 
-            for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
-                evgen = AsociacionEvidenciasGenericas.objects.filter(assessment=fila)
-                evcre = AsociacionEvidenciasCreadas.objects.filter(id_assessment=fila)
-                evidencias = ''
-                for i in evgen:
-                    evidencias += i.evidencia.evidence_request_references + '\n'
-                for i in evcre:
-                    evidencias += i.id_evidencia.evidencia_id + '\n'
+                for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
+                    evgen = AsociacionEvidenciasGenericas.objects.filter(assessment=fila)
+                    evcre = AsociacionEvidenciasCreadas.objects.filter(id_assessment=fila)
+                    evidencias = ''
+                    iniciativas = ''
+                    for i in evgen:
+                        if ass.idioma == 'en':
+                            evidencias += i.evidencia.evidence_request_references + '\n'
+                        else:
+                            evidencias += i.evidencia_id_es.evidence_request_references + '\n'
+                        if i.iniciativa != None:
+                            iniciativas += i.iniciativa.nombre + '\n'
+                    for i in evcre:
+                        evidencias += i.id_evidencia.evidencia_id + '\n'
+                        if i.iniciativa != None:
+                         iniciativas += i.iniciativa.nombre + '\n'
 
-                valores += {
-                    'idControl': fila.control_id,
-                    'nControl': fila.control_name,
-                    'descripcion': fila.descripcion,
-                    'pregunta': fila.pregunta,
-                    'respuesta': fila.respuesta,
-                    'valoracion': fila.valoracion,
-                    'valoracionObjetivo': fila.valoracionobjetivo,
-                    'criterio': fila.criteriovaloracion,
-                    'evidencias': evidencias
-                },
 
-            titulos = ["idControl", "nControl", "descripcion", "pregunta", "respuesta", "valoracion",
-                       "valoracionObjetivo", "criterio",
-                       "evidencias"]
-            now = datetime.now()
-            filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
-                now.year) + '_' + str(now.hour) + '_' + str(now.minute)
-            if 'csv' == csvinput:
-                filename += '.csv'
-                with open(filename, mode='w', encoding="cp437", errors="replace") as file:
-                    writer = csv.DictWriter(file, delimiter=',', fieldnames=titulos)
-                    writer.writeheader()
 
-                    for valor in valores:
-                        writer.writerow(valor)
+                    valor = []
 
-                path = open(filename, 'r')
-                mime_type, _ = mimetypes.guess_type(filename)
-                response = HttpResponse(path, content_type=mime_type)
-                response['Content-Disposition'] = f"attachment; filename={filename}"
-                return response
+                    if "Identificador Control" in seleccion:
+                        valor += [('Identificador Control', fila.control_id)]
+                    if "Nombre Control" in seleccion:
+                        valor += [('Nombre Control', fila.control_name)]
+                    if "Descripcion Control" in seleccion:
+                        valor += [('Descripcion Control', fila.descripcion)]
+                    if "Pregunta" in seleccion:
+                        valor += [('Pregunta', fila.pregunta)]
+                    if "Respuesta" in seleccion:
+                        valor += [('Respuesta', fila.respuesta)]
+                    if "Valoracion" in seleccion:
+                        valor += [('Valoracion', fila.valoracion)]
+                    if "Valoracion Objetivo" in seleccion:
+                        valor += [('Valoracion Objetivo', fila.valoracionobjetivo)]
+                    if "Evidencias" in seleccion:
+                        valor += [('Evidencias', evidencias)]
+                    if "Iniciativas" in seleccion:
+                        valor += [('Iniciativas', iniciativas)]
 
-            if 'excel' == excel:
-                filename += '.xlsx'
-                workbook = xlsxwriter.Workbook(filename)
-                workbook.encoding = "utf-8"
-                worksheet = workbook.add_worksheet()
+                    valores += dict(valor),
+                titulos = []
+                for i in seleccion:
+                    titulos += [i]
+                now = datetime.now()
+                filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
+                    now.year) + '_' + str(now.hour) + '_' + str(now.minute)
+                if 'csv' == csvinput:
+                    filename += '.csv'
+                    with open(filename, mode='w', encoding="cp437", errors="replace") as file:
+                        writer = csv.DictWriter(file, delimiter=',', fieldnames=titulos)
+                        writer.writeheader()
 
-                for row, _dict in enumerate(valores):
-                    for col, key in enumerate(titulos):
-                        worksheet.write(row, col, _dict[key])
-                workbook.close()
+                        for valor in valores:
+                            writer.writerow(valor)
 
-                with open(filename, "rb") as file:
-                    response = HttpResponse(file.read(),
-                                            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                    path = open(filename, 'r')
+                    mime_type, _ = mimetypes.guess_type(filename)
+                    response = HttpResponse(path, content_type=mime_type)
                     response['Content-Disposition'] = f"attachment; filename={filename}"
-                return response
+                    return response
 
-            if 'word' == word:
-                pass
+                if 'excel' == excel:
+                    filename += '.xlsx'
+
+                    df = pd.DataFrame(data=valores)
+                    writer = pd.ExcelWriter(filename, engine='xlsxwriter')
+                    df.to_excel(writer, sheet_name='Sheet1', startrow=1, header=False, index=False)
+                    workbook = writer.book
+                    worksheet = writer.sheets['Sheet1']
+                    column_settings = [{'header': column} for column in df.columns]
+                    (max_row, max_col) = df.shape
+                    worksheet.add_table(0, 0, max_row, max_col - 1, {'columns': column_settings})
+                    worksheet.autofilter(0, 0, max_row, max_col - 1)
+                    cell_format = workbook.add_format()
+                    cell_format.set_text_wrap()
+                    worksheet.set_column('A:I', 20, cell_format)
+                    writer.close()
+                    
+                    """workbook = xlsxwriter.Workbook(filename)
+                    workbook.encoding = "utf-8"
+                    worksheet = workbook.add_worksheet()
+
+                    for row, _dict in enumerate(valores):
+                        for col, key in enumerate(titulos):
+                            worksheet.write(row, col, _dict[key])
+                    workbook.close()"""
+
+                    with open(filename, "rb") as file:
+                        response = HttpResponse(file.read(),
+                                                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                        response['Content-Disposition'] = f"attachment; filename={filename}"
+                    return response
+
+                if 'word' == word:
+                    pass
         context = super(Exportaciones, self).get_context_data(**knwargs)
-        context["assess"] = Assessmentguardados.objects.all()
+        context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         return render(request, self.template_name, context=context)
 
 

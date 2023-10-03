@@ -4,3 +4,4 @@ mysqlclient
 mysql
 mysql-connector-python
 xlsxwriter
+pandas
