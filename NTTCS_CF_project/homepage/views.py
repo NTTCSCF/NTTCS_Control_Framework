@@ -235,22 +235,27 @@ class Usuarios(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context=context)
 
 
-# Clase para la pagina de Assessment
+
 class assessment(LoginRequiredMixin, TemplateView):
+    ''' Definición de la clase 'Assessment' '''
+
     login_url = ""
     redirect_field_name = "redirect_to"
-
     template_name = "homepage/assessment.html"
+    # Se hace una conexión a la base de datos.
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
-
     def contextTotal(self, request, select, assSelect, context):
 
+
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
         context["NombreAss"] = assSelect
         context["assessment"] = assGuardado
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
+
+
         if assGuardado.idioma == 'en':
             context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
             context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
@@ -267,6 +272,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                 lista += [i.evidencia_id_es]
             context["listaEvidencias"] = lista
 
+
         request.session["controlSelect"] = select
         context["control"] = control
         context["criteriovaloracioncontexto"] = ['CCMM L0 \n No realizado',
@@ -275,13 +281,16 @@ class assessment(LoginRequiredMixin, TemplateView):
                                                  'CCMM L3 \n Bien definido',
                                                  'CCMM L4 \n Controlado Cuantitativamente',
                                                  'CCMM L5 \n Mejorando Continuamente']
+
         context["criteriovaloracion"] = control.criteriovaloracion.split('[-33--33-]')
         context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
         context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
 
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
         context["iniciativas"] = Iniciativas.objects.all()
+
         evidenciasRecomendadas = Assessment.objects.get(id=select).evidence_request_references
+
         if evidenciasRecomendadas == '' or evidenciasRecomendadas is None:
             context["recomendacion"] = False
         else:
@@ -302,71 +311,128 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["eviRecomendada"] = r[:len(r) - 2]
             else:
                 context["recomendacion"] = False
+
+
         return request, context
 
-    # funcion que envia el contexto de la pagina.
+    #
     def get_context_data(self, **knwargs):
+        '''El objetivo de este método es proporcionar datos de contexto para una vista,
+               que luego se pueden utilizar en una plantilla HTML para renderizar la página web.'''
+
+        # Guardamos el id (nombre) del assesment en una variable.
         assSelect = self.request.session.get('assessmentGuardado')
-        context = super(assessment, self).get_context_data(**knwargs)
+        # Se consigue de la bd el assessment correspondiente al id conseguido previamente.
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+        # Actualizamos la fecha de la última modificación del assessment en formato YYYY/MM/DD.
         assGuardado.fecha_ultima_modificacion = datetime.now().isoformat().split('T')[0]
+        # Se guardan los cambios en la bd.
         assGuardado.save()
+
+        # Esto inicializa un diccionario llamado context con algunos datos de contexto.
+        context = super(assessment, self).get_context_data(**knwargs)
+        # Se guarda en el contexto el nombre del assessment (o la id).
         context["NombreAss"] = assSelect
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+
+        # Actualizaremos el contexto en base del idioma.
         if assGuardado.idioma == 'en':
-            context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+            # Consulta para el desplegable de la valoración de madurez.
+            context["valMad"] = MaturirtyTable.objects.all()
+            # Se guardan las evidencias.
             context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
         else:
-            context[
-                "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+            # Consulta para el desplegable de la valoración de madurez.
+            context["valMad"] = MaturirtyTableEs.objects.all()
+            # Se guardan las evidencias.
             context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
 
+        # Se guardan los tipos de inicitaivas.
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
+        # Se guardan las inicitaivas existentes.
         context["iniciativas"] = Iniciativas.objects.all()
+
         self.request.session["controlSelect"] = 'noSel'
+
+        # Se devuelve el contexto.
         return context
 
-    # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
-        assSelect = request.session.get('assessmentGuardado')
-        select = request.POST.get('selector')  # valor de el selector de control
-        boton = request.POST.get('boton')  # valor del boton 1
-        boton2 = request.POST.get('boton2')  # valor del boton 2
-        boton3 = request.POST.get('boton3')  # valor del boton 3
-        boton4 = request.POST.get('boton4')  # valor del boton 4
-        boton5 = request.POST.get('boton5')  # valor del boton 5
-        boton6 = request.POST.get('boton6')  # valor del boton 6
-        boton7 = request.POST.get('boton7')  # valor del boton 7
-        boton8 = request.POST.get('boton8')  # valor del boton 7
-        btnEliminarEvidencia = request.POST.get('btnEliminarEvidencia')  # valor del btnEliminarEvidencia
+        ''' Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
+        a través de un formulario. '''
 
-        if 'selector' in request.POST:  # se recoge la pulsacion del select
+        # Guardamos el id (nombre) del assesment en una variable.
+        assSelect = request.session.get('assessmentGuardado')
+        # Valor de el selector de control.
+        select = request.POST.get('selector')
+        # Valor del 'boton 2', que corresponde al botón de 'guardar valoración'.
+        guardarValoracionBttn = request.POST.get('boton2')
+        # Valor del 'boton 4', que corresponde al botón de 'añadir evidencia'.
+        añadirEvidenciaBttn = request.POST.get('boton4')
+        # Valor del 'boton 5', que corresponde al botón de 'seleccionar evidencia'.
+        seleccionarEvidenciaBttn = request.POST.get('boton5')
+        # Valor del 'boton 6', que corresponde al botón de 'crear evidencia'.
+        crearEvidenciaBttn = request.POST.get('boton6')
+        # Valor del 'boton 7', que corresponde al botón de 'asignar iniciativa'.
+        asignarIniciativaBttn = request.POST.get('boton7')
+        # Valor del 'boton 8', que corresponde al botón de 'añadir' cuando se recomiendan evidencias.
+        boton8 = request.POST.get('boton8')
+        # Valor del 'btnEliminarEvidencia'.
+        btnEliminarEvidencia = request.POST.get('btnEliminarEvidencia')
+
+        # Se determina si se ha seleccionado el selector de marcos.
+        if 'selector' in request.POST:
+            # Si no se ha seleccionado ningún marco.
             if select == 'noSel':
-                context = super(assessment, self).get_context_data(**knwargs)
+                # Se coge el assessment guardado con el id del assessment seleccionado.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
+                # Esto inicializa un diccionario llamado context con algunos datos de contexto.
+                context = super(assessment, self).get_context_data(**knwargs)
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+
+                # Actualizaremos el contexto en base del idioma.
                 if assGuardado.idioma == 'en':
-                    context[
-                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    # Consulta para el desplegable de la valoración de madurez.
+                    context["valMad"] = MaturirtyTable.objects.all()
+                    # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
-                    context[
-                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    # Consulta para el desplegable de la valoración de madurez.
+                    context["valMad"] = MaturirtyTableEs.objects.all()
+                    # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
+
+                # Se guarda en una sessón del servidor el marco seleccionado.
                 request.session["controlSelect"] = select
 
+                # Se guardan los tipos de inicitaivas.
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                # Se guardan las inicitaivas existentes.
                 context["iniciativas"] = Iniciativas.objects.all()
-                return render(request, self.template_name, context=context)
-            else:
-                context = super(assessment, self).get_context_data(**knwargs)
-                request, context = self.contextTotal(request, select, assSelect, context)
+
+                # Se renderiza el template a base del contexto.
                 return render(request, self.template_name, context=context)
 
-        elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
+            else:
+                # Esto inicializa un diccionario llamado context con algunos datos de contexto.
+                context = super(assessment, self).get_context_data(**knwargs)
+                request, context = self.contextTotal(request, select, assSelect, context)
+
+                # Se renderiza el template a base del contexto.
+                return render(request, self.template_name, context=context)
+
+        # Comprobamos si se ha pulsado el botón de 'guardar valoración'.
+        elif guardarValoracionBttn == 'btn2':
+
+            # Si se ha seleccionado ningún control.
             if request.session["controlSelect"] != 'noSel':
+                # Conseguimos el assessment de la bd que se ha seleccionado anteriormente.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
+                ''' Se consigue el assessment de la base de datos y se actualiza con la información
+                corresponiente del formulario. '''
                 control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                         control_id=request.session["controlSelect"])
                 control.respuesta = str(request.POST.get('respuesta'))
@@ -374,54 +440,98 @@ class assessment(LoginRequiredMixin, TemplateView):
                 control.valoracionobjetivo = request.POST.get('valmadob')
                 control.save()
 
+            # Si no se ha seleccionado ningún control.
             else:
+                # Se crea un mensaje de error.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+
+            # Esto inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(assessment, self).get_context_data(**knwargs)
             request, context = self.contextTotal(request, request.session.get('controlSelect'), assSelect, context)
-            return render(request, self.template_name, context=context)
-        elif boton4 == 'btn4':  # if encargado de rellenar las evidencias
 
-            idEvidencia = request.POST.get('idEvidencia') + '-C'  # valor del idEvidencia
-            descripcionEvidencia = request.POST.get('DescripcionEvidencia')  # valor del DescripcionEvidencia
-            linkEvidencia = request.POST.get('linkEvidencia')  # valor del linkEvidencia
+            # Se renderiza el template a base del contexto.
+            return render(request, self.template_name, context=context)
+
+        # Comprobamos si se ha pulsado el botón de 'guardar valoración'.
+        elif añadirEvidenciaBttn == 'btn4':
+
+            '''Tarjeta de Nueva Evidencia  '''
+            # Se coge el input 'id referencia' de la nueva evidencia y se le concatena '-C', pues así
+            # está guardada en la bd.
+            idEvidencia = request.POST.get('idEvidencia') + '-C'
+            # Valor del DescripcionEvidencia.
+            descripcionEvidencia = request.POST.get('DescripcionEvidencia')
+            # Valor del linkEvidencia.
+            linkEvidencia = request.POST.get('linkEvidencia')
+
+            # Se guarda el control seleccionado anteriormente.
             controlId = request.session["controlSelect"]
 
+            # Si se ha seleccionado algún control.
             if controlId != 'noSel':
-                if idEvidencia != '' and descripcionEvidencia != '':  # recogemos la pulsacion de guardar la evidencia
+                # Si ni la id como la descripción de la evidencia están vacías.
+                if idEvidencia != '' and descripcionEvidencia != '':
+                    # Si la evidencia no existe en la base de datos, se puede crear.
                     if not Evidencias.objects.filter(evidencia_id=idEvidencia).exists():
-
+                        # Se crea una nueva evidencia y se guarda en la BD.
                         ev = Evidencias(evidencia_id=idEvidencia, comentario=descripcionEvidencia, links=linkEvidencia,
                                         control_id=controlId,
                                         assessment=Assessmentguardados.objects.get(id_assessment=assSelect))
                         ev.save()
+
+
                         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
+                        # Obtenemos el assesment creado a partir de la información obtenida.
                         control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                 control_id=request.session["controlSelect"])
+                        # Se guarda el input de 'respuesta'.
                         control.respuesta = str(request.POST.get('respuesta'))
+                        # Se guarda el input de 'valoración de madurez'.
                         control.valoracion = request.POST.get('valmad')
+                        # Se guarda el input de 'valoración de madurez objetivo'.
                         control.valoracionobjetivo = request.POST.get('valmadob')
+                        # TODO: Missing control.save() ?
 
+                        # Se asocia la evidencia con el assessment creado.
                         evidencia = AsociacionEvidenciasCreadas(id_evidencia=ev, id_assessment=control)
+                        # Se guarda en la BD.
                         evidencia.save()
+
+                        # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                         context = super(assessment, self).get_context_data(**knwargs)
                         request, context = self.contextTotal(request, controlId, assSelect, context)
+
+                        # Renderiza el template en base el contexto.
                         return render(request, self.template_name, context=context)
+                    # Si la evidencia  existe en la base de datos, nos se puede crear.
                     else:
+                        # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                         context = super(assessment, self).get_context_data(**knwargs)
                         request, context = self.contextTotal(request, controlId, assSelect, context)
-                        messages.error(request,
-                                       'EVIDENCIA INCORRECTA: La evidencia introducida ya existe')  # Se crea mensage de error
+                        # Se crea mensaje de error.
+                        messages.error(request, 'EVIDENCIA INCORRECTA: La evidencia introducida ya existe')
+
+                        # Renderiza el template en base el contexto.
                         return render(request, self.template_name, context=context)
+                # Si la id o la descripción de la evidencia están vacías.
                 else:
+                    # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                     context = super(assessment, self).get_context_data(**knwargs)
                     request, context = self.contextTotal(request, controlId, assSelect, context)
+                    # Se crea mensaje de error.
                     messages.error(request, 'EVIDENCIA INCORRECTA Necesita introducir un id y una descripcion para la '
-                                            'evidencia')  # Se crea mensage de error
+                                            'evidencia')
+
+                    # Renderiza el template en base el contexto.
                     return render(request, self.template_name, context=context)
+            # Si no se ha seleccionado algún control.
             else:
+                # Se crea un mensaje de error.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+                # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                 context = super(assessment, self).get_context_data(**knwargs)
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                 context["NombreAss"] = assSelect
@@ -436,9 +546,10 @@ class assessment(LoginRequiredMixin, TemplateView):
                     context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
+
                 return render(request, self.template_name, context=context)
 
-        elif boton5 == 'btn5':  # if encargado de rellenar las evidencias
+        elif seleccionarEvidenciaBttn == 'btn5':  # if encargado de rellenar las evidencias
             if request.session["controlSelect"] != 'noSel':
                 selectorEvidencia = request.POST.get('selectorEvidencia')  # valor de el selector de control
                 if selectorEvidencia != 'noSel':
@@ -487,7 +598,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
-        elif boton6 == 'btn6':  # if encargado de rellenar las evidencias
+        elif crearEvidenciaBttn == 'btn6':  # if encargado de rellenar las evidencias
             selectorEvidencia = request.POST.get('selectorEvidenciaIniciativa')
             nombreIniciativa = request.POST.get('nombreIniciativa')
             DescripcionIniciativa = request.POST.get('DescripcionIniciativa')
@@ -579,7 +690,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
                 return render(request, self.template_name, context=context)
-        elif boton7 == 'btn7':  # if encargado de rellenar las evidencias
+        elif asignarIniciativaBttn == 'btn7':  # if encargado de rellenar las evidencias
             selectEviasig = request.POST.get('selectEviasig')
             selectIniAsig = request.POST.get('selectIniAsig')
             if request.session["controlSelect"] != 'noSel':
