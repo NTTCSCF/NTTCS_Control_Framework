@@ -797,24 +797,38 @@ class assessment(LoginRequiredMixin, TemplateView):
                 context = super(assessment, self).get_context_data(**knwargs)
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
 
+                # Guardamos en el contexto el identificador del assessment que, a su vez, es el nombre.
                 context["NombreAss"] = assSelect
+                # Se guarda en el contexto el assessment creado en base de la variable anterior.
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
 
+                # Actualizamos el contexto en función del idioma del assessment.
                 if assGuardado.idioma == 'en':
+                    # Consulta para el desplegable de la valoración de madurez.
                     context["valMad"] = MaturirtyTable.objects.all()
+                    # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
+                    # Consulta para el desplegable de la valoración de madurez.
                     context["valMad"] = MaturirtyTableEs.objects.all()
+                    # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
 
+                # Se guardan los tipos de inicitaivas.
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                # Se guardan las inicitaivas existentes.
                 context["iniciativas"] = Iniciativas.objects.all()
 
+                # Se renderiza el template en base del contexto.
                 return render(request, self.template_name, context=context)
-
-        elif asignarIniciativaBttn == 'btn7':  # if encargado de rellenar las evidencias
+        # Si se da al botón de 'Asignar Iniciativa'.
+        elif asignarIniciativaBttn == 'btn7':
             selectEviasig = request.POST.get('selectEviasig')
+            ''' Selector de evidencia. '''
+
             selectIniAsig = request.POST.get('selectIniAsig')
+            ''' Selector de iniciativa. '''
+            
             if request.session["controlSelect"] != 'noSel':
                 if selectEviasig != 'noSel':
                     if selectIniAsig != 'noSel':
