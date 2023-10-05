@@ -1,0 +1,13 @@
+Watching for file changes with StatReloader
+[05/Oct/2023 12:32:27] "POST /proyectosClientes/ HTTP/1.1" 200 27729
+[05/Oct/2023 12:32:27] "GET /staticfiles/media/images/BMW_logo_blue.png HTTP/1.1" 200 757116
+[05/Oct/2023 12:32:45] "POST /proyectosClientes/ HTTP/1.1" 200 26905
+[05/Oct/2023 12:32:48] "POST /proyectosClientes/ HTTP/1.1" 200 27966
+[05/Oct/2023 12:32:48] "GET /staticfiles/media/images/logo_NTTData.jpg HTTP/1.1" 200 2121
+[05/Oct/2023 12:34:43] "POST /proyectosClientes/ HTTP/1.1" 200 26905
+[05/Oct/2023 12:34:47] "POST /proyectosClientes/ HTTP/1.1" 200 28008
+[05/Oct/2023 12:34:48] "GET /staticfiles/media/images/vector-degradado-logotipo-colorido-pajaro_343694-1365.webp HTTP/1.1" 404 1983
+[05/Oct/2023 12:39:55] "GET /proyectosClientes/ HTTP/1.1" 200 26905
+[05/Oct/2023 12:40:32] "POST /proyectosClientes/ HTTP/1.1" 200 26905
+[05/Oct/2023 12:40:35] "POST /proyectosClientes/ HTTP/1.1" 200 28007
+[05/Oct/2023 12:40:35] "GET /staticfiles/media/images/vector-degradado-logotipo-colorido-pajaro_343694-1365.jpg HTTP/1.1" 404 1980

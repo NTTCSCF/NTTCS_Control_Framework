@@ -1,0 +1,24 @@
+Watching for file changes with StatReloader
+[05/Oct/2023 11:46:10] "GET /proyectosClientes/ HTTP/1.1" 200 26682
+[05/Oct/2023 11:46:14] "POST /proyectosClientes/ HTTP/1.1" 200 30019
+Not Found: /media/images/BMW_logo_blue.png
+[05/Oct/2023 11:46:14] "GET /media/images/BMW_logo_blue.png HTTP/1.1" 404 7582
+[05/Oct/2023 11:52:56] "POST /proyectosClientes/ HTTP/1.1" 200 27731
+Not Found: /media/images/BMW_logo_blue.png
+[05/Oct/2023 11:52:56] "GET /media/images/BMW_logo_blue.png HTTP/1.1" 404 7582
+[05/Oct/2023 11:53:54] "GET / HTTP/1.1" 200 1515
+[05/Oct/2023 12:07:14] "POST /proyectosClientes/ HTTP/1.1" 200 26930
+[05/Oct/2023 12:07:17] "POST /proyectosClientes/ HTTP/1.1" 200 28001
+Not Found: /media/images/logo_NTTData_xEERS7z.jpg
+[05/Oct/2023 12:07:17] "GET /media/images/logo_NTTData_xEERS7z.jpg HTTP/1.1" 404 7603
+[05/Oct/2023 12:11:36] "GET / HTTP/1.1" 200 1515
+C:\Users\administrator\Documents\NTTCS_Control_Framework\NTTCS_CF_project\NTTCS_CF_project\settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+October 05, 2023 - 11:46:10
+Django version 4.2.2, using settings 'NTTCS_CF_project.settings'
+Starting development server at http://127.0.0.1:33263/
+Quit the server with CTRL-BREAK.
+
+Watching for file changes with StatReloader
