@@ -140,7 +140,96 @@
                                     </div>
                                 </div>
 
+                                <div class="modal fade" id="modalPlan">
+                                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="text-align:center;">
+                                                <div class="cajaCarga">
+                                                    <h5 class="modal-title">Pan de Proyecto de Mejora</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
 
+
+                                                <div class="rowCajas">
+                                                    <div class="card text-bg-ligth border-ligth cardModificada">
+
+                                                        <h5 class="card-header text-center">Rellene los datos del plan
+                                                            de proyecto de mejora</h5>
+                                                        <form class="card-body" method="post">
+                                                            {% csrf_token %}
+
+                                                            <div class="input-group mb-3 ">
+                                                            <span class="input-group-text"
+                                                                  id="basic-addon3">Nombre</span>
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Nombre"
+                                                                       aria-label="Nombre"
+                                                                       aria-describedby="basic-addon3" id="NombrePlan"
+                                                                       name="NombrePlan">
+                                                            </div>
+                                                            <div class="input-group mb-3 ">
+                                                                <span class="input-group-text">Descripción</span>
+                                                                <textarea class="form-control"
+                                                                          aria-label="Descripción"
+                                                                          rows="8"
+                                                                          name="descripcionPlan"></textarea>
+                                                            </div>
+                                                            <div class="input-group mb-3 ">
+                                                                <span class="input-group-text">Riesgos</span>
+                                                                <textarea class="form-control"
+                                                                          aria-label="Riesgos"
+                                                                          rows="5"
+                                                                          name="riesgosPlan"></textarea>
+                                                            </div>
+                                                            <div class="input-group mb-3 ">
+                                                                <span class="input-group-text"
+                                                                      id="basic-addon4">Tipo</span>
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Tipo"
+                                                                       aria-label="Tipo"
+                                                                       aria-describedby="basic-addon4" id="tipoPlan"
+                                                                       name="tipoPlan">
+                                                            </div>
+
+                                                            <div class="input-group mb-3 ">
+                                                                <span class="input-group-text"
+                                                                      id="basic-addon7">Duracion</span>
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Duracion"
+                                                                       aria-label="Duracion"
+                                                                       aria-describedby="basic-addon7" id="duracionPlan"
+                                                                       name="duracionPlan">
+                                                                <span class="input-group-text"
+                                                                      id="basic-addon8">meses</span>
+                                                            </div>
+
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text"
+                                                                      id="basic-addon5">Coste</span>
+                                                                <input type="number" class="form-control"
+                                                                       placeholder="Coste"
+                                                                       aria-label="Coste"
+                                                                       aria-describedby="basic-addon5" id="costePlan"
+                                                                       name="costePlan">
+
+                                                                <span class="input-group-text"
+                                                                      id="basic-addon6">Beneficio</span>
+                                                                <input type="number" class="form-control"
+                                                                       placeholder="Beneficio"
+                                                                       aria-label="Beneficio"
+                                                                       aria-describedby="basic-addon6"
+                                                                       id="beneficioPlan"
+                                                                       name="beneficioPlan">
+                                                            </div>
+
+
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="rowCajas">
                                                 <div class="card text-bg-ligth border-ligth cardModificada">
                                                     <h5 class="card-header text-center">Seleccione las iniciativas</h5>

@@ -27,7 +27,7 @@ import mysql.connector
 from django.contrib import messages
 import csv
 import xlsxwriter
-
+import html
 
 # Create your views here.
 
@@ -907,7 +907,11 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                     if "Pregunta" in seleccion:
                         valor += [('Pregunta', fila.pregunta)]
                     if "Respuesta" in seleccion:
-                        valor += [('Respuesta', fila.respuesta)]
+                        if fila.respuesta == None:
+                            valor += [('Respuesta', fila.respuesta)]
+                        else:
+                            valor += [('Respuesta', html.unescape(fila.respuesta))]
+                            print(html.unescape(fila.respuesta))
                     if "Valoracion" in seleccion:
                         valor += [('Valoracion', fila.valoracion)]
                     if "Valoracion Objetivo" in seleccion:
