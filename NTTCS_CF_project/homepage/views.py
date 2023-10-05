@@ -717,7 +717,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         nombre = request.POST.get('in')  # Valor del input de nombre
         selectorProyecto = request.POST.get('selectorProyecto')  # valor de selector de proyecto
         select2 = request.POST.getlist('selector2')  # valor de selector de marcos para la creacion del assesment
-        idioma = request.POST.getlist('idioma')  # valor de selector de marcos para la creacion del assesment
+        idioma = request.POST.get('idioma')  # valor de selector de marcos para la creacion del assesment
 
         btnEditar = request.POST.get('btnEditar')  # valor de selector de marcos para la creacion del assesment
         btnArchivar = request.POST.get('btnArchivar')  # valor de selector de marcos para la creacion del assesment
@@ -772,7 +772,6 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                             if fila.ntt_id not in marc:
                                 marc += [fila.ntt_id]  # recorremos la tabla del marco cogiendo los controles de ntt
                                 # que no este repetidos
-
                     for marco in marc:
                         marcos += marco + '\n'  # creamos un string con todos los controles de ntt separados por intros
                         if idioma == 'en':
