@@ -262,11 +262,13 @@ class assessment(LoginRequiredMixin, TemplateView):
             lista=[]
             for i in AsociacionEvidenciasGenericas.objects.filter(assessment=control):
                 lista += [i.evidencia_id_es]
+
             context["listaEvidencias"] = lista
         else:
             context[
                 "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
             context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
+
             lista = []
             for i in AsociacionEvidenciasGenericas.objects.filter(assessment=control):
                 lista += [i.evidencia_id_es]
@@ -361,24 +363,32 @@ class assessment(LoginRequiredMixin, TemplateView):
         ''' Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
         a través de un formulario. '''
 
-        # Guardamos el id (nombre) del assesment en una variable.
         assSelect = request.session.get('assessmentGuardado')
-        # Valor de el selector de control.
+        ''' Guardamos el id (nombre) del assesment en una variable. '''
+
         select = request.POST.get('selector')
-        # Valor del 'boton 2', que corresponde al botón de 'guardar valoración'.
+        '''Valor de el selector de control.'''
+
         guardarValoracionBttn = request.POST.get('boton2')
-        # Valor del 'boton 4', que corresponde al botón de 'añadir evidencia'.
+        '''Valor del 'boton 2', que corresponde al botón de 'guardar valoración'.'''
+
         añadirEvidenciaBttn = request.POST.get('boton4')
-        # Valor del 'boton 5', que corresponde al botón de 'seleccionar evidencia'.
+        '''Valor del 'boton 4', que corresponde al botón de 'añadir evidencia'.'''
+
         seleccionarEvidenciaBttn = request.POST.get('boton5')
-        # Valor del 'boton 6', que corresponde al botón de 'crear evidencia'.
+        '''Valor del 'boton 5', que corresponde al botón de 'seleccionar evidencia'.'''
+
         crearEvidenciaBttn = request.POST.get('boton6')
-        # Valor del 'boton 7', que corresponde al botón de 'asignar iniciativa'.
+        '''Valor del 'boton 6', que corresponde al botón de 'crear evidencia'.'''
+
         asignarIniciativaBttn = request.POST.get('boton7')
-        # Valor del 'boton 8', que corresponde al botón de 'añadir' cuando se recomiendan evidencias.
+        '''Valor del 'boton 7', que corresponde al botón de 'asignar iniciativa'.'''
+
         boton8 = request.POST.get('boton8')
-        # Valor del 'btnEliminarEvidencia'.
+        '''Valor del 'boton 8', que corresponde al botón de 'añadir' cuando se recomiendan evidencias.'''
+
         btnEliminarEvidencia = request.POST.get('btnEliminarEvidencia')
+        '''Valor del 'btnEliminarEvidencia'.'''
 
         # Se determina si se ha seleccionado el selector de marcos.
         if 'selector' in request.POST:
@@ -526,78 +536,136 @@ class assessment(LoginRequiredMixin, TemplateView):
 
                     # Renderiza el template en base el contexto.
                     return render(request, self.template_name, context=context)
-            # Si no se ha seleccionado algún control.
+            # Si no se ha seleccionado ningñun control.
             else:
                 # Se crea un mensaje de error.
                 messages.error(request,
                                'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+
                 # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                 context = super(assessment, self).get_context_data(**knwargs)
+                # Se guarda el assessment de la tabla 'Assessmentguardados' en base del id del assessment seleccionado.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
+                # Guardamos en el contexto el identificador del assessment que, a su vez, es el nombre.
                 context["NombreAss"] = assSelect
+                # Se guarda en el contexto el assessment creado en base de la variable anterior.
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+
+                # Actualizaremos el contexto en base del idioma.
                 if assGuardado.idioma == 'en':
-                    context[
-                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    # Consulta para el desplegable de la valoración de madurez.
+                    context["valMad"] = MaturirtyTable.objects.all()
+                    # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
-                    context[
-                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    # Consulta para el desplegable de la valoración de madurez.
+                    context["valMad"] = MaturirtyTableEs.objects.all()
+                    # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
+
+
+
+                # Se guardan los tipos de inicitaivas.
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                # Se guardan las inicitaivas existentes
                 context["iniciativas"] = Iniciativas.objects.all()
 
+                # Se renderizará el template en base del contexto.
                 return render(request, self.template_name, context=context)
 
-        elif seleccionarEvidenciaBttn == 'btn5':  # if encargado de rellenar las evidencias
+        # Detecta si se ha presionado el botón de 'seleccionar evidencia'.
+        elif seleccionarEvidenciaBttn == 'btn5':
+
+            # Si se ha seleccionado algún control.
             if request.session["controlSelect"] != 'noSel':
-                selectorEvidencia = request.POST.get('selectorEvidencia')  # valor de el selector de control
+                # Se reoge el valor del selector de evidencia generica.
+                selectorEvidencia = request.POST.get('selectorEvidencia')
+
+                # Si se ha seleccionado alguna evidencia.
                 if selectorEvidencia != 'noSel':
+                    # Se elige el assessment guardado en base del nombre del assessment.
                     assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                    #
                     control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                             control_id=request.session["controlSelect"])
+                    # Si el idioma del assessment esta en ingles.
                     if assGuardado.idioma == 'en':
+                        '''Se actualiza la tabla de 'AsociacionEvidenciasGenericas'. '''
                         evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=selectorEvidencia)
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia, assessment=control)
                         eviGenerica.save()
                     else:
+                        '''Se actualiza la tabla de 'AsociacionEvidenciasGenericas'. '''
                         evidencia = EvidencerequestcatalogEs.objects.get(evidence_request_references=selectorEvidencia)
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia_id_es=evidencia, assessment=control)
                         eviGenerica.save()
+
+                    # Se elige el assessment guardado en base del nombre del assessment.
                     assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                     control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                             control_id=request.session["controlSelect"])
+                    # Se guarda el input de 'respuesta'.
                     control.respuesta = str(request.POST.get('respuesta'))
+                    # Se guarda el input de 'valoración de madurez'.
                     control.valoracion = request.POST.get('valmad')
+                    # Se guarda el input de 'valoración de madurez objetivo'.
                     control.valoracionobjetivo = request.POST.get('valmadob')
+                    # Se guarda en la bd.
                     control.save()
+                    # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                     context = super(assessment, self).get_context_data(**knwargs)
                     request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
+
+                    # Se renderiza la página en base del contexto.
                     return render(request, self.template_name, context=context)
+
+                # Si no se ha seleccionado ninguna evidencia.
                 else:
+                    # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                     context = super(assessment, self).get_context_data(**knwargs)
                     request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
-                    messages.error(request,
-                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
+
+                    # Se crea un mensaje de error.
+                    messages.error(request, 'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')
+
+                    # Se renderiza la pagina en base del contexto.
                     return render(request, self.template_name, context=context)
+
+            # Si no se ha sleccionado ningún control.
             else:
-                messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                # Se crea un mensaje de error
+                messages.error(request, 'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+                # # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                 context = super(assessment, self).get_context_data(**knwargs)
+                # Se elige el assessment guardado en base del nombre del assessment.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
+                # Guardamos en el contexto el identificador del assessment que, a su vez, es el nombre.
                 context["NombreAss"] = assSelect
+                # Se guarda en el contexto el assessment creado en base de la variable anterior.
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+
+                # Actualizamos el contexto en función del idioma del assessment.
                 if assGuardado.idioma == 'en':
-                    context[
-                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    # Consulta para el desplegable de la valoración de madurez.
+                    context["valMad"] = MaturirtyTable.objects.all()
+                    # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
-                    context[
-                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    # Consulta para el desplegable de la valoración de madurez.
+                    context["valMad"] = MaturirtyTableEs.objects.all()
+                    # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
+
+                # Se guardan los tipos de inicitaivas.
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
+                # Se guardan las inicitaivas existentes.
                 context["iniciativas"] = Iniciativas.objects.all()
+
+                # Se renderiza el template en función del contexto.
                 return render(request, self.template_name, context=context)
+
         elif crearEvidenciaBttn == 'btn6':  # if encargado de rellenar las evidencias
             selectorEvidencia = request.POST.get('selectorEvidenciaIniciativa')
             nombreIniciativa = request.POST.get('nombreIniciativa')
