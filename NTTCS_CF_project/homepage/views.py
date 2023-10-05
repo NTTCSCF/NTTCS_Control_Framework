@@ -379,7 +379,7 @@ class assessment(LoginRequiredMixin, TemplateView):
         '''Valor del 'boton 5', que corresponde al botón de 'seleccionar evidencia'.'''
 
         crearEvidenciaBttn = request.POST.get('boton6')
-        '''Valor del 'boton 6', que corresponde al botón de 'crear evidencia'.'''
+        '''Valor del 'boton 6', que corresponde al botón de 'crear iniciativa'.'''
 
         asignarIniciativaBttn = request.POST.get('boton7')
         '''Valor del 'boton 7', que corresponde al botón de 'asignar iniciativa'.'''
@@ -666,13 +666,25 @@ class assessment(LoginRequiredMixin, TemplateView):
                 # Se renderiza el template en función del contexto.
                 return render(request, self.template_name, context=context)
 
-        elif crearEvidenciaBttn == 'btn6':  # if encargado de rellenar las evidencias
+        # Se comrpueba si se le ha dado al botón 'crear iniciativa'.
+        elif crearEvidenciaBttn == 'btn6':
+
             selectorEvidencia = request.POST.get('selectorEvidenciaIniciativa')
+            ''' Se recoge el valor del desplegable 'seleccione la evidencia'. '''
+
             nombreIniciativa = request.POST.get('nombreIniciativa')
+            ''' Se recoge el valor del input 'nombre de la iniciativa'. '''
+
             DescripcionIniciativa = request.POST.get('DescripcionIniciativa')
+            ''' Se recoge el valor del input 'descripción de la inciativa'. '''
+
             SelectorIniciativa = request.POST.get('SelectorIniciativa')
+            ''' Se recoge el valor del desplegable 'seleccione el tipo de iniciativa. '''
+
+            # Donle comprovación de si se ha seleccionado alguna evidencia.
             if request.session["controlSelect"] != 'noSel':
                 if selectorEvidencia != 'noSel':
+                    # Si la iniciativa no existe, se crea en la bd.
                     if not Iniciativas.objects.filter(nombre=nombreIniciativa).exists():
                         if Evidencerequestcatalog.objects.filter(
                                 evidence_request_references=selectorEvidencia).exists():
