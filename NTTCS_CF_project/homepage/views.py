@@ -26,8 +26,7 @@ from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
 import csv
-import xlsxwriter
-import html
+from bs4 import BeautifulSoup
 
 # Create your views here.
 
@@ -910,8 +909,8 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                         if fila.respuesta == None:
                             valor += [('Respuesta', fila.respuesta)]
                         else:
-                            valor += [('Respuesta', html.unescape(fila.respuesta))]
-                            print(html.unescape(fila.respuesta))
+                            valor += [('Respuesta', BeautifulSoup(fila.respuesta, "lxml").text)]
+                            print(BeautifulSoup(fila.respuesta, "lxml").text)
                     if "Valoracion" in seleccion:
                         valor += [('Valoracion', fila.valoracion)]
                     if "Valoracion Objetivo" in seleccion:
