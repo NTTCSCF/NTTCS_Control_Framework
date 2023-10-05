@@ -636,7 +636,7 @@ class assessment(LoginRequiredMixin, TemplateView):
             else:
                 # Se crea un mensaje de error
                 messages.error(request, 'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
-                # # Esto inicializa un diccionario llamado context con algunos datos de contexto.
+                # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                 context = super(assessment, self).get_context_data(**knwargs)
                 # Se elige el assessment guardado en base del nombre del assessment.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
@@ -681,17 +681,22 @@ class assessment(LoginRequiredMixin, TemplateView):
             SelectorIniciativa = request.POST.get('SelectorIniciativa')
             ''' Se recoge el valor del desplegable 'seleccione el tipo de iniciativa. '''
 
-            # Donle comprovación de si se ha seleccionado alguna evidencia.
+            # Si se ha seleccionado un control.
             if request.session["controlSelect"] != 'noSel':
+                # Si se ha seleccionado una evidencia.
                 if selectorEvidencia != 'noSel':
                     # Si la iniciativa no existe, se crea en la bd.
                     if not Iniciativas.objects.filter(nombre=nombreIniciativa).exists():
+                        # Si la evidencia introducida existe en la tabla 'Evidencerequestcatalog'.
                         if Evidencerequestcatalog.objects.filter(
                                 evidence_request_references=selectorEvidencia).exists():
 
+                            # Conseguimos el assessment de la tabla 'AssessmentCreados' en base del id del nombre del assessment.
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                     control_id=request.session["controlSelect"])
+
+                            '''Dependiendo del idioma del assessment guardamos la evidencia en un idioma u otro.'''
                             if assGuardado.idioma == 'en':
                                 evidencia = Evidencerequestcatalog.objects.get(
                                     evidence_request_references=selectorEvidencia)
@@ -700,76 +705,113 @@ class assessment(LoginRequiredMixin, TemplateView):
                             else:
                                 evidencia = EvidencerequestcatalogEs.objects.get(
                                     evidence_request_references=selectorEvidencia)
-
                                 asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia,
                                                                                        assessment=control)
 
+                            # Se coge el tipo de la iniciativa en base del introducido en el desplegable.
                             tipoIniciativa = TiposIniciativas.objects.get(tipo=SelectorIniciativa)
+                            # Añadimos la relación entre la tabla 'iniciativa' y 'tipos_iniciativas'.
                             iniciativa = Iniciativas(nombre=nombreIniciativa, descripcion=DescripcionIniciativa,
                                                      tipo=tipoIniciativa)
+                            # Guardamos la inciativa en la BD.
                             iniciativa.save()
 
+                            # Asociamos la tabla 'AsociacionEvidenciasGenericas' con la tabla 'iniciativa'.
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
 
+                            # Actualizamos la tabla 'assessment_creados' por los datos introducidos.
                             control.respuesta = str(request.POST.get('respuesta'))
                             control.valoracion = request.POST.get('valmad')
                             control.valoracionobjetivo = request.POST.get('valmadob')
                             control.save()
+
+                            # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                             context = super(assessment, self).get_context_data(**knwargs)
                             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
                                                                  context)
+
+                            # Se renderiza el template en base del contexto.
                             return render(request, self.template_name, context=context)
+                        # Si la evidencia no existe en la tabla 'Evidencerequestcatalog'.
                         else:
+                            # Se consigue le evidencia de la base de datos.
                             evidencia = Evidencias.objects.get(evidencia_id=selectorEvidencia)
+
+                            # Se relaciona el elemento de la tabla 'Assessmentguardados' con el de la tabla 'AssessmentCreados'
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                     control_id=request.session["controlSelect"])
+                            # Se asocia la evidencia con el control en la bd.
                             asociacion = AsociacionEvidenciasCreadas.objects.get(id_evidencia=evidencia,
                                                                                  id_assessment=control)
-
+                            # Se relaciona la tabla 'tipoIniciativa' con 'Iniciativas' y se guarda en la BD.
                             tipoIniciativa = TiposIniciativas.objects.get(tipo=SelectorIniciativa)
                             iniciativa = Iniciativas(nombre=nombreIniciativa, descripcion=DescripcionIniciativa,
                                                      tipo=tipoIniciativa)
                             iniciativa.save()
 
+                            # Se asocia el assessment con la iniciativa y se guarda en la BD.
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
+
+                            # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                             context = super(assessment, self).get_context_data(**knwargs)
                             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
-                                                                 context)
+                                                                context)
+
+                            # Se renderiza el template en base del contexto.
                             return render(request, self.template_name, context=context)
+
+                    # Si la iniciativa existe, salta un error.
                     else:
+                        # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                         context = super(assessment, self).get_context_data(**knwargs)
                         request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
                                                              context)
+                        # Mensaje de error.
                         messages.error(request,
-                                       'INICIATIVA INCORRECTA: El nombre introducido ya esta en uso')  # Se crea mensage de error
+                                       'INICIATIVA INCORRECTA: El nombre introducido ya esta en uso')
+
+                        # Se renderiza el template en base del contexto.
                         return render(request, self.template_name, context=context)
+                # Si no se ha seleccionado una evidencia.
                 else:
+                    # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                     context = super(assessment, self).get_context_data(**knwargs)
                     request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
+                    # Mensaje de error.
                     messages.error(request,
-                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
+                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')
+
+                    # Se renderiza el template en base del contexto.
                     return render(request, self.template_name, context=context)
+
+            # Si no se ha seleccionado ningún control.
             else:
+                # Mensaje de error.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+
+                # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                 context = super(assessment, self).get_context_data(**knwargs)
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+
                 if assGuardado.idioma == 'en':
-                    context[
-                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    context["valMad"] = MaturirtyTable.objects.all()
                     context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
-                    context[
-                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    context["valMad"] = MaturirtyTableEs.objects.all()
                     context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
+
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
+
                 return render(request, self.template_name, context=context)
+
         elif asignarIniciativaBttn == 'btn7':  # if encargado de rellenar las evidencias
             selectEviasig = request.POST.get('selectEviasig')
             selectIniAsig = request.POST.get('selectIniAsig')
