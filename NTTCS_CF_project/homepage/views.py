@@ -828,7 +828,7 @@ class assessment(LoginRequiredMixin, TemplateView):
 
             selectIniAsig = request.POST.get('selectIniAsig')
             ''' Selector de iniciativa. '''
-            
+
             if request.session["controlSelect"] != 'noSel':
                 if selectEviasig != 'noSel':
                     if selectIniAsig != 'noSel':
