@@ -100,14 +100,14 @@
                                                 {% csrf_token %}
                                                 <button style="font-size:0.6vw;" type="button" class="btn btn-danger"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#modalArchivar">
+                                                        data-bs-target="#modalArchivar{{i.id}}">
                                                     <i class="bi bi-archive"></i> Archivar
                                                 </button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade " id="modalArchivar" data-bs-backdrop="static"
+                                <div class="modal fade " id="modalArchivar{{i.id}}" data-bs-backdrop="static"
                                      data-bs-keyboard="false"
                                      aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog  modal-dialog-centered">
@@ -141,45 +141,6 @@
                                 </div>
 
 
-                                            <div class="rowCajas">
-                                                <div class="card text-bg-ligth border-ligth cardModificada">
-                                                    <h5 class="card-header text-center">Seleccione las iniciativas</h5>
-                                                    <form class="card-body" method="post">
-                                                        {% csrf_token %}
-                                                        <div class="input-group mb-3">
-                                                            <label class="input-group-text " for="selectorUsuarios">Seleccione
-                                                                iniciativas</label>
-                                                            <select multiple class="form-select selectpicker"
-                                                                    data-live-search="true"
-                                                                    data-actions-box="true" id="selectorUsuarios"
-                                                                    name="selectorUsuarios">
-                                                                {% for ids in usuarios %}
-                                                                {% if ids.username != 'admin' %}
-                                                                <option value="{{ids.username}}">{{ids.username}}
-                                                                </option>
-                                                                {% endif %}
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Cerrar
-                                                </button>
-                                                <form method="post">
-                                                    {% csrf_token %}
-                                                    <button type="submit" class="btn btn-danger" name="btnArchivar"
-                                                            value="{{i.assessment.id_assessment}}"><i
-                                                            class="bi bi-archive"></i> Archivar
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                                 {% endfor %}
 

@@ -27,8 +27,7 @@ from django.views.generic import TemplateView, ListView
 import mysql.connector
 from django.contrib import messages
 import csv
-import xlsxwriter
-
+from bs4 import BeautifulSoup
 
 # Create your views here.
 
@@ -1092,7 +1091,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                                 # Guardamos los marcos de NTT sin repetirlos.
                                 marc += [fila.ntt_id]
 
-                    # Recorremos la lista de marcos de NTT.
+
                     for marco in marc:
                         # Añadimos un elemento de la lista al string, separado por un espacio.
                         marcos += marco + '\n'
@@ -1279,7 +1278,11 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                     if "Pregunta" in seleccion:
                         valor += [('Pregunta', fila.pregunta)]
                     if "Respuesta" in seleccion:
-                        valor += [('Respuesta', fila.respuesta)]
+                        if fila.respuesta == None:
+                            valor += [('Respuesta', fila.respuesta)]
+                        else:
+                            valor += [('Respuesta', BeautifulSoup(fila.respuesta, "lxml").text)]
+                            print(BeautifulSoup(fila.respuesta, "lxml").text)
                     if "Valoracion" in seleccion:
                         valor += [('Valoracion', fila.valoracion)]
                     if "Valoracion Objetivo" in seleccion:
