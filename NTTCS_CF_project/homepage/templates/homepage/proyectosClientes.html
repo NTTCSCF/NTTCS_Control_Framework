@@ -5,7 +5,6 @@
 {% block contenido %}
 {% load static %}
 
-
 <div class="rowTitulo">
     <!-- Titulo con el nombre del assessment -->
     <div class="cajaTitulo">
@@ -46,7 +45,7 @@
                                 <div class="card card-body">
                                     <div class="row g-0">
                                         <div class="col-md-4">
-                                            <img src="/media/{{cliente.logo }}" class="img-fluid rounded-start">
+                                            <img src="/staticfiles/media/{{cliente.logo}}" class="img-fluid " alt=""/>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
@@ -95,18 +94,10 @@
                                 <p class="d-inline-flex gap-1">
                                     <button type="submit" class="btn btn-ntt textoInputs">Añadir cliente</button>
                                 </p>
-
-
                             </div>
-
                         </form>
-
                     </div>
-
-
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -164,9 +155,7 @@
                                         <div class="row g-0 text-center">
 
                                             <div class="col-md-4">
-                                                <img src="/media/{{proyecto.cliente.logo}}"
-                                                     class="img-fluid rounded-start"
-                                                     alt="/media/{{proyecto.cliente.logo }}">
+                                                <img src="/staticfiles/media/{{proyecto.cliente.logo}}" class="img-fluid " alt=""/>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="card-body">
