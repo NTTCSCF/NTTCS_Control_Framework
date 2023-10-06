@@ -28,6 +28,9 @@ from django.contrib import messages
 import csv
 from bs4 import BeautifulSoup
 
+from docx import Document
+from docx.shared import Cm
+
 # Create your views here.
 
 # Clase para la pagina del login
@@ -957,15 +960,6 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                     cell_format.set_text_wrap()
                     worksheet.set_column('A:I', 20, cell_format)
                     writer.close()
-                    
-                    """workbook = xlsxwriter.Workbook(filename)
-                    workbook.encoding = "utf-8"
-                    worksheet = workbook.add_worksheet()
-
-                    for row, _dict in enumerate(valores):
-                        for col, key in enumerate(titulos):
-                            worksheet.write(row, col, _dict[key])
-                    workbook.close()"""
 
                     with open(filename, "rb") as file:
                         response = HttpResponse(file.read(),
@@ -974,7 +968,26 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                     return response
 
                 if 'word' == word:
-                    pass
+                    filename += '.docx'
+                    # create document object
+                    document = Document()
+
+                    for i in valores:
+                        document.add_heading(i['Identificador Control'] + ", " + i['Nombre Control'], level=1)
+                        table = document.add_table(rows=0, cols=2)
+                        table.style = 'TableGrid'
+                        for j in titulos:
+
+                            row_cells = table.add_row().cells
+                            row_cells[0].text = j
+
+                            if i[j] != None:
+                                row_cells[1].text = i[j]
+                            else:
+                                row_cells[1].text = ""
+                        p = document.add_paragraph('')
+                    # save document
+                    document.save(filename)
         context = super(Exportaciones, self).get_context_data(**knwargs)
         context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         return render(request, self.template_name, context=context)
