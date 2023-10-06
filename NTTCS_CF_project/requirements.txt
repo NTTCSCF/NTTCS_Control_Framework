@@ -7,3 +7,4 @@ xlsxwriter
 pandas
 lxml
 bs4
+python-docx
