@@ -3,9 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
-
 <head>
     <meta charset="UTF-8">
 
@@ -67,11 +64,10 @@
 
             <div class="menu">
 
-
                     <!-- MENU DE NAVEGACION DEL SISTEMA  -->
                 <div class="rowMenu">
                     <div class="imagenMenu">
-                        <img  class="ajustarImg" src="../staticfiles/images/logo_NTTCS_CF.jpg">
+                        <img  class="ajustarImg" src="{% static 'images/logo_NTTCS_CF.jpg' %}">
                     </div>
                 </div>
                 <div class="rowMenu">
@@ -82,7 +78,7 @@
 
                 <div class="rowMenu">
                     <div class="cajaBtn">
-                        <a class="btnMenu rowMenu" href="/menu/">
+                        <a class="btnMenu rowMenu" href="{% url 'menu' %}">
                             <div style="width:20%;">
                                 <i class="bi bi-house"></i>
                             </div>
@@ -94,7 +90,7 @@
                 </div>
                 <div class="rowMenu">
                     <div class="cajaBtn">
-                        <a class="btnMenu rowMenu" href="/assessmentselect/">
+                        <a class="btnMenu rowMenu" href="{% url 'assessmentselect' %}">
                             <div style="width:20%;">
                                 <i class="bi bi-journal-text"></i>
                             </div>
@@ -108,7 +104,7 @@
                 {% if perms.acounts.puede_crear_informes %}
                 <div class="rowMenu">
                     <div class="cajaBtn">
-                        <a class="btnMenu rowMenu" href="/entrevistasUsuarios/">
+                        <a class="btnMenu rowMenu" href="{% url 'entrevistasUsuarios' %}">
                             <div style="width:20%;">
                                 <i class="bi bi-calendar"></i>
                             </div>
@@ -123,7 +119,7 @@
                 {% if perms.acounts.puede_crear_informes %}
                 <div class="rowMenu">
                     <div class="cajaBtn">
-                        <a class="btnMenu rowMenu" href="/informes/">
+                        <a class="btnMenu rowMenu" href="{% url 'informes' %}">
                             <div style="width:20%;">
                                 <i class="bi bi-file-earmark-bar-graph"></i>
                             </div>
@@ -138,7 +134,7 @@
                 {% if perms.acounts.puede_exportar %}
                 <div class="rowMenu">
                     <div class="cajaBtn">
-                        <a class="btnMenu rowMenu" href="/exportaciones/">
+                        <a class="btnMenu rowMenu" href="{% url 'exportaciones' %}">
                             <div style="width:20%;">
                                 <i class="bi bi-file-earmark-spreadsheet"></i>
                             </div>
@@ -153,7 +149,7 @@
                 {% if perms.acounts.puede_Mantener_tablas %}
                 <div class="rowMenu">
                     <div class="cajaBtn">
-                        <a class="btnMenu rowMenu" href="/proyectosClientes/">
+                        <a class="btnMenu rowMenu" href="{% url 'proyectosClientes' %}">
                             <div style="width:20%;">
                                 <i class="bi bi-building"></i>
                             </div>
@@ -177,17 +173,18 @@
                                 Mantenimiento
                             </div>
                         </a>
+
                         <ul class=" dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/mantenimientoNivelMadurez/">Nivel de Madurez</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoMarcosExistentes/">Marcos Existentes</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoDominios/">Dominios</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoControlesNTTCS/">Controles NTTCS</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoPreguntas/">Preguntas</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoPreguntasEs/">Preguntas Español</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoEvidencias/">Evidencias</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoEvidenciasEs/">Evidencias Español</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoMapeoMarcos/">Mapeo De Marcos</a></li>
-                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="/MantenimientoAssessmentArchivados/">Assessments Archivados</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'mantenimientoNivelMadurez' %}">Nivel de Madurez</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoMarcosExistentes' %}">Marcos Existentes</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoDominios' %}">Dominios</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoControlesNTTCS' %}">Controles NTTCS</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoPreguntas' %}">Preguntas</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoPreguntasEs' %}">Preguntas Español</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoEvidencias' %}">Evidencias</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoEvidenciasEs' %}">Evidencias Español</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoMapeoMarcos' %}">Mapeo De Marcos</a></li>
+                            <li><a style="font-size:1.2vw;" class="dropdown-item" href="{% url 'MantenimientoAssessmentArchivados' %}">Assessments Archivados</a></li>
                         </ul>
                     </div>
                 </div>
@@ -195,7 +192,7 @@
                 {% if perms.acounts.puede_Mantener_tablas %}
                 <div class="rowMenu">
                     <div class="cajaBtn">
-                        <a class="btnMenu rowMenu" href="/usuarios/">
+                        <a class="btnMenu rowMenu" href="{% url 'usuarios' %}">
                             <div style="width:20%;">
                                 <i class="bi bi-person-gear"></i>
                             </div>
@@ -209,7 +206,7 @@
 
                 <div class="rowMenu">
                     <div class="cajaBtn">
-                        <a class="btnMenu rowMenu" href="/perfil/">
+                        <a class="btnMenu rowMenu" href="{% url 'perfil' %}">
                             <div style="width:20%;">
                                <i class="bi bi-person"></i>
                             </div>
@@ -235,7 +232,8 @@
 
                 <div class="cajaMenuBlanco">
                     <div class="imagenMenuBot">
-                        <img class="ajustarImg" src="../staticfiles/images/logo_NTTData.jpg">
+
+                        <img class="ajustarImg" src="{% static 'images/logo_NTTData.jpg' %}">
                     </div>
                 </div>
 
