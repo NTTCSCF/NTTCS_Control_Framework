@@ -983,7 +983,7 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         # Valor de selector de marcos de seguridad.
         select2 = request.POST.getlist('selector2')
         # Valor del input de idioma.
-        idioma = request.POST.getlist('idioma')
+        idioma = request.POST.get('idioma')
         # Valor asociado al botón de editar (el id del assesmment asociado).
         btnEditar = request.POST.get('btnEditar')
         # Valor asociado al botón de archivar (el id del assesmment asociado).
