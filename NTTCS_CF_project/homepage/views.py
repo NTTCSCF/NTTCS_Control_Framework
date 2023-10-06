@@ -502,6 +502,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                         # Se guarda el input de 'valoración de madurez objetivo'.
                         control.valoracionobjetivo = request.POST.get('valmadob')
                         # TODO: Missing control.save() ?
+                        control.save()
 
                         # Se asocia la evidencia con el assessment creado.
                         evidencia = AsociacionEvidenciasCreadas(id_evidencia=ev, id_assessment=control)
