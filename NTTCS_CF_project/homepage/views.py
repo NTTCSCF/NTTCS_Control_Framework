@@ -1004,7 +1004,6 @@ class assessment(LoginRequiredMixin, TemplateView):
                 # Obtener el objeto 'AssessmentCreados' relacionado a 'assGuardado' y 'controlSelect'.
                 control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                         control_id=request.session["controlSelect"])
-
                 if assGuardado.idioma == 'en':
                     # Si el idioma es inglés, obtener la evidencia correspondiente en inglés.
                     evidencia = Evidencerequestcatalog.objects.get(
