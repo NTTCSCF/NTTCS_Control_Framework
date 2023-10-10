@@ -1484,8 +1484,6 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                     for numero in range(maxLen*2-1,len(j)*2-1,-1):
                         row_cells[numero-1].merge(row_cells[numero])
 
-
-
                     for p in j:
                         if p == '':
                             pass
