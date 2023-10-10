@@ -1,3 +1,6 @@
+# https://stackoverflow.com/questions/1921771/split-views-py-in-several-files
+''' Siempre que se cree una nueva vista en el directorio, se debe importar aquí. '''
+
 from .assessment import *
 from .assessmentSelect import *
 from .creacionPass import *
