@@ -248,33 +248,52 @@ class assessment(LoginRequiredMixin, TemplateView):
     conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
                                    auth_plugin='mysql_native_password')
 
+    # TODO: Check 'request' var.
     def contextTotal(self, request, select, assSelect, context):
+        ''' Esta función se ha creado con el propósito de evitar la duplicación de código en el proyecto.
+            Actualiza el contexto común en todas las páginas.'''
 
+        # Obtener el objeto 'Assessmentguardados' correspondiente a 'assSelect'.
         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
 
+        # Agregar 'assSelect' y 'assGuardado' al contexto.
         context["NombreAss"] = assSelect
         context["assessment"] = assGuardado
+        # Agregar el assessment creado correspondiente a 'assGuardado' al contexto.
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+
+        # Obtener el objeto 'AssessmentCreados' relacionado a 'assGuardado' y 'select'.
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
 
+        lista = []
+        ''' Esta lista es creada con tal de recorrer las evidencias en el template, independientemente
+        de que esten en ingles o español. '''
+
+        # Comprobar el idioma de 'assGuardado' y configurar el contexto en consecuencia
         if assGuardado.idioma == 'en':
-            context["valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+            # Consulta para el desplegable de la valoración de madurez.
+            context["valMad"] = MaturirtyTable.objects.all()
+            # Se guardan las evidencias.
             context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
-            lista = []
+
+            # Se añaden a la lista las asociaciones de evidencias genéricas relacionadas a 'control'.
             for i in AsociacionEvidenciasGenericas.objects.filter(assessment=control):
                 lista += [i.evidencia_id]
-            context["listaEvidencias"] = lista
         else:
-            context[
-                "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+            # Consulta para el desplegable de la valoración de madurez.
+            context["valMad"] = MaturirtyTableEs.objects.all()
+            # Se guardan las evidencias.
             context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
 
-            lista = []
+            # Se añaden a la lista las asociaciones de evidencias genéricas relacionadas a 'control'.
             for i in AsociacionEvidenciasGenericas.objects.filter(assessment=control):
                 lista += [i.evidencia_id_es]
-            context["listaEvidencias"] = lista
+
+        # Se guarda la lista en el contexto.
+        context["listaEvidencias"] = lista
 
         request.session["controlSelect"] = select
+        # Se guarda el objeto de la clase 'AssessmentCreados' en el contexto.
         context["control"] = control
         context["criteriovaloracioncontexto"] = ['CCMM L0 \n No realizado',
                                                  'CCMM L1 \n Realizado de manera informal',
@@ -283,36 +302,58 @@ class assessment(LoginRequiredMixin, TemplateView):
                                                  'CCMM L4 \n Controlado Cuantitativamente',
                                                  'CCMM L5 \n Mejorando Continuamente']
 
+        # Recordemos que el campo 'criteriovaloracion' esta formado por diversas columnas
+        # separadas por [-33--33-], por eso mismo se usa la función split.
         context["criteriovaloracion"] = control.criteriovaloracion.split('[-33--33-]')
-        context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
-        context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
 
+        # Obtener las evidencias genericas asociadas a 'control'.
+        context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
+        # Obtener las evidencias genericas asociadas a 'id_assessment'.
+        context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
+        # Obtener todos los tipos de iniciativas.
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
+        # Obtener todas las iniciativas.
         context["iniciativas"] = Iniciativas.objects.all()
 
+        # Obtener las evidencias recomendadas para 'select'.
         evidenciasRecomendadas = Assessment.objects.get(id=select).evidence_request_references
 
+        # Comprobar si hay evidencias recomendadas.
         if evidenciasRecomendadas == '' or evidenciasRecomendadas is None:
+            # Si no hay evidencias recomendadas, establecer 'recomendacion' como False.
             context["recomendacion"] = False
         else:
-
+            # Si hay evidencias recomendadas, procesarlas.
             evidenciasRecomendadas = evidenciasRecomendadas.split('\n')
+            # Variable usada para guardar las recomendaciones de cada control.
             r = ''
+
             for i in evidenciasRecomendadas:
                 if assGuardado.idioma == 'en':
+                    # Obtener la evidencia correspondiente en inglés.
                     evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=i)
+                    # Comprobar si la evidencia no está asociada a 'control'.
                     if not AsociacionEvidenciasGenericas.objects.filter(evidencia=evidencia, assessment=control):
+                        # Añadir la evidencia a la recomendación.
                         r += i + ', '
                 else:
+                    # Obtener la evidencia correspondiente en español.
                     evidencia = EvidencerequestcatalogEs.objects.get(evidence_request_references=i)
+                    # Comprobar si la evidencia no está asociada a 'control'
                     if not AsociacionEvidenciasGenericas.objects.filter(evidencia_id_es=evidencia, assessment=control):
+                        # Añadir la evidencia a la recomendación.
                         r += i + ', '
+
             if r != '':
+                # Si se encontraron evidencias recomendadas no asociadas, establecer 'recomendacion' como True.
                 context["recomendacion"] = True
+                # Almacenar las evidencias recomendadas no asociadas en 'eviRecomendada'.
                 context["eviRecomendada"] = r[:len(r) - 2]
             else:
+                # Si se encontraron evidencias recomendadas no asociadas, establecer 'recomendacion' como False.
                 context["recomendacion"] = False
 
+        # Devolver 'request' y el contexto.
         return request, context
 
     def get_context_data(self, **knwargs):
@@ -411,7 +452,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                     # Se guardan las evidencias.
                     context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
 
-                # Se guarda en una sessón del servidor el marco seleccionado.
+                # Se guarda en una sessón del servidor el control seleccionado.
                 request.session["controlSelect"] = select
 
                 # Se guardan los tipos de inicitaivas.
@@ -498,12 +539,10 @@ class assessment(LoginRequiredMixin, TemplateView):
                         control.valoracion = request.POST.get('valmad')
                         # Se guarda el input de 'valoración de madurez objetivo'.
                         control.valoracionobjetivo = request.POST.get('valmadob')
-
-                        # TODO: Missing control.save() ?
+                        # Se guarda en la base de datos.
                         control.save()
 
                         # Se asocia la evidencia con el assessment creado.
-
                         evidencia = AsociacionEvidenciasCreadas(id_evidencia=ev, id_assessment=control)
                         # Se guarda en la BD.
                         evidencia.save()
@@ -820,129 +859,198 @@ class assessment(LoginRequiredMixin, TemplateView):
                 return render(request, self.template_name, context=context)
         # Si se da al botón de 'Asignar Iniciativa'.
         elif asignarIniciativaBttn == 'btn7':
+
             selectEviasig = request.POST.get('selectEviasig')
             ''' Selector de evidencia. '''
 
             selectIniAsig = request.POST.get('selectIniAsig')
             ''' Selector de iniciativa. '''
 
+            # Se comprueba si hay algún control seleccionado.
             if request.session["controlSelect"] != 'noSel':
+                # Si se ha seleciconado alguna evidencia.
                 if selectEviasig != 'noSel':
+                    # Si se ha seleccionado alguna iniciativa.
                     if selectIniAsig != 'noSel':
+                        # Si existe la evidencia en la bd.
                         if Evidencerequestcatalog.objects.filter(
                                 evidence_request_references=selectEviasig).exists():
 
+                            # Obtener el objeto 'Assessmentguardados' relacionado a 'assSelect'.
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                            # Obtener el objeto 'AssessmentCreados' relacionado a 'assGuardado' y 'controlSelect'.
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                     control_id=request.session["controlSelect"])
-
                             if assGuardado.idioma == 'en':
+                                # Si el idioma es inglés, obtener la evidencia correspondiente en inglés.
                                 evidencia = Evidencerequestcatalog.objects.get(
                                     evidence_request_references=selectEviasig)
+                                # Obtener el objeto 'AsociacionEvidenciasGenericas' que cumpla las condiciones.
                                 asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia=evidencia,
                                                                                        assessment=control)
                             else:
+                                # Si el idioma es español, obtener la evidencia correspondiente en español.
                                 evidencia = EvidencerequestcatalogEs.objects.get(
                                     evidence_request_references=selectEviasig)
+                                # Obtener el objeto 'AsociacionEvidenciasGenericas' que cumpla las condiciones.
                                 asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia,
                                                                                        assessment=control)
-
+                            # Asociar la iniciativa seleccionada a 'asociacion' y guardarla en la bd.
                             iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
-
+                            # Actualizar los campos de 'control' con los datos del formulario y guardalo en la bd.
                             control.respuesta = str(request.POST.get('respuesta'))
                             control.valoracion = request.POST.get('valmad')
                             control.valoracionobjetivo = request.POST.get('valmadob')
                             control.save()
+
+                            # Actualizar el contexto.
                             context = super(assessment, self).get_context_data(**knwargs)
                             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
                                                                  context)
+                            # Renderizar el template en base del contexto.
                             return render(request, self.template_name, context=context)
+
+                        # Si no existe la evidencia en la bd.
                         else:
+                            # Obtener la evidencia correspondiente a 'selectEviasig' desde la tabla 'Evidencias'.
                             evidencia = Evidencias.objects.get(evidencia_id=selectEviasig)
+                            # Obtener el objeto 'Assessmentguardados' relacionado a 'assSelect'.
                             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                            # Obtener el objeto 'AssessmentCreados' relacionado a 'assGuardado' y 'controlSelect'.
                             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                     control_id=request.session["controlSelect"])
+                            # Obtener la asociación de evidencias creadas correspondiente a 'evidencia' y 'control'
                             asociacion = AsociacionEvidenciasCreadas.objects.get(id_evidencia=evidencia,
                                                                                  id_assessment=control)
-
+                            # Asociar la iniciativa seleccionada a 'asociacion'
                             iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
+
+                            # Actualizar el contexto.
                             context = super(assessment, self).get_context_data(**knwargs)
                             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
                                                                  context)
+                            # Renderizar el template en base del contexto.
                             return render(request, self.template_name, context=context)
+                    # Si no se ha seleccionado ninguna iniciativa.
                     else:
+                        # Actualizar el contexto.
                         context = super(assessment, self).get_context_data(**knwargs)
                         request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
                                                              context)
+                        # Se crea un mensaje de error.
                         messages.error(request,
-                                       'INICIATIVA INCORRECTA: Necesita seleccionar una iniciativa')  # Se crea mensage de error
+                                       'INICIATIVA INCORRECTA: Necesita seleccionar una iniciativa')
+
+                        # Renderizar el template en base del contexto.
                         return render(request, self.template_name, context=context)
+                # Si no se ha seleciconado ninguna evidencia.
                 else:
+                    # Actualizar el contexto.
                     context = super(assessment, self).get_context_data(**knwargs)
                     request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
                                                          context)
+                    # Se crea un mensaje de error.
                     messages.error(request,
-                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
+                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')
+
+                    # Renderizar el template en base del contexto.
                     return render(request, self.template_name, context=context)
+            # Si no hay ningñun control seleccionado.
             else:
+                # Se crea un mensaje de error.
                 messages.error(request,
                                'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
                 context = super(assessment, self).get_context_data(**knwargs)
+
+                # Obtener el objeto 'Assessmentguardados' relacionado a 'assSelect'.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+
+                # Agregar 'assSelect' y los objetos 'AssessmentCreados' relacionados a 'assGuardado' al contexto.
                 context["NombreAss"] = assSelect
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
 
+                # Comprobar el idioma de 'assGuardado' y configurar el contexto en consecuencia.
                 if assGuardado.idioma == 'en':
-                    context[
-                        "valMad"] = MaturirtyTable.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    # Se guarda la valoración de madurez en inglés.
+                    context["valMad"] = MaturirtyTable.objects.all()
+                    # Se guardan las evidencias genéricas en inglés.
                     context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
                 else:
-                    context[
-                        "valMad"] = MaturirtyTableEs.objects.all()  # consulta para el desplegable de la valoracion de madurez
+                    # Se guarda la valoración de madurez en español.
+                    context["valMad"] = MaturirtyTableEs.objects.all()
+                    # Se guardan las evidencias genéricas en español.
                     context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
 
+                # Agregar los tipos de iniciativas y todas las iniciativas al contexto.
                 context["tiposIniciativas"] = TiposIniciativas.objects.all()
                 context["iniciativas"] = Iniciativas.objects.all()
+
+                # Renderizar el template a base del contexto.
                 return render(request, self.template_name, context=context)
-        elif boton8 == 'btn8':  # if encargado de rellenar las evidencias
+        # Si se ha dado al botón de añadir cuando se recomiendan evidencias.
+        elif boton8 == 'btn8':
+            # Obtener las evidencias recomendadas para el control seleccionado y dividirlas en una lista.
             evidenciasRecomendadas = Assessment.objects.get(
                 id=request.session["controlSelect"]).evidence_request_references.split('\n')
+            # Obtener el objeto 'Assessmentguardados' relacionado a 'assSelect'.
             assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
 
+            # Iterar sobre las evidencias recomendadas.
             for i in evidenciasRecomendadas:
+                # Obtener el objeto 'AssessmentCreados' relacionado a 'assGuardado' y 'controlSelect'.
                 control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                         control_id=request.session["controlSelect"])
                 if assGuardado.idioma == 'en':
+                    # Si el idioma es inglés, obtener la evidencia correspondiente en inglés.
                     evidencia = Evidencerequestcatalog.objects.get(
                         evidence_request_references=i)
+                    # Comprobar si no existe una asociación de evidencias genéricas entre 'evidencia' y 'control'.
                     if not AsociacionEvidenciasGenericas.objects.filter(evidencia=evidencia, assessment=control):
+                        # Crear una nueva asociación de evidencias genéricas.
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia, assessment=control)
                         eviGenerica.save()
                 else:
+                    # Si el idioma es inglés, obtener la evidencia correspondiente en español.
                     evidencia = EvidencerequestcatalogEs.objects.get(
                         evidence_request_references=i)
+                    # Comprobar si no existe una asociación de evidencias genéricas entre 'evidencia' y 'control'.
                     if not AsociacionEvidenciasGenericas.objects.filter(evidencia_id_es=evidencia, assessment=control):
+                        # Crear una nueva asociación de evidencias genéricas
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia_id_es=evidencia, assessment=control)
                         eviGenerica.save()
-
+            # Obtener de nuevo el objeto 'AssessmentCreados' relacionado a 'assGuardado' y 'controlSelect'.
             control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                     control_id=request.session["controlSelect"])
+
+            # Actualizar los campos de 'control' con los datos del formulario.
             control.respuesta = str(request.POST.get('respuesta'))
             control.valoracion = request.POST.get('valmad')
             control.valoracionobjetivo = request.POST.get('valmadob')
             control.save()
+
+            # Actualizar el contexto.
             context = super(assessment, self).get_context_data(**knwargs)
             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
+
+            # Rendreizar el template a base del contexto.
             return render(request, self.template_name, context=context)
-        elif btnEliminarEvidencia != '':  # if encargado de Eliminar las evidencias
+
+        # Comprovar si se ha apretado el botón de eliminar evidencia.
+        elif btnEliminarEvidencia != '':
+            # Se busca la evidencia que se quiere eliminar.
             evidencia = AsociacionEvidenciasGenericas.objects.get(id=btnEliminarEvidencia)
+            # Se elimina de la bd.
             evidencia.delete()
+
+            # Se actualiza el contexto.
             context = super(assessment, self).get_context_data(**knwargs)
             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect, context)
+
+            # Rendreizar el template a base del contexto.
             return render(request, self.template_name, context=context)
 
 
