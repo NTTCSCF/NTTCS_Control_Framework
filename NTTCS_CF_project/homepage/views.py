@@ -1480,10 +1480,15 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
 
                     row_cells = table.add_row().cells
                     contador = 0
+
+                    for numero in range(maxLen*2-1,len(j)*2-1,-1):
+                        row_cells[numero-1].merge(row_cells[numero])
+
+
+
                     for p in j:
                         if p == '':
-                            row_cells[(contador*2)].merge(row_cells[(contador*2)+1])
-
+                            pass
                         else:
                             row_cells[(contador*2)].text = p
 
@@ -1500,7 +1505,7 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                                         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
                 response['Content-Disposition'] = f"attachment; filename={filename}"
             return response
-        
+
         context = super(Exportaciones, self).get_context_data(**knwargs)
         context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         return render(request, self.template_name, context=context)
