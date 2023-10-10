@@ -490,3 +490,20 @@
     box-shadow: 10px 10px 25px #A9A9A9;
 
 }
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+    margin:5%;
+}
+
+.box {
+  border: 3px solid #666;
+  background-color: #ddd;
+  border-radius: .5em;
+  padding: 10px;
+  cursor: move;
+}
+.box.over {
+  border: 3px dotted #666;
+}
