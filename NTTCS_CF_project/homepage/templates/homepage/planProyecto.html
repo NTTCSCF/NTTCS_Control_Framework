@@ -128,12 +128,19 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" style="font-size:0.8vw;"
-                                      id="basic-addon5">Coste</span>
+                                      id="basic-addon5">Capex</span>
                                 <input type="number" class="form-control" style="font-size:0.8vw;"
-                                       placeholder="Coste" step="any"
-                                       aria-label="Coste"
-                                       aria-describedby="basic-addon5" id="costePlan"
-                                       name="costePlan" value="{{coste}}">
+                                       placeholder="Capex" step="any"
+                                       aria-label="Capex"
+                                       aria-describedby="basic-addon5" id="capex"
+                                       name="capex" value="{{capex}}">
+                                <span class="input-group-text" style="font-size:0.8vw;"
+                                      id="basic-addon9">Opex</span>
+                                <input type="number" class="form-control" style="font-size:0.8vw;"
+                                       placeholder="Opex" step="any"
+                                       aria-label="Opex"
+                                       aria-describedby="basic-addon9" id="opex"
+                                       name="opex" value="{{opex}}">
 
                                 <span class="input-group-text" style="font-size:0.8vw;"
                                       id="basic-addon6">Beneficio</span>
@@ -210,7 +217,10 @@
                                             <div class="row justify-content-center aling-items-center mb-4">
                                                 <div class="col-auto">
                                                     <div class="col text-center fs-9">
-                                                        Coste: {{i.proyecto_mejora.coste}}
+                                                        Capex: {{i.proyecto_mejora.capex}}
+                                                    </div>
+                                                    <div class="col text-center fs-9">
+                                                        Opex: {{i.proyecto_mejora.opex}}
                                                     </div>
                                                     <div class="col text-center fs-9">
                                                         Beneficio: {{i.proyecto_mejora.beneficio}}

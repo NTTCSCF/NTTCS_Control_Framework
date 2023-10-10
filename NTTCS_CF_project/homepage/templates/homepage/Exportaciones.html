@@ -3,9 +3,22 @@
 {% block titulo %} Exportaciones {% endblock %}
 
 {% block contenido %}
+{% load static %}
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+
 
 <!-- Contenedor de la página  -->
-
+<script src="{% static '/js/scripts.js' %}"></script>
 
 <div class="rowTitulo">
     <!-- Titulo con el nombre del assessment -->
@@ -130,6 +143,45 @@
                     </div>
                 </div>
 
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="rowTitulo">
+    <div class="cajaSeleccionAsssessment">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Configuración de tabla
+                </div>
+            </div>
+            <form class="textoTarjeta" method="post">
+                {% csrf_token %}
+                <script>
+                    $(document).ready(function(){
+                        $(".container").sortable();
+                    });
+                </script>
+                <div  class="container">
+                    {% for i in seleccion %}
+                    <div draggable="true" class="box">
+                        <input  class="form-control" type="text" readonly value="{{i}}" name="lista">
+                    </div>
+
+                    {% endfor %}
+                </div>
+                <div class="rowExport">
+                    <div class=" btnGroupInformes">
+
+                        <div class="cajaBotonExportacion">
+                            <button class="btn btn-primary btn-block" type="submit" name="ExWord" value="ExWord">
+                                Exportar
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
             </form>
         </div>
     </div>

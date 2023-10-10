@@ -201,8 +201,9 @@ class ProyectosMejora(models.Model):
     riesgos = models.TextField(blank=True, null=True)
     tipo = models.TextField(blank=True, null=True)
     duracion = models.FloatField(blank=True, null=True)
-    coste = models.FloatField(blank=True, null=True)
+    capex = models.FloatField(blank=True, null=True)
     beneficio = models.FloatField(blank=True, null=True)
+    opex = models.FloatField(blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
