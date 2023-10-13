@@ -1,7 +1,7 @@
 from .__imports__ import *
 
 class CreacionPass(LoginRequiredMixin, TemplateView):
-    ''' Definición de la clase 'creacionPass' '''
+    ''' Definición de la clase 'creacionPass'. '''
 
     login_url = ""
     redirect_field_name = "redirect_to"
