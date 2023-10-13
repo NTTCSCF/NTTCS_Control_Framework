@@ -74,7 +74,6 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
         filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
             now.year) + '_' + str(now.hour) + '_' + str(now.minute)
         return filename, titulos, valores
-
     # funcion post que recoge los summit del formulario de la pagina.
     def post(self, request, **knwargs):
         selectorProyecto = request.POST.get('selectorProyecto')  # valor de selector de proyecto
@@ -95,7 +94,7 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
         elif "selector1" in request.POST:
             if selector != 'None':
                 seleccion = request.POST.getlist("selector2")
-                filename, titulos, valores = self.PrepararExportacion(seleccion, selector)
+                filename, titulos, valores = self.PrepararExportacion(seleccion,selector)
 
                 if 'csv' == csvinput:
                     filename += '.csv'
@@ -145,23 +144,22 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
                     request.session["titulos"] = seleccion
                     request.session["selector"] = selector
                     lista = seleccion
-                    for i in range(0, 36 - len(lista)):
+                    for i in range(0, 36-len(lista)):
                         lista += ['']
                     context["seleccion"] = lista
                     context["assess"] = AsociacionProyectoAssessment.objects.filter(
-                        proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]),
-                        assessment__archivado=0)
+                        proyecto=Proyecto.objects.get(codigo=request.session["proyectoSeleccionado"]), assessment__archivado=0)
                     context["marcos"] = AsociacionMarcos.objects.all()
+
 
                     return render(request, self.template_name, context=context)
         elif 'lista' in request.POST:
             orden = request.POST.getlist('lista')
-            filename, titulos, valores = self.PrepararExportacion(request.session["titulos"],
-                                                                  request.session["selector"])
+            filename, titulos, valores = self.PrepararExportacion(request.session["titulos"], request.session["selector"])
 
-            for i in range(len(orden) - 1, 0, -1):
+            for i in range(len(orden)-1, 0, -1):
                 if orden[i] != '':
-                    orden = orden[0:i + 1]
+                    orden = orden[0:i+1]
                     break
             orden = [orden[i:i + 4] for i in range(0, len(orden), 4)]
 
@@ -185,23 +183,26 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
 
             for i in valores:
                 document.add_heading(i['Identificador Control'] + ", " + i['Nombre Control'], level=1)
-                table = document.add_table(rows=0, cols=maxLen * 2)
+                table = document.add_table(rows=0, cols=maxLen*2)
                 table.style = 'TableGrid'
                 for j in orden:
 
                     row_cells = table.add_row().cells
                     contador = 0
+
+                    for numero in range(maxLen*2-1,len(j)*2-1,-1):
+                        row_cells[numero-1].merge(row_cells[numero])
+
                     for p in j:
                         if p == '':
-                            row_cells[(contador * 2)].merge(row_cells[(contador * 2) + 1])
-
+                            pass
                         else:
-                            row_cells[(contador * 2)].text = p
+                            row_cells[(contador*2)].text = p
 
                             if i[str(p)] != None:
-                                row_cells[(contador * 2) + 1].text = i[p]
+                                row_cells[(contador*2)+1].text = i[p]
                             else:
-                                row_cells[(contador * 2) + 1].text = ""
+                                row_cells[(contador*2)+1].text = ""
                         contador += 1
                 p = document.add_paragraph('')
             # save document

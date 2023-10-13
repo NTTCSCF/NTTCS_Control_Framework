@@ -51,7 +51,6 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         return context
 
     def get_context_data(self, **knwargs):
-        assSelect = self.request.session.get('assessmentGuardado')
         self.request.session["ProyectoSeleccionado"] = None
         context = super(planProyecto, self).get_context_data(**knwargs)
         context = self.contexto(context)
@@ -94,8 +93,8 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         elif 'editarProyecto' in request.POST:
             if request.POST.get('NombrePlan') != '' and request.POST.get('descripcionPlan') != '' and request.POST.get(
                     'riesgosPlan') != '' and request.POST.get('tipoPlan') != '' and request.POST.get(
-                'duracionPlan') != '' and request.POST.get('costePlan') != '' and request.POST.get(
-                'beneficioPlan') != '':
+                'duracionPlan') != '' and request.POST.get('capex') != '' and request.POST.get(
+                'beneficioPlan') != '' and request.POST.get('opex') != '':
                 ass = Assessmentguardados.objects.get(id_assessment=assSelect)
                 proyecto = ProyectosMejora.objects.get(id=request.session["ProyectoEditar"])
                 proyecto.nombre = request.POST.get('NombrePlan')
@@ -103,7 +102,8 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                 proyecto.riesgos = request.POST.get('riesgosPlan')
                 proyecto.tipo = request.POST.get('tipoPlan')
                 proyecto.duracion = request.POST.get('duracionPlan')
-                proyecto.coste = request.POST.get('costePlan')
+                proyecto.capex = request.POST.get('capex')
+                proyecto.opex = request.POST.get('opex')
                 proyecto.beneficio = request.POST.get('beneficioPlan')
                 proyecto.save()
 
@@ -148,7 +148,8 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             context = super(planProyecto, self).get_context_data(**knwargs)
             context["ProyectoEditar"] = ProyectosMejora.objects.get(id=request.session["ProyectoEditar"])
             context["duracion"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).duracion)
-            context["coste"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).coste)
+            context["capex"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).capex)
+            context["opex"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).opex)
             context["beneficio"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).beneficio)
             context["editandoProyecto"] = True
             context = self.contexto(context)
