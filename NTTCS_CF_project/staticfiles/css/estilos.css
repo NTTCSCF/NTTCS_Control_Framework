@@ -40,7 +40,9 @@
     width: 40%;
     height:40%;
 }
-
+.ExportacionesTabla{
+    background-color:0;
+}
 
 /* ESTILOS DE PAGINA INFORMES */
 
@@ -84,6 +86,14 @@
     width:100%;
     border:0;
     overflow:auto;
+    resize: none;
+    background-color:transparent;
+}
+
+.inputTabas2{
+    height:100%;
+    width:100%;
+    border:0;
     resize: none;
     background-color:transparent;
 }
