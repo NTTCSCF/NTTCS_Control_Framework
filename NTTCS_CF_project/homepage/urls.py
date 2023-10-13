@@ -31,7 +31,6 @@ urlpatterns = [
     path('planProyecto/', views.planProyecto.as_view(), name='planProyecto'),
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
     path('logout', views.logout, name='logout'),
-
 ]
 
 
