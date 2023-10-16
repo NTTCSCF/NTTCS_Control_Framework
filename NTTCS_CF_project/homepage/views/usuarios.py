@@ -129,12 +129,21 @@ class Usuarios(LoginRequiredMixin, TemplateView):
                     user.save()
 
                 # TODO: no debería ser else if 'boton2' ?
-                else:  # recogemos la pulsacion del boton Eliminar
-                    user.delete()  # eliminamos el usuario seleccioando
+                # Se comprueba si se ha pulsado el botón de eliminar.
+                else:
+                    # Se elimina el usuario seleccioando
+                    user.delete()
+            # Si no se ha rellenado los datos.
             else:
-                messages.error(request, 'Debe rellenar todos los datos.')  # Se crea mensage de error
+                # Se crea un mensaje de error.
+                messages.error(request, 'Debe rellenar todos los datos.')
 
         context = super(Usuarios, self).get_context_data(**knwargs)
+
+
+
+
+
         context["grupos"] = Group.objects.all()
         context["usuarios"] = User.objects.all()
         return render(request, self.template_name, context=context)
