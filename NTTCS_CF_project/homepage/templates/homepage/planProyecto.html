@@ -170,356 +170,317 @@
 
                         <h5 class="card-header text-center">Seleccione el proyecto de mejora</h5>
                         <div class="card-body">
-                            <div id="carouselExample " class="carousel slide">
+                            <div id="carouselExample" class="carousel slide">
                                 <div class="carousel-inner">
 
                                     {% for i in proyectos %}
                                     {% if ProyectoSeleccionado == None %}
                                     {% if i.proyecto_mejora.id == primero %}
                                     <div class="carousel-item active">
-                                        {% else %}
-                                        <div class="carousel-item ">
-                                            {% endif %}
-                                            {% else %}
-                                            {% if i.proyecto_mejora == ProyectoSeleccionado %}
-                                            <div class="carousel-item active">
-                                                {% else %}
-                                                <div class="carousel-item ">
-                                                    {% endif %}
-                                                    {% endif %}
-                                                    <div class="row justify-content-center aling-items-center ">
-                                                        <div class="col-auto">
-                                                            <h4 class="text-center">{{i.proyecto_mejora.nombre}}</h4>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row justify-content-center aling-items-center mb-2">
-                                                        <div class="col-auto">
-                                                            <div class="col-auto text-body-secondary text-center fs-6">
-                                                                {{i.proyecto_mejora.descripcion}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row justify-content-center aling-items-center mb-2">
-                                                        <div class="col-auto">
-                                                            <div class="col-auto text-center fs-9">
-                                                                Riesgos: {{i.proyecto_mejora.riesgos}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row justify-content-center aling-items-center mb-2">
-                                                        <div class="col-auto">
-                                                            <div class="col text-center fs-9">
-                                                                Tipo: {{i.proyecto_mejora.tipo}}
-                                                            </div>
-                                                            <div class="col text-center fs-9">
-                                                                Duracion: {{i.proyecto_mejora.duracion}} meses
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row justify-content-center aling-items-center mb-4">
-                                                        <div class="col-auto">
-                                                            <div class="col text-center fs-9">
-                                                                Capex: {{i.proyecto_mejora.capex}}
-                                                            </div>
-                                                            <div class="col text-center fs-9">
-                                                                Opex: {{i.proyecto_mejora.opex}}
-                                                            </div>
-                                                            <div class="col text-center fs-9">
-                                                                Beneficio: {{i.proyecto_mejora.beneficio}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row justify-content-center aling-items-center mb-1">
-                                                        <form class="col-auto justify-content-center" method="post">
-                                                            {% csrf_token %}
-                                                            <button type="submit" class="btn btn-ntt"
-                                                                    value="{{i.proyecto_mejora.id}}"
-                                                                    name="btnEditarProyecto">
-                                                                <i class="bi bi-pencil"></i> Editar
-                                                            </button>
-                                                        </form>
-                                                        <form class="col-auto justify-content-center" method="post">
-                                                            {% csrf_token %}
-                                                            <button type="submit" class="btn btn-ntt"
-                                                                    value="{{i.proyecto_mejora.id}}"
-                                                                    name="btnSeleccionProyecto">
-                                                                Seleccionar
-                                                            </button>
-                                                        </form>
-                                                    </div>
-
-
-                                                </div>
-                                                {% endfor %}
+                                    {% else %}
+                                    <div class="carousel-item ">
+                                    {% endif %}
+                                    {% else %}
+                                    {% if i.proyecto_mejora == ProyectoSeleccionado %}
+                                    <div class="carousel-item active">
+                                    {% else %}
+                                    <div class="carousel-item ">
+                                    {% endif %}
+                                    {% endif %}
+                                        <div class="row justify-content-center aling-items-center ">
+                                            <div class="col-auto">
+                                                <h4 class="text-center">{{i.proyecto_mejora.nombre}}</h4>
                                             </div>
-                                            <button class="carousel-control-prev" type="button"
-                                                    data-bs-target="#carouselExample"
-                                                    data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </button>
-                                            <button class="carousel-control-next" type="button"
-                                                    data-bs-target="#carouselExample"
-                                                    data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </button>
                                         </div>
+                                        <div class="row justify-content-center aling-items-center mb-2">
+                                            <div class="col-auto">
+                                                <div class="col-auto text-body-secondary text-center fs-6">
+                                                    {{i.proyecto_mejora.descripcion}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-2">
+                                            <div class="col-auto">
+                                                <div class="col-auto text-center fs-9">
+                                                    Riesgos: {{i.proyecto_mejora.riesgos}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-2">
+                                            <div class="col-auto">
+                                                <div class="col text-center fs-9">
+                                                    Tipo: {{i.proyecto_mejora.tipo}}
+                                                </div>
+                                                <div class="col text-center fs-9">
+                                                    Duracion: {{i.proyecto_mejora.duracion}} meses
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-4">
+                                            <div class="col-auto">
+                                                <div class="col text-center fs-9">
+                                                    Capex: {{i.proyecto_mejora.capex}}
+                                                </div>
+                                                <div class="col text-center fs-9">
+                                                    Opex: {{i.proyecto_mejora.opex}}
+                                                </div>
+                                                <div class="col text-center fs-9">
+                                                    Beneficio: {{i.proyecto_mejora.beneficio}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center aling-items-center mb-1">
+                                            <form class="col-auto justify-content-center" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-ntt"
+                                                        value="{{i.proyecto_mejora.id}}"
+                                                        name="btnEditarProyecto">
+                                                    <i class="bi bi-pencil"></i> Editar
+                                                </button>
+                                            </form>
+                                            <form class="col-auto justify-content-center" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-ntt"
+                                                        value="{{i.proyecto_mejora.id}}"
+                                                        name="btnSeleccionProyecto">
+                                                    Seleccionar
+                                                </button>
+                                            </form>
+                                            <form class="col-auto justify-content-center" method="post">
+                                                {% csrf_token %}
+                                                <button type="button" class="btn btn-ntt"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalDepen{{i.proyecto_mejora.id}}">
+                                                    Dependencias
+                                                </button>
+                                            </form>
+                                        </div>
+
+
                                     </div>
+                                    {% endfor %}
                                 </div>
-                            </div>
-                            <div class="row m-3">
-                                <div class="col-auto">
-                                    <button type="button" class="btn btn-ntt" data-bs-toggle="modal"
-                                            data-bs-target="#modalDependencias">
-                                        Dependencias
-                                    </button>
-                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExample"
+                                        data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExample"
+                                        data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <div class="modal fade " tabindex="-1" id="modalDependencias"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog  modal-dialog-centered">
-                        <div method="post" class="modal-content">
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Iniciativas
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Recomendación de iniciativas</h5>
+                        <div class="card-body">
+                            {% for i in recomendacion %}
+                            <form class="card card-body mb-3" method="post">
+                                {% csrf_token %}
+                                <div class="row justify-content-center align-items-center ">
+                                    <div class="col-7">
+                                        <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
+                                            {{i.iniciativa.descripcion}}</h4>
+                                    </div>
+                                    <div class="col-auto row justify-content-center align-items-center">
+                                        <button style="font-size:0.6vw;" type="submit" class="btn btn-ntt"
+                                                name="btnAnadirRecomendacion"
+                                                value="{{i.iniciativa.nombre}}"><i
+                                                class="bi bi-plus-circle"></i>
+                                            Añadir
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <h5 class="card-header text-center">Seleccione las iniciativas</h5>
+                        <form class="card-body" method="post">
                             {% csrf_token %}
-                            <div class="modal-header" style="text-align:center;">
-                                <div class="cajaCarga">
-                                    <h5 class="modal-title" id="exampleModalLabel">Dependencias</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text " style="font-size:0.8vw;"
+                                       for="selectorIniciativasg">Seleccione
+                                    iniciativas Genericas</label>
+                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
+                                        data-live-search="true"
+                                        data-actions-box="true" id="selectorIniciativasg"
+                                        name="selectorIniciativas">
+                                    {% for i in iniciativas %}
+                                    {% if i.iniciativa.id not in idAsoci %}
+                                    <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
+                                    </option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
                             </div>
-
-                            <div class="modal-body text-center">
-
-                                <h2>Asocie cada proyecto con su proyecto anterior</h2>
-                                {% for i in proyectos %}
-
-                                <div class="card card-body mb-3">
-                                    <div class="row justify-content-between align-items-center ">
-
-                                        <div class="col-auto text-center">
-                                            <h4 class="card-title text-center">{{i.proyecto_mejora.nombre}} </h4>
-
-                                        </div>
-                                        <div class="col-auto row justify-content-center align-items-center">
-                                            <button style="font-size:0.6vw;" type="button" class="btn btn-danger"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#modalDepen{{i.proyecto_mejora.id}}">
-                                                <i class="bi bi-archive"></i> Archivar
-                                            </button>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                {% endfor %}
-
+                            <div class="card-text text-center">
+                                <p class="d-inline-flex gap-1">
+                                    <button type="submit" class="btn btn-ntt">Asociar Iniciativas</button>
+                                </p>
                             </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    Cerrar
-                                </button>
-                                <button type="submit" class="btn btn-ntt" name="GuardarDependencias"
-                                        value="GuardarDependencias">
-                                    <i class="bi bi-floppy2"></i> Guardar
-                                </button>
+                        </form>
+                        <form class="card-body" method="post">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <label class="input-group-text " style="font-size:0.8vw;"
+                                       for="selectorIniciativasc">Seleccione
+                                    iniciativas Creadas</label>
+                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
+                                        data-live-search="true"
+                                        data-actions-box="true" id="selectorIniciativasc"
+                                        name="selectorIniciativas">
+                                    {% for i in iniciativasc %}
+                                    {% if i.iniciativa.id not in idAsoci %}
+                                    <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
+                                    </option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                {% for i in proyectos %}
-                <div class="modal fade " id="modalDepen{{i.proyecto_mejora.id}}" tabindex="-1"
-                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog  modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header" style="text-align:center;">
-                                <div class="cajaCarga">
-                                    <h5 class="modal-title" id="exampleModalLabe2">Asociacion</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
+                            <div class="card-text text-center">
+                                <p class="d-inline-flex gap-1">
+                                    <button type="submit" class="btn btn-ntt">Asociar Iniciativas</button>
+                                </p>
                             </div>
-                            <div class="modal-body text-center">
-                                <p>Si archiva el assessment, no podrá seguir trabajando en el mismo.</p>
-                                <p>¿Esta Seguro/a?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                    Cerrar
-                                </button>
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger" name="btnArchivar"
-                                            value="{{i.assessment.id_assessment}}"><i
-                                            class="bi bi-archive"></i> Archivar
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {% endfor %}
-
-                <div class="cajaPreguntaDescripcion">
-                    <div class="tarjeta">
-                        <div class="tituloTarjeta">
-                            <div class="cuadrotexto">
-                                Iniciativas
-                            </div>
-                        </div>
-                        <div class="textoTarjeta">
-                            <div class="rowCajas">
-                                <div class="card text-bg-ligth border-ligth cardModificada">
-                                    <h5 class="card-header text-center">Recomendación de iniciativas</h5>
-                                    <div class="card-body">
-                                        {% for i in recomendacion %}
-                                        <form class="card card-body mb-3" method="post">
-                                            {% csrf_token %}
-                                            <div class="row justify-content-center align-items-center ">
-                                                <div class="col-7">
-                                                    <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
-                                                        {{i.iniciativa.descripcion}}</h4>
-                                                </div>
-                                                <div class="col-auto row justify-content-center align-items-center">
-                                                    <button style="font-size:0.6vw;" type="submit"
-                                                            class="btn btn-ntt"
-                                                            name="btnAnadirRecomendacion"
-                                                            value="{{i.iniciativa.nombre}}"><i
-                                                            class="bi bi-plus-circle"></i>
-                                                        Añadir
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rowCajas">
-                                <div class="card text-bg-ligth border-ligth cardModificada">
-                                    <h5 class="card-header text-center">Seleccione las iniciativas</h5>
-                                    <form class="card-body" method="post">
-                                        {% csrf_token %}
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text " style="font-size:0.8vw;"
-                                                   for="selectorIniciativasg">Seleccione
-                                                iniciativas Genericas</label>
-                                            <select multiple class="form-select selectpicker"
-                                                    style="font-size:0.8vw;"
-                                                    data-live-search="true"
-                                                    data-actions-box="true" id="selectorIniciativasg"
-                                                    name="selectorIniciativas">
-                                                {% for i in iniciativas %}
-                                                {% if i.iniciativa.id not in idAsoci %}
-                                                <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
-                                                </option>
-                                                {% endif %}
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                        <div class="card-text text-center">
-                                            <p class="d-inline-flex gap-1">
-                                                <button type="submit" class="btn btn-ntt">Asociar Iniciativas
-                                                </button>
-                                            </p>
-                                        </div>
-                                    </form>
-                                    <form class="card-body" method="post">
-                                        {% csrf_token %}
-                                        <div class="input-group mb-3">
-                                            <label class="input-group-text " style="font-size:0.8vw;"
-                                                   for="selectorIniciativasc">Seleccione
-                                                iniciativas Creadas</label>
-                                            <select multiple class="form-select selectpicker"
-                                                    style="font-size:0.8vw;"
-                                                    data-live-search="true"
-                                                    data-actions-box="true" id="selectorIniciativasc"
-                                                    name="selectorIniciativas">
-                                                {% for i in iniciativasc %}
-                                                {% if i.iniciativa.id not in idAsoci %}
-                                                <option value="{{i.iniciativa.nombre}}">{{i.iniciativa.nombre}}
-                                                </option>
-                                                {% endif %}
-                                                {% endfor %}
-                                            </select>
-                                        </div>
-                                        <div class="card-text text-center">
-                                            <p class="d-inline-flex gap-1">
-                                                <button type="submit" class="btn btn-ntt">Asociar Iniciativas
-                                                </button>
-                                            </p>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
-            <div class="rowTitulo">
-                <div class="cajaPreguntaDescripcion">
-                    <div class="tarjeta">
-                        <div class="tituloTarjeta">
-                            <div class="cuadrotexto">
-                                Iniciativas asociadas
-                            </div>
-                        </div>
-                        <div class="textoTarjeta">
-                            <div class="rowCajas">
-                                <div class="card text-bg-ligth border-ligth cardModificada">
-                                    <div class="card-body">
-                                        {% for i in asociadas %}
-                                        <form class="card card-body mb-3" method="post">
-                                            {% csrf_token %}
-                                            <div class="row justify-content-center align-items-center ">
-                                                <div class="col-8">
-                                                    <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
-                                                        {{i.iniciativa.descripcion}}</h4>
-                                                </div>
-                                                <div class="col-auto row justify-content-center align-items-center">
-                                                    <button style="font-size:0.6vw;" type="submit"
-                                                            class="btn btn-danger "
-                                                            name="btnEliminarAsociacion"
-                                                            value="{{i.iniciativa.nombre}}"><i
-                                                            class="bi bi-trash"></i>
-                                                        Eliminar
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+    </div>
+</div>
+{% for i in proyectos %}
+<div class="modal fade " id="modalDepen{{i.proyecto_mejora.id}}" data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <form method="post" class="modal-content">
+            {% csrf_token %}
+            <div class="modal-header" style="text-align:center;">
+                <div class="cajaCarga">
+                    <h5 class="modal-title" id="exampleModalLabel2">Dependencias</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                 </div>
             </div>
-            <div class="modal fade  " id="myModal" data-bs-keyboard="false"
-                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <form class="modal-dialog modal-lg  modal-dialog-centered" method="post">
+            <div class="modal-body text-center">
+                <input class="inputTabas2 text-center fw-semibold fs-4 m-3" name="proyecto" value="{{i.proyecto_mejora.id}} - {{i.proyecto_mejora.nombre}}" >
+                {% for pro in proyectos %}
+                {% if pro.proyecto_mejora.id != i.proyecto_mejora.id%}
+                <div class="card card-body mb-3" >
                     {% csrf_token %}
-                    <div class="modal-content">
-
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                    <div class="row justify-content-around align-items-center ">
+                        <div class="col-1 m-1 form-check form-switch">
+                           <input class="form-check-input" type="checkbox" role="checkbox" id="flexSwitchCheckDefault" name="activoDepen" value="{{pro.proyecto_mejora.id}}">
                         </div>
-
+                        <div class="col-auto">
+                            <input class="inputTabas2 text-center fw-semibold fs-4" name="proyectoDepen" value="{{pro.proyecto_mejora.id}} - {{pro.proyecto_mejora.nombre}}" >
+                        </div>
+                        <div class="col-auto row justify-content-center align-items-center m-1">
+                            <label for="customRange1" class="form-label">Porcentaje</label>
+                            <input type="range" class="form-range" id="customRange1" value="0" onInput="$('#rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}').html($(this).val())" name="porcentajeDepen{{pro.proyecto_mejora.id}}">
+                            <span id="rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}">0<!-- Default value --></span>
+                        </div>
                     </div>
-                </form>
+                </div>
+
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+                <div>
+                    <button type="submit" class="btn btn-ntt" name="btnDepen">
+                        <i class="bi bi-floppy"></i> Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}
+
+
+<div class="rowTitulo">
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Iniciativas asociadas
+                </div>
+            </div>
+            <div class="textoTarjeta">
+                <div class="rowCajas">
+                    <div class="card text-bg-ligth border-ligth cardModificada">
+                        <div class="card-body">
+                            {% for i in asociadas %}
+                            <form class="card card-body mb-3" method="post">
+                                {% csrf_token %}
+                                <div class="row justify-content-center align-items-center ">
+                                    <div class="col-8">
+                                        <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
+                                            {{i.iniciativa.descripcion}}</h4>
+                                    </div>
+                                    <div class="col-auto row justify-content-center align-items-center">
+                                        <button style="font-size:0.6vw;" type="submit"
+                                                class="btn btn-danger "
+                                                name="btnEliminarAsociacion"
+                                                value="{{i.iniciativa.nombre}}"><i class="bi bi-trash"></i>
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade  " id="myModal" data-bs-keyboard="false"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form class="modal-dialog modal-lg  modal-dialog-centered" method="post">
+        {% csrf_token %}
+        <div class="modal-content">
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
 
+        </div>
+    </form>
+</div>
 
-            {% endblock %}
+<script>
+</script>
+{% endblock %}
