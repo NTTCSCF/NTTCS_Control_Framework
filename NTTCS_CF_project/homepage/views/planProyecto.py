@@ -70,7 +70,8 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                                                riesgos=request.POST.get('riesgosPlan'),
                                                tipo=request.POST.get('tipoPlan'),
                                                duracion=request.POST.get('duracionPlan'),
-                                               coste=request.POST.get('costePlan'),
+                                               capex = request.POST.get('capex'),
+                                                opex = request.POST.get('opex'),
                                                beneficio=request.POST.get('beneficioPlan'),
                                                )
                     proyecto.save()
@@ -206,6 +207,17 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                                                                             iniciativa=Iniciativas.objects.get(
                                                                                 nombre=iniciaticasSelect))
                 asociacion.delete()
+            context = super(planProyecto, self).get_context_data(**knwargs)
+            context = self.contexto(context)
+            return render(request, self.template_name, context=context)
+
+        elif 'btnDepen' in request.POST:
+            activo = request.POST.getlist('activoDepen')
+            proyecto = ProyectosMejora.objects.get(id=request.POST.get('proyecto').split(" - ")[0])
+            for i in activo:
+                percentaje = request.POST.get('porcentajeDepen'+str(i))
+                dependencia = DependenciaProyecto(proyecto=proyecto, proyecto_asociado=ProyectosMejora.objects.get(id=i), porcentaje=percentaje)
+                dependencia.save()
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
             return render(request, self.template_name, context=context)
