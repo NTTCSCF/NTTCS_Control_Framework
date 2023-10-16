@@ -15,7 +15,6 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
         '''Asegura que cualquier funcionalidad definida en las clases base 'LoginRequiredMixin' y 'TemplateView'
         se ejecute antes de personalizarla en la subclase assessmentselect.'''
         context = super(assessmentselect, self).get_context_data(**knwargs)
-
         context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
         context["marcos"] = AsociacionMarcos.objects.all()
         return context
