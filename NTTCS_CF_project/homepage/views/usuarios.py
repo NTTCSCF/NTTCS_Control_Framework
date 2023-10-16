@@ -138,12 +138,12 @@ class Usuarios(LoginRequiredMixin, TemplateView):
                 # Se crea un mensaje de error.
                 messages.error(request, 'Debe rellenar todos los datos.')
 
+        # Restablecer el contexto con información de grupos y usuarios.
         context = super(Usuarios, self).get_context_data(**knwargs)
-
-
-
-
-
+        # Obtener todos los grupos.
         context["grupos"] = Group.objects.all()
+        # Obtener todos los usuarios.
         context["usuarios"] = User.objects.all()
+
+        # Se renderiza el template en base del contexto.
         return render(request, self.template_name, context=context)
