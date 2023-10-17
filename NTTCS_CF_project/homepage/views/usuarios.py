@@ -128,7 +128,7 @@ class Usuarios(LoginRequiredMixin, TemplateView):
                     # Se guarda en la bd.
                     user.save()
 
-                # TODO: no debería ser else if 'boton2' ?
+                # TODO: no debería ser else if 'boton2' ? * es indiferente ya que solo hay 2 botones *
                 # Se comprueba si se ha pulsado el botón de eliminar.
                 else:
                     # Se elimina el usuario seleccioando

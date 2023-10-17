@@ -1,5 +1,6 @@
 from .__imports__ import *
 
+
 class planProyecto(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
@@ -48,6 +49,13 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         context["iniciativas"] = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass)
         context["iniciativasc"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass)
         context["assess"] = Assessmentguardados.objects.get(id_assessment=assSelect)
+        context["dependencias"] = DependenciaProyecto.objects.all()
+        t=[]
+        for i in DependenciaProyecto.objects.all():
+           t.append(i.proyecto_asociado.id)
+        context["prodep"] = t
+        for i in AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora):
+         print(i.proyecto_mejora.id)
         return context
 
     def get_context_data(self, **knwargs):
@@ -70,8 +78,8 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                                                riesgos=request.POST.get('riesgosPlan'),
                                                tipo=request.POST.get('tipoPlan'),
                                                duracion=request.POST.get('duracionPlan'),
-                                               capex = request.POST.get('capex'),
-                                                opex = request.POST.get('opex'),
+                                               capex=request.POST.get('capex'),
+                                               opex=request.POST.get('opex'),
                                                beneficio=request.POST.get('beneficioPlan'),
                                                )
                     proyecto.save()
@@ -214,9 +222,14 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         elif 'btnDepen' in request.POST:
             activo = request.POST.getlist('activoDepen')
             proyecto = ProyectosMejora.objects.get(id=request.POST.get('proyecto').split(" - ")[0])
+            if DependenciaProyecto.objects.filter(proyecto=proyecto).exists():
+                depen = DependenciaProyecto.objects.filter(proyecto=proyecto)
+                depen.delete()
             for i in activo:
-                percentaje = request.POST.get('porcentajeDepen'+str(i))
-                dependencia = DependenciaProyecto(proyecto=proyecto, proyecto_asociado=ProyectosMejora.objects.get(id=i), porcentaje=percentaje)
+                percentaje = request.POST.get('porcentajeDepen' + str(i))
+                dependencia = DependenciaProyecto(proyecto=proyecto,
+                                                  proyecto_asociado=ProyectosMejora.objects.get(id=i),
+                                                  porcentaje=percentaje)
                 dependencia.save()
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
