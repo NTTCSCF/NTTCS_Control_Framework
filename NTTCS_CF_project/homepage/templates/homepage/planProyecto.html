@@ -391,8 +391,22 @@
                 {% for pro in proyectos %}
                 {% if pro.proyecto_mejora.id != i.proyecto_mejora.id%}
                 <div class="card card-body mb-3" >
-                    {% csrf_token %}
                     <div class="row justify-content-around align-items-center ">
+                        {% if pro.proyecto_mejora.id in prodep %}
+                        {% for d in dependencias %}
+                        {% if pro.proyecto_mejora.id == d.proyecto_asociado.id and i.proyecto_mejora.id == d.proyecto.id %}
+                        <div class="col-1 m-1 form-check form-switch">
+                           <input class="form-check-input" type="checkbox" role="checkbox" id="flexSwitchCheckDefault" name="activoDepen" value="{{pro.proyecto_mejora.id}}" checked>
+                        </div>
+                        <div class="col-auto">
+                            <input class="inputTabas2 text-center fw-semibold fs-4" name="proyectoDepen" value="{{pro.proyecto_mejora.id}} - {{pro.proyecto_mejora.nombre}}" >
+                        </div>
+                        <div class="col-auto row justify-content-center align-items-center m-1">
+                            <label for="customRange1" class="form-label">Porcentaje</label>
+                            <input type="range" class="form-range" id="customRange1" value="0" onInput="$('#rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}').html($(this).val())" name="porcentajeDepen{{pro.proyecto_mejora.id}}">
+                            <span id="rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}">{{d.porcentaje}}<!-- Default value --></span>
+                        </div>
+                        {% else %}
                         <div class="col-1 m-1 form-check form-switch">
                            <input class="form-check-input" type="checkbox" role="checkbox" id="flexSwitchCheckDefault" name="activoDepen" value="{{pro.proyecto_mejora.id}}">
                         </div>
@@ -404,6 +418,22 @@
                             <input type="range" class="form-range" id="customRange1" value="0" onInput="$('#rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}').html($(this).val())" name="porcentajeDepen{{pro.proyecto_mejora.id}}">
                             <span id="rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}">0<!-- Default value --></span>
                         </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+
+                        <div class="col-1 m-1 form-check form-switch">
+                           <input class="form-check-input" type="checkbox" role="checkbox" id="flexSwitchCheckDefault" name="activoDepen" value="{{pro.proyecto_mejora.id}}">
+                        </div>
+                        <div class="col-auto">
+                            <input class="inputTabas2 text-center fw-semibold fs-4" name="proyectoDepen" value="{{pro.proyecto_mejora.id}} - {{pro.proyecto_mejora.nombre}}" >
+                        </div>
+                        <div class="col-auto row justify-content-center align-items-center m-1">
+                            <label for="customRange1" class="form-label">Porcentaje</label>
+                            <input type="range" class="form-range" id="customRange1" value="0" onInput="$('#rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}').html($(this).val())" name="porcentajeDepen{{pro.proyecto_mejora.id}}">
+                            <span id="rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}">0<!-- Default value --></span>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
 

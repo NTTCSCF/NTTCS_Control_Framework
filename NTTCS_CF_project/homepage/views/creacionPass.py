@@ -1,5 +1,35 @@
 from .__imports__ import *
 
+def contrasenaValida(password: str) -> bool:
+    ''' Función utilizada para comprobar que la contraseña introducida es correcta. '''
+
+    # Se pone a true si la cadena es lo suficientemente larga.
+    largo = False
+    # Se pone a true si la cadena contiene una mayúscula.
+    mayus = False
+    # Se pone a true si la cadena contiene un número.
+    numerico = False
+    # Se pone a true si la cadena contiene un carácter especial /\.,:;!@#$%^&*()-_=+
+    caracterEspecial = False
+
+    # Comprobación de longitud.
+    if len(password) > 8:
+        largo = True
+
+    for i in password:
+        # Comprobación de mayúsculas.
+        if i.isupper():
+            mayus = True
+        # Comprobación de número.
+        if i.isnumeric():
+            numerico = True
+        # Comprovación de carácter especial.
+        if i in '/\.,:;!@#$%^&*()-_=+':
+            caracterEspecial = True
+
+    # Retornamos 'and' lógico entre los 4 requerimientos.
+    return largo and mayus and numerico and caracterEspecial
+
 class CreacionPass(LoginRequiredMixin, TemplateView):
     ''' Definición de la clase 'creacionPass'. '''
 
