@@ -121,7 +121,7 @@ class assessment(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **knwargs):
         '''El objetivo de este método es proporcionar datos de contexto para una vista,
-               que luego se pueden utilizar en una plantilla HTML para renderizar la página web.'''
+        que luego se pueden utilizar en una plantilla HTML para renderizar la página web.'''
 
         # Guardamos el id (nombre) del assesment en una variable.
         assSelect = self.request.session.get('assessmentGuardado')

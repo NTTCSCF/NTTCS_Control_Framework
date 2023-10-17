@@ -1,12 +1,15 @@
 from .__imports__ import *
 
-# Clase para la pagina de Entrevista
 class encuestaEntrevista(LoginRequiredMixin, TemplateView):
+    ''' Definición de la clase 'encuestaEntrevista' '''
+
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/EncuestaEntrevista.html"
 
     def contextTotal(self, request, select, context):
+        ''' Esta función se ha creado con el propósito de evitar la duplicación de código en el proyecto.
+        Actualiza el contexto común en todas las páginas.'''
 
         entre = self.request.session.get('EntrevistaEditar')
         entrevista = Entrevistas.objects.get(id=entre)
