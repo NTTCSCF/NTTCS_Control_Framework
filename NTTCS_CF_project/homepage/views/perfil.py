@@ -1,58 +1,104 @@
 from .__imports__ import *
 
-# funcion utilizada para comprobar que la contraseña intruducida es correcta
+
 def contrasenaValida(password: str) -> bool:
-    largo = False  # se pone a true si la cadena es lo suficientemente larga
-    mayus = False  # se pone a true si la cadena contiene una mayuscula
-    numerico = False  # se pone a true si la cadena contiene un numero
-    caracterEspecial = False  # se pone a true si la cadena contiene un caracter especial /\.,:;!@#$%^&*()-_=+
-    if len(password) > 8:  # comprobacion de longitud
+    ''' Función utilizada para comprobar que la contraseña introducida es correcta. '''
+
+    # Se pone a true si la cadena es lo suficientemente larga.
+    largo = False
+    # Se pone a true si la cadena contiene una mayúscula.
+    mayus = False
+    # Se pone a true si la cadena contiene un número.
+    numerico = False
+    # Se pone a true si la cadena contiene un carácter especial /\.,:;!@#$%^&*()-_=+
+    caracterEspecial = False
+
+    # Comprobación de longitud.
+    if len(password) > 8:
         largo = True
 
     for i in password:
-        if i.isupper():  # comprobacion de mayus
+        # Comprobación de mayúsculas.
+        if i.isupper():
             mayus = True
-        if i.isnumeric():  # comprobacion de numero
+        # Comprobación de número.
+        if i.isnumeric():
             numerico = True
-        if i in '/\.,:;!@#$%^&*()-_=+':  # comprobacion de caracter especial
+        # Comprovación de carácter especial.
+        if i in '/\.,:;!@#$%^&*()-_=+':
             caracterEspecial = True
 
-    return largo and mayus and numerico and caracterEspecial  # retornemos and logico entre los 4 requerimientos
+    # Retornamos 'and' lógico entre los 4 requerimientos.
+    return largo and mayus and numerico and caracterEspecial
 
-
-# Clase para la pagina de Perfil
 class Perfil(LoginRequiredMixin, TemplateView):
+    ''' Definición de la clase 'Perfil' '''
+
     login_url = ""
     redirect_field_name = "redirect_to"
-
     template_name = "homepage/perfil.html"
 
     def post(self, request, **knwargs):
-        password = request.POST.get('password')  # valor del password
-        passwordModificar = request.POST.get('passwordModificar')  # valor del passwordModificar
-        password2Modificar = request.POST.get('password2Modificar')  # valor del password2Modificar
+        ''' Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
+        a través de un formulario. '''
+
+        # Se obtienen los valores de los campos 'password' del objeto request.
+        password = request.POST.get('password')
+        # Se obtienen los valores de los campos 'passwordModificar' del objeto request.
+        passwordModificar = request.POST.get('passwordModificar')
+        # Se obtienen los valores de los campos 'password2Modificar' del objeto request.
+        password2Modificar = request.POST.get('password2Modificar')
+        # Se obtiene el usuario actual
         user = request.user
-        if password != '' and passwordModificar != '' and password2Modificar != '':  # comprobacion de entrega de cademas vacias
-            if passwordModificar == password2Modificar:  # comprobacion de que las dos nuevas pass sean iguales
-                if password != passwordModificar:  # coprobacion de que la contraseña nueva es distinta que la anterior
-                    if user.check_password(password):  # comprobamos que la pass sea la correcta para el usuario
-                        if contrasenaValida(
-                                passwordModificar):  # comprobamos si la nueva pass cumple los requisitos de seguridad
+
+        # Comprobación de que los campos no están vacíos.
+        if password != '' and passwordModificar != '' and password2Modificar != '':
+
+            # Comprobación de que los dos nuevos passwords son iguales.
+            if passwordModificar == password2Modificar:
+
+                # Comprobación de que la contraseña nueva es distinta de la anterior
+                if password != passwordModificar:
+
+                    # Comprobación de que la contraseña actual ingresada por el usuario es la correspondiente en la bd.
+                    if user.check_password(password):
+
+                        '''Comprobación de si la nueva contraseña cumple con los requisitos de seguridad 
+                        usando la función contrasenaValida.'''
+                        if contrasenaValida(passwordModificar):
+                            # Se establece la nueva contraseña para el usuario.
                             user.set_password(passwordModificar)
+                            # Se guarda en la bd.
                             user.save()
-                            messages.success(request,
-                                             'La contraseña ha sido cambiada correctamente')  # Se crea mensage de error
+                            # Se crea mensaje de éxito.
+                            messages.success(request, 'La contraseña ha sido cambiada correctamente')
+
+                        # Si no cumple los requisitos de la contraseña.
                         else:
+                            # Se crea mensaje de error.
                             messages.error(request,
                                            'La contraseña debe contener, 8 caracteres, alguna mayuscula, algun caracter '
-                                           'especial y algun numero')  # Se crea mensage de error
+                                           'especial y algun numero')
+                    # Si la contraseña no es igual a la que hay en la bd.
                     else:
-                        messages.error(request, 'La contraseña no es correcta')  # Se crea mensage de error
+                        # Se crea mensaje de error.
+                        messages.error(request, 'La contraseña no es correcta')
+
+                # Si la contraseña es igual a la anterior.
                 else:
+                    # Se crea mensaje de error.
                     messages.error(request,
-                                   'La contraseña tiene que ser distinta a la anterior')  # Se crea mensage de error
+                                   'La contraseña tiene que ser distinta a la anterior')
+
+            # Si las contraseñas no coinciden.
             else:
-                messages.error(request, 'Las contraseñas no coinciden')  # Se crea mensage de error
+                # Se crea mensaje de error.
+                messages.error(request, 'Las contraseñas no coinciden')
+
+        # Si algún campo está vacío.
         else:
-            messages.error(request, 'Debe rellenar todos los datos.')  # Se crea mensage de error
+            # Se crea mensaje de error.
+            messages.error(request, 'Debe rellenar todos los datos.')
+
+        # Se renderiza el template.
         return render(request, self.template_name)
