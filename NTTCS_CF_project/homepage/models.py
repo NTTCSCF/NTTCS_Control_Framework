@@ -217,6 +217,15 @@ class AsociacionProyectoMejoraIniciativa(models.Model):
         managed = False
         db_table = 'asociacion_proyecto_mejora_iniciativa'
 
+class DependenciaProyecto(models.Model):
+    proyecto = models.ForeignKey('ProyectosMejora', models.DO_NOTHING, db_column='proyecto')
+    proyecto_asociado = models.ForeignKey('ProyectosMejora', models.DO_NOTHING, db_column='proyecto_asociado', related_name='dependenciaproyecto_proyecto_asociado_set')
+    porcentaje = models.IntegerField()
+    objects = models.Manager()
+    class Meta:
+        managed = False
+        db_table = 'dependencia_proyecto'
+
 class Entrevistas(models.Model):
     titulo = models.CharField(db_column='Titulo', max_length=100, blank=True, null=True)  # Field name made lowercase.
     fecha = models.DateTimeField(blank=True, null=True)

@@ -21,7 +21,7 @@ from ..models import Assessment, MaturirtyTable, AsociacionMarcos, Assessmentgua
     AsociacionEvidenciasGenericas, AsociacionEvidenciasCreadas, TiposIniciativas, Iniciativas, \
     AssessmentEs, MaturirtyTableEs, EvidencerequestcatalogEs, Cliente, Proyecto, AsociacionUsuariosProyecto, \
     AsociacionProyectoAssessment, ProyectosMejora, AsociacionProyectoMejoraIniciativa, Entrevistas, \
-    AsociacionEntrevistasUsuarios, AsociacionPlanProyectosProyectos, PlanProyectoMejora
+    AsociacionEntrevistasUsuarios, AsociacionPlanProyectosProyectos, PlanProyectoMejora, DependenciaProyecto
 
 from django.views.generic import TemplateView, ListView
 import mysql.connector
