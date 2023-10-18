@@ -56,7 +56,7 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
         context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
 
         lista = []
-        ''' Lista auxiliar creada para guardar las evidencias independientemente de su idioma.'''
+        ''' Lista auxiliar creada para guardar las evidencias independientemente de su idioma. '''
 
         # Comprueba si el idioma del assessment guardado es inglés.
         if assGuardado.idioma == 'en':
@@ -153,36 +153,80 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
         ''' Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
         a través de un formulario.'''
 
+        # Obtiene el valor de 'EntrevistaEditar' almacenado en la sesión actual.
         entre = request.session.get('EntrevistaEditar')
+        # Utiliza el valor obtenido anteriormente para recuperar la instancia correspondiente de 'Entrevistas'.
         entrevista = Entrevistas.objects.get(id=entre)
+        # Accede al campo 'id_assessment' del objeto 'assesment' asociado a 'entrevista' y se guarda.
         assSelect = entrevista.assesment.id_assessment
-        select = request.POST.get('selector')  # valor de el selector de control
-        boton2 = request.POST.get('boton2')  # valor del boton 2
-        boton3 = request.POST.get('boton3')  # valor del boton 3
-        boton4 = request.POST.get('boton4')  # valor del boton 4
-        boton5 = request.POST.get('boton5')  # valor del boton 5
-        boton6 = request.POST.get('boton6')  # valor del boton 6
-        boton7 = request.POST.get('boton7')  # valor del boton 7
-        btnEliminarEvidencia = request.POST.get('btnEliminarEvidencia')  # valor del btnEliminarEvidencia
 
-        if 'selector' in request.POST:  # se recoge la pulsacion del select
+        select = request.POST.get('selector')
+        ''' Valor del selector de control. '''
+
+        flechaIzquierdaButton = request.POST.get('boton2')
+        ''' Usado en el 'cuadro de respuesta', representa la flecha izquierda (color azul) que solo está presente
+         cuando el control que se esta preguntando no es el primero  '''
+
+        terminarButton = request.POST.get('boton3')
+        ''' Usado en el 'cuadro de respuesta', aparece cuando se está preguntando el último control y se da al 
+        botón 'Terminar'. Saldrá una alerta de doble confirmación donde se encontrará este botón con el nombre 
+        de 'Terminar' (color rojo). '''
+
+        añadirEvidenciaButton = request.POST.get('boton4')
+        ''' Botón de 'Añadir evidencia'. '''
+
+        seleccionarEvidenciaButton = request.POST.get('boton5')
+        ''' Botón de 'Seleccionar Evidencia'. '''
+
+        flechaDerechaButton = request.POST.get('boton6')
+        ''' Usado en el 'cuadro de respuesta', representa la flecha derecha (color azul) que solo está presente
+         cuando el control que se esta preguntando no es el último  '''
+
+        guardarButton = request.POST.get('boton7')
+        ''' Usado en el 'cuadro de respuesta', representando el botón de 'Guardar'. '''
+
+        btnEliminarEvidencia = request.POST.get('btnEliminarEvidencia')
+        ''' Botón de 'eliminar' presente cuando seleccionas una evidencia. '''
+
+        # Comprueba si hay algún control seleccionado.
+        if 'selector' in request.POST:
+            # Si no hay ningún control seleccionado.
             if select == 'noSel':
+                # Recupera la instancia de 'Entrevistas' correspondiente a 'entre' y la asigna a 'entrevista'.
                 entrevista = Entrevistas.objects.get(id=entre)
+
+                # Inicializa el contexto.
                 context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+
+                # Obtiene el ID del assessment asociado a la entrevista y lo asigna a 'assSelect',
+                # así como el objeto de assessment y lo asigna a 'assGuardado'
                 assSelect = entrevista.assesment.id_assessment
                 assGuardado = entrevista.assesment
+
+                # Divide la cadena de 'grupocontroles' de la entrevista en una lista, separando por saltos de línea.
                 e = entrevista.grupocontroles.split('\n')
+                # Actualiza el contexto con la lista 'e' excluyendo el último elemento.
                 context["controlEntrevista"] = e[:len(e) - 1]
+                # Actualiza el contexto con el valor de 'assSelect' bajo la clave 'NombreAss'.
                 context["NombreAss"] = assSelect
+                # Filtra los objetos de la clase 'AssessmentCreados' a través de los requerimientos declarados.
                 context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+                # Establece el valor de 'noSel' en la sesión actual con la clave 'controlSelect'.
                 self.request.session["controlSelect"] = 'noSel'
+
+                # Renderiza el template en base del contexto.
                 return render(request, self.template_name, context=context)
+            # Si 'select' no es igual a 'noSel', se ejecuta este bloque.
             else:
+                # Se inicializa el contexto.
                 context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                # Llama a la función 'contextTotal' para actualizar el contexto y lo asigna a 'request' y 'context'.
                 request, context = self.contextTotal(request, select, context)
+
+                # Renderiza el template en base del contexto.
                 return render(request, self.template_name, context=context)
 
-        elif boton2 == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
+        elif flechaIzquierdaButton == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
             controlSeleccionado = request.session.get('controlSelect')
             if request.session["controlSelect"] != 'noSel':
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
@@ -203,7 +247,7 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
             request, context = self.contextTotal(request, controlSeleccionado, context)
             return render(request, self.template_name, context=context)
 
-        elif boton6 == 'btn6':  # recogemos la pulsacion del boton de guardar valoracion
+        elif flechaDerechaButton == 'btn6':  # recogemos la pulsacion del boton de guardar valoracion
             controlSeleccionado = request.session.get('controlSelect')
             if request.session["controlSelect"] != 'noSel':
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
@@ -224,7 +268,7 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
             request, context = self.contextTotal(request, controlSeleccionado, context)
             return render(request, self.template_name, context=context)
 
-        elif boton7 == 'btn7':  # recogemos la pulsacion del boton de guardar valoracion
+        elif guardarButton == 'btn7':  # recogemos la pulsacion del boton de guardar valoracion
             controlSeleccionado = request.session.get('controlSelect')
             if request.session["controlSelect"] != 'noSel':
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
@@ -242,7 +286,7 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
             request, context = self.contextTotal(request, controlSeleccionado, context)
             return render(request, self.template_name, context=context)
 
-        elif boton3 == 'btn3':  # recogemos la pulsacion del boton de guardar valoracion
+        elif terminarButton == 'btn3':  # recogemos la pulsacion del boton de guardar valoracion
             controlSeleccionado = request.session.get('controlSelect')
             if request.session["controlSelect"] != 'noSel':
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
@@ -259,7 +303,7 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
                                'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
 
             return redirect('entrevistasUsuarios')
-        elif boton4 == 'btn4':  # if encargado de rellenar las evidencias
+        elif añadirEvidenciaButton == 'btn4':  # if encargado de rellenar las evidencias
 
             idEvidencia = request.POST.get('idEvidencia') + '-C'  # valor del idEvidencia
             descripcionEvidencia = request.POST.get('DescripcionEvidencia')  # valor del DescripcionEvidencia
@@ -305,7 +349,7 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
                 request, context = self.contextTotal(request, controlId, context)
                 return render(request, self.template_name, context=context)
 
-        elif boton5 == 'btn5':  # if encargado de rellenar las evidencias
+        elif seleccionarEvidenciaButton == 'btn5':  # if encargado de rellenar las evidencias
             if request.session["controlSelect"] != 'noSel':
                 selectorEvidencia = request.POST.get('selectorEvidencia')  # valor de el selector de control
                 if selectorEvidencia != 'noSel':
