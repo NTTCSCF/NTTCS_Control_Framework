@@ -11,78 +11,148 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
         ''' Esta función se ha creado con el propósito de evitar la duplicación de código en el proyecto.
         Actualiza el contexto común en todas las páginas.'''
 
+        # Obtiene la sesión "EntrevistaEditar" y la instancia de la entrevista correspondiente.
         entre = self.request.session.get('EntrevistaEditar')
         entrevista = Entrevistas.objects.get(id=entre)
+
+        # Obtiene el ID del assessment y la instancia del assessment guardado asociado a la entrevista.
         assSelect = entrevista.assesment.id_assessment
         assGuardado = entrevista.assesment
+
+        # Divide el grupo de controles de la entrevista y lo almacena en la lista 'e'.
         e = entrevista.grupocontroles.split('\n')
+        # Se quita la última posición.
         e = e[:len(e) - 1]
 
+        # Divide el grupo de controles de la entrevista y lo almacena en la lista 'e'.
         context["primero"] = False
         context["ultimo"] = False
+
+        # Comprueba si el índice del elemento 'select' en 'e' es el último o el primero y actualiza el contexto.
         if e.index(select) == len(e) - 1:
             context["ultimo"] = True
         elif e.index(select) == 0:
             context["primero"] = True
 
+        '''Se actualiza el contexto con la lista de elementos del control de entrevista, 
+        copiando todos los elementos de 'e'.'''
         context["controlEntrevista"] = e[:len(e)]
+
+        # Se asigna al contexto el valor de 'assSelect'.
         context["NombreAss"] = assSelect
+
+        # Filtra los objetos de la clase 'AssessmentCreados' a través de 'assGuardado'.
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+
+        # Recupera el objeto 'AssessmentCreados' que coincide con 'assGuardado' y 'select'.
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=select)
         context["control"] = control
+
+        # Establece la sesión "controlSelect" con el valor de 'select'.
         self.request.session["controlSelect"] = select
+
+        # Actualiza el contexto con las evidencias genéricas y creadas asociadas al control y al assessment.
         context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
         context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
+
+        lista = []
+        ''' Lista auxiliar creada para guardar las evidencias independientemente de su idioma.'''
+
+        # Comprueba si el idioma del assessment guardado es inglés.
         if assGuardado.idioma == 'en':
+            # Se obtiene todas las evidencias genericas (inglés) y se guarda en el contexto.
             context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
-            lista = []
+
+            # Se guarda cada objeto de 'AsociacionEvidenciasGenericas' en la lista auxiliar.
             for i in AsociacionEvidenciasGenericas.objects.filter(assessment=control):
                 lista += [i.evidencia]
-            context["listaEvidencias"] = lista
         else:
+            # Se obtiene todas las evidencias genericas (españa) y se guarda en el contexto.
             context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
-            lista = []
+
+            # Se guarda cada objeto de 'AsociacionEvidenciasGenericas' en la lista auxiliar.
             for i in AsociacionEvidenciasGenericas.objects.filter(assessment=control):
                 lista += [i.evidencia_id_es]
-            context["listaEvidencias"] = lista
+
+        # Se guarda en el contexto.
+        context["listaEvidencias"] = lista
+
+        # Renderiza el template en base del contexto.
         return request, context
 
-    # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+        ''' El objetivo de este método es proporcionar datos de contexto para una vista,
+        que luego se pueden utilizar en una plantilla HTML para renderizar la página web.'''
+
+        # Obtiene el valor de 'EntrevistaEditar' almacenado en la sesión actual y lo asigna a la variable.
         entre = self.request.session.get('EntrevistaEditar')
+        # Recupera la instancia de 'Entrevistas' en base del id obtenido anteriormente.
         entrevista = Entrevistas.objects.get(id=entre)
+
+        # Obtiene el contexto heredado de la superclase 'encuestaEntrevista' y lo asigna a la variable 'context'.
         context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+        # Obtiene el ID del assessment asociado a la entrevista y lo asigna a 'assSelect'.
         assSelect = entrevista.assesment.id_assessment
         assGuardado = entrevista.assesment
+
+        # Divide el grupo de controles de la entrevista y lo almacena en la lista 'e'.
         e = entrevista.grupocontroles.split('\n')
+        # Se quita la última posición.
         e = e[:len(e) - 1]
+
+        # Asigna la lista 'e' al contexto con la clave 'controlEntrevista'.
         context["controlEntrevista"] = e
+        # Establece la clave 'ultimo' en False y la clave 'primero' en True en el contexto.
         context["ultimo"] = False
         context["primero"] = True
+
+        # Asigna el valor de 'assSelect' al contexto con la clave 'NombreAss'.
         context["NombreAss"] = assSelect
+        # Filtra los objetos de la clase 'AssessmentCreados' a través de 'assGuardado'.
         context["assess"] = AssessmentCreados.objects.filter(assessment=assGuardado)
+        # Consigue el objeto 'AssessmentCreados' en base de los requerimientos.
         control = AssessmentCreados.objects.get(assessment=assGuardado, control_id=e[0])
+
+        lista = []
+        ''' Lista auxiliar creada para guardar las evidencias independientemente de su idioma.'''
+
+        # Comprueba si el idioma del assessment guardado es inglés.
         if assGuardado.idioma == 'en':
+            # Se obtiene todas las evidencias genericas (inglés) y se guarda en el contexto.
             context["evidenciasGenerricas"] = Evidencerequestcatalog.objects.all()
-            lista = []
+
+            # Se guarda cada objeto de 'AsociacionEvidenciasGenericas' en la lista auxiliar.
             for i in AsociacionEvidenciasGenericas.objects.filter(assessment=control):
                 lista += [i.evidencia]
-            context["listaEvidencias"] = lista
+        # Comprueba si el idioma del assessment guardado es español.
         else:
+            # Se obtiene todas las evidencias genericas (españa) y se guarda en el contexto.
             context["evidenciasGenerricas"] = EvidencerequestcatalogEs.objects.all()
-            lista = []
+
+            # Se guarda cada objeto de 'AsociacionEvidenciasGenericas' en la lista auxiliar.
             for i in AsociacionEvidenciasGenericas.objects.filter(assessment=control):
                 lista += [i.evidencia_id_es]
-            context["listaEvidencias"] = lista
 
+        # Asigna la lista 'lista' al contexto con la clave 'listaEvidencias'.
+        context["listaEvidencias"] = lista
+        # Asigna el objeto 'control' al contexto con la clave 'control'.
         context["control"] = control
+        # Establece el valor del primer elemento de 'e' en la sesión actual con la clave 'controlSelect'.
         self.request.session["controlSelect"] = e[0]
+
+        # Filtra los objetos de la clase 'AsociacionEvidenciasGenericas' por el campo 'assessment'.
         context["evidencias"] = AsociacionEvidenciasGenericas.objects.filter(assessment=control)
+        # Filtra los objetos de la clase 'AsociacionEvidenciasCreadas' por el campo 'id_assessment'.
         context["evidencias2"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment=control)
+
+        # Devuelve el contexto.
         return context
 
-    # funcion post que recoge los summit del formulario de la pagina.
+
     def post(self, request, **knwargs):
+        ''' Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
+        a través de un formulario.'''
+
         entre = request.session.get('EntrevistaEditar')
         entrevista = Entrevistas.objects.get(id=entre)
         assSelect = entrevista.assesment.id_assessment
