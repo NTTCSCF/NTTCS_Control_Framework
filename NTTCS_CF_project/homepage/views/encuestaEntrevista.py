@@ -153,19 +153,21 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
         ''' Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
         a través de un formulario.'''
 
-        # Obtiene el valor de 'EntrevistaEditar' almacenado en la sesión actual.
         entre = request.session.get('EntrevistaEditar')
-        # Utiliza el valor obtenido anteriormente para recuperar la instancia correspondiente de 'Entrevistas'.
+        ''' Obtiene el valor de 'EntrevistaEditar' almacenado en la sesión actual.'''
+
         entrevista = Entrevistas.objects.get(id=entre)
-        # Accede al campo 'id_assessment' del objeto 'assesment' asociado a 'entrevista' y se guarda.
+        ''' Utiliza el valor obtenido anteriormente para recuperar la instancia correspondiente de 'Entrevistas'.'''
+
         assSelect = entrevista.assesment.id_assessment
+        ''' Accede al campo 'id_assessment' del objeto 'assesment' asociado a 'entrevista' y se guarda.'''
 
         select = request.POST.get('selector')
         ''' Valor del selector de control. '''
 
-        flechaIzquierdaButton = request.POST.get('boton2')
+        flechaIzquierdaButton = request.POST.get('boton6')
         ''' Usado en el 'cuadro de respuesta', representa la flecha izquierda (color azul) que solo está presente
-         cuando el control que se esta preguntando no es el primero  '''
+         cuando el control que se esta preguntando no es el primero.  '''
 
         terminarButton = request.POST.get('boton3')
         ''' Usado en el 'cuadro de respuesta', aparece cuando se está preguntando el último control y se da al 
@@ -178,7 +180,7 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
         seleccionarEvidenciaButton = request.POST.get('boton5')
         ''' Botón de 'Seleccionar Evidencia'. '''
 
-        flechaDerechaButton = request.POST.get('boton6')
+        flechaDerechaButton = request.POST.get('boton2')
         ''' Usado en el 'cuadro de respuesta', representa la flecha derecha (color azul) que solo está presente
          cuando el control que se esta preguntando no es el último  '''
 
@@ -226,170 +228,350 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
                 # Renderiza el template en base del contexto.
                 return render(request, self.template_name, context=context)
 
-        elif flechaIzquierdaButton == 'btn2':  # recogemos la pulsacion del boton de guardar valoracion
+        # Si se da al botón con forma de 'flecha derecha' en el cuadro de 'respuesta'.
+        elif flechaDerechaButton == 'btn2':
+            # Obtiene el valor de 'controlSelect' almacenado en la sesión actual.
             controlSeleccionado = request.session.get('controlSelect')
+
+            # Si hay algún control seleccionado.
             if request.session["controlSelect"] != 'noSel':
+                # Obtiene la instancia de 'Assessmentguardados' en base de 'assSelect'.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                # Obtiene la instancia de 'AssessmentCreados' correspondiente a 'assGuardado' y a 'controlSelect'.
                 control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                         control_id=request.session["controlSelect"])
+
+                # Asigna los valores de 'respuesta'.
                 control.respuesta = str(request.POST.get('respuesta'))
+                # Asigna los valores de 'valoración'.
                 control.valoracion = request.POST.get('valmad')
+                # Asigna los valores de 'valoración objetivo'.
                 control.valoracionobjetivo = request.POST.get('valmadob')
+                # Se guarda en la bd.
                 control.save()
+
+                # Divide la cadena 'grupocontroles' de la entrevista en una lista, separando por saltos de línea.
                 e = entrevista.grupocontroles.split('\n')
+                # Exluye el último elemento.
                 e = e[:len(e) - 1]
+
+                ''' Actualiza 'controlSeleccionado' según el próximo control en 'e' 
+                respecto al control seleccionado actualmente en la sesión. '''
                 controlSeleccionado = e[e.index(request.session.get('controlSelect')) + 1]
 
+            # Si no se seleccionado ningún control.
             else:
+                # Se crea el mensaje de error correspondiente.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                            'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+
+            # Se inicializa el contexto.
             context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+            # Se actualiza el contexto.
             request, context = self.contextTotal(request, controlSeleccionado, context)
+
+            # Renderiza el template en función del contexto.
             return render(request, self.template_name, context=context)
 
-        elif flechaDerechaButton == 'btn6':  # recogemos la pulsacion del boton de guardar valoracion
+        # Si se da al botón con forma de 'flecha izquierda' en el cuadro de 'respuesta'.
+        elif flechaIzquierdaButton == 'btn6':
+            # Obtiene el valor de 'controlSelect' almacenado en la sesión actual.
             controlSeleccionado = request.session.get('controlSelect')
+
+            # Si hay algún control seleccionado.
             if request.session["controlSelect"] != 'noSel':
+                # Obtiene la instancia de 'Assessmentguardados' en base de 'assSelect'.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                # Obtiene la instancia de 'AssessmentCreados' correspondiente a 'assGuardado' y a 'controlSelect'.
                 control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                         control_id=request.session["controlSelect"])
+
+                # Asigna los valores de 'respuesta'.
                 control.respuesta = str(request.POST.get('respuesta'))
+                # Asigna los valores de 'valoración'.
                 control.valoracion = request.POST.get('valmad')
+                # Asigna los valores de 'valoración objetivo'.
                 control.valoracionobjetivo = request.POST.get('valmadob')
+                # Se guarda en la bd.
                 control.save()
+
+                # Divide la cadena 'grupocontroles' de la entrevista en una lista, separando por saltos de línea.
                 e = entrevista.grupocontroles.split('\n')
+                # Exluye el último elemento.
                 e = e[:len(e) - 1]
+
+                ''' Actualiza 'controlSeleccionado' según el anterior control en 'e' 
+                respecto al control seleccionado actualmente en la sesión. '''
                 controlSeleccionado = e[e.index(request.session.get('controlSelect')) - 1]
 
+            # Si no hay ningún control seleccionado.
             else:
+                # Se crea el mensaje de error correspondiente.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+
+            # Se inicializa el contexto.
             context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+            # Se actualiza el contexto.
             request, context = self.contextTotal(request, controlSeleccionado, context)
+
+            # Se renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
-        elif guardarButton == 'btn7':  # recogemos la pulsacion del boton de guardar valoracion
+        # Si se presiona el botón de 'guardar'.
+        elif guardarButton == 'btn7':
+            # Obtiene el valor de 'controlSelect' almacenado en la sesión actual.
             controlSeleccionado = request.session.get('controlSelect')
+
+            # Si hay algún control seleccionado.
             if request.session["controlSelect"] != 'noSel':
+                # Obtiene la instancia de 'Assessmentguardados' en base de 'assSelect'.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                # Obtiene la instancia de 'AssessmentCreados' correspondiente a 'assGuardado' y a 'controlSelect'.
                 control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                         control_id=request.session["controlSelect"])
+                # Asigna los valores de 'respuesta'.
                 control.respuesta = str(request.POST.get('respuesta'))
+                # Asigna los valores de 'valoración'.
                 control.valoracion = request.POST.get('valmad')
+                # Asigna los valores de 'valoración objetivo'.
                 control.valoracionobjetivo = request.POST.get('valmadob')
+                # Se guarda el control en la BD.
                 control.save()
+
+                # TODO: Useless statement?
                 controlSeleccionado = request.session.get('controlSelect')
+
+            # Si no hay ningún control seleccionado.
             else:
+                # Se crea un mensaje de error.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+
+            # Se inicialza el contexto.
             context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+            # Se actualiza el contexto.
             request, context = self.contextTotal(request, controlSeleccionado, context)
+
+            # Se renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
-        elif terminarButton == 'btn3':  # recogemos la pulsacion del boton de guardar valoracion
-            controlSeleccionado = request.session.get('controlSelect')
+        # Si se presiona el botón de 'terminar'.
+        elif terminarButton == 'btn3':
+
+            # Si se ha seleccionado algún control.
             if request.session["controlSelect"] != 'noSel':
+                # Obtiene la instancia de 'Assessmentguardados' en base de 'assSelect'.
                 assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
+                # Obtiene la instancia de 'AssessmentCreados' correspondiente a 'assGuardado' y a 'controlSelect'.
                 control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                         control_id=request.session["controlSelect"])
+
+                # Asigna los valores de 'respuesta'.
                 control.respuesta = str(request.POST.get('respuesta'))
+                # Asigna los valores de 'valoración'.
                 control.valoracion = request.POST.get('valmad')
+                # Asigna los valores de 'valoración objetivo'.
                 control.valoracionobjetivo = request.POST.get('valmadob')
+                # Guarda el control en la BD.
                 control.save()
 
-
+            # Si no se ha seleccionado ningun control.
             else:
+                # Se genera el menaje de error correspondiente.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
 
+            # Se redirige al usuario hacia /entrevistasUsuarios.
             return redirect('entrevistasUsuarios')
-        elif añadirEvidenciaButton == 'btn4':  # if encargado de rellenar las evidencias
 
-            idEvidencia = request.POST.get('idEvidencia') + '-C'  # valor del idEvidencia
-            descripcionEvidencia = request.POST.get('DescripcionEvidencia')  # valor del DescripcionEvidencia
-            linkEvidencia = request.POST.get('linkEvidencia')  # valor del linkEvidencia
+        # Si se presiona el botón de 'añadir evidencia' en el cuadro de 'nueva evidencia'.
+        elif añadirEvidenciaButton == 'btn4':
+
+            idEvidencia = request.POST.get('idEvidencia') + '-C'
+            ''' Valor del id de la evidencia.'''
+            descripcionEvidencia = request.POST.get('DescripcionEvidencia')
+            ''' Descripción de la evidencia. '''
+            linkEvidencia = request.POST.get('linkEvidencia')
+            ''' Link de la evidencia. '''
+
+            # Se consigue el id del control seleccionado a partir de la sessión actual.
             controlId = request.session["controlSelect"]
 
+            # Si hay algún control seleccionado.
             if controlId != 'noSel':
-                if idEvidencia != '' and descripcionEvidencia != '':  # recogemos la pulsacion de guardar la evidencia
+                # Comprueba que los campos 'idEvidencia' y 'descripcionEvidencia' no estén vacíos.
+                if idEvidencia != '' and descripcionEvidencia != '':
+                    # Verifica si no existe una instancia de 'Evidencias' con 'evidencia_id' igual a 'idEvidencia'.
                     if not Evidencias.objects.filter(evidencia_id=idEvidencia).exists():
 
+                        # Crea una instancia de 'Evidencias' con los valores dados y la guarda en la base de datos.
                         ev = Evidencias(evidencia_id=idEvidencia, comentario=descripcionEvidencia, links=linkEvidencia,
                                         control_id=controlId,
                                         assessment=Assessmentguardados.objects.get(id_assessment=assSelect))
+                        # Lo guarda en la BD.
                         ev.save()
+
+                        # Obtiene las instancias de 'Assessmentguardados' y 'AssessmentCreados'.
                         assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                         control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                                 control_id=request.session["controlSelect"])
+
+                        # Asigna los valores de 'respuesta'.
                         control.respuesta = str(request.POST.get('respuesta'))
+                        # Asigna los valores de 'valoración'.
                         control.valoracion = request.POST.get('valmad')
+                        # Asigna los valores de 'valoración objetivo'.
                         control.valoracionobjetivo = request.POST.get('valmadob')
 
+                        # Crea una instancia 'AsociacionEvidenciasCreadas' en base a los requerimientos.
                         evidencia = AsociacionEvidenciasCreadas(id_evidencia=ev, id_assessment=control)
+                        # Se guarda la evidencia en la bd.
                         evidencia.save()
+
+                        # Se inicializa el contexto.
                         context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                        # Se actualiza el contexto.
                         request, context = self.contextTotal(request, controlId, context)
+
+                        # Renderiza el template en base del contexto.
                         return render(request, self.template_name, context=context)
+
+                    # Si existe la evidencia en la bd.
                     else:
+                        # Se inicializa el contexto.
                         context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                        # Se actualiza el contexto.
                         request, context = self.contextTotal(request, controlId, context)
+
+                        # Se genera el mensaje de error correspondiente.
                         messages.error(request,
-                                       'EVIDENCIA INCORRECTA: La evidencia introducida ya existe')  # Se crea mensage de error
+                                       'EVIDENCIA INCORRECTA: La evidencia introducida ya existe')
+
+                        # Renderiza el template en base del contexto.
                         return render(request, self.template_name, context=context)
+
+                # Si los campos 'idEvidencia' y 'descripcionEvidencia' están vacíos.
                 else:
+                    # Se inicializa el contexto.
                     context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                    # Se actualiza el contexto.
                     request, context = self.contextTotal(request, controlId, context)
+
+                    # Se genera el mensaje de error correspondiente.
                     messages.error(request, 'EVIDENCIA INCORRECTA Necesita introducir un id y una descripcion para la '
-                                            'evidencia')  # Se crea mensage de error
+                                            'evidencia')
+
+                    # Renderiza el template en base del contexto.
                     return render(request, self.template_name, context=context)
+
+            # Si no se ha seleccionado ningún contexto.
             else:
+                # Se genera el mensaje de error correspondiente.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+
+                # Se inicializa el contexto.
                 context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                # Se actualiza el contexto.
                 request, context = self.contextTotal(request, controlId, context)
+
+                # Renderiza el template en base del contexto.
                 return render(request, self.template_name, context=context)
 
-        elif seleccionarEvidenciaButton == 'btn5':  # if encargado de rellenar las evidencias
+        # Si se ha presionado el botón de 'Seleccionar Evidencia'.
+        elif seleccionarEvidenciaButton == 'btn5':
+            # Si se ha seleccionado algún control.
             if request.session["controlSelect"] != 'noSel':
-                selectorEvidencia = request.POST.get('selectorEvidencia')  # valor de el selector de control
+
+                # Se guarda desde la sessión actual la información del selector de evidencias.
+                selectorEvidencia = request.POST.get('selectorEvidencia')
+
+                # Si hay algúna evidencia seleccionada.
                 if selectorEvidencia != 'noSel':
+                    # Obtiene las instancias de 'Assessmentguardados' y 'AssessmentCreados'.
                     assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                     control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                             control_id=request.session["controlSelect"])
+
+                    # Verifica si el idioma del assessment está en inglés.
                     if assGuardado.idioma == 'en':
+                        # Obtiene una instancia de 'Evidencerequestcatalog'.
                         evidencia = Evidencerequestcatalog.objects.get(evidence_request_references=selectorEvidencia)
+                        # Obtiene una instancia de 'AsociacionEvidenciasGenericas'.
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia=evidencia, assessment=control)
+                        # Se guarda en la bd.
                         eviGenerica.save()
+
+                    # Si el idioma del assessment está en español.
                     else:
+                        # Obtiene una instancia de 'Evidencerequestcatalog'.
                         evidencia = EvidencerequestcatalogEs.objects.get(evidence_request_references=selectorEvidencia)
+                        # Obtiene una instancia de 'AsociacionEvidenciasGenericas'.
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia_id_es=evidencia, assessment=control)
+                        # Se guarda en la bd.
                         eviGenerica.save()
+
+                    # TODO: Duplicated code?
                     assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
                     control = AssessmentCreados.objects.get(assessment=assGuardado,
                                                             control_id=request.session["controlSelect"])
+                    # Asigna los valores de 'respuesta'.
                     control.respuesta = str(request.POST.get('respuesta'))
+                    # Asigna los valores de 'valoracion'.
                     control.valoracion = request.POST.get('valmad')
+                    # Asigna los valores de 'valoracion objetivo'.
                     control.valoracionobjetivo = request.POST.get('valmadob')
+                    # Se guarda en la bd.
                     control.save()
+
+                    # Se inicializa el contexto.
                     context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                    # Se actualiza el contexto.
                     request, context = self.contextTotal(request, request.session["controlSelect"], context)
+
+                    # Se renderiza el template en base del contexto.
                     return render(request, self.template_name, context=context)
+
+                # Si no hay ninguna evidencia seleccionada.
                 else:
+                    # Inicializa el contexto.
                     context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                    # Actualiza el contexto.
                     request, context = self.contextTotal(request, request.session["controlSelect"], context)
+
+                    # Se genera el mensaje de error correspondiente.
                     messages.error(request,
-                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')  # Se crea mensage de error
+                                   'EVIDENCIA INCORRECTA: Necesita seleccionar una evidencia')
+
+                    # Renderiza el template en base del contexto.
                     return render(request, self.template_name, context=context)
+
+            # Si no se ha seleccionado ningún control.
             else:
+                # Se genera el mensaje de error correspondiente.
                 messages.error(request,
-                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')  # Se crea mensage de error
+                               'CONTROL INCORRECTO: Necesita seleccionar un control para realizar esta acción')
+
+                # Se inicializa el contexto.
                 context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+                # Se actualiza el contexto.
                 request, context = self.contextTotal(request, request.session["controlSelect"], context)
+
+                # Se renderiza el contexto en base del contexto.
                 return render(request, self.template_name, context=context)
 
-        elif btnEliminarEvidencia != '':  # if encargado de Eliminar las evidencias
+        # Si se ha presionado el botón de 'eliminar' en el cuadro de 'Evidencia'.
+        elif btnEliminarEvidencia != '':
+            # Obtiene una instancia de 'AsociacionEvidenciasGenericas' con el ID igual a 'btnEliminarEvidencia'.
             evidencia = AsociacionEvidenciasGenericas.objects.get(id=btnEliminarEvidencia)
+            # Se elimina la evidencia.
             evidencia.delete()
+
+            # Se inicializa el contexto.
             context = super(encuestaEntrevista, self).get_context_data(**knwargs)
+            # Se actualiza el contexto.
             request, context = self.contextTotal(request, request.session["controlSelect"], context)
+
+            # Se renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
