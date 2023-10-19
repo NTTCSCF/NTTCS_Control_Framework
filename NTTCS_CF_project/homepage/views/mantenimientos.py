@@ -1,72 +1,150 @@
 from .__imports__ import *
 
-# Clase para la pagina de Mantenimiento
+
 class Mantenimiento(LoginRequiredMixin, TemplateView):
+    ''' Definición de la clase 'Mantenimiento'. '''
+
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/Mantenimiento.html"
 
 
-# Clase para la pagina de MantenimientoNivelMadurez
 class MantenimientoNivelMadurez(LoginRequiredMixin, TemplateView):
+    ''' Definición de la clase 'MantenimientoNivelMadurez'. '''
+
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/MantenimientoNivelMadurez.html"
 
-    # funcion post que recoge los summit del formulario de la pagina.
-    def post(self, request, **knwargs):
 
+    def post(self, request, **knwargs):
+        ''' Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
+        a través de un formulario.'''
+
+        # Si se presiona al botón de 'Guardar'(color verde).
         if 'insertar' in request.POST:
-            Ccmmcod = request.POST.get('Ccmmcod')  # valor del input de ccmmcod
-            Description = request.POST.get('Description')  # valor del input de descripcion
-            Sublevels = request.POST.get('Sublevels')  # valor del input de sublevels
+            Ccmmcod = request.POST.get('Ccmmcod')
+            ''' Valor del input de 'ccmmcod'. '''
+
+            Description = request.POST.get('Description')
+            ''' Valor del input 'descripcion'. '''
+
+            Sublevels = request.POST.get('Sublevels')
+            ''' Valor del input 'sublevels'. '''
+
+            # Si no se introduce ningún porcentaje.
             if request.POST.get('Percentage') == '':
-                Percentage = request.POST.get('Percentage')  # valor del input de percentaje
+                # TODO: Wrong way to initialize?
+                Percentage = request.POST.get('Percentage')
+
+            # Si se introduce un porcentaje.
             else:
-                Percentage = float(request.POST.get('Percentage').replace(',', '.'))  # valor del input de percentaje
+                ''' El valor del input 'Percentage' se obtiene y se reemplazan las comas por puntos 
+                para asegurarse de que sea un formato adecuado. Adicionalmente, el valor se convierte
+                en un flotante. '''
+                Percentage = float(request.POST.get('Percentage').replace(',', '.'))
+
+            # Se verifica si no existe un objeto con el valor de 'Sublevels' en la tabla 'MaturirtyTable'.
             if not MaturirtyTable.objects.filter(sublevels=Sublevels).exists():
-                if Ccmmcod != '' and Description != '' and Sublevels != '' and Percentage != '':
-                    insert = MaturirtyTable(ccmmcod=Ccmmcod, description=Description, sublevels=Sublevels,
-                                            percentage=Percentage)  # creamos un nuevo input en la tabla
+                # Si ninguno de los inputs están vacíos.
+                if Ccmmcod != ''\
+                        and Description != ''\
+                        and Sublevels != ''\
+                        and Percentage != '':
+
+                    # Se crea un objeto 'MaturirtyTable'
+                    insert = MaturirtyTable(ccmmcod=Ccmmcod,
+                                            description=Description,
+                                            sublevels=Sublevels,
+                                            percentage=Percentage)
+                    # Se guarda en la bd.
                     insert.save()
+
+                # Si algún input está vacío.
                 else:
+                    # Se genera el mensaje de error correspondiente.
                     messages.error(request,
                                    'ERROR, debe introducir todos los valores para insertar un nivel de madurez')
+            # Si dicho objeto existe.
             else:
                 messages.error(request, 'ERROR, el sublevel debe ser distinto a uno ya existente')
+
+        # Si se presiona el botón de 'editar'(color amarillo).
         elif 'modificar' in request.POST:
-            Ccmmcod = request.POST.get('Ccmmcod')  # valor del input de ccmmcod
-            Description = request.POST.get('Description')  # valor del input de descripcion
-            Sublevels = request.POST.get('Sublevels')  # valor del input de sublevels
-            Percentage = float(request.POST.get('Percentage').replace(',', '.'))  # valor del input de percentaje
-            consulta = MaturirtyTable.objects.get(
-                sublevels=Sublevels)  # si esta en la tabla seleccionamos el ojeto en la tabla
+            Ccmmcod = request.POST.get('Ccmmcod')
+            ''' Valor del input de ccmmcod'''
+
+            Description = request.POST.get('Description')
+            ''' Valor del input de descripción. '''
+
+            Sublevels = request.POST.get('Sublevels')
+            ''' Valor del input de sublevels. '''
+
+            Percentage = float(request.POST.get('Percentage').replace(',', '.'))
+            ''' Valor del input de percentaje. '''
+
+            # Se consigue el objeto existente de la tabla 'MaturirtyTable' que corresponde al valor de 'Sublevels'.
+            consulta = MaturirtyTable.objects.get(sublevels=Sublevels)
+
+            # Se consigue el objeto existente de la tabla 'MaturirtyTable' que corresponde al valor de 'Sublevels'.
             consulta.ccmmcod = Ccmmcod
             consulta.description = Description
             consulta.percentage = Percentage
-            consulta.save()  # fijamos los valores y los guardamos.
-        elif 'eliminar' in request.POST:
-            Sublevels = request.POST.get('Sublevels')  # valor del input de sublevels
-            consulta = MaturirtyTable.objects.get(sublevels=Sublevels)
-            consulta.delete()  # seleccionamos el objeto de la ultima busqueda y lo eliminamos.
 
+            # Se guarda en la bd.
+            consulta.save()
+
+        # Si se presiona el botón de 'eliminar'(color rojo).
+        elif 'eliminar' in request.POST:
+            Sublevels = request.POST.get('Sublevels')
+            ''' Valor del input de sublevels. '''
+
+            # Se consigue el objeto existente de la tabla 'MaturirtyTable' que corresponde al valor de 'Sublevels'.
+            consulta = MaturirtyTable.objects.get(sublevels=Sublevels)
+
+            # Se elimina de la bd el objeto.
+            consulta.delete()
+
+        # Se obtiene el número de página de la solicitud GET, o se establece en 1 si no está.
         page = self.request.GET.get('page', 1)
+        # Se crea un objeto Paginator para manejar los datos en la tabla 'MaturirtyTable' con 50 elementos por página.
         paginator = Paginator(MaturirtyTable.objects.all(), 50)
+
+        # Se inicializa el contexto.
         context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
+
+        # Se agrega al contexto la página actual del conjunto de datos obtenidos de la BD.
         context["entity"] = paginator.page(page)
+        # Se agrega al contexto el objeto Paginator para utilizarlo en la plantilla.
         context["paginator"] = paginator
+        # Se agrega al contexto la longitud total de los datos en la tabla 'MaturirtyTable'.
         context["lenConsulta"] = len(MaturirtyTable.objects.all())
-        return render(request, self.template_name,
-                      context=context)  # siempre retornamos el valor con la tabla completa.
+
+        # TODO: Delete lines 108-121 and replace it with get_context_data() function.
+
+        # Se renderiza el template en base del contexto.
+        return render(request, self.template_name, context=context)
 
     # funcion que envia el contexto de la pagina.
     def get_context_data(self, **knwargs):
+        '''El objetivo de este método es proporcionar datos de contexto para una vista,
+        que luego se pueden utilizar en una plantilla HTML para renderizar la página web.'''
+
+        # Se obtiene el número de página de la solicitud GET, o se establece en 1 si no está.
         page = self.request.GET.get('page', 1)
+        # Se crea un objeto Paginator para manejar los datos en la tabla 'MaturirtyTable' con 50 elementos por página.
         paginator = Paginator(MaturirtyTable.objects.all(), 50)
+
+
         context = super(MantenimientoNivelMadurez, self).get_context_data(**knwargs)
+        # Se agrega al contexto la página actual del conjunto de datos obtenidos de la BD.
         context["entity"] = paginator.page(page)
+        # Se agrega al contexto el objeto Paginator para utilizarlo en la plantilla.
         context["paginator"] = paginator
+        # Se agrega al contexto la longitud total de los datos en la tabla 'MaturirtyTable'.
         context["lenConsulta"] = len(MaturirtyTable.objects.all())
+
+        # Se devuelve el contexto.
         return context
 
 
