@@ -18,7 +18,7 @@
 }
 
 .iconosAyuda{
-    font-size: 1.3rem;
+    font-size: 1.2vw;
     color: #535353;
 }
 
@@ -294,11 +294,11 @@
 }
 
 .cuadrotexto{
-    width:80%;
+    width:100%;
     height:wrap-content;
     text-align:center;
     margin:2%;
-
+    font-size:1vw;
 
 }
 .cuadroayuda{
