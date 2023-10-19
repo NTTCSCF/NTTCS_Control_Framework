@@ -52,8 +52,12 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         context["dependencias"] = DependenciaProyecto.objects.all()
         t=[]
         for i in DependenciaProyecto.objects.all():
-           t.append(i.proyecto_asociado.id)
+           t.append(i.proyecto_asociado.id+i.proyecto.id)
         context["prodep"] = t
+        t = []
+        for i in DependenciaProyecto.objects.all():
+            t.append(i.proyecto.id)
+        context["prona"] = t
         for i in AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora):
          print(i.proyecto_mejora.id)
         return context
