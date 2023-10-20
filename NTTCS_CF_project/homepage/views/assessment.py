@@ -76,7 +76,7 @@ class assessment(LoginRequiredMixin, TemplateView):
         # Obtener todos los tipos de iniciativas.
         context["tiposIniciativas"] = TiposIniciativas.objects.all()
         # Obtener todas las iniciativas.
-        context["iniciativas"] = Iniciativas.objects.all()
+        context["iniciativas"] = list(chain(AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=assGuardado), AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=assGuardado)))
 
         # Obtener las evidencias recomendadas para 'select'.
         evidenciasRecomendadas = Assessment.objects.get(id=select).evidence_request_references
@@ -524,6 +524,16 @@ class assessment(LoginRequiredMixin, TemplateView):
                             control.valoracion = request.POST.get('valmad')
                             control.valoracionobjetivo = request.POST.get('valmadob')
                             control.save()
+                            cont = 0
+                            for i in AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=assGuardado):
+                                if i.iniciativa != None:
+                                    cont += 1
+                            for i in AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=assGuardado):
+                                if i.iniciativa != None:
+                                    cont += 1
+                            if cont >= 2:
+                                assGuardado.estado = 2
+                                assGuardado.save()
 
                             # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                             context = super(assessment, self).get_context_data(**knwargs)
@@ -553,7 +563,16 @@ class assessment(LoginRequiredMixin, TemplateView):
                             # Se asocia el assessment con la iniciativa y se guarda en la BD.
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
-
+                            cont = 0
+                            for i in AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=assGuardado):
+                                if i.iniciativa != None:
+                                    cont += 1
+                            for i in AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=assGuardado):
+                                if i.iniciativa != None:
+                                    cont += 1
+                            if cont >= 2:
+                                assGuardado.estado = 2
+                                assGuardado.save()
                             # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                             context = super(assessment, self).get_context_data(**knwargs)
                             request, context = self.contextTotal(request, request.session["controlSelect"], assSelect,
@@ -561,7 +580,6 @@ class assessment(LoginRequiredMixin, TemplateView):
 
                             # Se renderiza el template en base del contexto.
                             return render(request, self.template_name, context=context)
-
                     # Si la iniciativa existe, salta un error.
                     else:
                         # Esto inicializa un diccionario llamado context con algunos datos de contexto.
@@ -659,7 +677,7 @@ class assessment(LoginRequiredMixin, TemplateView):
                                 asociacion = AsociacionEvidenciasGenericas.objects.get(evidencia_id_es=evidencia,
                                                                                        assessment=control)
                             # Asociar la iniciativa seleccionada a 'asociacion' y guardarla en la bd.
-                            iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
+                            iniciativa = Iniciativas.objects.get(id=selectIniAsig)
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
                             # Actualizar los campos de 'control' con los datos del formulario y guardalo en la bd.
@@ -667,6 +685,16 @@ class assessment(LoginRequiredMixin, TemplateView):
                             control.valoracion = request.POST.get('valmad')
                             control.valoracionobjetivo = request.POST.get('valmadob')
                             control.save()
+                            cont = 0
+                            for i in AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=assGuardado):
+                                if i.iniciativa != None:
+                                    cont += 1
+                            for i in AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=assGuardado):
+                                if i.iniciativa != None:
+                                    cont += 1
+                            if cont >= 2:
+                                assGuardado.estado = 2
+                                assGuardado.save()
 
                             # Actualizar el contexto.
                             context = super(assessment, self).get_context_data(**knwargs)
@@ -691,6 +719,16 @@ class assessment(LoginRequiredMixin, TemplateView):
                             iniciativa = Iniciativas.objects.get(nombre=selectIniAsig)
                             asociacion.iniciativa = iniciativa
                             asociacion.save()
+                            cont = 0
+                            for i in AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=assGuardado):
+                                if i.iniciativa != None:
+                                    cont += 1
+                            for i in AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=assGuardado):
+                                if i.iniciativa != None:
+                                    cont += 1
+                            if cont >= 2:
+                                assGuardado.estado = 2
+                                assGuardado.save()
 
                             # Actualizar el contexto.
                             context = super(assessment, self).get_context_data(**knwargs)

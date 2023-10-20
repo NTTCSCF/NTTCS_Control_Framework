@@ -554,7 +554,10 @@
                                         data-live-search="true" id="selectIniAsig" name="selectIniAsig">
                                     <option style="font-size:0.8vw;" selected value="noSel">Seleccione la iniciativa</option>
                                     {% for i in iniciativas %}
-                                    <option style="font-size:0.8vw;" value="{{i.nombre}}">{{i.nombre}}</option>
+
+                                    {% if i.iniciativa != None %}
+                                    <option style="font-size:0.8vw;" value="{{i.iniciativa.id}}">{{i.iniciativa.nombre}}</option>
+                                    {% endif %}
                                     {% endfor %}
 
                                 </select>

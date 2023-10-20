@@ -25,6 +25,8 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
 
         # Valor del input de nombre.
         nombre = request.POST.get('in')
+        # Valor del input de codigo.
+        codigo = request.POST.get('codigo')
         # Valor de selector de proyecto.
         selectorProyecto = request.POST.get('selectorProyecto')
         # Valor de selector de marcos de seguridad.
@@ -114,9 +116,12 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
                     # Creamos una nueva fila en 'assessmentguardados' inicializada con el nombre del assessment,
                     # la fecha de creación en formato 'AAAA-MM-DD', el idioma y el estado (0 = no archivado).
                     assessmentNuevo = Assessmentguardados(id_assessment=nombre,
+                                                          codigo=codigo,
                                                           archivado=0,
                                                           fecha_creacion=datetime.now().isoformat().split('T')[0],
-                                                          idioma=idioma)
+                                                          idioma=idioma,
+                                                          estado=1,
+                                                          creado=request.user)
                     # Guardamos dicho assessment en la base de datos.
                     assessmentNuevo.save()
 
