@@ -21,22 +21,22 @@
         <div class="cajasSelectorAssessment">
             <select class="selectpicker" data-width="100%" aria-label="Default select example" data-live-search="true"
                     onchange="this.form.submit()" id="selector" name="selector">
-                <option selected value="noSel">--- No Seleccionado ---</option>
+                <option selected value="noSel" style="font-size:1vw;">--- No Seleccionado ---</option>
                 {% for ids in assess %}
                 {% if ids.control_id == control.control_id %}
                 {% if ids.respuesta == None or ids.respuesta == '<p><br></p>' or ids.respuesta == '' %}
-                <option class="container " selected value="{{ids.control_id}}" title="{{ids.control_id}}"
+                <option class="container p-0 m-1 g-0" style="font-size:1vw;" selected value="{{ids.control_id}}" title="{{ids.control_id}}"
                         data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
                 {% else %}
-                <option class="container " selected value="{{ids.control_id}}" title="{{ids.control_id}}"
+                <option class="container p-0 m-1 g-0" style="font-size:1vw;" selected value="{{ids.control_id}}" title="{{ids.control_id}}"
                         data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'><i class='bi bi-check2-circle'></i></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div>"></option>
                 {% endif %}
                 {% else %}
                 {% if ids.respuesta == None or ids.respuesta == '<p><br></p>' or ids.respuesta == '' %}
-                <option class="container " value="{{ids.control_id}}" title="{{ids.control_id}}"
+                <option class="container p-0 m-1 g-0" style="font-size:1vw;" value="{{ids.control_id}}" title="{{ids.control_id}}"
                         data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
                 {% else %}
-                <option class="container " value="{{ids.control_id}}" title="{{ids.control_id}}"
+                <option class="container p-0 m-1 g-0" style="font-size:1vw;" value="{{ids.control_id}}" title="{{ids.control_id}}"
                         data-content="<div class='row' title='{{ids.control_name}}'> <div class='col-md-1'><i class='bi bi-check2-circle'></i></div> <div class='col-10'>{{ids.control_id}}, {{ids.control_name}}</div></div> "></option>
                 {% endif %}
                 {% endif %}
@@ -170,12 +170,12 @@
             <div class="cajasSelectorValoracion">
                 <select class="selectpicker " data-width="100%" data-size="10" data-live-search="true" id="valmad"
                         name="valmad">
-                    <option selected value="noSel">--- No Seleccionado ---</option>
+                    <option style="font-size:1vw;" selected value="noSel">--- No Seleccionado ---</option>
                     {% for ids in valMad %}
                     {% if ids.sublevels == control.valoracion %}
-                    <option selected value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                    <option style="font-size:1vw;" selected value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
                     {% else %}
-                    <option value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                    <option style="font-size:1vw;" value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -192,12 +192,12 @@
             <div class="cajasSelectorValoracion">
                 <select class="selectpicker " data-width="100%" data-size="10" data-live-search="true" id="valmadob"
                         name="valmadob">
-                    <option selected value="noSel">--- No Seleccionado ---</option>
+                    <option style="font-size:1vw;" selected value="noSel">--- No Seleccionado ---</option>
                     {% for ids in valMad %}
                     {% if ids.sublevels == control.valoracionobjetivo %}
-                    <option selected value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                    <option style="font-size:1vw;" selected value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
                     {% else %}
-                    <option value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
+                    <option style="font-size:1vw;" value="{{ids.sublevels}}">{{ids.sublevels}}, {{ids.description}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -221,35 +221,23 @@
                 <div class="textoTarjetaGrande">
                     <div class="cuadrotextoGrande">
 
-                        <h4>
-                            {{criteriovaloracioncontexto.0}}
-                        </h4>
-                        <p> {{criteriovaloracion.0}}</p>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.0}}</h4>
+                        <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.0}}</p>
 
-                        <h4>
-                            {{criteriovaloracioncontexto.1}}
-                        </h4>
-                        <p> {{criteriovaloracion.1}}</p>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.1}}</h4>
+                        <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.1}}</p>
 
-                        <h4>
-                            {{criteriovaloracioncontexto.2}}
-                        </h4>
-                        <p> {{criteriovaloracion.2}}</p>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.2}}</h4>
+                        <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.2}}</p>
 
-                        <h4>
-                            {{criteriovaloracioncontexto.3}}
-                        </h4>
-                        <p> {{criteriovaloracion.3}}</p>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.3}}</h4>
+                        <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.3}}</p>
 
-                        <h4>
-                            {{criteriovaloracioncontexto.4}}
-                        </h4>
-                        <p> {{criteriovaloracion.4}}</p>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.4}}</h4>
+                        <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.4}}</p>
 
-                        <h4>
-                            {{criteriovaloracioncontexto.5}}
-                        </h4>
-                        <p> {{criteriovaloracion.5}}</p>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.5}}</h4>
+                        <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.5}}</p>
 
                     </div>
                 </div>
@@ -281,17 +269,17 @@
                                 <div class="col">
                                     <div class="col">
                                         <div class="row">
-                                            <h3 class="card-title text-center">
+                                            <h3 class="card-title text-center " style="font-size:1.5vw;">
                                                 {{i.evidencia.evidence_request_references}}
                                             </h3>
                                         </div>
                                         <div class="row">
-                                            <div class="col text-body-secondary fs-5 text-center">
+                                            <div class="col text-body-secondary m-1 text-center" style="font-size:1vw;">
                                                 {{i.evidencia.artifact}}
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col text-body fs-6 text-center">
+                                            <div class="col text-body  text-center" style="font-size:0.6vw;">
                                                 {{i.evidencia.artifact_description}}
                                             </div>
                                         </div>
@@ -312,17 +300,17 @@
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col">
                                         <div class="row">
-                                            <h3 class="card-title text-center">
+                                            <h3 class="card-title text-center" style="font-size:1.5vw;">
                                                 {{i.evidencia_id_es.evidence_request_references}}
                                             </h3>
                                         </div>
                                         <div class="row">
-                                            <div class="col text-body-secondary fs-5 text-center">
+                                            <div class="col text-body-secondary text-center m-1" style="font-size:1vw;">
                                                 {{i.evidencia_id_es.artifact}}
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col text-body fs-6 text-center">
+                                            <div class="col text-body text-center" style="font-size:0.6vw;">
                                                 {{i.evidencia_id_es.artifact_description}}
                                             </div>
                                         </div>
@@ -378,10 +366,10 @@
                             <div style="width:60%;" class="form-floating formEvidencia">
                                 <select class="selectpicker" data-width="100%" aria-label="Default select example"
                                         data-live-search="true" id="selectorEvidencia" name="selectorEvidencia">
-                                    <option selected value="noSel">--- No Seleccionado ---</option>
+                                    <option style="font-size:0.8vw;" selected value="noSel">--- No Seleccionado ---</option>
                                     {% for ids in evidenciasGenerricas %}
                                     {% if ids not in listaEvidencias %}
-                                    <option value="{{ids.evidence_request_references}}">
+                                    <option style="font-size:0.8vw;" value="{{ids.evidence_request_references}}">
                                         {{ids.evidence_request_references}},
                                         {{ids.artifact}}
                                     </option>
@@ -463,23 +451,23 @@
 
                         <div class="cuadroInputs">
                             <div style="width:60%;" class="form-floating formEvidencia">
-                                <select class="selectpicker" data-width="100%" aria-label="Default select example"
+                                <select style="font-size:0.8vw;" class="selectpicker" data-width="100%" aria-label="Default select example"
                                         data-live-search="true" id="selectorEvidenciaIniciativa"
                                         name="selectorEvidenciaIniciativa">
-                                    <option selected value="noSel">Seleccione la evidencia</option>
+                                    <option style="font-size:0.8vw;" selected value="noSel">Seleccione la evidencia</option>
                                     {% for i in evidencias %}
                                     {% if assessment == 'en' %}
-                                    <option value="{{i.evidencia.evidence_request_references}}">
+                                    <option style="font-size:0.8vw;" value="{{i.evidencia.evidence_request_references}}">
                                         {{i.evidencia.evidence_request_references}}
                                     </option>
                                     {% else %}
-                                    <option value="{{i.evidencia_id_es.evidence_request_references}}">
+                                    <option style="font-size:0.8vw;" value="{{i.evidencia_id_es.evidence_request_references}}">
                                         {{i.evidencia_id_es.evidence_request_references}}
                                     </option>
                                     {% endif %}
                                     {% endfor %}
                                     {% for i in evidencias2 %}
-                                    <option value="{{i.id_evidencia.evidencia_id}}">{{i.id_evidencia.evidencia_id}}
+                                    <option style="font-size:0.8vw;" value="{{i.id_evidencia.evidencia_id}}">{{i.id_evidencia.evidencia_id}}
                                     </option>
                                     {% endfor %}
                                 </select>
@@ -501,11 +489,11 @@
                         </div>
                         <div class="cuadroInputs">
                             <div style="width:65%;" class="form-floating formEvidencia">
-                                <select class="form-select" data-width="100%" aria-label="Default select example"
+                                <select style="font-size:0.8vw;" class="form-select" data-width="100%" aria-label="Default select example"
                                         data-live-search="true" id="SelectorIniciativa" name="SelectorIniciativa">
-                                    <option selected value="noSel">--- No Seleccionado ---</option>
+                                    <option style="font-size:0.8vw;" selected value="noSel">--- No Seleccionado ---</option>
                                     {% for ids in tiposIniciativas %}
-                                    <option value="{{ids.tipo}}">{{ids.tipo}}</option>
+                                    <option style="font-size:0.8vw;" value="{{ids.tipo}}">{{ids.tipo}}</option>
                                     {% endfor %}
                                 </select>
                                 <label style="font-size:0.8vw;" for="SelectorIniciativa">Seleccione el tipo de
@@ -539,22 +527,22 @@
 
                         <div class="cuadroInputs">
                             <div style="width:80%;" class="form-floating formEvidencia">
-                                <select class="selectpicker" data-width="100%" aria-label="Default select example"
+                                <select style="font-size:0.8vw;" class="selectpicker" data-width="100%" aria-label="Default select example"
                                         data-live-search="true" id="selectEviasig" name="selectEviasig">
-                                    <option selected value="noSel">Seleccione la evidencia</option>
+                                    <option style="font-size:0.8vw;" selected value="noSel">Seleccione la evidencia</option>
                                     {% for i in evidencias %}
                                     {% if assessment == 'en' %}
-                                    <option value="{{i.evidencia.evidence_request_references}}">
+                                    <option style="font-size:0.8vw;" value="{{i.evidencia.evidence_request_references}}">
                                         {{i.evidencia.evidence_request_references}}
                                     </option>
                                     {% else %}
-                                    <option value="{{i.evidencia_id_es.evidence_request_references}}">
+                                    <option style="font-size:0.8vw;" value="{{i.evidencia_id_es.evidence_request_references}}">
                                         {{i.evidencia_id_es.evidence_request_references}}
                                     </option>
                                     {% endif %}
                                     {% endfor %}
                                     {% for i in evidencias2 %}
-                                    <option value="{{i.id_evidencia.evidencia_id}}">{{i.id_evidencia.evidencia_id}}
+                                    <option style="font-size:0.8vw;" value="{{i.id_evidencia.evidencia_id}}">{{i.id_evidencia.evidencia_id}}
                                     </option>
                                     {% endfor %}
                                 </select>
@@ -562,11 +550,14 @@
                         </div>
                         <div class="cuadroInputs">
                             <div style="width:80%;" class="form-floating formEvidencia">
-                                <select class="selectpicker" data-width="100%" aria-label="Default select example"
+                                <select style="font-size:0.8vw;" class="selectpicker" data-width="100%" aria-label="Default select example"
                                         data-live-search="true" id="selectIniAsig" name="selectIniAsig">
-                                    <option selected value="noSel">Seleccione la iniciativa</option>
+                                    <option style="font-size:0.8vw;" selected value="noSel">Seleccione la iniciativa</option>
                                     {% for i in iniciativas %}
-                                    <option value="{{i.nombre}}">{{i.nombre}}</option>
+
+                                    {% if i.iniciativa != None %}
+                                    <option style="font-size:0.8vw;" value="{{i.iniciativa.id}}">{{i.iniciativa.nombre}}</option>
+                                    {% endif %}
                                     {% endfor %}
 
                                 </select>
@@ -604,12 +595,12 @@
                         <div class="cuadrotextoGrande">
                             {% for i in evidencias %}
                             {% if i.iniciativa %}
-                            <p>{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
+                            <p style="font-size:1vw;">{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
                             {% endif %}
                             {% endfor %}
                             {% for i in evidencias2 %}
                             {% if i.iniciativa %}
-                            <p>{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
+                            <p style="font-size:1vw;">{{i.iniciativa.nombre}}, {{i.iniciativa.descripcion}}, {{i.iniciativa.tipo.tipo}} </p>
                             {% endif %}
                             {% endfor %}
 
@@ -635,18 +626,6 @@
         </div>
         {% endif %}
 
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.tags %}
-        <script type="text/javascript">
-            setTimeout(() => {
-                window.alert("{{ message }}")
-            }, 400);
-        </script>
-        {% endif %}
-
-        {% endfor %}
-        {% endif %}
 
 </form>
 

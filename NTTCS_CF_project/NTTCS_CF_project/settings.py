@@ -50,6 +50,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'staticfiles', 'media')
 MEDIA_URL = '/media/'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

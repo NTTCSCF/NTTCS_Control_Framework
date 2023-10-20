@@ -26,21 +26,21 @@
                     <div class="card text-bg-ligth border-ligth cardModificada">
                         <h5 class="card-header text-center">Mis entrevistas</h5>
                         <div class="card-body">
-                            <h5 class="card-title text-center">Aqui aparecen las entrevistas en las que eres el
+                            <h5 class="card-title text-center text-body-secondary fr-1">Aqui aparecen las entrevistas en las que eres el
                                 responsable</h5>
                             {% for i in creadas %}
                             <div class="card card-body mb-3">
 
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col">
-                                        <h4 class="card-title text-center">{{i.titulo}}</h4>
+                                        <h4 class="card-title text-center" style="font-size:1.7vw;">{{i.titulo}}</h4>
                                     </div>
                                 </div>
                                 <div class="row  justify-content-center align-items-center">
                                     <div class="row g-0 justify-content-center align-items-center text-center" >
                                         <div class="col-3 text-body-secondary fr-1">Fecha: {{i.fecha.date}}</div>
-                                        <div class="col-3 text-body-secondary fr-1" style="font-size:0.8vw;">Hora: {{i.fecha.time}}</div>
-                                        <div class="col-3 text-body-secondary fr-1" style="font-size:0.8vw;">Finalización:
+                                        <div class="col-3 text-body-secondary fr-1" style="">Hora: {{i.fecha.time}}</div>
+                                        <div class="col-3 text-body-secondary fr-1" style="">Finalización:
                                             {{i.duracionestimada}}
                                         </div>
                                         <div class="col-3 text-body-secondary fr-1" >Duración:
@@ -50,19 +50,19 @@
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
-                                        <h5 class="card-title text-center">Se tratará el assessment:
+                                        <h5 class="card-title text-center" style="font-size:1vw;">Se tratará el assessment:
                                             {{i.assesment.id_assessment}} y el area: {{i.area}}</h5>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
 
                                     <div class="col-auto g-4">
-                                        <div class="text-body text-center fs-6">Es iniciada por: {{i.editor}}</div>
+                                        <div class="text-body text-center " style="font-size:1.2vw;">Es iniciada por: {{i.editor}}</div>
                                     </div>
                                     <form class="col-auto g-4" method="post">
                                         {% csrf_token %}
                                         {% if i.editor == user %}
-                                        <button style="font-size:0.7vw;" type="submit" class="btn btn-sm btn-ntt"
+                                        <button style="font-size:0.8vw;" type="submit" class="btn btn-sm btn-ntt"
                                                 name="btnEditarAssesment"
                                                 value="{{i.id}}"><i class="bi bi-pencil"></i>
                                             Comenzar Entrevista
@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
-                                        <h5 class="card-title text-center">Asisten: {{i.asistentes}} </h5>
+                                        <h5 class="card-title text-center" style="font-size:1vw;">Asisten: {{i.asistentes}} </h5>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
@@ -106,7 +106,7 @@
                         <h5 class="card-header text-center">Otras Entrevistas</h5>
                         <div class="card-body">
 
-                            <h5 class="card-title text-center">Aqui aparecen las demas entrevistas</h5>
+                            <h5 class="card-title text-center fr-1">Aqui aparecen las demas entrevistas</h5>
                             {% for i in asistes %}
                             {% if i.entrevista.editor != user %}
                             <form class="card card-body mb-3" method="post">
@@ -114,26 +114,26 @@
 
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col">
-                                        <h4 class="card-title text-center">{{i.entrevista.titulo}}</h4>
+                                        <h4 class="card-title text-center" style="font-size:1.7vw;">{{i.entrevista.titulo}}</h4>
                                     </div>
                                 </div>
                                 <div class="row  justify-content-center align-items-center">
                                     <div class="row g-0 justify-content-center align-items-center text-center">
-                                        <div class="col-4 text-body-secondary fs-6">Fecha: {{i.entrevista.fecha.date}}
+                                        <div class="col-4 text-body-secondary" style="font-size:0.8vw;">Fecha: {{i.entrevista.fecha.date}}
                                         </div>
-                                        <div class="col-2 text-body-secondary fs-6">Hora: {{i.entrevista.fecha.time}}
+                                        <div class="col-2 text-body-secondary" style="font-size:0.8vw;">Hora: {{i.entrevista.fecha.time}}
                                         </div>
-                                        <div class="col-3 text-body-secondary fs-6">Finalización:
+                                        <div class="col-3 text-body-secondary" style="font-size:0.8vw;">Finalización:
                                             {{i.entrevista.duracionestimada}}
                                         </div>
-                                        <div class="col-3 text-body-secondary fs-6">Duración:
+                                        <div class="col-3 text-body-secondary" style="font-size:0.8vw;">Duración:
                                             {{i.entrevista.duracionestimada|resta:i.entrevista.fecha}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
-                                        <h5 class="card-title text-center">Se tratará el assessment:
+                                        <h5 class="card-title text-center" style="font-size:1vw;">Se tratará el assessment:
                                             {{i.entrevista.assesment.id_assessment}} y el area:
                                             {{i.entrevista.area}}</h5>
                                     </div>
@@ -141,7 +141,7 @@
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col-3"></div>
                                     <div class="col g-4">
-                                        <div class="text-body text-center fs-6">Es iniciada por:
+                                        <div class="text-body text-center" style="font-size:1.2vw;">Es iniciada por:
                                             {{i.entrevista.editor}}
                                         </div>
                                     </div>
@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
-                                        <h5 class="card-title text-center">Convocados: {{i.entrevista.asistentes}} </h5>
+                                        <h5 class="card-title text-center" style="font-size:1vw;">Convocados: {{i.entrevista.asistentes}} </h5>
                                     </div>
                                 </div>
                             </form>

@@ -96,6 +96,9 @@ class Assessmentguardados(models.Model):
     fecha_ultima_modificacion = models.DateField(blank=True, null=True)
     fecha_cierre = models.DateField(blank=True, null=True)
     plan_proyecto_mejora = models.ForeignKey('PlanProyectoMejora', models.DO_NOTHING, db_column='plan_proyecto_mejora', blank=True, null=True)
+    codigo = models.CharField(max_length=100, blank=True, null=True)
+    estado = models.IntegerField(blank=True, null=True)
+    creado = models.ForeignKey('acounts.User', models.DO_NOTHING, db_column='creado', blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False

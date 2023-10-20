@@ -32,13 +32,15 @@
                         <select class="selectpicker" data-width="100%" aria-label="Default select example"
                                 data-live-search="true" onchange="this.form.submit()" id="selectorProyecto"
                                 name="selectorProyecto">
-                            <option value="None">--- No Seleccionado ---</option>
+                            <option style="font-size:1vw" value="None">--- No Seleccionado ---</option>
                             {% for ids in proyectos %}
                             {% if ids.proyecto.codigo == proyectoSelec %}
-                            <option selected value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}},
+                            <option style="font-size:1vw" selected value="{{ids.proyecto.codigo}}">
+                                {{ids.proyecto.codigo}},
                                 {{ids.proyecto.nombre}}
                                 {% else %}
-                            <option value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
+                            <option style="font-size:1vw" value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}},
+                                {{ids.proyecto.nombre}}
                             </option>
                             {% endif %}
                             {% endfor %}
@@ -68,13 +70,33 @@
                         <div class="card-body">
 
                             <div class="card-text">
-                                <h5 class="card-title text-center">assessments del proyecto: </h5>
+                                <h5 class="card-title text-center" style="font-size:0.7vw">assessments del
+                                    proyecto: </h5>
                                 {% for i in assess %}
                                 <div class="card card-body mb-3">
                                     <div class="row justify-content-between align-items-center ">
+                                        {% if i.assessment.creado == user %}
+                                            <div class="col-auto row justify-content-center align-items-center">
+                                                <form class="col-auto m-1" method="post">
+                                                    {% csrf_token %}
+                                                    <button style="font-size:0.5vw;" type="button" class="btn btn-ntt "
+                                                        name="btnAjustes"
+                                                            data-bs-toggle="modal"
+                                                        data-bs-target="#modalAjustes{{i.id}}"
+                                                        value="{{i.assessment.id_assessment}}"><i class="bi bi-gear"></i>
+                                                </button>
+                                                </form>
+                                            </div>
+                                            {% endif %}
                                         <div class="col-7">
-                                            <h4 class="card-title text-center">{{i.assessment.id_assessment}} </h4>
-                                            <div class="col-auto text-center text-body-secondary " style="font-size:0.6vw;">
+                                            <h4 class="card-title text-center m-1" style="font-size:1.2vw;">
+                                                {{i.assessment.id_assessment}} </h4>
+                                            <div class="col-auto text-center m-1"
+                                                 style="font-size:0.7vw;">
+                                                {{i.assessment.codigo}}
+                                            </div>
+                                            <div class="col-auto text-center text-body-secondary "
+                                                 style="font-size:0.5vw;">
                                                 Última modificación: {{i.assessment.fecha_ultima_modificacion}}
                                             </div>
                                         </div>
@@ -87,6 +109,7 @@
                                                     Editar
                                                 </button>
                                             </form>
+                                            {% if i.assessment.estado == 2 %}
                                             <form class="col-auto" method="post">
                                                 {% csrf_token %}
                                                 <button style="font-size:0.6vw;" type="submit" class="btn btn-ntt "
@@ -95,7 +118,7 @@
                                                         class="bi bi-clipboard"></i> plan de proyecto
                                                 </button>
                                             </form>
-
+                                            {% endif %}
                                             <form class="col-auto m-1" method="post">
                                                 {% csrf_token %}
                                                 <button style="font-size:0.6vw;" type="button" class="btn btn-danger"
@@ -139,7 +162,36 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="modal fade " id="modalAjustes{{i.id}}"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog  modal-lg modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header" style="text-align:center;">
+                                                <div class="cajaCarga">
+                                                    <h5 class="modal-title text-center">Ajustes del assessment</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <p>Si archiva el assessment, no podrá seguir trabajando en el mismo.</p>
+                                                <p>¿Esta Seguro/a?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Cerrar
+                                                </button>
+                                                <form method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-danger" name="btnArchivar"
+                                                            value="{{i.assessment.id_assessment}}"><i
+                                                            class="bi bi-archive"></i> Archivar
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
                                 {% endfor %}
@@ -151,57 +203,67 @@
                     </div>
                     <div class="card text-bg-ligth border-ligth cardModificada">
                         <h5 class="card-header text-center">Creación de Assessment</h5>
-                        <form class="card-body" method="post">
+                        <form class="card-body needs-validation" method="post" novalidate>
                             {% csrf_token %}
-                            <h5 class="card-title text-center">Rellene los datos del Assessment</h5>
+                            <h5 class="card-title text-center " style="font-size:0.7vw">Rellene los datos del
+                                Assessment</h5>
 
                             <div class="input-group mb-3">
-                                <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon1">Nombre del Assessment</span>
-                                <input type="text" class="form-control " style="font-size:0.8vw;" placeholder="Nombre"
+                                <span class="input-group-text" style="font-size:0.6vw;" id="basic-addon1">Nombre del Assessment</span>
+                                <input type="text" class="form-control " style="font-size:0.6vw;" placeholder="Nombre"
                                        aria-label="Nombre"
-                                       aria-describedby="basic-addon1" name="in">
+                                       aria-describedby="basic-addon1" name="in" required>
+                                <div class="invalid-feedback" style="font-size:0.5vw;">
+                                    Introduzca un nombre para el assessment
+                                </div>
 
-                                <label class="input-group-text " style="font-size:0.8vw;" for="idioma">Idioma</label>
-                                <select class="form-select fr-1" id="idioma" name="idioma">
-                                    <option value="es">Español</option>
-                                    <option value="en">Ingles</option>
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" style="font-size:0.6vw;" id="basic-addon6">Código del Assessment</span>
+                                <input type="text" class="form-control " style="font-size:0.6vw;" placeholder="Código"
+                                       aria-label="Codigo"
+                                       aria-describedby="basic-addon6" name="codigo" required>
+
+                                <label class="input-group-text " style="font-size:0.6vw;" for="idioma">Idioma</label>
+                                <select class="form-select fr-1" id="idioma" name="idioma" required>
+                                    <option style="font-size:0.6vw;" value="es">Español</option>
+                                    <option style="font-size:0.6vw;" value="en">Ingles</option>
                                 </select>
+                                <div class="invalid-feedback" style="font-size:0.5vw;">
+                                    Introduzca un Código para el assessment
+                                </div>
 
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " style="font-size:0.8vw;" for="selector2">Marcos a
+                                <label class="input-group-text " style="font-size:0.6vw;" for="selector2">Marcos a
                                     incluir en el
                                     assessment</label>
-                                <select multiple class="form-select selectpicker " style="font-size:0.8vw;"
+                                <select multiple class="form-select selectpicker " style="font-size:0.6vw;"
                                         data-live-search="true"
                                         id="selector2"
-                                        name="selector2" data-actions-box="true">
+                                        name="selector2" data-actions-box="true" required>
                                     {% for ids in marcos %}
-                                    <option value="{{ids.marco_id}}">{{ids.marco_id}}</option>
+                                    <option style="font-size:0.6vw" value="{{ids.marco_id}}">{{ids.marco_id}}</option>
                                     {% endfor %}
                                 </select>
+                                <div class="invalid-feedback" style="font-size:0.5vw;">
+                                    Selecciones los marcos para el assessment
+                                </div>
                             </div>
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
                                     <button style="font-size:1.2vw;" class="btn btn-ntt btn-lg btn-block"
-                                            data-bs-toggle="modal" data-bs-target="#myModal" type="submit" id="boton3"
+                                            type="submit" id="boton3"
                                             name="boton3"
                                             value="btn3">Crear Assessment
                                     </button>
                                 </p>
-
-
                             </div>
-
                         </form>
-
                     </div>
-
-
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -230,27 +292,29 @@
 </div>
 
 
-{% if messages %}
-{% for message in messages %}
-{% if message.tags %}
-<script type="text/javascript">
-    setTimeout(() => {
-        window.alert('{{ message }}')
-    }, 100);
-</script>
-{% endif %}
-{% endfor %}
-{% endif %}
+<script>
+    (() => {
+        'use strict'
 
-<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
-<script type="text/javascript">
-    function clicked(form) {
-        if (confirm('¿Seguro que quiere archivar el assesment?\n Este no podrá seguir editandose')) {
-            form.submit();
-        } else {
-            return false;
-        }
-    }
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+
+                }
+
+                form.classList.add('was-validated')
+                if (form.checkValidity()) {
+                    $("#myModal").modal("show");
+                }
+            }, false)
+        })
+    })()
 </script>
 
 

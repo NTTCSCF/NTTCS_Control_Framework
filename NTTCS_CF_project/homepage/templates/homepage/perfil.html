@@ -78,18 +78,6 @@
 
 
 
-{% if messages %}
-    {% for message in messages %}
-        {% if message.tags %}
-            <script type="text/javascript">
-                setTimeout(() => {
-                    window.alert("{{ message }}")
-                }, 100);
-            </script>
-        {% endif %}
-
-    {% endfor %}
-{% endif %}
 
 <script type="text/javascript">
 
@@ -99,16 +87,7 @@
 
 </script>
 
-<!-- script de javascript de funcion para mostar mensaje guardar el assesment -->
-<script type="text/javascript">
-    function clicked(form) {
-       if (confirm('¿Seguro que quiere borrar el usuario {{seleccion.username}}?')) {
-           form.submit();
-       } else {
-           return false;
-       }
-    }
-</script>
+
 
 
 

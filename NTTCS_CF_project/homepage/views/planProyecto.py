@@ -2,6 +2,8 @@ from .__imports__ import *
 
 
 class planProyecto(LoginRequiredMixin, TemplateView):
+    ''' Definición de la clase 'planProyecto'. '''
+
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/planProyecto.html"
@@ -9,6 +11,7 @@ class planProyecto(LoginRequiredMixin, TemplateView):
     def contexto(self, context):
         assSelect = self.request.session.get('assessmentGuardado')
         ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+
         if self.request.session["ProyectoSeleccionado"] != None:
             if ProyectosMejora.objects.filter(id=self.request.session["ProyectoSeleccionado"]).exists():
                 plan = ProyectosMejora.objects.get(id=self.request.session["ProyectoSeleccionado"])
@@ -52,8 +55,12 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         context["dependencias"] = DependenciaProyecto.objects.all()
         t=[]
         for i in DependenciaProyecto.objects.all():
-           t.append(i.proyecto_asociado.id)
+           t.append(i.proyecto_asociado.id+i.proyecto.id)
         context["prodep"] = t
+        t = []
+        for i in DependenciaProyecto.objects.all():
+            t.append(i.proyecto.id)
+        context["prona"] = t
         for i in AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora):
          print(i.proyecto_mejora.id)
         return context
