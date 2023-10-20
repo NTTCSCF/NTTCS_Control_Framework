@@ -392,7 +392,7 @@
                 {% if pro.proyecto_mejora.id != i.proyecto_mejora.id%}
                 <div class="card card-body mb-3" >
                     <div class="row justify-content-around align-items-center ">
-                        {% if pro.proyecto_mejora.id in prodep and %}
+                        {% if pro.proyecto_mejora.id in prodep %}
                             {% for d in dependencias %}
                         {{dependencias}}
                                 {% if pro.proyecto_mejora.id == d.proyecto_asociado.id and i.proyecto_mejora.id == d.proyecto.id %}

@@ -28,6 +28,7 @@ import mysql.connector
 from django.contrib import messages
 import csv
 from bs4 import BeautifulSoup
+from itertools import chain
 
 from docx import Document
 from docx.shared import Cm

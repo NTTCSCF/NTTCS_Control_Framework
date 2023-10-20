@@ -221,22 +221,22 @@
                 <div class="textoTarjetaGrande">
                     <div class="cuadrotextoGrande">
 
-                        <h4 class="m-2" style="font-size:1.4vw">{{criteriovaloracioncontexto.0}}</h4>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.0}}</h4>
                         <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.0}}</p>
 
-                        <h4 class="m-2" style="font-size:1.4vw">{{criteriovaloracioncontexto.1}}</h4>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.1}}</h4>
                         <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.1}}</p>
 
-                        <h4 class="m-2" style="font-size:1.4vw">{{criteriovaloracioncontexto.2}}</h4>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.2}}</h4>
                         <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.2}}</p>
 
-                        <h4 class="m-2" style="font-size:1.4vw">{{criteriovaloracioncontexto.3}}</h4>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.3}}</h4>
                         <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.3}}</p>
 
-                        <h4 class="m-2" style="font-size:1.4vw">{{criteriovaloracioncontexto.4}}</h4>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.4}}</h4>
                         <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.4}}</p>
 
-                        <h4 class="m-2" style="font-size:1.4vw">{{criteriovaloracioncontexto.5}}</h4>
+                        <h4 class="m-2" style="font-size:1vw">{{criteriovaloracioncontexto.5}}</h4>
                         <p class="m-2" style="font-size:0.7vw"> {{criteriovaloracion.5}}</p>
 
                     </div>
@@ -554,7 +554,10 @@
                                         data-live-search="true" id="selectIniAsig" name="selectIniAsig">
                                     <option style="font-size:0.8vw;" selected value="noSel">Seleccione la iniciativa</option>
                                     {% for i in iniciativas %}
-                                    <option style="font-size:0.8vw;" value="{{i.nombre}}">{{i.nombre}}</option>
+
+                                    {% if i.iniciativa != None %}
+                                    <option style="font-size:0.8vw;" value="{{i.iniciativa.id}}">{{i.iniciativa.nombre}}</option>
+                                    {% endif %}
                                     {% endfor %}
 
                                 </select>
