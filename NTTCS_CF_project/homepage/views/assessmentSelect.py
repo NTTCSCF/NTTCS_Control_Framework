@@ -67,6 +67,11 @@ class assessmentselect(LoginRequiredMixin, TemplateView):
 
             # Redirección hacia la url especificada en base del nombre.
             return redirect("assessment")
+        # Si se decide editar los ajustes de algún assessments.
+        elif 'btnAjustes' in request.POST:
+            request.session["assessmentGuardado"] = request.POST.get('btnAjustes')
+            # Redirección hacia la url especificada en base del nombre.
+            return redirect("ajustesAssessment")
 
         # Si se presiona el botón 'plan de proyecto' asociado a cada assessment.
         elif 'btnPlan' in request.POST:

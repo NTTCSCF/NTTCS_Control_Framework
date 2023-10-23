@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block titulo %} Ajustes Assessment {% endblock %}
+
+{% block contenido %}
+
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>{{NombreAss}}</h1>
+    </div>
+</div>
+
+
+<div class="rowTitulo">
+    <div class="cajaSeleccionAsssessment">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Editor de controles
+                </div>
+            </div>
+            <div class="textoTarjetaGrande3">
+                <div class="cuadrotextoGrande">
+
+                    {% for i in assess %}
+                    <div class="card rounded ">
+                        <div class="card-body">
+
+                            <div class="row justify-content-center align-items-center m-1">
+                                <div class="col-3" style="font-size:0.8vw;">{{i.control_id}}</div>
+                                <div class="col-4" style="font-size:0.8vw;">{{i.control_name}}</div>
+                                <div class="col-3 " style="font-size:0.4vw;">{{i.descripcion}}</div>
+                                <form method="post" class="col-auto " style="font-size:0.4vw;">
+                                    {% csrf_token %}
+                                    <button style="font-size:0.6vw;" type="submit" class="btn btn-danger p-1"
+                                            name="btnEliminar"
+                                            value="{{i.id}}"><i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
