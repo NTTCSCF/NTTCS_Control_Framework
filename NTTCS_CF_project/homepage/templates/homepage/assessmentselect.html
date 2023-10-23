@@ -79,10 +79,8 @@
                                             <div class="col-auto row justify-content-center align-items-center">
                                                 <form class="col-auto m-1" method="post">
                                                     {% csrf_token %}
-                                                    <button style="font-size:0.5vw;" type="button" class="btn btn-ntt "
+                                                    <button style="font-size:0.5vw;" type="submit" class="btn btn-ntt "
                                                         name="btnAjustes"
-                                                            data-bs-toggle="modal"
-                                                        data-bs-target="#modalAjustes{{i.id}}"
                                                         value="{{i.assessment.id_assessment}}"><i class="bi bi-gear"></i>
                                                 </button>
                                                 </form>
