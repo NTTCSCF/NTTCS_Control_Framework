@@ -21,16 +21,16 @@ urlpatterns = [
     path('MantenimientoEvidenciasEs/', views.MantenimientoEvidenciasEs.as_view(), name='MantenimientoEvidenciasEs'),
     path('MantenimientoPreguntas/', views.MantenimientoPreguntas.as_view(), name='MantenimientoPreguntas'),
     path('MantenimientoPreguntasEs/', views.MantenimientoPreguntasEs.as_view(), name='MantenimientoPreguntasEs'),
-    path('MantenimientoMarcosExistentes/', views.MantenimientoMarcosExistentes.as_view(), name='MantenimientoMarcosExistentes'),
-    path('MantenimientoControlesNTTCS/', views.MantenimientoControlesNTTCS.as_view(), name='MantenimientoControlesNTTCS'),
+    path('MantenimientoMarcosExistentes/', views.MantenimientoMarcosExistentes.as_view(),name='MantenimientoMarcosExistentes'),
+    path('MantenimientoControlesNTTCS/', views.MantenimientoControlesNTTCS.as_view(),name='MantenimientoControlesNTTCS'),
     path('MantenimientoMapeoMarcos/', views.MantenimientoMapeoMarcos.as_view(), name='MantenimientoMapeoMarcos'),
     path('proyectosClientes/', views.proyectosClientes.as_view(), name='proyectosClientes'),
     path('listadoControles/', views.listadoControles.as_view(), name='listadoControles'),
     path('entrevistasUsuarios/', views.entrevistasUsuarios.as_view(), name='entrevistasUsuarios'),
     path('encuestaEntrevista/', views.encuestaEntrevista.as_view(), name='encuestaEntrevista'),
     path('planProyecto/', views.planProyecto.as_view(), name='planProyecto'),
-    path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(), name='MantenimientoAssessmentArchivados'),
+    path('ajustesAssessment/', views.ajustesAssessment.as_view(), name='ajustesAssessment'),
+    path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(),
+         name='MantenimientoAssessmentArchivados'),
     path('logout', views.logout, name='logout'),
 ]
-
-

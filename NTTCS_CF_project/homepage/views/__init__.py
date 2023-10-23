@@ -15,3 +15,4 @@ from .perfil import *
 from .planProyecto import *
 from .proyectosClientes import *
 from .usuarios import *
+from .ajustesAssessment import *
