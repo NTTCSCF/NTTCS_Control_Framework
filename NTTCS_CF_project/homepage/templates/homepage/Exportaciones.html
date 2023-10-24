@@ -39,21 +39,21 @@
                 {% csrf_token %}
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
                     <div class="margenArriba">
-                        <label> Seleccione un Proyecto</label>
+                        <label style="font-size:1vw;"> Seleccione un Proyecto</label>
                     </div>
                 </div>
                 <div class="cajaTextoSeleccionAssesment">
                     <div class="cajaSelectorCentrado margenAbajo">
-                        <select class="selectpicker" data-width="100%" aria-label="Default select example"
+                        <select class="selectpicker" style="font-size:1vw;" data-width="100%" aria-label="Default select example"
                                 data-live-search="true" onchange="this.form.submit()" id="selectorProyecto"
                                 name="selectorProyecto">
-                            <option value="None">--- No Seleccionado ---</option>
+                            <option style="font-size:1vw;" value="None">--- No Seleccionado ---</option>
                             {% for ids in proyectos %}
                             {% if ids.proyecto.codigo == proyectoSelec %}
-                            <option selected value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}},
+                            <option style="font-size:1vw;" selected value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}},
                                 {{ids.proyecto.nombre}}
                                 {% else %}
-                            <option value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
+                            <option style="font-size:1vw;" value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
                             </option>
                             {% endif %}
                             {% endfor %}
@@ -81,43 +81,43 @@
             <form class="textoTarjeta" method="post">
                 {% csrf_token %}
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
-                    <div class="margenArriba">
-                        <label> Seleccione un Assessment</label>
+                    <div class="margenArriba m-2">
+                        <label style="font-size:1vw;"> Seleccione un Assessment</label>
                     </div>
                 </div>
                 <!-- seleccion del assessment para generar el fichero de exportacion -->
-                <div class="cajaTextoSeleccionAssesment">
+                <div class="cajaTextoSeleccionAssesment m-1">
                     <div class="cajaSelectorCentrado margenAbajo">
-                        <select class="selectpicker" data-width="100%" aria-label="Default select example"
+                        <select style="font-size:1vw;" class="selectpicker" data-width="100%" aria-label="Default select example"
                                 data-live-search="true" id="selector1" name="selector1">
-                            <option value="None">--- No Seleccionado ---</option>
+                            <option style="font-size:1vw;" value="None">--- No Seleccionado ---</option>
                             {% for ids in assess %}
-                            <option value="{{ids.assessment.id_assessment}}">{{ids.assessment.id_assessment}}</option>
+                            <option style="font-size:1vw;" value="{{ids.assessment.id_assessment}}">{{ids.assessment.id_assessment}}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
                 <div class="cajaTextoSeleccionAssesment contenidoAbajo">
-                    <div class="margenArriba">
-                        <label> Seleccione los campos que quiera para la exportacion</label>
+                    <div class="margenArriba m-2">
+                        <label style="font-size:1vw;"> Seleccione los campos que quiera para la exportacion</label>
                     </div>
                 </div>
                 <div class="cajaTextoSeleccionAssesment">
                     <div class="cajaSelectorCentrado margenAbajo">
-                        <select multiple class="form-select selectpicker " data-width="100%" style="font-size:0.8vw;"
+                        <select style="font-size:1vw;" multiple class="form-select selectpicker " data-width="100%" style="font-size:0.8vw;"
                                 data-live-search="true"
                                 id="selector2"
                                 name="selector2" data-actions-box="true">
 
-                            <option value="Identificador Control">Identificador Control</option>
-                            <option value="Nombre Control">Nombre Control</option>
-                            <option value="Descripcion Control">Descripcion Control</option>
-                            <option value="Pregunta">Pregunta</option>
-                            <option value="Respuesta">Respuesta</option>
-                            <option value="Valoracion">Valoracion</option>
-                            <option value="Valoracion Objetivo">Valoracion Objetivo</option>
-                            <option value="Evidencias">Evidencias</option>
-                            <option value="Iniciativas">Iniciativas</option>
+                            <option style="font-size:1vw;" value="Identificador Control">Identificador Control</option>
+                            <option style="font-size:1vw;" value="Nombre Control">Nombre Control</option>
+                            <option style="font-size:1vw;" value="Descripcion Control">Descripcion Control</option>
+                            <option style="font-size:1vw;" value="Pregunta">Pregunta</option>
+                            <option style="font-size:1vw;" value="Respuesta">Respuesta</option>
+                            <option style="font-size:1vw;" value="Valoracion">Valoracion</option>
+                            <option style="font-size:1vw;" value="Valoracion Objetivo">Valoracion Objetivo</option>
+                            <option style="font-size:1vw;" value="Evidencias">Evidencias</option>
+                            <option style="font-size:1vw;" value="Iniciativas">Iniciativas</option>
 
                         </select>
                     </div>
@@ -126,17 +126,17 @@
                 <div class="rowExport">
                     <div class=" btnGroupInformes">
                         <div class="cajaBotonExportacion">
-                            <button class="btn btn-success btn-block" type="submit" name="excel" value="excel"><i
+                            <button style="font-size:1vw;" class="btn btn-success btn-block" type="submit" name="excel" value="excel"><i
                                     class="bi bi-file-earmark-spreadsheet"></i> Excel
                             </button>
                         </div>
                         <div class="cajaBotonExportacion">
-                            <button class="btn btn-primary btn-block" type="submit" name="word" value="word"><i
+                            <button style="font-size:1vw;" class="btn btn-primary btn-block" type="submit" name="word" value="word"><i
                                     class="bi bi-file-earmark-word"></i> Word
                             </button>
                         </div>
                         <div class="cajaBotonExportacion">
-                            <button class="btn btn-secondary btn-block" type="submit" name="csv" value="csv"><i
+                            <button style="font-size:1vw;" class="btn btn-secondary btn-block" type="submit" name="csv" value="csv"><i
                                     class="bi bi-filetype-csv"></i> CSV
                             </button>
                         </div>
@@ -147,7 +147,7 @@
         </div>
     </div>
 </div>
-
+{% if word %}
 <div class="rowTitulo">
     <div class="caja">
         <div class="tarjeta">
@@ -166,7 +166,7 @@
                 <div  class="container">
                     {% for i in seleccion %}
                     <div draggable="true" class="box">
-                        <input  class="inputTabas2" type="text" readonly value="{{i}}" name="lista">
+                        <input  class="inputTabas2" type="text" style="font-size:1vw;" readonly value="{{i}}" name="lista">
                     </div>
 
                     {% endfor %}
@@ -175,7 +175,7 @@
                     <div class=" btnGroupInformes">
 
                         <div class="cajaBotonExportacion">
-                            <button class="btn btn-primary btn-block" type="submit" name="ExWord" value="ExWord">
+                            <button style="font-size:1vw;" class="btn btn-primary btn-block" type="submit" name="ExWord" value="ExWord">
                                 Exportar
                             </button>
                         </div>
@@ -187,6 +187,6 @@
     </div>
 </div>
 {% endif %}
-
+{% endif %}
 
 {% endblock %}
