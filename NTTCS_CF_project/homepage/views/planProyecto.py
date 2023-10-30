@@ -9,9 +9,14 @@ class planProyecto(LoginRequiredMixin, TemplateView):
     template_name = "homepage/planProyecto.html"
 
     def contexto(self, context):
+        '''Función auxiliar que se usa en la función 'get_context_data' para actualizar el contexto.'''
+
+        # Obtención de 'assessmentGuardado' de la sesión.
         assSelect = self.request.session.get('assessmentGuardado')
+        # Obtención de un objeto de Assessmentguardados basado en 'assSelect'.
         ass = Assessmentguardados.objects.get(id_assessment=assSelect)
 
+        #
         if self.request.session["ProyectoSeleccionado"] != None:
             if ProyectosMejora.objects.filter(id=self.request.session["ProyectoSeleccionado"]).exists():
                 plan = ProyectosMejora.objects.get(id=self.request.session["ProyectoSeleccionado"])
@@ -58,20 +63,45 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         return context
 
     def get_context_data(self, **knwargs):
+        '''El objetivo de este método es proporcionar datos de contexto para una vista,
+        que luego se pueden utilizar en una plantilla HTML para renderizar la página web.'''
+
+        # Aquí se inicializa la variable de sesión "ProyectoSeleccionado" con el valor None.
         self.request.session["ProyectoSeleccionado"] = None
+
+        # Esto inicializa un diccionario llamado context con algunos datos de contexto.
         context = super(planProyecto, self).get_context_data(**knwargs)
+
+        # Aquí se llama al método 'self.contexto' para modificar o ampliar el diccionario de contexto.
         context = self.contexto(context)
+
+        # Devuelve el contexto.
         return context
 
     def post(self, request, **knwargs):
+        '''Método usado para manejar solcitudes HTTP POST enviadas por el cliente, en este caso,
+        a través de un formulario.'''
+
+        # Obtención de 'assessmentGuardado' de la sesión.
         assSelect = request.session.get('assessmentGuardado')
+
+        # Se comprueba que se haya presionado el botón de crear proyecto.
         if 'crearProyecto' in request.POST:
-            if request.POST.get('NombrePlan') != '' and request.POST.get('descripcionPlan') != '' and request.POST.get(
-                    'riesgosPlan') != '' and request.POST.get('tipoPlan') != '' and request.POST.get(
-                'duracionPlan') != '' and request.POST.get('costePlan') != '' and request.POST.get(
-                'beneficioPlan') != '':
+            # Verificación de si todos los campos requeridos tienen valores válidos.
+            if request.POST.get('NombrePlan') != ''\
+                    and request.POST.get('descripcionPlan') != '' \
+                    and request.POST.get('riesgosPlan') != '' \
+                    and request.POST.get('tipoPlan') != '' \
+                    and request.POST.get('duracionPlan') != '' \
+                    and request.POST.get('costePlan') != '' \
+                    and request.POST.get('beneficioPlan') != '':
+
+                # Obtención de un objeto de Assessmentguardados basado en 'assSelect'.
                 ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+
+                # Verificación de si existe un plan de proyecto de mejora.
                 if ass.plan_proyecto_mejora != None:
+                    # Creación y guardado de un objeto ProyectosMejora.
                     proyecto = ProyectosMejora(nombre=request.POST.get('NombrePlan'),
                                                descripcion=request.POST.get('descripcionPlan'),
                                                riesgos=request.POST.get('riesgosPlan'),
@@ -79,32 +109,54 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                                                duracion=request.POST.get('duracionPlan'),
                                                capex=request.POST.get('capex'),
                                                opex=request.POST.get('opex'),
-                                               beneficio=request.POST.get('beneficioPlan'),
-                                               )
+                                               beneficio=request.POST.get('beneficioPlan'))
                     proyecto.save()
+
+                    # Obtención de 'plan_proyecto' y creación de una asociación.
                     plan = ass.plan_proyecto_mejora
                     asociacion = AsociacionPlanProyectosProyectos(proyecto_mejora=proyecto, plan_proyecto=plan)
                     asociacion.save()
 
+                    # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                     context = super(planProyecto, self).get_context_data(**knwargs)
+                    # Aquí se llama al método 'self.contexto' para modificar o ampliar el diccionario de contexto.
                     context = self.contexto(context)
 
+                    # Renderiza el template en base del contexto.
                     return render(request, self.template_name, context=context)
+                # TODO: Innecesario
                 else:
+                    # Se crea el mensaje de error.
                     messages.error(request, 'ERROR, Necesitas crear un plan de proyecto antes de crear un proyecto')
             else:
+                # Se crea el mensaje de error.
                 messages.error(request, 'ERROR, Necesitas introducir todos los valores')
 
+            # Esto inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(planProyecto, self).get_context_data(**knwargs)
+            # Aquí se llama al método 'self.contexto' para modificar o ampliar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
+
+        # Comprovación si se da al botón de editar.
         elif 'editarProyecto' in request.POST:
-            if request.POST.get('NombrePlan') != '' and request.POST.get('descripcionPlan') != '' and request.POST.get(
-                    'riesgosPlan') != '' and request.POST.get('tipoPlan') != '' and request.POST.get(
-                'duracionPlan') != '' and request.POST.get('capex') != '' and request.POST.get(
-                'beneficioPlan') != '' and request.POST.get('opex') != '':
+            # Verificación de si todos los campos requeridos tienen valores válidos.
+            if request.POST.get('NombrePlan') != '' \
+                    and request.POST.get('descripcionPlan') != '' \
+                    and request.POST.get('riesgosPlan') != '' \
+                    and request.POST.get('tipoPlan') != '' \
+                    and request.POST.get('duracionPlan') != '' \
+                    and request.POST.get('capex') != '' \
+                    and request.POST.get('beneficioPlan') != '' \
+                    and request.POST.get('opex') != '':
+
                 ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+                # Obtención de un objeto ProyectosMejora basado en el id de sesión "ProyectoEditar".
                 proyecto = ProyectosMejora.objects.get(id=request.session["ProyectoEditar"])
+
+                # Actualización de los campos del objeto ProyectosMejora con los valores del formulario.
                 proyecto.nombre = request.POST.get('NombrePlan')
                 proyecto.descripcion = request.POST.get('descripcionPlan')
                 proyecto.riesgos = request.POST.get('riesgosPlan')
@@ -115,9 +167,12 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                 proyecto.beneficio = request.POST.get('beneficioPlan')
                 proyecto.save()
 
+                # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
                 context = super(planProyecto, self).get_context_data(**knwargs)
+                # Aquí se llama al método 'self.contexto' para modificar o ampliar el diccionario de contexto.
                 context = self.contexto(context)
 
+                # Renderiza el template an base al contexto.
                 return render(request, self.template_name, context=context)
 
             else:
