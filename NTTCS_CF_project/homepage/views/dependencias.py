@@ -39,9 +39,7 @@ class dependencias(LoginRequiredMixin, TemplateView):
             if j.proyecto_mejora.id == proyecto.id:
                 esta = True
             for i in depen:
-                print(str(i.proyecto_asociado.id) + " - "+str(j.proyecto_mejora.id))
                 if i.proyecto_asociado.id == j.proyecto_mejora.id:
-                    print("entra")
                     esta = True
                     break
             if not esta:
