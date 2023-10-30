@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block titulo %} Dependencias {% endblock %}
+
+{% block contenido %}
+
+<div class="rowTitulo">
+    <!-- Titulo con el nombre del assessment -->
+    <div class="cajaTitulo">
+        <h1>{{NombreAss}}</h1>
+    </div>
+</div>
+
+
+<div class="rowTitulo">
+    <div class="cajaPreguntaDescripcion">
+        <div class="tarjeta">
+            <div class="tituloTarjeta">
+                <div class="cuadrotexto">
+                    Editor de dependencias para {{proyec.nombre}}
+                </div>
+            </div>
+            <form class="textoTarjeta" method="post">
+                {% csrf_token %}
+                <div class="row w-75">
+
+                    {% for d in depen %}
+                    <div class="card card-body m-4">
+                        <div class="row justify-content-around align-items-center ">
+                            <div class="col-1 m-1 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="checkbox"
+                                       id="flexSwitchCheckDefault" name="activoDepen" value="{{d.proyecto_asociado.id}}"
+                                       checked>
+                            </div>
+                            <div class="col-auto">
+                                <input class="inputTabas2 text-center fw-semibold fs-4" name="proyectoDepen"
+                                       value="{{d.proyecto_asociado.nombre}}">
+                            </div>
+                            <div class="col-auto row justify-content-center align-items-center m-1">
+                                <label for="customRange1" class="form-label">Porcentaje</label>
+                                <input type="range" class="form-range" id="customRange1"
+                                       value="{{d.porcentaje}}"
+                                       onInput="$('#rangeval{{d.proyecto_asociado.id}}{{proyec.nombre}}').html($(this).val())"
+                                       name="porcentajeDepen{{d.proyecto_asociado.id}}">
+                                <span id="rangeval{{d.proyecto_asociado.id}}{{proyec.nombre}}">{{d.porcentaje}}
+                                    <!-- Default value --></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {% endfor %}
+                    {% for pro in proyectos %}
+                    <div class="card card-body m-4">
+                        <div class="row justify-content-around align-items-center ">
+                            <div class="col-1 m-1 form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="checkbox"
+                                       id="flexSwitchCheckDefault" name="activoDepen"
+                                       value="{{pro.proyecto_mejora.id}}">
+                            </div>
+                            <div class="col-auto">
+                                <input class="inputTabas2 text-center fw-semibold fs-4" name="proyectoDepen"
+                                       value="{{pro.proyecto_mejora.id}} - {{pro.proyecto_mejora.nombre}}">
+                            </div>
+                            <div class="col-auto row justify-content-center align-items-center m-1">
+                                <label for="customRange1" class="form-label">Porcentaje</label>
+                                <input type="range" class="form-range" id="customRange1" value="0"
+                                       onInput="$('#rangeval{{pro.proyecto_mejora.id}}{{proyec.nombre}}').html($(this).val())"
+                                       name="porcentajeDepen{{pro.proyecto_mejora.id}}">
+                                <span id="rangeval{{pro.proyecto_mejora.id}}{{proyec.nombre}}">0
+                                    <!-- Default value --></span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                    <div class="row justify-content-center align-items-center m-3">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-ntt" name="btnDepen">
+                                <i class="bi bi-floppy"></i> Guardar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

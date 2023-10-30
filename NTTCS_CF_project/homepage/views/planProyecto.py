@@ -53,16 +53,8 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         context["iniciativasc"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass)
         context["assess"] = Assessmentguardados.objects.get(id_assessment=assSelect)
         context["dependencias"] = DependenciaProyecto.objects.all()
-        t=[]
-        for i in DependenciaProyecto.objects.all():
-           t.append(i.proyecto_asociado.id+i.proyecto.id)
-        context["prodep"] = t
-        t = []
-        for i in DependenciaProyecto.objects.all():
-            t.append(i.proyecto.id)
-        context["prona"] = t
-        for i in AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora):
-         print(i.proyecto_mejora.id)
+
+
         return context
 
     def get_context_data(self, **knwargs):
@@ -227,7 +219,14 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context=context)
 
         elif 'btnDepen' in request.POST:
-            activo = request.POST.getlist('activoDepen')
+            request.session["proyectoMejora"] = request.POST.get('btnDepen')
+            request.session["assessmentGuardado"] = assSelect
+
+            # Redirección hacia la url especificada en base del nombre.
+            return redirect("dependencias")
+
+
+            """activo = request.POST.getlist('activoDepen')
             proyecto = ProyectosMejora.objects.get(id=request.POST.get('proyecto').split(" - ")[0])
             if DependenciaProyecto.objects.filter(proyecto=proyecto).exists():
                 depen = DependenciaProyecto.objects.filter(proyecto=proyecto)
@@ -240,4 +239,4 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                 dependencia.save()
             context = super(planProyecto, self).get_context_data(**knwargs)
             context = self.contexto(context)
-            return render(request, self.template_name, context=context)
+            return render(request, self.template_name, context=context)"""
