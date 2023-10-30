@@ -225,18 +225,3 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             # Redirección hacia la url especificada en base del nombre.
             return redirect("dependencias")
 
-
-            """activo = request.POST.getlist('activoDepen')
-            proyecto = ProyectosMejora.objects.get(id=request.POST.get('proyecto').split(" - ")[0])
-            if DependenciaProyecto.objects.filter(proyecto=proyecto).exists():
-                depen = DependenciaProyecto.objects.filter(proyecto=proyecto)
-                depen.delete()
-            for i in activo:
-                percentaje = request.POST.get('porcentajeDepen' + str(i))
-                dependencia = DependenciaProyecto(proyecto=proyecto,
-                                                  proyecto_asociado=ProyectosMejora.objects.get(id=i),
-                                                  porcentaje=percentaje)
-                dependencia.save()
-            context = super(planProyecto, self).get_context_data(**knwargs)
-            context = self.contexto(context)
-            return render(request, self.template_name, context=context)"""
