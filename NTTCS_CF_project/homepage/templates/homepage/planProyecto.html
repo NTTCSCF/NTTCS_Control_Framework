@@ -248,9 +248,9 @@
                                             </form>
                                             <form class="col-auto justify-content-center" method="post">
                                                 {% csrf_token %}
-                                                <button type="button" class="btn btn-ntt"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalDepen{{i.proyecto_mejora.id}}">
+                                                <button type="submit" class="btn btn-ntt"
+                                                        value="{{i.proyecto_mejora.id}}"
+                                                        name="btnDepen">
                                                     Dependencias
                                                 </button>
                                             </form>
@@ -372,90 +372,7 @@
         </div>
     </div>
 </div>
-{% for i in proyectos %}
-<div class="modal fade " id="modalDepen{{i.proyecto_mejora.id}}" data-bs-backdrop="static"
-     data-bs-keyboard="false"
-     aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <form method="post" class="modal-content">
-            {% csrf_token %}
-            <div class="modal-header" style="text-align:center;">
-                <div class="cajaCarga">
-                    <h5 class="modal-title" id="exampleModalLabel2">Dependencias</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                </div>
-            </div>
-            <div class="modal-body text-center">
-                <input class="inputTabas2 text-center fw-semibold fs-4 m-3" name="proyecto" value="{{i.proyecto_mejora.id}} - {{i.proyecto_mejora.nombre}}" >
-                {% for pro in proyectos %}
-                {% if pro.proyecto_mejora.id != i.proyecto_mejora.id%}
-                <div class="card card-body mb-3" >
-                    <div class="row justify-content-around align-items-center ">
-                        {% if pro.proyecto_mejora.id in prodep %}
-                            {% for d in dependencias %}
-                        {{dependencias}}
-                                {% if pro.proyecto_mejora.id == d.proyecto_asociado.id and i.proyecto_mejora.id == d.proyecto.id %}
-                                <div class="col-1 m-1 form-check form-switch">
-                                   <input class="form-check-input" type="checkbox" role="checkbox" id="flexSwitchCheckDefault" name="activoDepen" value="{{pro.proyecto_mejora.id}}" checked>
-                                </div>
-                                <div class="col-auto">
-                                    <input class="inputTabas2 text-center fw-semibold fs-4" name="proyectoDepen" value="{{pro.proyecto_mejora.id}} - {{pro.proyecto_mejora.nombre}}" >
-                                </div>
-                                <div class="col-auto row justify-content-center align-items-center m-1">
-                                    <label for="customRange1" class="form-label">Porcentaje</label>
-                                    <input type="range" class="form-range" id="customRange1" value="{{d.porcentaje}}" onInput="$('#rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}').html($(this).val())" name="porcentajeDepen{{pro.proyecto_mejora.id}}">
-                                    <span id="rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}">{{d.porcentaje}}<!-- Default value --></span>
-                                </div>
-                                {% else %}
-                        hola
-                                <div class="col-1 m-1 form-check form-switch">
-                                   <input class="form-check-input" type="checkbox" role="checkbox" id="flexSwitchCheckDefault" name="activoDepen" value="{{pro.proyecto_mejora.id}}">
-                                </div>
-                                <div class="col-auto">
-                                    <input class="inputTabas2 text-center fw-semibold fs-4" name="proyectoDepen" value="{{pro.proyecto_mejora.id}} - {{pro.proyecto_mejora.nombre}}" >
-                                </div>
-                                <div class="col-auto row justify-content-center align-items-center m-1">
-                                    <label for="customRange1" class="form-label">Porcentaje</label>
-                                    <input type="range" class="form-range" id="customRange1" value="0" onInput="$('#rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}').html($(this).val())" name="porcentajeDepen{{pro.proyecto_mejora.id}}">
-                                    <span id="rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}">0<!-- Default value --></span>
-                                </div>
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
 
-                        <div class="col-1 m-1 form-check form-switch">
-                           <input class="form-check-input" type="checkbox" role="checkbox" id="flexSwitchCheckDefault" name="activoDepen" value="{{pro.proyecto_mejora.id}}">
-                        </div>
-                        <div class="col-auto">
-                            <input class="inputTabas2 text-center fw-semibold fs-4" name="proyectoDepen" value="{{pro.proyecto_mejora.id}} - {{pro.proyecto_mejora.nombre}}" >
-                        </div>
-                        <div class="col-auto row justify-content-center align-items-center m-1">
-                            <label for="customRange1" class="form-label">Porcentaje</label>
-                            <input type="range" class="form-range" id="customRange1" value="0" onInput="$('#rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}').html($(this).val())" name="porcentajeDepen{{pro.proyecto_mejora.id}}">
-                            <span id="rangeval{{pro.proyecto_mejora.id}}{{i.proyecto_mejora.id}}">0<!-- Default value --></span>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% endif %}
-                {% endfor %}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-                <div>
-                    <button type="submit" class="btn btn-ntt" name="btnDepen">
-                        <i class="bi bi-floppy"></i> Guardar
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-{% endfor %}
 
 
 <div class="rowTitulo">

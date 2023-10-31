@@ -30,6 +30,7 @@ urlpatterns = [
     path('encuestaEntrevista/', views.encuestaEntrevista.as_view(), name='encuestaEntrevista'),
     path('planProyecto/', views.planProyecto.as_view(), name='planProyecto'),
     path('ajustesAssessment/', views.ajustesAssessment.as_view(), name='ajustesAssessment'),
+    path('dependencias/', views.dependencias.as_view(), name='dependencias'),
     path('MantenimientoAssessmentArchivados/', views.MantenimientoAssessmentArchivados.as_view(),
          name='MantenimientoAssessmentArchivados'),
     path('logout', views.logout, name='logout'),
