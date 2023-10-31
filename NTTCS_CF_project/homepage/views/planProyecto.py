@@ -119,7 +119,7 @@ class planProyecto(LoginRequiredMixin, TemplateView):
 
                     # Esto inicializa un diccionario llamado context con algunos datos de contexto.
                     context = super(planProyecto, self).get_context_data(**knwargs)
-                    # Aquí se llama al método 'self.contexto' para modificar o ampliar el diccionario de contexto.
+                    # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
                     context = self.contexto(context)
 
                     # Renderiza el template en base del contexto.
@@ -134,7 +134,7 @@ class planProyecto(LoginRequiredMixin, TemplateView):
 
             # Esto inicializa un diccionario llamado context con algunos datos de contexto.
             context = super(planProyecto, self).get_context_data(**knwargs)
-            # Aquí se llama al método 'self.contexto' para modificar o ampliar el diccionario de contexto.
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
 
             # Renderiza el template en base del contexto.
@@ -169,112 +169,211 @@ class planProyecto(LoginRequiredMixin, TemplateView):
 
                 # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
                 context = super(planProyecto, self).get_context_data(**knwargs)
-                # Aquí se llama al método 'self.contexto' para modificar o ampliar el diccionario de contexto.
+                # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
                 context = self.contexto(context)
 
                 # Renderiza el template an base al contexto.
                 return render(request, self.template_name, context=context)
 
+            # Si los campos están vacíos.
             else:
+                # Se crea un mensaje de error.
                 messages.error(request, 'ERROR, Necesitas introducir todos los valores')
 
+            # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
             context = super(planProyecto, self).get_context_data(**knwargs)
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Se renderiza el template en base al contexto.
             return render(request, self.template_name, context=context)
+
         elif 'NombrePlanProyecto' in request.POST:
+            # Obtención de un objeto Assessmentguardados basado en 'assSelect'.
             ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+
+            # Verificación de que no existe un plan de proyecto de mejora.
             if ass.plan_proyecto_mejora == None:
+
+                # Creación de un nuevo objeto PlanProyectoMejora.
                 plan = PlanProyectoMejora(nombre=request.POST.get("NombrePlanProyecto"),
                                           descripcion=request.POST.get("descripcionPlanProyecto"))
+                # Se guarda el objeto en la BD.
                 plan.save()
+
+                # Se consigue la asesoría seleccionada.
                 ass = Assessmentguardados.objects.get(id_assessment=assSelect)
+                # Se actualiza la asesoría con el plan de proyecto.
                 ass.plan_proyecto_mejora = plan
+                # Se guarda el cambio en la BD.
                 ass.save()
+
+            # Si existe un poryecto de mejora.
             else:
+                # Se consigue el plan de procto de mejora.
                 plan = ass.plan_proyecto_mejora
+                # Se actualiza el nombre.
                 plan.nombre = request.POST.get("NombrePlanProyecto")
+                # Se actualiza la descripción.
                 plan.descripcion = request.POST.get("descripcionPlanProyecto")
+                # Se actualiza en la BD.
                 plan.save()
+
+            # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
             context = super(planProyecto, self).get_context_data(**knwargs)
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Renderizar el template en base del contexto.
             return render(request, self.template_name, context=context)
+
+        # Si se presiona el botón de seleccionar en el carrusel del plan de proyecto.
         elif 'btnSeleccionProyecto' in request.POST:
+            # Se guarda en el contexto el proyecto seleccionado.
             request.session["ProyectoSeleccionado"] = request.POST.get('btnSeleccionProyecto')
 
+            # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
             context = super(planProyecto, self).get_context_data(**knwargs)
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Renderizar el template en base del contexto.
             return render(request, self.template_name, context=context)
 
+        # Si se presiona el botón de editar en el carrusel del plan de proyecto.
         elif 'btnEditarProyecto' in request.POST:
+            # Se guarda en el contexto el proyecto seleccionado.
             request.session["ProyectoEditar"] = request.POST.get('btnEditarProyecto')
 
+            # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
             context = super(planProyecto, self).get_context_data(**knwargs)
+
+            # Obtención de un objeto ProyectosMejora basado en el id de sesión "ProyectoEditar".
             context["ProyectoEditar"] = ProyectosMejora.objects.get(id=request.session["ProyectoEditar"])
+
+            # Asignación de la duración, capex, opex y beneficio del proyecto del formulario al contexto.
             context["duracion"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).duracion)
             context["capex"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).capex)
             context["opex"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).opex)
             context["beneficio"] = str(ProyectosMejora.objects.get(id=request.session["ProyectoEditar"]).beneficio)
             context["editandoProyecto"] = True
+
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Renderizar el template en base del contexto.
             return render(request, self.template_name, context=context)
 
+        # Si se ha presionado en el selector de iniciativas genericas.
         elif 'selectorIniciativasg' in request.POST:
+            # Obtención de un objeto ProyectosMejora basado en el proyecto seleccionado.
             plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
+
+            # Obtención de la lista de iniciativas genericas seleccionadas en el formulario.
             iniciaticasSelect = request.POST.getlist('selectorIniciativasg')
+
+            # Bucle para crear asociaciones entre el proyecto y las iniciativas seleccionadas.
             for i in iniciaticasSelect:
+                # Si la iniciativa no esta asociada con el proyecto.
                 if not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
-                                                                         iniciativa=Iniciativas.objects.get(
-                                                                             nombre=i)).exists():
+                                                                         iniciativa=Iniciativas.objects.get(nombre=i)).exists():
+                    # Se asocia la iniciativa con el proyecto.
                     asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
                                                                     iniciativa=Iniciativas.objects.get(nombre=i))
+                    # Se guarda en la BD.
                     asociacion.save()
+
+            # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
             context = super(planProyecto, self).get_context_data(**knwargs)
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
+        # Si se ha presionado en el selector de iniciativas creativas.
         elif 'selectorIniciativasc' in request.POST:
+            # Obtención de un objeto ProyectosMejora basado en el proyecto seleccionado.
             plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
+
+            # Obtención de la lista de iniciativas creadas seleccionadas en el formulario.
             iniciaticasSelect = request.POST.getlist('selectorIniciativasc')
 
+            # Bucle para crear asociaciones entre el proyecto y las iniciativas seleccionadas.
             for i in iniciaticasSelect:
+                # Si la iniciativa no esta asociada con el proyecto.
                 if not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
-                                                                         iniciativa=Iniciativas.objects.get(
-                                                                             nombre=i)).exists():
+                                                                         iniciativa=Iniciativas.objects.get(nombre=i)).exists():
+                    # Se asocia la iniciativa con el proyecto.
                     asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
                                                                     iniciativa=Iniciativas.objects.get(nombre=i))
+                    # Se guarda en la BD.
                     asociacion.save()
+
+            # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
             context = super(planProyecto, self).get_context_data(**knwargs)
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
+        # Si se da al botoón de 'añadir' en la recomendación de iniciativas.
         elif 'btnAnadirRecomendacion' in request.POST:
+            # Obtención de un objeto ProyectosMejora basado en el proyecto seleccionado.
             plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
+
+            # Se consigue la iniciativa recomendada.
             iniciaticasSelect = request.POST.get('btnAnadirRecomendacion')
-            if not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan, iniciativa=Iniciativas.objects.get(
-                    nombre=iniciaticasSelect)).exists():
+
+            # Verificación de si no existe ya una asociación entre el proyecto y la iniciativa seleccionada.
+            if not AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
+                                                                     iniciativa=Iniciativas.objects.get(nombre=iniciaticasSelect)).exists():
+
+                # Se crea la asociación entre el proyecto y la iniciativa.
                 asociacion = AsociacionProyectoMejoraIniciativa(proyecto=plan,
-                                                                iniciativa=Iniciativas.objects.get(
-                                                                    nombre=iniciaticasSelect))
+                                                                iniciativa=Iniciativas.objects.get(nombre=iniciaticasSelect))
+                # Se guarda en la BD.
                 asociacion.save()
+
+            # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
             context = super(planProyecto, self).get_context_data(**knwargs)
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
+        # Botón de eliminar en 'Iniciativas Asociadas'.
         elif 'btnEliminarAsociacion' in request.POST:
+            # Obtención de un objeto ProyectosMejora basado en el proyecto seleccionado.
             plan = ProyectosMejora.objects.get(id=request.session["ProyectoSeleccionado"])
+
+            # Se consigue la iniciativa recomendada.
             iniciaticasSelect = request.POST.get('btnEliminarAsociacion')
-            if AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan, iniciativa=Iniciativas.objects.get(
-                    nombre=iniciaticasSelect)).exists():
+
+            # Verificación de si existe una asociación entre el proyecto y la iniciativa seleccionada.
+            if AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan,
+                                                                 iniciativa=Iniciativas.objects.get(nombre=iniciaticasSelect)).exists():
+                # Se crea la asociación entre el proyecto y la iniciativa.
                 asociacion = AsociacionProyectoMejoraIniciativa.objects.get(proyecto=plan,
-                                                                            iniciativa=Iniciativas.objects.get(
-                                                                                nombre=iniciaticasSelect))
+                                                                            iniciativa=Iniciativas.objects.get(nombre=iniciaticasSelect))
+                # Se elimina dicha asociación.
                 asociacion.delete()
+
+            # Obtención de 'context' y 'contexto' y renderizado de la plantilla.
             context = super(planProyecto, self).get_context_data(**knwargs)
+            # Aquí se llama al método 'self.contexto' para modificar el diccionario de contexto.
             context = self.contexto(context)
+
+            # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
 
+        # Si se da al botón de 'dependencias' en el carrusel.
         elif 'btnDepen' in request.POST:
+            # Se actualiza la variable de sesión "proyectoMejora" con el valor de la dependencia.
             request.session["proyectoMejora"] = request.POST.get('btnDepen')
+            # Se actualiza la variable de sesión "assessmentGuardado" con el valor de 'assSelect'.
             request.session["assessmentGuardado"] = assSelect
 
             # Redirección hacia la url especificada en base del nombre.
