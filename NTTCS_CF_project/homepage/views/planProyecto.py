@@ -1,3 +1,5 @@
+import datetime
+
 from .__imports__ import *
 
 
@@ -38,6 +40,8 @@ class planProyecto(LoginRequiredMixin, TemplateView):
                             c += [s]
                 context["recomendacion"] = g + c
                 context["asociadas"] = AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan)
+
+
                 asoci = []
                 for i in AsociacionProyectoMejoraIniciativa.objects.filter(proyecto=plan):
                     asoci += [i.iniciativa.id]
@@ -57,7 +61,21 @@ class planProyecto(LoginRequiredMixin, TemplateView):
         context["iniciativas"] = AsociacionEvidenciasGenericas.objects.filter(assessment__assessment=ass)
         context["iniciativasc"] = AsociacionEvidenciasCreadas.objects.filter(id_assessment__assessment=ass)
         context["assess"] = Assessmentguardados.objects.get(id_assessment=assSelect)
-        context["dependencias"] = DependenciaProyecto.objects.all()
+
+        proyectos = AsociacionPlanProyectosProyectos.objects.filter(plan_proyecto=ass.plan_proyecto_mejora)
+        dependencias = []
+        for i in proyectos:
+            dependencia = DependenciaProyecto.objects.filter(proyecto=i.proyecto_mejora)
+
+            if not dependencia.exists():
+                dependencias = [[i.proyecto_mejora.id, str(i.proyecto_mejora.nombre), datetime.now(), "null", dayToMill(2), "null"]]+ dependencias
+            else:
+                proyectosAsociados = ""
+                for j in dependencia:
+                        proyectosAsociados += str(j.proyecto_asociado.id) +", "
+                dependencias += [[i.proyecto_mejora.id, str(i.proyecto_mejora.nombre), "null", "null", dayToMill(2), proyectosAsociados[:len(proyectosAsociados)-2]]]
+        print(dependencias)
+        context["dependencias"] = dependencias
 
 
         return context
@@ -379,3 +397,6 @@ class planProyecto(LoginRequiredMixin, TemplateView):
             # Redirección hacia la url especificada en base del nombre.
             return redirect("dependencias")
 
+
+def dayToMill(days):
+    return days * 24 * 60 * 60 * 1000
