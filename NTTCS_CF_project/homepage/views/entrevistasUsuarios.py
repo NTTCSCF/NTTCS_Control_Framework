@@ -21,6 +21,12 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
         context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
         # Filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste en el contexto.
         context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+        fechas = []
+        for i in Entrevistas.objects.filter(editor=self.request.user):
+            fechas += [i.fecha]
+        for i in AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user):
+            fechas += [i.entrevista.fecha]
+        context["fechas"] = fechas
 
         # Devuelve el contexto con los datos agregados.
         return context
@@ -291,6 +297,33 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             context["proyectoSelec"] = ''
             # Filtra y agrega las entrevistas creadas por el usuario actual en el contexto.
             context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+            # Filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste en el contexto.
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+
+            # Renderiza el template en base del contexto.
+            return render(request, self.template_name, context=context)
+            # Si el selector 'selectorProyectoFiltro' es presionado.
+        elif 'selectorProyectoFiltro' in request.POST:
+
+            # Obtiene el contexto de la superclase con los argumentos proporcionados.
+            context = super(entrevistasUsuarios, self).get_context_data(**knwargs)
+            # Filtra y agrega los proyectos asociados al usuario actual en el contexto.
+            context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+            # Establece el campo "proyectoSelec" en vacío en el contexto.
+            context["proyectoSelec"] = ''
+            if request.POST.get('selectorProyectoFiltro') =='#Todos#':
+                # Filtra y agrega las entrevistas creadas por el usuario actual en el contexto.
+                context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+            else:
+                assessments = AsociacionProyectoAssessment.objects.filter(
+                    proyecto=Proyecto.objects.get(codigo=request.POST.get('selectorProyectoFiltro')), assessment__archivado=0)
+                query = []
+                for i in assessments:
+                    for j in Entrevistas.objects.filter(editor=self.request.user, assesment=i.assessment):
+                        query.append(j)
+
+                # Filtra y agrega las entrevistas creadas por el usuario actual en el contexto.
+                context["creadas"] = query
             # Filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste en el contexto.
             context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
 
