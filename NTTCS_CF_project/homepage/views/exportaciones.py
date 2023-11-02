@@ -6,42 +6,76 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
     login_url = ""
     redirect_field_name = "redirect_to"
     template_name = "homepage/Exportaciones.html"
-    conn = mysql.connector.connect(user='root', password="NTTCSCF2023", host='127.0.0.1', database='nttcs_cf',
-                                   auth_plugin='mysql_native_password')  # constante para la conexion con la base de datos
+    # Conexión a la base de datos.
+    conn = mysql.connector.connect(user='root',
+                                   password="NTTCSCF2023",
+                                   host='127.0.0.1',
+                                   database='nttcs_cf',
+                                   auth_plugin='mysql_native_password')
 
     def get_context_data(self, **knwargs):
+        ''' El objetivo de este método es proporcionar datos de contexto para una vista,
+        que luego se pueden utilizar en una plantilla HTML para renderizar la página web.'''
+
+        # Se inicializa el contexto.
         context = super(Exportaciones, self).get_context_data(**knwargs)
+        # Se consiguen todos los proyectos asociados al usuario actual.
         context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
+
+        # Se devuelve el contexto.
         return context
 
     def PrepararExportacion(self, seleccion, selector):
+        # Obtención del objeto Assessmentguardados basado en el valor de 'selector'.
         ass = Assessmentguardados.objects.get(id_assessment=selector)
+        # Consulta de todas las asesorías creadas.
         consulta = AssessmentCreados.objects.filter(assessment=ass)
         valores = []
+
+        # Eliminación de elementos vacíos en la lista 'seleccion'.
         for i in range(0, len(seleccion)):
             if seleccion[i] == '':
                 seleccion = seleccion[0:i]
                 break
 
-        for fila in consulta:  # Rellenamos tanto las casillas de respuesta y valoracion
+        # Iteración sobre cada objeto en 'consulta'.
+        for fila in consulta:
+            # Obtención de todas las evidencias genéricas y creadas relacionadas con la iteración.
             evgen = AsociacionEvidenciasGenericas.objects.filter(assessment=fila)
             evcre = AsociacionEvidenciasCreadas.objects.filter(id_assessment=fila)
+
+            # Inicialización de la cadena de texto 'evidencias'.
             evidencias = ''
+            # Inicialización de la cadena de texto 'iniciativas'.
             iniciativas = ''
+
+            # Construcción de la cadena de texto para 'evidencias' e 'iniciativas'
+            # en base a las evidencias genéricas.
             for i in evgen:
+                # Si la asesoría está en inglés.
                 if ass.idioma == 'en':
                     evidencias += i.evidencia.evidence_request_references + '\n'
+                # Si la asesoría está en español.
                 else:
                     evidencias += i.evidencia_id_es.evidence_request_references + '\n'
+
+                # Comprobación de si hay una iniciativa asociada.
                 if i.iniciativa != None:
                     iniciativas += i.iniciativa.nombre + '\n'
+
+            # Construcción de la cadena de texto para 'evidencias' e 'iniciativas'
+            # en base a las evidencias creadas.
             for i in evcre:
                 evidencias += i.id_evidencia.evidencia_id + '\n'
+
+                # Comprobación de si hay una iniciativa asociada.
                 if i.iniciativa != None:
                     iniciativas += i.iniciativa.nombre + '\n'
 
+            # Inicialización de la lista 'valor'
             valor = []
 
+            ''' Se guarda en valor de tuplas toda la información que se quiere exportar.'''
             if "Identificador Control" in seleccion:
                 valor += [('Identificador Control', fila.control_id)]
             if "Nombre Control" in seleccion:
@@ -68,13 +102,25 @@ class Exportaciones(LoginRequiredMixin, TemplateView):
             valores += dict(valor),
 
         titulos = []
+        # Adición de cada elemento en 'seleccion' a la lista 'titulos'.
         for i in seleccion:
             titulos += [i]
+
+        # Obtención de la fecha y hora actuales.
         now = datetime.now()
-        filename = 'Exportaciones/' + selector + '_Export_' + str(now.day) + '_' + str(now.month) + '_' + str(
-            now.year) + '_' + str(now.hour) + '_' + str(now.minute)
+        # Generación del nombre de archivo utilizando la fecha y la hora actuales.
+        filename = 'Exportaciones/' \
+                   + selector \
+                   + '_Export_' \
+                   + str(now.day) + '_' \
+                   + str(now.month) + '_' \
+                   + str(now.year) + '_' \
+                   + str(now.hour) + '_' \
+                   + str(now.minute)
+
+        # Devolución del nombre de archivo, la lista de títulos y la lista de valores.
         return filename, titulos, valores
-    # funcion post que recoge los summit del formulario de la pagina.
+
     def post(self, request, **knwargs):
         selectorProyecto = request.POST.get('selectorProyecto')  # valor de selector de proyecto
         selector = request.POST.get('selector1')
