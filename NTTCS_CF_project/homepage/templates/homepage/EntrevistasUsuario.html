@@ -13,6 +13,7 @@
     </div>
 </div>
 
+
 <div class="rowTitulo">
     <div class="cajaPreguntaDescripcion">
         <div class="tarjeta">
@@ -24,9 +25,21 @@
             <div class="textoTarjeta">
                 <div class="rowCajas">
                     <div class="card text-bg-ligth border-ligth cardModificada">
-                        <h5 class="card-header text-center">Mis entrevistas</h5>
+                        <div class=" row justify-content-arround align-items-center  m-0 card-header">
+                            <div class="col-1"></div>
+                            <div class="col-10">
+                                <h5 class="text-center" style="font-size:1.2vw;">Mis entrevistas</h5>
+                            </div>
+                            <div class="col-1 p-0">
+                                <button class="btn btn-ntt " type="button" style="font-size:0.9vw;"
+                                        data-bs-toggle="modal" data-bs-target="#modalFiltrar">
+                                    <i class="bi bi-filter"></i>
+                                </button>
+                            </div>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title text-center text-body-secondary fr-1">Aqui aparecen las entrevistas en las que eres el
+                            <h5 class="card-title text-center text-body-secondary fr-1">Aqui aparecen las entrevistas en
+                                las que eres el
                                 responsable</h5>
                             {% for i in creadas %}
                             <div class="card card-body mb-3">
@@ -37,27 +50,31 @@
                                     </div>
                                 </div>
                                 <div class="row  justify-content-center align-items-center">
-                                    <div class="row g-0 justify-content-center align-items-center text-center" >
+                                    <div class="row g-0 justify-content-center align-items-center text-center">
                                         <div class="col-3 text-body-secondary fr-1">Fecha: {{i.fecha.date}}</div>
-                                        <div class="col-3 text-body-secondary fr-1" style="">Hora: {{i.fecha.time}}</div>
+                                        <div class="col-3 text-body-secondary fr-1" style="">Hora: {{i.fecha.time}}
+                                        </div>
                                         <div class="col-3 text-body-secondary fr-1" style="">Finalización:
                                             {{i.duracionestimada}}
                                         </div>
-                                        <div class="col-3 text-body-secondary fr-1" >Duración:
+                                        <div class="col-3 text-body-secondary fr-1">Duración:
                                             {{i.duracionestimada|resta:i.fecha}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
-                                        <h5 class="card-title text-center" style="font-size:1vw;">Se tratará el assessment:
+                                        <h5 class="card-title text-center" style="font-size:1vw;">Se tratará el
+                                            assessment:
                                             {{i.assesment.id_assessment}} y el area: {{i.area}}</h5>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
 
                                     <div class="col-auto g-4">
-                                        <div class="text-body text-center " style="font-size:1.2vw;">Es iniciada por: {{i.editor}}</div>
+                                        <div class="text-body text-center " style="font-size:1.2vw;">Es iniciada por:
+                                            {{i.editor}}
+                                        </div>
                                     </div>
                                     <form class="col-auto g-4" method="post">
                                         {% csrf_token %}
@@ -72,7 +89,8 @@
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
-                                        <h5 class="card-title text-center" style="font-size:1vw;">Asisten: {{i.asistentes}} </h5>
+                                        <h5 class="card-title text-center" style="font-size:1vw;">Asisten:
+                                            {{i.asistentes}} </h5>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
@@ -114,14 +132,17 @@
 
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col">
-                                        <h4 class="card-title text-center" style="font-size:1.7vw;">{{i.entrevista.titulo}}</h4>
+                                        <h4 class="card-title text-center" style="font-size:1.7vw;">
+                                            {{i.entrevista.titulo}}</h4>
                                     </div>
                                 </div>
                                 <div class="row  justify-content-center align-items-center">
                                     <div class="row g-0 justify-content-center align-items-center text-center">
-                                        <div class="col-4 text-body-secondary" style="font-size:0.8vw;">Fecha: {{i.entrevista.fecha.date}}
+                                        <div class="col-4 text-body-secondary" style="font-size:0.8vw;">Fecha:
+                                            {{i.entrevista.fecha.date}}
                                         </div>
-                                        <div class="col-2 text-body-secondary" style="font-size:0.8vw;">Hora: {{i.entrevista.fecha.time}}
+                                        <div class="col-2 text-body-secondary" style="font-size:0.8vw;">Hora:
+                                            {{i.entrevista.fecha.time}}
                                         </div>
                                         <div class="col-3 text-body-secondary" style="font-size:0.8vw;">Finalización:
                                             {{i.entrevista.duracionestimada}}
@@ -133,7 +154,8 @@
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
-                                        <h5 class="card-title text-center" style="font-size:1vw;">Se tratará el assessment:
+                                        <h5 class="card-title text-center" style="font-size:1vw;">Se tratará el
+                                            assessment:
                                             {{i.entrevista.assesment.id_assessment}} y el area:
                                             {{i.entrevista.area}}</h5>
                                     </div>
@@ -157,7 +179,8 @@
                                 </div>
                                 <div class="row justify-content-center align-items-center ">
                                     <div class="col g-4">
-                                        <h5 class="card-title text-center" style="font-size:1vw;">Convocados: {{i.entrevista.asistentes}} </h5>
+                                        <h5 class="card-title text-center" style="font-size:1vw;">Convocados:
+                                            {{i.entrevista.asistentes}} </h5>
                                     </div>
                                 </div>
                             </form>
@@ -234,39 +257,49 @@
 
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon3">Titulo</span>
-                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Titulo" aria-label="Titulo"
-                                       aria-describedby="basic-addon3" id="Titulo" name="Titulo" value="{{entrevistaEditar.titulo}}">
+                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Titulo"
+                                       aria-label="Titulo"
+                                       aria-describedby="basic-addon3" id="Titulo" name="Titulo"
+                                       value="{{entrevistaEditar.titulo}}">
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon4">Area</span>
-                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Area" aria-label="Area"
+                                <input type="text" style="font-size:0.8vw;" class="form-control" placeholder="Area"
+                                       aria-label="Area"
                                        aria-describedby="basic-addon4" name="Area" value="{{entrevistaEditar.area}}">
                             </div>
                             <div class="input-group mb-3 ">
                                 <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon5">Fecha</span>
-                                <input type="datetime-local" style="font-size:0.8vw;" class="form-control" placeholder="Fecha" aria-label="Fecha"
+                                <input type="datetime-local" style="font-size:0.8vw;" class="form-control"
+                                       placeholder="Fecha" aria-label="Fecha"
                                        aria-describedby="basic-addon5" name="Fecha" value="{{entrevistaEditarFecha}}">
                                 <span class="input-group-text" style="font-size:0.8vw;" id="basic-addon6">Hora Finalizacion </span>
-                                <input type="Time" style="font-size:0.8vw;" class="form-control" placeholder="Duracion" aria-label="Duracion"
-                                       aria-describedby="basic-addon6" name="Duracion" value="{{entrevistaEditarDuracion}}">
+                                <input type="Time" style="font-size:0.8vw;" class="form-control" placeholder="Duracion"
+                                       aria-label="Duracion"
+                                       aria-describedby="basic-addon6" name="Duracion"
+                                       value="{{entrevistaEditarDuracion}}">
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione Los Controles</label>
-                                <select multiple class="form-select selectpicker" data-live-search="true" style="font-size:0.8vw;"
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione
+                                    Los Controles</label>
+                                <select multiple class="form-select selectpicker" data-live-search="true"
+                                        style="font-size:0.8vw;"
                                         data-actions-box="true" id="selectorControles" name="selectorControles">
                                     {% for i in controlesAssess %}
                                     {% if i.control_id in entrevistaControles %}
-                                    <option selected value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}</option>
+                                    <option selected value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}
+                                    </option>
                                     {% else %}
-                                    <option  value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}</option>
+                                    <option value="{{i.control_id}}">{{i.control_id}}, {{i.control_name}}</option>
                                     {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione al Responsable de la
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione
+                                    al Responsable de la
                                     Entrevista</label>
                                 <select class="form-select " data-live-search="true" style="font-size:0.8vw;"
                                         data-actions-box="true" id="selectorEditor" name="selectorEditor">
@@ -282,14 +315,16 @@
                             </div>
 
                             <div class="input-group mb-3">
-                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione Consultores</label>
-                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;" data-live-search="true"
+                                <label class="input-group-text " style="font-size:0.8vw;" for="selectorUsuarios">Seleccione
+                                    Consultores</label>
+                                <select multiple class="form-select selectpicker" style="font-size:0.8vw;"
+                                        data-live-search="true"
                                         data-actions-box="true" id="selectorUsuarios" name="selectorUsuarios">
                                     {% for ids in usuarios %}
                                     {% if ids.usuario.id in entrevistaEditarConsultores %}
                                     <option selected value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
                                     {% else %}
-                                    <option value="{{ids.usuario.username}}">{{ids.usuario.username}} </option>
+                                    <option value="{{ids.usuario.username}}">{{ids.usuario.username}}</option>
                                     {% endif %}
                                     {% endfor %}
                                 </select>
@@ -300,15 +335,20 @@
                                           aria-label="Convocados"
                                           rows="5"
                                           placeholder="Convocados"
-                                          name="Asistentes" style="font-size:0.8vw;">{{entrevistaEditar.asistentes}}</textarea>
+                                          name="Asistentes"
+                                          style="font-size:0.8vw;">{{entrevistaEditar.asistentes}}</textarea>
                             </div>
 
                             <div class="card-text text-center">
                                 <p class="d-inline-flex gap-1">
                                     {% if entrevistaEditarEditando %}
-                                    <button type="submit" class="btn btn-ntt" name="btnEditarEntrevistaEnviar" value="{{entrevistaEditar.id}}">Editar Entrevista</button>
+                                    <button type="submit" class="btn btn-ntt" name="btnEditarEntrevistaEnviar"
+                                            value="{{entrevistaEditar.id}}">Editar Entrevista
+                                    </button>
                                     {% else %}
-                                    <button type="submit" class="btn btn-ntt" name="btnCrearEntrevista">Crear Entrevista</button>
+                                    <button type="submit" class="btn btn-ntt" name="btnCrearEntrevista">Crear
+                                        Entrevista
+                                    </button>
                                     {% endif %}
                                 </p>
                             </div>
@@ -323,6 +363,39 @@
     </div>
 </div>
 
+<div class="modal fade  " id="modalFiltrar"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg  modal-dialog-centered" >
+
+        <div class="modal-content">
+
+            <div class="modal-header" style="text-align:center;">
+                <div class="cajaCarga">
+                    <h5 class="modal-title">Filtrar Entrevistas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="row " method="post">
+                    {% csrf_token %}
+                    <div class=" col input-group  m-4">
+                        <label class="input-group-text" for="selectorProyectoFiltro">Seleccione Proyecto</label>
+                        <select style="font-size:0.8vw" class="form-select selectpicker "  aria-label="Default select example"
+                                data-live-search="true" onchange="this.form.submit()" id="selectorProyectoFiltro"
+                                name="selectorProyectoFiltro">
+                            <option style="font-size:0.8vw" selected disabled value="None">--- No Seleccionado ---</option>
+                            <option style="font-size:0.8vw" value="#Todos#">Todos</option>
+                            {% for ids in proyectos %}
+                            <option style="font-size:0.8vw" value="{{ids.proyecto.codigo}}">{{ids.proyecto.codigo}}, {{ids.proyecto.nombre}}
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade  " id="myModal" data-bs-keyboard="false"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
