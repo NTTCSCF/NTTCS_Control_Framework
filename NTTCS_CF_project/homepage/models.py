@@ -240,6 +240,7 @@ class Entrevistas(models.Model):
     assesment = models.ForeignKey('Assessmentguardados', models.DO_NOTHING, db_column='assesment')
     editor = models.ForeignKey('acounts.User', models.DO_NOTHING, db_column='editor', related_name='entrevistas_editor_set', blank=True, null=True)
     asistentes = models.TextField(blank=True, null=True)
+    terminada = models.IntegerField(blank=True, null=True)
     objects = models.Manager()
     class Meta:
         managed = False
