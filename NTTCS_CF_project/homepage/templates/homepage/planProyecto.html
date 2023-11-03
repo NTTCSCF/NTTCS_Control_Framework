@@ -372,6 +372,44 @@
                     </div>
                 </div>
             </div>
+            <div class="rowTitulo">
+        <div class="cajaPreguntaDescripcion">
+            <div class="tarjeta">
+                <div class="tituloTarjeta">
+                    <div class="cuadrotexto">
+                        Iniciativas asociadas
+                    </div>
+                </div>
+                <div class="textoTarjeta">
+                    <div class="rowCajas">
+                        <div class="card text-bg-ligth border-ligth cardModificada">
+                            <div class="card-body">
+                                {% for i in asociadas %}
+                                <form class="card card-body mb-3" method="post">
+                                    {% csrf_token %}
+                                    <div class="row justify-content-center align-items-center ">
+                                        <div class="col-8">
+                                            <h4 class="card-title text-center fr-4">{{i.iniciativa.nombre}},
+                                                {{i.iniciativa.descripcion}}</h4>
+                                        </div>
+                                        <div class="col-auto row justify-content-center align-items-center">
+                                            <button style="font-size:0.6vw;" type="submit" class="btn btn-danger "
+                                                    name="btnEliminarAsociacion"
+                                                    value="{{i.iniciativa.nombre}}"><i class="bi bi-trash"></i>
+                                                Eliminar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
             <div class="rowTitulo">

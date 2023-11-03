@@ -9,7 +9,6 @@ class User(AbstractUser):
 
     rol = models.CharField(max_length=100, db_column='rol')
     objects = models.Manager()
-    REQUIRED_FIELDS = ['rol']
     objects = UserManager()
 
     class Meta:
