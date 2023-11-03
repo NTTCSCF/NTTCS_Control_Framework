@@ -375,7 +375,12 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
                 control.valoracionobjetivo = request.POST.get('valmadob')
                 # Guarda el control en la BD.
                 control.save()
-
+                # Obtiene el valor de 'EntrevistaEditar' almacenado en la sesión actual y lo asigna a la variable.
+                entre = self.request.session.get('EntrevistaEditar')
+                # Recupera la instancia de 'Entrevistas' en base del id obtenido anteriormente.
+                entrevista = Entrevistas.objects.get(id=entre)
+                entrevista.terminada=1
+                entrevista.save()
             # Si no se ha seleccionado ningun control.
             else:
                 # Se genera el menaje de error correspondiente.
@@ -511,27 +516,6 @@ class encuestaEntrevista(LoginRequiredMixin, TemplateView):
                         eviGenerica = AsociacionEvidenciasGenericas(evidencia_id_es=evidencia, assessment=control)
                         # Se guarda en la bd.
                         eviGenerica.save()
-
-                    # TODO: Duplicated code?
-                    assGuardado = Assessmentguardados.objects.get(id_assessment=assSelect)
-                    control = AssessmentCreados.objects.get(assessment=assGuardado,
-                                                            control_id=request.session["controlSelect"])
-                    # Asigna los valores de 'respuesta'.
-                    control.respuesta = str(request.POST.get('respuesta'))
-                    # Asigna los valores de 'valoracion'.
-                    control.valoracion = request.POST.get('valmad')
-                    # Asigna los valores de 'valoracion objetivo'.
-                    control.valoracionobjetivo = request.POST.get('valmadob')
-                    # Se guarda en la bd.
-                    control.save()
-
-                    # Se inicializa el contexto.
-                    context = super(encuestaEntrevista, self).get_context_data(**knwargs)
-                    # Se actualiza el contexto.
-                    request, context = self.contextTotal(request, request.session["controlSelect"], context)
-
-                    # Se renderiza el template en base del contexto.
-                    return render(request, self.template_name, context=context)
 
                 # Si no hay ninguna evidencia seleccionada.
                 else:
