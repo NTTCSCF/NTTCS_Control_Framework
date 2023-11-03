@@ -18,9 +18,9 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
         # Inicializa la variable de contexto "proyectoSelec" como una cadena vacía.
         context["proyectoSelec"] = ''
         # Filtra y agrega las entrevistas creadas por el usuario actual en el contexto.
-        context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+        context["creadas"] = Entrevistas.objects.filter(editor=self.request.user, terminada=0)
         # Filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste en el contexto.
-        context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+        context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user, entrevista__terminada=0)
         fechas = []
         for i in Entrevistas.objects.filter(editor=self.request.user):
             fechas += [i.fecha]
@@ -55,9 +55,9 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             # Se guarda todos los marcos de la bd.
             context["marcos"] = AsociacionMarcos.objects.all()
             # Se filtra las diversas entrevistas en base del usuario actual.
-            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user, terminada=0)
             # Se filtra la tabla 'AsociacionEntrevistasUsuarios' en base del ususario.
-            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user, entrevista__terminada=0)
 
             # Se renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
@@ -91,9 +91,9 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             # Se agrega todos los objetos de AsociacionMarcos al contexto.
             context["marcos"] = AsociacionMarcos.objects.all()
             # Se filtra y agrega las entrevistas creadas por el usuario actual al contexto.
-            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user, terminada=0)
             # Se filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste al contexto.
-            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user, entrevista__terminada=0)
 
             # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
@@ -151,9 +151,9 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             # Agrega todos los objetos de AsociacionMarcos al contexto.
             context["marcos"] = AsociacionMarcos.objects.all()
             # Filtra y agrega las entrevistas creadas por el usuario actual al contexto.
-            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user, terminada=0)
             # Filtra y agrega las entrevistas creadas por el usuario actual al contexto.
-            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user, entrevista__terminada=0)
 
             # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
@@ -187,7 +187,8 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                     duracionestimada=request.POST.get('Duracion'),
                     assesment= Assessmentguardados.objects.get(id_assessment=request.session.get('assessmentSeleccionado')),
                     editor=User.objects.get(username=request.POST.get('selectorEditor')),
-                    asistentes=request.POST.get('Asistentes'))
+                    asistentes=request.POST.get('Asistentes'),
+                    terminada=0)
                 # Se guarda en la bd.
                 entrevista.save()
 
@@ -208,9 +209,9 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             # Filtra y agrega los proyectos asociados al usuario actual en el contexto.
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
             # Filtra y agrega las entrevistas creadas por el usuario actual en el contexto.
-            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user, terminada=0)
             # Filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste en el contexto.
-            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user, entrevista__terminada=0)
 
             # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
@@ -248,6 +249,7 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                     id_assessment=request.session.get('assessmentSeleccionado'))
                 entrevista.editor = User.objects.get(username=request.POST.get('selectorEditor'))
                 entrevista.asistentes = request.POST.get('Asistentes')
+                entrevista.terminada = 0
                 # Guarda la instancia actualizada de la entrevista en la base de datos.
                 entrevista.save()
 
@@ -267,9 +269,9 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             # Filtra y agrega los proyectos asociados al usuario actual en el contexto.
             context["proyectos"] = AsociacionUsuariosProyecto.objects.filter(usuario=self.request.user)
             # Filtra y agrega las entrevistas creadas por el usuario actual en el contexto.
-            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user, terminada=0)
             # Filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste en el contexto.
-            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user, entrevista__terminada=0)
 
             # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
@@ -296,9 +298,9 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
             # Establece el campo "proyectoSelec" en vacío en el contexto.
             context["proyectoSelec"] = ''
             # Filtra y agrega las entrevistas creadas por el usuario actual en el contexto.
-            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user)
+            context["creadas"] = Entrevistas.objects.filter(editor=self.request.user, terminada=0)
             # Filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste en el contexto.
-            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user, entrevista__terminada=0)
 
             # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
@@ -319,13 +321,13 @@ class entrevistasUsuarios(LoginRequiredMixin, TemplateView):
                     proyecto=Proyecto.objects.get(codigo=request.POST.get('selectorProyectoFiltro')), assessment__archivado=0)
                 query = []
                 for i in assessments:
-                    for j in Entrevistas.objects.filter(editor=self.request.user, assesment=i.assessment):
+                    for j in Entrevistas.objects.filter(editor=self.request.user, assesment=i.assessment,terminada=0):
                         query.append(j)
 
                 # Filtra y agrega las entrevistas creadas por el usuario actual en el contexto.
                 context["creadas"] = query
             # Filtra y agrega las asociaciones de entrevistas a las que el usuario actual asiste en el contexto.
-            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user)
+            context["asistes"] = AsociacionEntrevistasUsuarios.objects.filter(usuario=self.request.user, entrevista__terminada=0)
 
             # Renderiza el template en base del contexto.
             return render(request, self.template_name, context=context)
